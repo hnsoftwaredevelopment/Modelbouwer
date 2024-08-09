@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!--#region Default TextBlock-->
+	<Style x:Key="DefaultTextBlock" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
+	<!--#endregion-->
+
+	<!--#region TextBlock Bottom-->
+	<Style x:Key="Tab.Panel.Label" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="FontWeight" Value="DemiBold" />
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Textlock that is vissible if valueShow is checked-->
+	<!--  If the ValueShow checkbox is unchecked the style will HIDE the element with the style, and make visible if checkbox is checked  -->
+	<Style x:Key="HideOnNotShowTextBlock" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Visibility" Value="Visible" />
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding ElementName=valueShow, Path=IsChecked}" Value="True">
+				<Setter Property="Visibility" Value="Visible" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ElementName=valueShow, Path=IsChecked}" Value="False">
+				<Setter Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Textlock that is vissible if valueShow is unchecked-->
+	<!--  If the ValueShow checkbox is checked the style will HIDE the element with the style, and make visible if checkbox is unchecked  -->
+	<Style x:Key="HideOnShowTextBlock" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Visibility" Value="Visible" />
+
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding ElementName=valueShow, Path=IsChecked}" Value="False">
+				<Setter Property="Visibility" Value="Visible" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding ElementName=valueShow, Path=IsChecked}" Value="True">
+				<Setter Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Textblock Bold Bold-->
+	<Style x:Key="TextBlockBold" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="FontWeight" Value="Bold" />
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Group Header Textblock-->
+	<Style x:Key="Group.Hearder.TextBlock" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="FontSize" Value="14" />
+	</Style>
+	<!--#endregion-->
+	
+	<!--#region Textblocks Status line-->
+	<Style x:Key="Status.Label" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="4,0,0,0"/>
+		<Setter Property="FontFamily" Value="Poppins" />
+		<Setter Property="FontWeight" Value="Bold" />
+	</Style>
+
+	<Style x:Key="Status.Description" TargetType="TextBlock">
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="4,0,0,0"/>
+		<Setter Property="FontFamily" Value="Poppins" />
+		<Setter Property="FontStyle" Value="Italic"/>
+		<Setter Property="FontWeight" Value="Normal" />
+	</Style>
+
+	<!--#endregion-->
+</ResourceDictionary>

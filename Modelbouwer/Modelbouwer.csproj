@@ -1,0 +1,538 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyVersion>24.8.9.7</AssemblyVersion>
+    <FileVersion>24.8.9.7</FileVersion>
+    <UseWindowsForms>True</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\acceptreceipt.png" />
+    <None Remove="Resources\Icons\app.png" />
+    <None Remove="Resources\Icons\appExit.png" />
+    <None Remove="Resources\Icons\appHelp.png" />
+    <None Remove="Resources\Icons\appInfo.png" />
+    <None Remove="Resources\Icons\appPrint.png" />
+    <None Remove="Resources\Icons\appRedo.png" />
+    <None Remove="Resources\Icons\appSave.png" />
+    <None Remove="Resources\Icons\appSettings.png" />
+    <None Remove="Resources\Icons\appUndo.png" />
+    <None Remove="Resources\Icons\brandEdit.png" />
+    <None Remove="Resources\Icons\brandExport.png" />
+    <None Remove="Resources\Icons\brandImport.png" />
+    <None Remove="Resources\Icons\btnWeb.png" />
+    <None Remove="Resources\Icons\calculator.png" />
+    <None Remove="Resources\Icons\calendar.png" />
+    <None Remove="Resources\Icons\delivery.png" />
+    <None Remove="Resources\Icons\Icon1.ico" />
+    <None Remove="Resources\Icons\logo.ico" />
+    <None Remove="Resources\Icons\metadata.png" />
+    <None Remove="Resources\Icons\metadataCategory.png" />
+    <None Remove="Resources\Icons\metadataCategoryExport.png" />
+    <None Remove="Resources\Icons\metadataCategoryImport.png" />
+    <None Remove="Resources\Icons\metadataCategoryReport.png" />
+    <None Remove="Resources\Icons\metadataContact.png" />
+    <None Remove="Resources\Icons\metadataContactType.png" />
+    <None Remove="Resources\Icons\metadataCountry.png" />
+    <None Remove="Resources\Icons\metadataCountryExport.png" />
+    <None Remove="Resources\Icons\metadataCountryImport.png" />
+    <None Remove="Resources\Icons\metadataCountryReport.png" />
+    <None Remove="Resources\Icons\metadataCurency.png" />
+    <None Remove="Resources\Icons\metadataCurencyExport.png" />
+    <None Remove="Resources\Icons\metadataCurencyImport.png" />
+    <None Remove="Resources\Icons\metadataCurencyReport.png" />
+    <None Remove="Resources\Icons\metadataProducts.png" />
+    <None Remove="Resources\Icons\metadataProductsExport.png" />
+    <None Remove="Resources\Icons\metadataProductsImport.png" />
+    <None Remove="Resources\Icons\metadataProductsReport.png" />
+    <None Remove="Resources\Icons\metadataStorageLocation.png" />
+    <None Remove="Resources\Icons\metadataStorageLocationExport.png" />
+    <None Remove="Resources\Icons\metadataStorageLocationImport.png" />
+    <None Remove="Resources\Icons\metadataStorageLocationReport.png" />
+    <None Remove="Resources\Icons\metadataSupplier.png" />
+    <None Remove="Resources\Icons\metadataSupplierExport.png" />
+    <None Remove="Resources\Icons\metadataSupplierImport.png" />
+    <None Remove="Resources\Icons\metadataSupplierReport.png" />
+    <None Remove="Resources\Icons\metadataUnit.png" />
+    <None Remove="Resources\Icons\metadataUnitExport.png" />
+    <None Remove="Resources\Icons\metadataUnitImport.png" />
+    <None Remove="Resources\Icons\metadataWorktype.png" />
+    <None Remove="Resources\Icons\metadataWorktypeExport.png" />
+    <None Remove="Resources\Icons\metadataWorktypeImport.png" />
+    <None Remove="Resources\Icons\metadataWorktypeReport.png" />
+    <None Remove="Resources\Icons\noImage.png" />
+    <None Remove="Resources\Icons\options.png" />
+    <None Remove="Resources\Icons\orderCart.png" />
+    <None Remove="Resources\Icons\orderCartAdd.png" />
+    <None Remove="Resources\Icons\orderShop.png" />
+    <None Remove="Resources\Icons\Plain - 128 - window_time.png" />
+    <None Remove="Resources\Icons\productUsage.png" />
+    <None Remove="Resources\Icons\projectEdit.png" />
+    <None Remove="Resources\Icons\projectExpenses.png" />
+    <None Remove="Resources\Icons\projectExport.png" />
+    <None Remove="Resources\Icons\projectImport.png" />
+    <None Remove="Resources\Icons\projectManagement.png" />
+    <None Remove="Resources\Icons\projectReport.png" />
+    <None Remove="Resources\Icons\projectTime.png" />
+    <None Remove="Resources\Icons\recalculate.png" />
+    <None Remove="Resources\Icons\rtftoolbarAlignCenter.png" />
+    <None Remove="Resources\Icons\rtftoolbarAlignLeft.png" />
+    <None Remove="Resources\Icons\rtftoolbarAlignRight.png" />
+    <None Remove="Resources\Icons\rtftoolbarBackcolor.png" />
+    <None Remove="Resources\Icons\rtftoolbarBold.png" />
+    <None Remove="Resources\Icons\rtftoolbarBulletList.png" />
+    <None Remove="Resources\Icons\rtftoolbarCopy.png" />
+    <None Remove="Resources\Icons\rtftoolbarCut.png" />
+    <None Remove="Resources\Icons\rtftoolbarIndent.png" />
+    <None Remove="Resources\Icons\rtftoolbarIndentRemove.png" />
+    <None Remove="Resources\Icons\rtftoolbarItalic.png" />
+    <None Remove="Resources\Icons\rtftoolbarNumbersList.png" />
+    <None Remove="Resources\Icons\rtftoolbarOpen.png" />
+    <None Remove="Resources\Icons\rtftoolbarPaste.png" />
+    <None Remove="Resources\Icons\rtftoolbarPrint.png" />
+    <None Remove="Resources\Icons\rtftoolbarRedo.png" />
+    <None Remove="Resources\Icons\rtftoolbarStrikeout.png" />
+    <None Remove="Resources\Icons\rtftoolbarSubscript.png" />
+    <None Remove="Resources\Icons\rtftoolbarSuperscript.png" />
+    <None Remove="Resources\Icons\rtftoolbarTextcolor.png" />
+    <None Remove="Resources\Icons\rtftoolbarUnderline.png" />
+    <None Remove="Resources\Icons\rtftoolbarUndo.png" />
+    <None Remove="Resources\Icons\shipping.png" />
+    <None Remove="Resources\Icons\storageChange.png" />
+    <None Remove="Resources\Icons\storageManagement.png" />
+    <None Remove="Resources\Icons\storageOrder.png" />
+    <None Remove="Resources\Icons\storageRecieve.png" />
+    <None Remove="Resources\Icons\storageReportOrders.png" />
+    <None Remove="Resources\Icons\storageReportOverview.png" />
+    <None Remove="Resources\Icons\storageReportRecieve.png" />
+    <None Remove="Resources\Icons\storageReports.png" />
+    <None Remove="Resources\Icons\storageReportUsage.png" />
+    <None Remove="Resources\Icons\Test.png" />
+    <None Remove="Resources\Icons\timeEdit.png" />
+    <None Remove="Resources\Icons\timeExport.png" />
+    <None Remove="Resources\Icons\timeImport.png" />
+    <None Remove="Resources\Icons\timeManagement.png" />
+    <None Remove="Resources\Icons\timeReport.png" />
+    <None Remove="Resources\Icons\toolbarAdd.png" />
+    <None Remove="Resources\Icons\toolbarCancel.png" />
+    <None Remove="Resources\Icons\toolbarDelete.png" />
+    <None Remove="Resources\Icons\toolbarEnd.png" />
+    <None Remove="Resources\Icons\toolbarLeft.png" />
+    <None Remove="Resources\Icons\toolbarReset.png" />
+    <None Remove="Resources\Icons\toolbarRight.png" />
+    <None Remove="Resources\Icons\toolbarRotate.png" />
+    <None Remove="Resources\Icons\toolbarSave.png" />
+    <None Remove="Resources\Icons\toolbarSmallAdd.png" />
+    <None Remove="Resources\Icons\toolbarSmallCancel.png" />
+    <None Remove="Resources\Icons\toolbarSmallDelete.png" />
+    <None Remove="Resources\Icons\toolbarSmallSave.png" />
+    <None Remove="Resources\Icons\toolbarStart.png" />
+    <None Remove="Resources\Icons\trashbin.png" />
+    <None Remove="Resources\Icons\warning.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\Icons\Icons.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
+    <PackageReference Include="MySql.Data" Version="9.0.0" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="26.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\acceptreceipt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\app.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appExit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appHelp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appInfo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appPrint.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appRedo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appSave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appSettings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appUndo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\brandEdit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\brandExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\brandImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\btnWeb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\calculator.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\calendar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\delivery.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Icon1.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Icons.xaml" />
+    <Resource Include="Resources\Icons\logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadata.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCategory.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCategoryExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCategoryImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCategoryReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataContact.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataContactType.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCountry.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCountryExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCountryImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCountryReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCurency.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCurencyExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCurencyImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataCurencyReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataProducts.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataProductsExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataProductsImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataProductsReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataStorageLocation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataStorageLocationExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataStorageLocationImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataStorageLocationReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataSupplier.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataSupplierExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataSupplierImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataSupplierReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataUnit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataUnitExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataUnitImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataWorktype.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataWorktypeExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataWorktypeImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\metadataWorktypeReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\noImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\options.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\orderCart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\orderCartAdd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\orderShop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Plain - 128 - window_time.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\productUsage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\projectEdit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\projectExpenses.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\projectExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\projectImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\projectManagement.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\projectReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\projectTime.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\recalculate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarAlignCenter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarAlignLeft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarAlignRight.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarBackcolor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarBold.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarBulletList.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarCopy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarCut.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarIndent.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarIndentRemove.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarItalic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarNumbersList.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarOpen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarPaste.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarPrint.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarRedo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarStrikeout.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarSubscript.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarSuperscript.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarTextcolor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarUnderline.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\rtftoolbarUndo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\shipping.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageChange.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageManagement.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageOrder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageRecieve.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageReportOrders.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageReportOverview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageReportRecieve.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageReports.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\storageReportUsage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Test.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\timeEdit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\timeExport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\timeImport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\timeManagement.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\timeReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarAdd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarCancel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarDelete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarEnd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarLeft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarReset.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarRight.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarRotate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarSave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarSmallAdd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarSmallCancel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarSmallDelete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarSmallSave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarStart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\trashbin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\warning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Languages\Language.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Languages\Language.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Language.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

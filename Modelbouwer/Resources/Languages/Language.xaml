@@ -1,0 +1,206 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+	<!--#region Ribbon-->
+	<!--#region Tab pages-->
+	<system:String x:Key="mainRibbon.Tab.Workbench.Capture">Werkbank</system:String>
+	<system:String x:Key="mainRibbon.Tab.Metadata.Capture">Stambestanden</system:String>
+	<!--#endregion-->
+
+	<!--#region Time Management-->
+	<system:String x:Key="mainRibbon.Manage.Time.Button.Label">Tijdregistratie</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Group.Header">Tijdregistratie</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Edit.Header">Bewerken</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Edit.Tooltip">Registreren van de gewerkte uren en gebruikte materialen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Export.Header">Exporteer uren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Export.Tooltip">Exporteer de vastgelegde uren naar een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Import.Header">Importeer uren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Import.Tooltip">Importeer vastgelegde uren uit een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Report.Header">Urenrapportage</system:String>
+	<system:String x:Key="mainRibbon.Manage.Time.Report.Tooltip">Bekijk de vastgelijgde uren per projecte</system:String>
+	<!--#endregion-->
+
+	<!--#region Project Management-->
+	<system:String x:Key="mainRibbon.Manage.Project.Button.Label">Projecten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Group.Header">Projectenbeheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Edit.Header">Beheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Edit.Tooltip">Registratie en beheer van alle modelbouw projecten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Export.Header">Exporteer projecten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Export.Tooltip">Exporteer de projecten naar een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Import.Header">Importeer projecten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Import.Tooltip">Importeer projecten uit een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Report.Header">Projectenoverzicht</system:String>
+	<system:String x:Key="mainRibbon.Manage.Project.Report.Tooltip">Overzicht van alle projecten</system:String>
+	<!--#endregion-->
+
+	<!--#region Storage Management-->
+	<system:String x:Key="mainRibbon.Manage.Storage.Button.Label">Beheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Group.Header">Voorraadbeheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Mutations.Header">Voorraadbeheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Mutations.Tooltip">Voorraad correcties doorvoeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Order.Header">Bestellingen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Order.Tooltip">Openstaande bestellingen beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Receipt.Header">Ontvangsten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Receipt.Tooltip">Ontvangsten boeken op lopende bestelling</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Header">Overzichten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Tooltip">Beschikbare overzichten betreffende de voorraad</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Orders.Header">Bestellingen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Orders.Tooltip">Overzicht van alle openstaande bestellingen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Storage.Header">Voorraadoverzicht</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Storage.Tooltip">Overzicht van de actuele voorraad</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Usage.Header">Verbruik</system:String>
+	<system:String x:Key="mainRibbon.Manage.Storage.Report.Usage.Tooltip">Overzicht van het product gebruik per project</system:String>
+	<!--#endregion-->
+
+	<!--#region Metadata Management-->
+	<!--#region Ribbon items-->
+	<system:String x:Key="mainRibbon.Manage.Metadata.Button.Label">Stambestanden</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Group.Header">Stambestanden</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Brand.Group.Header">Merken beheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Brand.Edit.Label">Merken</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Brand.Edit.Tooltip">Merken beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Brand.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Brand.Export.Tooltip">Exporteer alle merken naar een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Brand.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Brand.Import.Tooltip">Importeer alle merken uit een CSV bestand</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Group.Header">Categoriebeheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Edit.Label">Categorieën</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Edit.Tooltip">Categorieën beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Export.Tooltip">Exporteer alle categorieën naar een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Import.Tooltip">Importeer alle categorieën uit een CSV bestand</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Group.Header">Landen beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Edit.Label">Landen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Edit.Tooltip">Landen beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Export.Tooltip">Exporteer landen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Import.Tooltip">Importeer landen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Report.Header">Overzicht landen</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Currency.Group.Header">Valuta beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Currency.Edit.Label">Valuta</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Currency.Edit.Tooltip">Valuta</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Currency.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Currency.Export.Tooltip">Exporteer valuta</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Currency.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Currency.Import.Tooltip">Importeer valuta</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Product.Group.Header">Artikelbeheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Product.Edit.Label">Artikelen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Product.Edit.Tooltip">Artikelen beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Product.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Product.Export.Tooltip">Exporteer alle artikelen naar een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Product.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Product.Import.Tooltip">Importeer artikelen uit een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.ProductSupplier.Export.Header">(per leverancier)</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.ProductSupplier.Export.Tooltip">Exporteer alle artikelen per leverancier naar een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.ProductSupplier.Import.Header">(per leverancier)</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.ProductSupplier.Import.Tooltip">Importeer alle artikelen per leverancier uit een CSV bestand</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.StorageLocation.Group.Header">Voorraadlocatiebeheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.StorageLocation.Edit.Label">Locaties</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.StorageLocation.Edit.Tooltip">Het beheren van de voorraad locaties</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.StorageLocation.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.StorageLocation.Export.Tooltip">Exporteer locaties</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.StorageLocation.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.StorageLocation.Import.Tooltip">Importeer locaties</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Group.Header">Leveranciers beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Edit.Label">Leveranciers</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Edit.Tooltip">Leveranciers beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Export.Tooltip">Exporteer leveranciers</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Import.Tooltip">Importeer leveranciers</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Report.Header">Overzicht</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Supplier.Report.Tooltip">Overzicht producten per leverancier</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContact.Edit.Label">Contacten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContact.Edit.Tooltip">Contactpersonen per leverancier beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContact.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContact.Export.Tooltip">Exporteer contactpersonen per leverancier</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContact.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContact.Import.Tooltip">Importeer contactpersonen per leveranciers</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContactType.Edit.Label">Functies</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContactType.Edit.Tooltip">Functies voor contactpersonen beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContactType.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContactType.Export.Tooltip">Exporteer contact functies</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContactType.Import.Header">Importerens</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.SupplierContactType.Import.Tooltip">Importeer contact functies</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Unit.Group.Header">Eenheden beheer</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Unit.Edit.Label">Eenheden</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Unit.Edit.Tooltip">Beheer Eenheden</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Unit.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Unit.Export.Tooltip">Exporteer eenheden naar een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Unit.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Unit.Import.Tooltip">Importeer eenheden uit een CSV bestand</system:String>
+
+	<system:String x:Key="mainRibbon.Manage.Metadata.Worktype.Group.Header">Werksoorten beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Worktype.Edit.Label">Werksoorten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Worktype.Edit.Tooltip">Werksoorten beheren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Worktype.Export.Header">Exporteren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Worktype.Export.Tooltip">Exporteer werksoorten</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Worktype.Import.Header">Importeren</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Worktype.Import.Tooltip">Importeer werksoorten</system:String>
+	<!--#endregion-->
+
+	<!--#region General-->
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Button.Label">Selecteer map</system:String>
+	<system:String x:Key="Export.Button.Tooltip">Selecteer de map waarin het, te exporteren, CSV bestand komt te staan</system:String>
+	<system:String x:Key="Export.Button.Foldername">Geen map geselecteerd!</system:String>
+	<!--#endregion-->
+
+	<!--#region Status Line messages-->
+	<system:String x:Key="Export.Statusline.Text">Status:</system:String>
+	<system:String x:Key="Export.Statusline.Prefix.Error">Fout in regel</system:String>
+	<system:String x:Key="Export.Statusline.Prefix.Added">Toegevoegd:</system:String>
+	<system:String x:Key="Export.Statusline.Description">Geen regels weggeschreven</system:String>
+	<system:String x:Key="Export.Statusline.Completed.Single">regel verwerkt</system:String>
+	<system:String x:Key="Export.Statusline.Completed.Ok.Single">regels correct weggeschreven</system:String>
+	<system:String x:Key="Export.Statusline.Completed.Ok">regels correct weggeschreven</system:String>
+	<system:String x:Key="Export.Statusline.Completed.Error.Single">regel overgeslagen vanwege fouten</system:String>
+	<system:String x:Key="Export.Statusline.Completed.Error">regels overgeslagen vanwege fouten</system:String>
+	<system:String x:Key="Export.Statusline.Completed">regels verwerkt</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Brands-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Brands.Title">Merken Exporteren</system:String>
+	<system:String x:Key="Export.Brands.Subtitle">Exporteer merken naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Brands.Filename">Merken</system:String>
+	<system:String x:Key="Export.Brands.Button.Label">Merk</system:String>
+	<system:String x:Key="Export.Brands.Button.Tooltip">Selecteer het te importeren CSV bestand met merken</system:String>
+	<system:String x:Key="Export.Brands.Empty">Er zijn geen merken beschikbaar om te exporteren</system:String>
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Brands.Title">Merken Importeren</system:String>
+	<system:String x:Key="Import.Brands.Subtitle">Importeer merken uit een CSV bestand, hierin staan uitsluitend merknamen</system:String>
+	<system:String x:Key="Import.Brands.Filename">Importeer merken</system:String>
+	<system:String x:Key="Import.Brands.Messagebox.Error.Existing.Long">Ingelezen merk bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Brands.Messagebox.Error.Existing.Short">Merk Bestaat al</system:String>
+	<system:String x:Key="Import.Brands.Button.Label">Merk</system:String>
+	<system:String x:Key="Import.Brands.Button.Tooltip">Selecteer het te importeren CSV bestand met merken</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Settings-->
+	<system:String x:Key="mainRibbon.Manage.Settings.Button.Label">Instellingen</system:String>
+	<system:String x:Key="mainRibbon.Manage.Settings.Group.Header">Instellingen</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+</ResourceDictionary>

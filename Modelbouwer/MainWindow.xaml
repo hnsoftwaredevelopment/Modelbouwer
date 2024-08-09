@@ -1,0 +1,1185 @@
+﻿<Window
+	x:Class="Modelbouwer.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
+	xmlns:local="clr-namespace:Modelbouwer"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+	Title="MainWindow"
+	mc:Ignorable="d">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<syncfusion:Ribbon
+			Name="mainRibbon"
+			syncfusion:Ribbon.IsAutoSizeFormEnabled="True"
+			BackStageCornerImageVisibility="Collapsed"
+			EnableMoreCommands="False">
+
+			<!--#region Workbench Tabpage-->
+			<syncfusion:RibbonTab
+				syncfusion:Ribbon.KeyTip="H"
+				Caption="{StaticResource mainRibbon.Tab.Workbench.Capture}"
+				IsChecked="True">
+
+				<!--#region Time registration-->
+				<syncfusion:RibbonBar
+					Name="barTimeregistration"
+					syncfusion:Ribbon.KeyTip="TR"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Time.Button.Label}">
+
+					<!--#region Timeregistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,10,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Time"
+						Label="{StaticResource mainRibbon.Manage.Time.Edit.Header}"
+						LargeIcon="{StaticResource Time}"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Time.Edit.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Time.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Timeregistration Import button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="TimeImport"
+						Label="{StaticResource mainRibbon.Manage.Time.Import.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Time.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Time.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Timeregistration Export button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="TimeExport"
+						Label="{StaticResource mainRibbon.Manage.Time.Export.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Time.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Time.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Timeregistration Report button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="TimeReport"
+						Label="{StaticResource mainRibbon.Manage.Time.Report.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Report}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Time.Report.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Time.Report.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Storage maintanance-->
+				<syncfusion:RibbonBar
+					Name="barStorageManagement"
+					syncfusion:Ribbon.KeyTip="SM"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Storage.Mutations.Header}">
+
+					<!--#region Storage Management button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,10,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Storage"
+						Label="{StaticResource mainRibbon.Manage.Storage.Button.Label}"
+						LargeIcon=".\Resources\Icons\StorageManagement.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Storage.Mutations.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Storage.Mutations.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Maintain orders-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="StorageOrder"
+						Label="{StaticResource mainRibbon.Manage.Storage.Order.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Order}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Storage.Order.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Storage.Order.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Maintain receipts-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="StorageReceipt"
+						Label="{StaticResource mainRibbon.Manage.Storage.Receipt.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Recieve}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Storage.Receipt.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Storage.Receipt.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Reports-->
+					<syncfusion:SplitButton
+						Label="{StaticResource mainRibbon.Manage.Storage.Report.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Report}">
+						<syncfusion:SplitButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Storage.Report.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Storage.Report.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:SplitButton.ToolTip>
+						<!--#region Split button items-->
+						<syncfusion:DropDownMenuGroup>
+							<!--#region Storage mutations-->
+							<syncfusion:DropDownMenuItem
+								HorizontalAlignment="Left"
+								Command="{Binding OpenManagementCommand}"
+								CommandParameter="StorageReportManagement"
+								Header="{StaticResource mainRibbon.Manage.Storage.Mutations.Header}"
+								ToolTip="{StaticResource mainRibbon.Manage.Storage.Mutations.Tooltip}">
+								<syncfusion:DropDownMenuItem.Icon>
+									<Image Source="{StaticResource Storage}" />
+								</syncfusion:DropDownMenuItem.Icon>
+							</syncfusion:DropDownMenuItem>
+							<!--#endregion-->
+
+							<!--#region Storage orders-->
+							<syncfusion:DropDownMenuItem
+								HorizontalAlignment="Left"
+								Command="{Binding OpenManagementCommand}"
+								CommandParameter="StorageReportOrder"
+								Header="{StaticResource mainRibbon.Manage.Storage.Order.Header}"
+								ToolTip="{StaticResource mainRibbon.Manage.Storage.Order.Tooltip}">
+								<syncfusion:DropDownMenuItem.Icon>
+									<Image Source="{StaticResource Order}" />
+								</syncfusion:DropDownMenuItem.Icon>
+							</syncfusion:DropDownMenuItem>
+
+							<!--#endregion-->
+
+							<!--#region Storage receipts-->
+							<syncfusion:DropDownMenuItem
+								HorizontalAlignment="Left"
+								Command="{Binding OpenManagementCommand}"
+								CommandParameter="StorageReportReceipt"
+								Header="{StaticResource mainRibbon.Manage.Storage.Receipt.Header}"
+								ToolTip="{StaticResource mainRibbon.Manage.Storage.Receipt.Tooltip}">
+								<syncfusion:DropDownMenuItem.Icon>
+									<Image Source="{StaticResource Recieve}" />
+								</syncfusion:DropDownMenuItem.Icon>
+							</syncfusion:DropDownMenuItem>
+
+						</syncfusion:DropDownMenuGroup>
+						<!--#endregion-->
+						<!--#endregion-->
+					</syncfusion:SplitButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Project Management-->
+				<syncfusion:RibbonBar
+					Name="barProjectManagement"
+					syncfusion:Ribbon.KeyTip="PM"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Project.Button.Label}">
+
+					<!--#region Projectmanagement button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,10,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Project"
+						Label="{StaticResource mainRibbon.Manage.Project.Edit.Header}"
+						LargeIcon=".\Resources\Icons\ProjectManagement.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Project.Edit.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Project.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Projects button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="ProjectImport"
+						Label="{StaticResource mainRibbon.Manage.Project.Import.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Project.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Project.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Projects button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="ProjectExport"
+						Label="{StaticResource mainRibbon.Manage.Project.Export.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Project.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Project.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Project Report button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="ProjectReport"
+						Label="{StaticResource mainRibbon.Manage.Project.Report.Header}"
+						SizeForm="Small"
+						SmallIcon="{StaticResource Report}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Project.Report.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Project.Report.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+			</syncfusion:RibbonTab>
+			<!--#endregion-->
+
+			<!--#region MetaData Tab page-->
+			<syncfusion:RibbonTab
+				syncfusion:Ribbon.KeyTip="M"
+				Caption="{StaticResource mainRibbon.Tab.Metadata.Capture}"
+				IsChecked="False">
+
+				<!--#region Products registration-->
+				<syncfusion:RibbonBar
+					Name="barProducts"
+					syncfusion:Ribbon.KeyTip="PR"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Product.Group.Header}">
+
+					<!--#region Productregistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Product"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Product.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataProducts.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Product.Edit.Tooltip}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Time.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import buttons-->
+					<syncfusion:ButtonPanel Height="24" Margin="0,0,0,2">
+						<!--#region Import Products button-->
+						<syncfusion:RibbonButton
+							Width="100"
+							Command="{Binding OpenManagementCommand}"
+							CommandParameter="ProductImport"
+							Label="{StaticResource mainRibbon.Manage.Metadata.Product.Import.Header}"
+							SizeForm="ExtraSmall"
+							SmallIcon="{StaticResource Import}">
+							<syncfusion:RibbonButton.ToolTip>
+								<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Product.Import.Header}">
+									<TextBlock
+										Width="130"
+										HorizontalAlignment="Left"
+										Foreground="#FF4C4C4C"
+										Text="{StaticResource mainRibbon.Manage.Metadata.Product.Import.Tooltip}"
+										TextWrapping="Wrap" />
+								</syncfusion:ScreenTip>
+							</syncfusion:RibbonButton.ToolTip>
+						</syncfusion:RibbonButton>
+						<!--#endregion-->
+
+						<!--#region Import Products per Supplier button-->
+						<syncfusion:RibbonButton
+							Command="{Binding OpenManagementCommand}"
+							CommandParameter="ProductSupplierImport"
+							Label="{StaticResource mainRibbon.Manage.Metadata.ProductSupplier.Import.Header}"
+							SizeForm="Small"
+							SmallIcon="{StaticResource Import}">
+							<syncfusion:RibbonButton.ToolTip>
+								<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.ProductSupplier.Import.Header}">
+									<TextBlock
+										Width="130"
+										HorizontalAlignment="Left"
+										Foreground="#FF4C4C4C"
+										Text="{StaticResource mainRibbon.Manage.Metadata.ProductSupplier.Import.Tooltip}"
+										TextWrapping="Wrap" />
+								</syncfusion:ScreenTip>
+							</syncfusion:RibbonButton.ToolTip>
+						</syncfusion:RibbonButton>
+						<!--#endregion-->
+					</syncfusion:ButtonPanel>
+					<!--#endregion-->
+
+					<!--#region Export buttons-->
+					<syncfusion:ButtonPanel Height="24">
+						<!--#region Export Products button-->
+						<syncfusion:RibbonButton
+							Width="100"
+							Command="{Binding OpenManagementCommand}"
+							CommandParameter="ProductExport"
+							Label="{StaticResource mainRibbon.Manage.Metadata.Product.Export.Header}"
+							SizeForm="ExtraSmall"
+							SmallIcon="{StaticResource Export}">
+							<syncfusion:RibbonButton.ToolTip>
+								<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Product.Export.Header}">
+									<TextBlock
+										Width="130"
+										HorizontalAlignment="Left"
+										Foreground="#FF4C4C4C"
+										Text="{StaticResource mainRibbon.Manage.Metadata.Product.Export.Tooltip}"
+										TextWrapping="Wrap" />
+								</syncfusion:ScreenTip>
+							</syncfusion:RibbonButton.ToolTip>
+						</syncfusion:RibbonButton>
+						<!--#endregion-->
+
+						<!--#region Export Products per Supplier button-->
+						<syncfusion:RibbonButton
+							Command="{Binding OpenManagementCommand}"
+							CommandParameter="ProductSupplierExport"
+							Label="{StaticResource mainRibbon.Manage.Metadata.ProductSupplier.Export.Header}"
+							SizeForm="Small"
+							SmallIcon="{StaticResource Export}">
+							<syncfusion:RibbonButton.ToolTip>
+								<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.ProductSupplier.Export.Header}">
+									<TextBlock
+										Width="130"
+										HorizontalAlignment="Left"
+										Foreground="#FF4C4C4C"
+										Text="{StaticResource mainRibbon.Manage.Metadata.ProductSupplier.Export.Tooltip}"
+										TextWrapping="Wrap" />
+								</syncfusion:ScreenTip>
+							</syncfusion:RibbonButton.ToolTip>
+						</syncfusion:RibbonButton>
+						<!--#endregion-->
+					</syncfusion:ButtonPanel>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Categories registration-->
+				<syncfusion:RibbonBar
+					Name="barCategories"
+					syncfusion:Ribbon.KeyTip="PR"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Category.Group.Header}">
+
+					<!--#region Productregistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Category"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Category.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataCategory.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Category.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Category.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Categories button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="CategoryImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Category.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Category.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Category.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Categorys button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="CategoryExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Category.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Category.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Category.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Units registration-->
+				<syncfusion:RibbonBar
+					Name="barUnits"
+					syncfusion:Ribbon.KeyTip="PR"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Unit.Group.Header}">
+
+					<!--#region Unitegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Unit"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Unit.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataUnit.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Unit.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Unit.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Units button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="UnitImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Unit.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Unit.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Unit.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Units button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="UnitExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Unit.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Unit.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Unit.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Countries registration-->
+				<syncfusion:RibbonBar
+					Name="barCountrieys"
+					syncfusion:Ribbon.KeyTip="LA"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Country.Group.Header}">
+
+					<!--#region Countryegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Country"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Country.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataCountry.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Country.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Country.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Countries button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="CountryImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Country.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Country.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Country.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Countries button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="CountryExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Country.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Country.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Country.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Suppliers registration-->
+				<syncfusion:RibbonBar
+					Name="barSuppliers"
+					syncfusion:Ribbon.KeyTip="PR"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Supplier.Group.Header}">
+
+					<!--#region Suppliers-->
+					<!--#region Supplieregistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Supplier"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Supplier.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataSupplier.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Supplier.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Supplier.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Suppliers button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Supplier.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Supplier.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Supplier.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Suppliers button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Supplier.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Supplier.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Supplier.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+					<!--#endregion-->
+
+					<!--#region Contacts per Supplier-->
+					<!--#region SupplierContactegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierContact"
+						Label="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataContact.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import SupplierContacts button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierContactImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export SupplierContacts button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierContactExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.SupplierContact.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+					<!--#endregion-->
+
+					<!--#region Functios for Contacts per Supplier-->
+					<!--#region SupplierContactTypeegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierContactFunction"
+						Label="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataContactType.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import SupplierContactTypes button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierContactFunctionImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export SupplierContactTypes button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="SupplierContactFunctionExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.SupplierContactType.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region StorageLocations registration-->
+				<syncfusion:RibbonBar
+					Name="barStorageLocations"
+					syncfusion:Ribbon.KeyTip="PR"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Group.Header}">
+
+					<!--#region StorageLocationegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Location"
+						Label="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataStorageLocation.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import StorageLocations button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="LocationImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export StorageLocations button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="LocationExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.StorageLocation.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Brands registration-->
+				<syncfusion:RibbonBar
+					Name="barBrands"
+					syncfusion:Ribbon.KeyTip="MR"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Brand.Group.Header}">
+
+					<!--#region Brandegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Brand"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Brand.Edit.Label}"
+						LargeIcon=".\Resources\Icons\BrandEdit.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Brand.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Brand.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Brands button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="BrandImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Brand.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Brand.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Brand.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Brands button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="BrandExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Brand.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Brand.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Brand.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Currencies registration-->
+				<syncfusion:RibbonBar
+					Name="barCurrencys"
+					syncfusion:Ribbon.KeyTip="VAL"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Currency.Group.Header}">
+
+					<!--#region Currencyegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Currency"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Currency.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataCurency.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Currency.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Currency.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Currencys button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="CurrencyImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Currency.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Currency.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Currency.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Currencys button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="CurrencyExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Currency.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Currency.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Currency.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+
+				<!--#region Worktypes registration-->
+				<syncfusion:RibbonBar
+					Name="barWorktypes"
+					syncfusion:Ribbon.KeyTip="WS"
+					syncfusion:Ribbon.ShowInMoreCommands="False"
+					Header="{StaticResource mainRibbon.Manage.Metadata.Worktype.Group.Header}">
+
+					<!--#region Worktypeegistration button-->
+					<syncfusion:RibbonButton
+						Width="70"
+						Margin="0,0,0,0"
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="Worktype"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Worktype.Edit.Label}"
+						LargeIcon=".\Resources\Icons\metadataWorktype.png"
+						SizeForm="Large">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Worktype.Edit.Label}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Worktype.Edit.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Import Worktypes button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="WorktypeImport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Worktype.Import.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Import}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Worktype.Import.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Worktype.Import.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+
+					<!--#region Export Worktypes button-->
+					<syncfusion:RibbonButton
+						Command="{Binding OpenManagementCommand}"
+						CommandParameter="WorktypeExport"
+						Label="{StaticResource mainRibbon.Manage.Metadata.Worktype.Export.Header}"
+						SizeForm="ExtraSmall"
+						SmallIcon="{StaticResource Export}">
+						<syncfusion:RibbonButton.ToolTip>
+							<syncfusion:ScreenTip Description="{StaticResource mainRibbon.Manage.Metadata.Worktype.Export.Header}">
+								<TextBlock
+									Width="130"
+									HorizontalAlignment="Left"
+									Foreground="#FF4C4C4C"
+									Text="{StaticResource mainRibbon.Manage.Metadata.Worktype.Export.Tooltip}"
+									TextWrapping="Wrap" />
+							</syncfusion:ScreenTip>
+						</syncfusion:RibbonButton.ToolTip>
+					</syncfusion:RibbonButton>
+					<!--#endregion-->
+				</syncfusion:RibbonBar>
+				<!--#endregion-->
+			</syncfusion:RibbonTab>
+			<!--#endregion-->
+		</syncfusion:Ribbon>
+
+		<!--#region Frame to display the selected content from the ribbon-->
+		<Frame
+			x:Name="MainFrame"
+			Grid.Row="1"
+			NavigationUIVisibility="Hidden" />
+		<!--#endregion-->
+
+	</Grid>
+</Window>
