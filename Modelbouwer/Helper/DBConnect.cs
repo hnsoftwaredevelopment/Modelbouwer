@@ -1,6 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-
-namespace Modelbouwer.Helper;
+﻿namespace Modelbouwer.Helper;
 
 /// <summary>
 /// Create connectionstring to connect to the MySql Database.
@@ -12,7 +10,7 @@ public class DBConnect
 	public MySqlConnection? connection;
 
 	//public static readonly string server = IpHelper.GetIP();
-	public static readonly string server = IpHelper.GetIP("local");
+	public static readonly string server = IpHelper.GetIP();
 	public static readonly string database = DBNames.Database;
 	public static readonly string port = "3306";
 	public static readonly string uid = "root";

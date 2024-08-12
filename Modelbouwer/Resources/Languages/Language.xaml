@@ -153,7 +153,7 @@
 
 	<!--#region General-->
 	<!--#region Buttons-->
-	<system:String x:Key="Export.Button.Label">Selecteer map</system:String>
+	<system:String x:Key="Export.Button.Label">Exporteer</system:String>
 	<system:String x:Key="Export.Button.Tooltip">Selecteer de map waarin het, te exporteren, CSV bestand komt te staan</system:String>
 	<system:String x:Key="Export.Button.Foldername">Geen map geselecteerd!</system:String>
 	<!--#endregion-->
@@ -180,6 +180,10 @@
 	<system:String x:Key="Export.Brands.Button.Label">Merk</system:String>
 	<system:String x:Key="Export.Brands.Button.Tooltip">Selecteer het te importeren CSV bestand met merken</system:String>
 	<system:String x:Key="Export.Brands.Empty">Er zijn geen merken beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Brands.Button.Text">Merken</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Import page-->
@@ -193,6 +197,373 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Category-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Category.Title">Categoriën Exporteren</system:String>
+	<system:String x:Key="Export.Category.Subtitle">Exporteer categoriën naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Category.Filename">Categoriën</system:String>
+	<system:String x:Key="Export.Category.Button.Label">Categorie</system:String>
+	<system:String x:Key="Export.Category.Button.Tooltip">Selecteer het te importeren CSV bestand met categoriën</system:String>
+	<system:String x:Key="Export.Category.Empty">Er zijn geen categoriën beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Category.Button.Text">Categoriën</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Category.Title">Categoriën Importeren</system:String>
+	<system:String x:Key="Import.Category.Subtitle">Importeer categoriën uit een CSV bestand</system:String>
+	<system:String x:Key="Import.Category.Filename">Categorie</system:String>
+	<system:String x:Key="Import.Category.Messagebox.Error.Existing.Long">Ingelezen categorie bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Category.Messagebox.Error.Existing.Short">Categorie Bestaat al</system:String>
+	<system:String x:Key="Import.Category.Button.Label">Categorie</system:String>
+	<system:String x:Key="Import.Category.Button.Tooltip">Selecteer het te importeren CSV bestand met categoriën</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Country-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Country.Title">Landen Exporteren</system:String>
+	<system:String x:Key="Export.Country.Subtitle">Exporteer landen naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Country.Filename">Landen</system:String>
+	<system:String x:Key="Export.Country.Button.Label">Land</system:String>
+	<system:String x:Key="Export.Country.Button.Tooltip">Selecteer het te importeren CSV bestand met landen</system:String>
+	<system:String x:Key="Export.Country.Empty">Er zijn geen landen beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Country.Button.Text">Landen</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Country.Title">Landen Importeren</system:String>
+	<system:String x:Key="Import.Country.Subtitle">Importeer landen uit een CSV bestand, hierin staan uitsluitend landnamen</system:String>
+	<system:String x:Key="Import.Country.Filename">Importeer landen</system:String>
+	<system:String x:Key="Import.Country.Messagebox.Error.Existing.Long">Ingelezen land bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Country.Messagebox.Error.Existing.Short">Land Bestaat al</system:String>
+	<system:String x:Key="Import.Country.Button.Label">Land</system:String>
+	<system:String x:Key="Import.Country.Button.Tooltip">Selecteer het te importeren CSV bestand met landen</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Currency-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Currency.Title">Valuta Exporteren</system:String>
+	<system:String x:Key="Export.Currency.Subtitle">Exporteer valuta naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Currency.Filename">Valuta</system:String>
+	<system:String x:Key="Export.Currency.Button.Label">Valuta</system:String>
+	<system:String x:Key="Export.Currency.Button.Tooltip">Selecteer het te importeren CSV bestand met valuta</system:String>
+	<system:String x:Key="Export.Currency.Empty">Er zijn geen valuta beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Currency.Button.Text">Valuta</system:String>
+	<!--#endregion-->
+
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Currency.Title">Valuta Importeren</system:String>
+	<system:String x:Key="Import.Currency.Subtitle">Importeer valuta uit een CSV bestand, hierin staan uitsluitend valutanamen</system:String>
+	<system:String x:Key="Import.Currency.Filename">Importeer valuta</system:String>
+	<system:String x:Key="Import.Currency.Messagebox.Error.Existing.Long">Ingelezen valuta bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Currency.Messagebox.Error.Existing.Short">Valuta Bestaat al</system:String>
+	<system:String x:Key="Import.Currency.Button.Label">Valuta</system:String>
+	<system:String x:Key="Import.Currency.Button.Tooltip">Selecteer het te importeren CSV bestand met valuta</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Storage Location-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.StorageLocation.Title">Voorraadlocaties Exporteren</system:String>
+	<system:String x:Key="Export.StorageLocation.Subtitle">Exporteer voorraadlocaties naar een CSV bestand</system:String>
+	<system:String x:Key="Export.StorageLocation.Filename">Voorraadlocaties</system:String>
+	<system:String x:Key="Export.StorageLocation.Button.Label">Voorraadlocatie</system:String>
+	<system:String x:Key="Export.StorageLocation.Button.Tooltip">Selecteer het te importeren CSV bestand met voorraadlocaties</system:String>
+	<system:String x:Key="Export.StorageLocation.Empty">Er zijn geen voorraadlocaties beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.StorageLocation.Button.Text">Voorraadlocaties</system:String>
+	<!--#endregion-->
+
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.StorageLocation.Title">Voorraadlocaties Importeren</system:String>
+	<system:String x:Key="Import.StorageLocation.Subtitle">Importeer voorraadlocaties uit een CSV bestand, hierin staan uitsluitend voorraadlocatienamen</system:String>
+	<system:String x:Key="Import.StorageLocation.Filename">Importeer voorraadlocaties</system:String>
+	<system:String x:Key="Import.StorageLocation.Messagebox.Error.Existing.Long">Ingelezen voorraadlocatie bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.StorageLocation.Messagebox.Error.Existing.Short">Voorraadlocatie Bestaat al</system:String>
+	<system:String x:Key="Import.StorageLocation.Button.Label">Voorraadlocatie</system:String>
+	<system:String x:Key="Import.StorageLocation.Button.Tooltip">Selecteer het te importeren CSV bestand met voorraadlocaties</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Product-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Product.Title">Artikelen Exporteren</system:String>
+	<system:String x:Key="Export.Product.Subtitle">Exporteer artikelen naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Product.Filename">Artikelen</system:String>
+	<system:String x:Key="Export.Product.Button.Label">Artikel</system:String>
+	<system:String x:Key="Export.Product.Button.Tooltip">Selecteer het te importeren CSV bestand met artikelen</system:String>
+	<system:String x:Key="Export.Product.Empty">Er zijn geen artikelen beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Product.Button.Text">Artikelen</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Product.Title">Artikelen Importeren</system:String>
+	<system:String x:Key="Import.Product.Subtitle">Importeer artikelen uit een CSV bestand, hierin staan uitsluitend Artikelnamen</system:String>
+	<system:String x:Key="Import.Product.Filename">Importeer artikelen</system:String>
+	<system:String x:Key="Import.Product.Messagebox.Error.Existing.Long">Ingelezen artikel bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Product.Messagebox.Error.Existing.Short">Artikel Bestaat al</system:String>
+	<system:String x:Key="Import.Product.Button.Label">Artikel</system:String>
+	<system:String x:Key="Import.Product.Button.Tooltip">Selecteer het te importeren CSV bestand met artikelen</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Product Supplier-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.ProductSupplier.Title">Leveranciers per product Exporteren</system:String>
+	<system:String x:Key="Export.ProductSupplier.Subtitle">Exporteer leveranciers per product naar een CSV bestand</system:String>
+	<system:String x:Key="Export.ProductSupplier.Filename">Leveranciers per product</system:String>
+	<system:String x:Key="Export.ProductSupplier.Button.Label">Productleverancier</system:String>
+	<system:String x:Key="Export.ProductSupplier.Button.Tooltip">Selecteer het te importeren CSV bestand met leveranciers per product</system:String>
+	<system:String x:Key="Export.ProductSupplier.Empty">Er zijn geen leveranciers per product beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.ProductSupplier.Button.Text">Leveranciers pp</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.ProductSupplier.Title">Leveranciers per product Importeren</system:String>
+	<system:String x:Key="Import.ProductSupplier.Subtitle">Importeer leveranciers per product uit een CSV bestand, hierin staan uitsluitend Leveranciernamen</system:String>
+	<system:String x:Key="Import.ProductSupplier.Filename">Importeer leveranciers per product</system:String>
+	<system:String x:Key="Import.ProductSupplier.Messagebox.Error.Existing.Long">Ingelezen leverancier bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.ProductSupplier.Messagebox.Error.Existing.Short">Leverancier Bestaat al</system:String>
+	<system:String x:Key="Import.ProductSupplier.Button.Label">Productleverancier</system:String>
+	<system:String x:Key="Import.ProductSupplier.Button.Tooltip">Selecteer het te importeren CSV bestand met leveranciers per product</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Project-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Project.Title">Projecten Exporteren</system:String>
+	<system:String x:Key="Export.Project.Subtitle">Exporteer projecten naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Project.Filename">Projecten</system:String>
+	<system:String x:Key="Export.Project.Button.Label">Project</system:String>
+	<system:String x:Key="Export.Project.Button.Tooltip">Selecteer het te importeren CSV bestand met projecten</system:String>
+	<system:String x:Key="Export.Project.Empty">Er zijn geen projecten beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Project.Button.Text">Projecten</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Project.Title">Projecten Importeren</system:String>
+	<system:String x:Key="Import.Project.Subtitle">Importeer projecten uit een CSV bestand, hierin staan uitsluitend projectnamen</system:String>
+	<system:String x:Key="Import.Project.Filename">Importeer projecten</system:String>
+	<system:String x:Key="Import.Project.Messagebox.Error.Existing.Long">Ingelezen project bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Project.Messagebox.Error.Existing.Short">Project Bestaat al</system:String>
+	<system:String x:Key="Import.Project.Button.Label">Project</system:String>
+	<system:String x:Key="Import.Project.Button.Tooltip">Selecteer het te importeren CSV bestand met projecten</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Supplier-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Supplier.Title">Leveranciers Exporteren</system:String>
+	<system:String x:Key="Export.Supplier.Subtitle">Exporteer leveranciers naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Supplier.Filename">Leveranciers</system:String>
+	<system:String x:Key="Export.Supplier.Button.Label">Leverancier</system:String>
+	<system:String x:Key="Export.Supplier.Button.Tooltip">Selecteer het te importeren CSV bestand met leveranciers</system:String>
+	<system:String x:Key="Export.Supplier.Empty">Er zijn geen leveranciers beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Supplier.Button.Text">Leveranciers</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Supplier.Title">Leveranciers Importeren</system:String>
+	<system:String x:Key="Import.Supplier.Subtitle">Importeer leveranciers uit een CSV bestand, hierin staan uitsluitend leveranciernamen</system:String>
+	<system:String x:Key="Import.Supplier.Filename">Importeer leveranciers</system:String>
+	<system:String x:Key="Import.Supplier.Messagebox.Error.Existing.Long">Ingelezen leverancier bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Supplier.Messagebox.Error.Existing.Short">Leverancier Bestaat al</system:String>
+	<system:String x:Key="Import.Supplier.Button.Label">Leverancier</system:String>
+	<system:String x:Key="Import.Supplier.Button.Tooltip">Selecteer het te importeren CSV bestand met leveranciers</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Supplier Contact-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.SupplierContact.Title">Contact personen per leverancier Exporteren</system:String>
+	<system:String x:Key="Export.SupplierContact.Subtitle">Exporteer contact personen per leverancier naar een CSV bestand</system:String>
+	<system:String x:Key="Export.SupplierContact.Filename">Contact personen per leverancier</system:String>
+	<system:String x:Key="Export.SupplierContact.Button.Label">Contact personen</system:String>
+	<system:String x:Key="Export.SupplierContact.Button.Tooltip">Selecteer het te importeren CSV bestand met contact personen per leverancier</system:String>
+	<system:String x:Key="Export.SupplierContact.Empty">Er zijn geen contact personen per leverancier beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.SupplierContact.Button.Text">Contact p.l.</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.SupplierContact.Title">Contact personen per leverancier Importeren</system:String>
+	<system:String x:Key="Import.SupplierContact.Subtitle">Importeer contact personen per leverancier uit een CSV bestand, hierin staan uitsluitend contact personennamen</system:String>
+	<system:String x:Key="Import.SupplierContact.Filename">Importeer contact personen per leverancier</system:String>
+	<system:String x:Key="Import.SupplierContact.Messagebox.Error.Existing.Long">Ingelezen contact personen bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.SupplierContact.Messagebox.Error.Existing.Short">Contact personen Bestaat al</system:String>
+	<system:String x:Key="Import.SupplierContact.Button.Label">Contact personen</system:String>
+	<system:String x:Key="Import.SupplierContact.Button.Tooltip">Selecteer het te importeren CSV bestand met contact personen per leverancier</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Supplier Contact Function-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.SupplierContactFunction.Title">Functies Exporteren</system:String>
+	<system:String x:Key="Export.SupplierContactFunction.Subtitle">Exporteer functies naar een CSV bestand</system:String>
+	<system:String x:Key="Export.SupplierContactFunction.Filename">Functies</system:String>
+	<system:String x:Key="Export.SupplierContactFunction.Button.Label">Functies</system:String>
+	<system:String x:Key="Export.SupplierContactFunction.Button.Tooltip">Selecteer het te importeren CSV bestand met functies</system:String>
+	<system:String x:Key="Export.SupplierContactFunction.Empty">Er zijn geen functies beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.SupplierContactFunction.Button.Text">Functies</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.SupplierContactFunction.Title">Functies Importeren</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.Subtitle">Importeer functies uit een CSV bestand, hierin staan uitsluitend functiesnamen</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.Filename">Importeer functies</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.Messagebox.Error.Existing.Long">Ingelezen functies bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.Messagebox.Error.Existing.Short">Functies Bestaat al</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.Button.Label">Functies</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.Button.Tooltip">Selecteer het te importeren CSV bestand met functies</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Time registration-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Time.Title">Urenregistratie Exporteren</system:String>
+	<system:String x:Key="Export.Time.Subtitle">Exporteer urenregistratie naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Time.Filename">Urenregistratie</system:String>
+	<system:String x:Key="Export.Time.Button.Label">Urenregistratie</system:String>
+	<system:String x:Key="Export.Time.Button.Tooltip">Selecteer het te importeren CSV bestand met urenregistratie</system:String>
+	<system:String x:Key="Export.Time.Empty">Er zijn geen urenregistratie beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Time.Button.Text">Urenregistratie</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Time.Title">Urenregistratie Importeren</system:String>
+	<system:String x:Key="Import.Time.Subtitle">Importeer urenregistratie uit een CSV bestand, hierin staan uitsluitend urenregistratienamen</system:String>
+	<system:String x:Key="Import.Time.Filename">Importeer urenregistratie</system:String>
+	<system:String x:Key="Import.Time.Messagebox.Error.Existing.Long">Ingelezen urenregistratie bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Time.Messagebox.Error.Existing.Short">Urenregistratie Bestaat al</system:String>
+	<system:String x:Key="Import.Time.Button.Label">Urenregistratie</system:String>
+	<system:String x:Key="Import.Time.Button.Tooltip">Selecteer het te importeren CSV bestand met urenregistratie</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Unit>-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Unit.Title">Eenheden Exporteren</system:String>
+	<system:String x:Key="Export.Unit.Subtitle">Exporteer eenheden naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Unit.Filename">Eenheden</system:String>
+	<system:String x:Key="Export.Unit.Button.Label">Eenheden</system:String>
+	<system:String x:Key="Export.Unit.Button.Tooltip">Selecteer het te importeren CSV bestand met eenheden</system:String>
+	<system:String x:Key="Export.Unit.Empty">Er zijn geen eenheden beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Unit.Button.Text">Eenheden</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Unit.Title">Eenheden Importeren</system:String>
+	<system:String x:Key="Import.Unit.Subtitle">Importeer eenheden uit een CSV bestand, hierin staan uitsluitend eenhedennamen</system:String>
+	<system:String x:Key="Import.Unit.Filename">Importeer eenheden</system:String>
+	<system:String x:Key="Import.Unit.Messagebox.Error.Existing.Long">Ingelezen eenheden bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Unit.Messagebox.Error.Existing.Short">Eenheden Bestaat al</system:String>
+	<system:String x:Key="Import.Unit.Button.Label">Eenheden</system:String>
+	<system:String x:Key="Import.Unit.Button.Tooltip">Selecteer het te importeren CSV bestand met eenheden</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Work type-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.WorkType.Title">Werksoorten Exporteren</system:String>
+	<system:String x:Key="Export.WorkType.Subtitle">Exporteer werksoorten naar een CSV bestand</system:String>
+	<system:String x:Key="Export.WorkType.Filename">Werksoorten</system:String>
+	<system:String x:Key="Export.WorkType.Button.Label">Werksoorten</system:String>
+	<system:String x:Key="Export.WorkType.Button.Tooltip">Selecteer het te importeren CSV bestand met werksoorten</system:String>
+	<system:String x:Key="Export.WorkType.Empty">Er zijn geen werksoorten beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.WorkType.Button.Text">Werksoorten</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.WorkType.Title">Werksoorten Importeren</system:String>
+	<system:String x:Key="Import.WorkType.Subtitle">Importeer werksoorten uit een CSV bestand, hierin staan uitsluitend werksoortennamen</system:String>
+	<system:String x:Key="Import.WorkType.Filename">Importeer werksoorten</system:String>
+	<system:String x:Key="Import.WorkType.Messagebox.Error.Existing.Long">Ingelezen werksoorten bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.WorkType.Messagebox.Error.Existing.Short">Werksoorten Bestaat al</system:String>
+	<system:String x:Key="Import.WorkType.Button.Label">Werksoorten</system:String>
+	<system:String x:Key="Import.WorkType.Button.Tooltip">Selecteer het te importeren CSV bestand met werksoorten</system:String>
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<!--#endregion-->
 	<!--#endregion-->
 	<!--#endregion-->
 	<!--#endregion-->

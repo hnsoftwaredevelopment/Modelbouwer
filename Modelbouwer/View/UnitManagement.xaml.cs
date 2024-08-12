@@ -1,9 +1,8 @@
 ﻿namespace Modelbouwer.View;
-
 /// <summary>
-/// Interaction logic for UnitsManagement.xaml
+/// Interaction logic for UnitManagement.xaml
 /// </summary>
-public partial class UnitManagement : Window
+public partial class UnitManagement : Page
 {
 	public UnitManagement()
 	{

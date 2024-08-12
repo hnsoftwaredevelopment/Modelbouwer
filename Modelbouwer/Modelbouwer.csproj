@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.8.9.7</AssemblyVersion>
-    <FileVersion>24.8.9.7</FileVersion>
+    <AssemblyVersion>24.8.12.20</AssemblyVersion>
+    <FileVersion>24.8.12.20</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
@@ -42,10 +42,10 @@
     <None Remove="Resources\Icons\metadataCountryExport.png" />
     <None Remove="Resources\Icons\metadataCountryImport.png" />
     <None Remove="Resources\Icons\metadataCountryReport.png" />
-    <None Remove="Resources\Icons\metadataCurency.png" />
-    <None Remove="Resources\Icons\metadataCurencyExport.png" />
-    <None Remove="Resources\Icons\metadataCurencyImport.png" />
     <None Remove="Resources\Icons\metadataCurencyReport.png" />
+    <None Remove="Resources\Icons\metadataCurrency.png" />
+    <None Remove="Resources\Icons\metadataCurrencyExport.png" />
+    <None Remove="Resources\Icons\metadataCurrencyImport.png" />
     <None Remove="Resources\Icons\metadataProducts.png" />
     <None Remove="Resources\Icons\metadataProductsExport.png" />
     <None Remove="Resources\Icons\metadataProductsImport.png" />
@@ -242,13 +242,13 @@
     <Resource Include="Resources\Icons\metadataCountryReport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\metadataCurency.png">
+    <Resource Include="Resources\Icons\metadataCurrency.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\metadataCurencyExport.png">
+    <Resource Include="Resources\Icons\metadataCurrencyExport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\metadataCurencyImport.png">
+    <Resource Include="Resources\Icons\metadataCurrencyImport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\metadataCurencyReport.png">
@@ -533,6 +533,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\Config\modelbuilder.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

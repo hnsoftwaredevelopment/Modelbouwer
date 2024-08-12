@@ -1,9 +1,4 @@
-﻿using System.Data;
-using System.Text;
-
-using MySql.Data.MySqlClient;
-
-namespace Modelbouwer.Helper;
+﻿namespace Modelbouwer.Helper;
 public class DBCommands
 {
 	#region GetData

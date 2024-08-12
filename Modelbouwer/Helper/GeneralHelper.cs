@@ -1,7 +1,4 @@
-﻿using System.Data;
-using System.IO;
-
-namespace Modelbouwer.Helper;
+﻿namespace Modelbouwer.Helper;
 public class GeneralHelper
 {
 	public GeneralHelper()
@@ -128,7 +125,7 @@ public class GeneralHelper
 					DBNames.ProjectFieldNameClosed
 				];
 				break;
-			case "storage":
+			case "storagelocation":
 				_header =
 				[
 					DBNames.StorageFieldNameId,
@@ -162,6 +159,12 @@ public class GeneralHelper
 					DBNames.SupplierContactFieldNameName,
 					DBNames.SupplierContactFieldNameMail,
 					DBNames.SupplierContactFieldNamePhone
+				];
+				break;
+			case "suppliercontactfunction":
+				_header =
+				[
+					DBNames.ContactTypeFieldNameName
 				];
 				break;
 			case "time":
@@ -231,71 +234,35 @@ public class GeneralHelper
 	/// <param name="_needsHeader">when it containes "header" a header is needed on the first file of the csv file, <see langword="if"/>different the no header will be written..</param>
 	public static void ExportToCsv( DataTable _dt, string _filename, string [ ] _header, string _needsHeader )
 	{
-		int _column = 0;
-		StreamWriter sw = new(_filename, false);
+		using StreamWriter sw = new(_filename, false);
 
-		// Check if a _needsHeader is wanted in the CSV File
-		if ( _needsHeader.ToLower() != "header" )
+		if ( _needsHeader.ToLower() == "header" )
 		{
-			for ( int i = 0; i < _dt.Columns.Count; i++ )
-			{
-				// Check if the Column name is Selected for export
-				if ( _header.Contains( _dt.Columns [ i ].ToString() ) )
-				{
-					_column++;
-					sw.Write( _dt.Columns [ i ] );
-					// Check if the Column is the last column that has to be written, if not we need a ;
-					if ( _column < _header.Length )
-					{
-						if ( i < _dt.Columns.Count - 1 )
-						{
-							sw.Write( ";" );
-						}
-					}
-				}
-			}
-			sw.Write( sw.NewLine );
+			sw.WriteLine( string.Join( ";", _header ) );
 		}
 
-		_column = 0;
-		int _rowCount = 0;
 		foreach ( DataRow dr in _dt.Rows )
 		{
-			_rowCount++;
-			for ( int i = 0; i < _dt.Columns.Count; i++ )
+			List<string> rowValues = new();
+
+			foreach ( string header in _header )
 			{
-				_column++;
-				if ( !Convert.IsDBNull( dr [ i ] ) )
+				if ( _dt.Columns.Contains( header ) )
 				{
-					string value = dr[i].ToString();
-					// Check if the vaule belongs to a selected Column
-					if ( _header.Contains( _dt.Columns [ i ].ToString() ) )
+					string value = dr[header]?.ToString() ?? string.Empty;
+
+					// When a value contains a ; the value will be surrounded by quotes
+					if ( value.Contains( ';' ) )
 					{
-						// Check if the string contains a ; what is also the value separator
-						if ( value.Contains( ';' ) )
-						{
-							value = String.Format( "\"{0}\"", value );
-							sw.Write( value );
-						}
-						else
-						{
-							sw.Write( dr [ i ].ToString() );
-						}
+						value = $"\"{value}\"";
 					}
-				}
-				// Check if the Column is the last column that has to be written, if not we need a ;
-				if ( _column < _header.Length )
-				{
-					if ( i < _dt.Columns.Count - 1 )
-					{
-						sw.Write( ";" );
-					}
+
+					rowValues.Add( value );
 				}
 			}
-			_column = 0;
-			sw.Write( sw.NewLine );
+
+			sw.WriteLine( string.Join( ";", rowValues ) );
 		}
-		sw.Close();
 	}
 	#endregion
 }

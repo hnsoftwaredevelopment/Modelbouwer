@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace Modelbouwer.Helper;
+﻿namespace Modelbouwer.Helper;
 public class IpHelper
 {
 	static string filePath = @".\Resources\Config\Modelbuilder.Config";

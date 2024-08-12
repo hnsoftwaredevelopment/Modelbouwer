@@ -1,8 +1,5 @@
 ﻿#pragma warning disable CS8602 // Dereference of a possibly null reference.
-using System.Windows.Input;
-
 using Modelbouwer.Commands;
-using Modelbouwer.View;
 
 namespace Modelbouwer.ViewModels;
 

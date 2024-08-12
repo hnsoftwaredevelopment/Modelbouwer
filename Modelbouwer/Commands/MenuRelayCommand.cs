@@ -1,7 +1,5 @@
 ﻿#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning disable CS8612 // Nullability of reference types in type doesn't match implicitly implemented member.
-using System.Windows.Input;
-
 namespace Modelbouwer.Commands;
 
 public class MenuRelayCommand : ICommand

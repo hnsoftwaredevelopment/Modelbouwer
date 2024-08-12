@@ -1,28 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿namespace Modelbouwer.View;
 
-namespace Modelbouwer.View
+/// <summary>
+/// Interaction logic for TimeExport.xaml
+/// </summary>
+public partial class TimeExport : Page
 {
-    /// <summary>
-    /// Interaction logic for TimeExport.xaml
-    /// </summary>
-    public partial class TimeExport : Page
-    {
-        public TimeExport()
-        {
-            InitializeComponent();
-        }
-    }
+	private DataTable? _dt;
+
+	public TimeExport()
+	{
+		InitializeComponent();
+		GetData();
+
+		// Since by default there is no export folder selected, hide the column with the export button
+		columnExportButton.Width = new GridLength( 0 );
+	}
+
+	#region Get the Data
+	private void GetData()
+	{
+		_dt = DBCommands.GetData( DBNames.TimeTable, "nosort" );
+
+		if ( _dt == null )
+		{
+			dispFolderName.Text = TryFindResource( "Export.Time.Empty" ) as string;
+			dispStatusLine.Text = TryFindResource( "Export.Time.Empty" ) as string;
+
+			columnExportButton.Width = new GridLength( 0 );
+			columnSelectFolderButton.Width = new GridLength( 0 );
+		}
+		else
+		{
+			columnSelectFolderButton.Width = ( GridLength ) FindResource( "Column.SelectFolder.Button.Width" );
+
+		}
+	}
+	#endregion
+
+	#region Select folder
+	private void SelectFolder( object sender, RoutedEventArgs e )
+	{
+		FolderBrowserDialog folderDialog = new();
+		DialogResult result = folderDialog.ShowDialog();
+
+		dispFolderName.Text = $"{folderDialog.SelectedPath}";
+
+		columnExportButton.Width = ( GridLength ) FindResource( "Column.Export.Button.Width" );
+	}
+	#endregion
+
+	#region Perform Export after selecting folder
+	private void Export( object sender, RoutedEventArgs e )
+	{
+		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Time.Filename")}.csv";
+		string[] _header = GeneralHelper.GetHeaders("Time");
+
+		GeneralHelper.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
+
+		columnExportButton.Width = new GridLength( 0 );
+
+		dispStatusLine.Text = $"{_dt!.Rows.Count} {( string ) FindResource( "Export.Statusline.Completed" )}";
+
+	}
+	#endregion
+
 }

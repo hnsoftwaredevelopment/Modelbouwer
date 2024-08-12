@@ -16,6 +16,7 @@
 				<ResourceDictionary Source="Resources/Styles/Label.xaml" />
 				<ResourceDictionary Source="Resources/Styles/TextBlock.xaml" />
 				<ResourceDictionary Source="Resources/Styles/TextBox.xaml" />
+				<ResourceDictionary Source="Resources/Styles/XMLValues.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

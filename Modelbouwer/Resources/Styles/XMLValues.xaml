@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	
+	
+	<!--#region Export Xaml value-->
+
+	<!--#region Button columns thaT canb be hide from the code behind-->
+	<GridLength x:Key="Column.Export.Button.Width">175</GridLength>
+	<GridLength x:Key="Column.SelectFolder.Button.Width">60</GridLength>
+	<!--#endregion-->
+    
+</ResourceDictionary>
