@@ -54,7 +54,7 @@ public partial class CategoryExport : Page
 		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Category.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Category");
 
-		GeneralHelper.ExportToCsv(_dt, $"{dispFolderName.Text}\\{_filename}", _header, "Header");
+		DBCommands.ExportToCsv(_dt, $"{dispFolderName.Text}\\{_filename}", _header, "Header");
 
 		columnExportButton.Width = new GridLength(0);
 		dispStatusLine.Text = $"{_dt.Rows.Count} {(string)FindResource("Export.Statusline.Completed")}";

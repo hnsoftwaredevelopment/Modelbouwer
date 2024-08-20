@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.8.12.20</AssemblyVersion>
-    <FileVersion>24.8.12.20</FileVersion>
+    <AssemblyVersion>24.8.16.33</AssemblyVersion>
+    <FileVersion>24.8.16.33</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
@@ -28,7 +28,10 @@
     <None Remove="Resources\Icons\btnWeb.png" />
     <None Remove="Resources\Icons\calculator.png" />
     <None Remove="Resources\Icons\calendar.png" />
+    <None Remove="Resources\Icons\Default-Message.ico" />
     <None Remove="Resources\Icons\delivery.png" />
+    <None Remove="Resources\Icons\Error-Message.ico" />
+    <None Remove="Resources\Icons\Icon-Message.ico" />
     <None Remove="Resources\Icons\Icon1.ico" />
     <None Remove="Resources\Icons\logo.ico" />
     <None Remove="Resources\Icons\metadata.png" />
@@ -133,6 +136,7 @@
     <None Remove="Resources\Icons\toolbarSmallSave.png" />
     <None Remove="Resources\Icons\toolbarStart.png" />
     <None Remove="Resources\Icons\trashbin.png" />
+    <None Remove="Resources\Icons\Warning-Message.ico" />
     <None Remove="Resources\Icons\warning.png" />
   </ItemGroup>
 
@@ -145,9 +149,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.1.0" />
     <PackageReference Include="MySql.Data" Version="9.0.0" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="26.2.7" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="26.2.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -199,7 +204,16 @@
     <Resource Include="Resources\Icons\calendar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\Default-Message.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\delivery.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Error-Message.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Icon-Message.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Icon1.ico">
@@ -513,6 +527,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\trashbin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Warning-Message.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\warning.png">

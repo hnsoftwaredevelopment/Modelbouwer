@@ -55,7 +55,7 @@ public partial class TimeExport : Page
 		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Time.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Time");
 
-		GeneralHelper.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
+		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
 
 		columnExportButton.Width = new GridLength( 0 );
 

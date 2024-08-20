@@ -55,7 +55,7 @@ public partial class SupplierContactExport : Page
 		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.SupplierContact.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("SupplierContact");
 
-		GeneralHelper.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
+		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
 
 		columnExportButton.Width = new GridLength( 0 );
 

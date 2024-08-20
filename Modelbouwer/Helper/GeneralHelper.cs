@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.Helper;
+﻿using Modelbouwer.View.Dialog;
+
+namespace Modelbouwer.Helper;
 public class GeneralHelper
 {
 	public GeneralHelper()
@@ -41,7 +43,7 @@ public class GeneralHelper
 	}
 	#endregion
 
-	#region Get Export file headers
+	#region Get Im-/Export file headers
 	/// <summary>
 	/// All CSV export files will have different named columns to export. Therefore each file will also have <see langword="abstract"/>different header
 	/// </summary>
@@ -105,7 +107,7 @@ public class GeneralHelper
 			case "productsupplier":
 				_header =
 				[
-					DBNames.ProductSupplierFieldNameProductCode,
+					DBNames.ProductSupplierFieldNameProductId,
 					DBNames.ProductSupplierFieldNameSupplierId,
 					DBNames.ProductSupplierFieldNameCurrencyId,
 					DBNames.ProductSupplierFieldNameProductNumber,
@@ -155,8 +157,8 @@ public class GeneralHelper
 				_header =
 				[
 					DBNames.SupplierContactFieldNameSupplierId,
-					DBNames.SupplierContactFieldNameTypeId,
 					DBNames.SupplierContactFieldNameName,
+					DBNames.SupplierContactFieldNameTypeId,
 					DBNames.SupplierContactFieldNameMail,
 					DBNames.SupplierContactFieldNamePhone
 				];
@@ -201,68 +203,216 @@ public class GeneralHelper
 	#endregion
 
 	#region Write header to empty CSV file
-	public static void PrepareCsv( string FileName, string [ ] Columns )
+	public static void PrepareCsv( string _filename, string [ ] _header )
 	{
-		int _column = 0;
-		StreamWriter sw = new(FileName, false);
-
-		for ( int i = 0; i < Columns.Length; i++ )
-		{
-			_column++;
-			sw.Write( Columns [ i ] );
-			// Check if the Column is the last column that has to be written, if not we need a ;
-			if ( _column < Columns.Length )
-			{
-				if ( i < Columns.Length - 1 )
-				{
-					sw.Write( ";" );
-				}
-			}
-		}
-		sw.Write( sw.NewLine );
+		StreamWriter sw = new(_filename, false);
+		sw.WriteLine( string.Join( ";", _header ) );
 		sw.Close();
 	}
 	#endregion
 
-	#region Export data to CSV file
-	/// <summary>
-	/// Export converts selected table to a csv file.
-	/// </summary>
-	/// <param name="_dt">The datatable containing the data to export</param>
-	/// <param name="_filename">The file name for the csv file.</param>
-	/// <param name="_header">The header on the first line of the csv file.</param>
-	/// <param name="_needsHeader">when it containes "header" a header is needed on the first file of the csv file, <see langword="if"/>different the no header will be written..</param>
-	public static void ExportToCsv( DataTable _dt, string _filename, string [ ] _header, string _needsHeader )
+	#region Format Date in string to correct notation
+	public static string FormatDate( string _date )
 	{
-		using StreamWriter sw = new(_filename, false);
+		string _result = "";
+		// Input date looks like "d-m-yyyy 00:00:00"
 
-		if ( _needsHeader.ToLower() == "header" )
+		//Remove Time from string and split it up in seperate elements
+		var _temp = _date.Replace(" 00:00:00", "" ).Split( '-' );
+		_result = $"{_temp [ 2 ]}-{AddZeros( _temp [ 1 ], 2 )}-{AddZeros( _temp [ 0 ], 2 )}";
+
+		return _result;
+	}
+	#endregion
+
+	#region Prepare data for Import
+	public static string ProcessCsvFile( string table, int errorIdentifier, string dispFileName, string [ ] checkField, string metadataType )
+	{
+		int lineCount = 0, errorCount = 0, headerCount = 0;
+		string completed = "", completedError = "", completedOk = "", linesRead = "", linesError = "";
+		string insertPart, valuesPart, prefix;
+		var errorList = new List<ErrorList>();
+
+		//Get the headers
+		var headers = GetHeaders(metadataType);
+
+		//Read the lines of the CSV file into a list
+		var lines = File.ReadLines(dispFileName);
+
+		var _errorClass = new ErrorClass();
+
+		foreach ( var line in lines )
 		{
-			sw.WriteLine( string.Join( ";", _header ) );
-		}
+			headerCount = 0;
+			insertPart = $"{DBNames.SqlInsert}{DBNames.Database}.{table} (";
+			valuesPart = $"{DBNames.SqlValues}(";
+			prefix = "";
+			string[] fields = line.Split(';');
 
-		foreach ( DataRow dr in _dt.Rows )
-		{
-			List<string> rowValues = new();
-
-			foreach ( string header in _header )
+			// Sla de rij met de header over als er een header is
+			if ( !line.Contains( headers [ 0 ] ) )
 			{
-				if ( _dt.Columns.Contains( header ) )
+				lineCount++;
+				// Sla de rij over als het record al bestaat
+				string [,] _wherefields = null;
+				if ( checkField.Length == 3 )
 				{
-					string value = dr[header]?.ToString() ?? string.Empty;
+					_wherefields = new string [ 1, 3 ] { { checkField [ 0 ], checkField [ 1 ], fields [ int.Parse( checkField [ 2 ] ) ] } };
+				}
 
-					// When a value contains a ; the value will be surrounded by quotes
-					if ( value.Contains( ';' ) )
+				if ( checkField.Length == 6 )
+				{
+					_wherefields = new string [ 2, 3 ]
 					{
-						value = $"\"{value}\"";
-					}
+						{ checkField[0], checkField[1], fields [ int.Parse( checkField [2] )] },
+						{ checkField[3], checkField[4], fields [ int.Parse( checkField [5] )] }
+					};
+				}
 
-					rowValues.Add( value );
+				if ( checkField.Length == 9 )
+				{
+					_wherefields = new string [ 3, 3 ]
+					{
+						{ checkField[0], checkField[1], fields [ int.Parse( checkField [2] )] },
+						{ checkField[3], checkField[4], fields [ int.Parse( checkField [5] )] },
+						{ checkField[6], checkField[7], fields [ int.Parse( checkField [8] )] }
+					};
+				}
+
+				if ( checkField.Length == 12 )
+				{
+					_wherefields = new string [ 4, 3 ]
+					{
+						{ checkField[0], checkField[1], fields [ int.Parse( checkField [2] )] },
+						{ checkField[3], checkField[4], fields [ int.Parse( checkField [5] )] },
+						{ checkField[6], checkField[7], fields [ int.Parse( checkField [8] )] },
+						{ checkField[9], checkField[10], fields [ int.Parse( checkField [11] )] }
+					};
+				}
+
+				if ( checkField.Length == 15 )
+				{
+					_wherefields = new string [ 5, 3 ]
+					{
+						{ checkField[0], checkField[1], fields [ int.Parse( checkField [2] )] },
+						{ checkField[3], checkField[4], fields [ int.Parse( checkField [5] )] },
+						{ checkField[6], checkField[7], fields [ int.Parse( checkField [8] )] },
+						{ checkField[9], checkField[10], fields [ int.Parse( checkField [11] )] },
+						{ checkField[12], checkField[13], fields [ int.Parse( checkField [14] )] }
+					};
+				}
+
+				// Controleer of er al een record beschikbaar is voor deze regel
+				if ( _wherefields != null )
+				{
+					var existingDatatype = DBCommands.CheckForRecords(table, _wherefields);
+
+					if ( existingDatatype == 0 )
+					{
+						foreach ( var header in headers )
+						{
+							if ( fields [ headerCount ] != "" )
+							{
+								insertPart += $"{prefix}{header}";
+
+								string _valueToWrite="";
+
+								// Checks value
+								if ( int.TryParse( fields [ headerCount ], out int intValue ) )
+								{ _valueToWrite = $"{prefix}{fields [ headerCount ]}"; }
+								else if ( double.TryParse( fields [ headerCount ].Replace( ',', '.' ), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double doubleValue ) )
+								{ _valueToWrite = $"{prefix}{doubleValue.ToString( System.Globalization.CultureInfo.InvariantCulture )}"; }
+
+								if ( fields [ headerCount ].Contains( " 00:00:00" ) )
+								{ _valueToWrite = $"{prefix}'{FormatDate( fields [ headerCount ] )}'"; }
+
+								if ( _valueToWrite == "" )
+								{ valuesPart += $"{prefix}'{fields [ headerCount ]}'"; }
+								else
+								{ valuesPart += _valueToWrite; }
+							}
+							headerCount++;
+							prefix = ", ";
+						}
+
+						var sqlQuery = $"{insertPart}) {valuesPart});";
+
+						DBCommands.InsertInTable( sqlQuery );
+					}
+					else
+					{
+						errorCount++;
+						var error = _errorClass.GetErrorMessages(errorIdentifier);
+						errorList.Add( new ErrorList
+						{
+							LineNumber = lineCount,
+							ErrorCode = errorIdentifier,
+							Line = $"{error.Label}: {line} - {error.ErrorMessageLong}"
+						} );
+					}
 				}
 			}
 
-			sw.WriteLine( string.Join( ";", rowValues ) );
 		}
+
+		#region Status message
+		if ( lineCount != 0 )
+		{
+			if ( lineCount == 1 )
+			{ completed = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Single" ); }
+			else
+			{ completed = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed" ); }
+		}
+
+		if ( errorCount != 0 )
+		{
+			if ( errorCount == 1 )
+			{ completedError = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error.Single" ); }
+			else
+			{ completedError = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error" ); }
+		}
+
+		if ( lineCount == 0 ) { linesRead = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.None" ) + " "; } else { linesRead = lineCount.ToString() + " "; }
+		if ( lineCount - errorCount == 1 )
+		{ completedOk = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Ok.Single" ); }
+		else
+		{ completedOk = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Ok" ); }
+
+		if ( lineCount - errorCount != 0 ) { linesRead = ( lineCount - errorCount ).ToString() + " "; }
+		if ( errorCount != 0 ) { linesError = ", " + errorCount.ToString() + " "; }
+
+		var statusMessage = $"{linesRead}{completed}{linesError}{completedError}.";
+		#endregion
+
+		#region Display Scrollable error message
+		if ( errorList.Count > 0 )
+		{
+			var errorMessage = $"{statusMessage}{System.Environment.NewLine}{System.Environment.NewLine}";
+
+			for ( int i = 0; i < errorList.Count; i++ )
+			{
+				var error = _errorClass.GetErrorMessages(errorList [ i ].ErrorCode);
+				errorMessage += $"{( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Line" )} {errorList [ i ].LineNumber} - {errorList [ i ].Line}{System.Environment.NewLine}";
+			}
+
+			ScrollableMessagebox.Show( errorMessage, ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Message" ), "Warning" );
+		}
+		#endregion
+
+		return statusMessage;
+	}
+	#endregion
+
+	#region Get the Level of an item in a list
+	private int GetLevel( CategoryModel category, List<CategoryModel> allCategories )
+	{
+		int level = 0;
+		while ( category.ParentId != null )
+		{
+			category = allCategories.FirstOrDefault( c => c.Id == category.ParentId );
+			level++;
+		}
+		return level;
 	}
 	#endregion
 }

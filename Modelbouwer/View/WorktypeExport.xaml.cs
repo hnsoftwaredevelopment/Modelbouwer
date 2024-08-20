@@ -55,7 +55,7 @@ public partial class WorktypeExport : Page
 		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.WorkType.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("WorkType");
 
-		GeneralHelper.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
+		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
 
 		columnExportButton.Width = new GridLength( 0 );
 

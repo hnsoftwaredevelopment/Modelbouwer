@@ -54,7 +54,7 @@ public partial class ProductSupplierExport : Page
 		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.ProductSupplier.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("ProductSupplier");
 
-		GeneralHelper.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
+		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
 
 		columnExportButton.Width = new GridLength( 0 );
 

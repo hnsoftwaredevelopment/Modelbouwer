@@ -54,7 +54,7 @@ public partial class CountryExport : Page
 		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Country.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Country");
 
-		GeneralHelper.ExportToCsv(_dt, $"{dispFolderName.Text}\\{_filename}", _header, "Header");
+		DBCommands.ExportToCsv(_dt, $"{dispFolderName.Text}\\{_filename}", _header, "Header");
 
 		columnExportButton.Width = new GridLength(0);
 		dispStatusLine.Text = $"{_dt.Rows.Count} {(string)FindResource("Export.Statusline.Completed")}";

@@ -49,13 +49,13 @@ public partial class BrandExport : Page
 	}
 	#endregion
 
-	#region Perform Export after selecting folder
+	#region Export after selecting folder
 	private void Export( object sender, RoutedEventArgs e )
 	{
 		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Brands.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Brand");
 
-		GeneralHelper.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
+		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
 
 		columnExportButton.Width = new GridLength( 0 );
 

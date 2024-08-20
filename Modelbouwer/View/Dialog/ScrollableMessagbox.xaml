@@ -1,0 +1,28 @@
+﻿<Window
+	x:Class="Modelbouwer.View.Dialog.ScrollableMessagebox"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:Modelbouwer.View.Dialog"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Title="{Binding Title}"
+	Width="600"
+	Height="300"
+	mc:Ignorable="d">
+	<Grid>
+		<TextBox
+			x:Name="MessageTextBox"
+			Margin="10,10,10,50"
+			IsReadOnly="True"
+			TextWrapping="Wrap"
+			VerticalScrollBarVisibility="Auto" />
+		<Button
+			Width="75"
+			Margin="10"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Bottom"
+			Click="OkButton_Click"
+			Content="OK"
+			Style="{StaticResource ButtonRoundedWhite}" />
+	</Grid>
+</Window>

@@ -156,8 +156,25 @@
 	<system:String x:Key="Export.Button.Label">Exporteer</system:String>
 	<system:String x:Key="Export.Button.Tooltip">Selecteer de map waarin het, te exporteren, CSV bestand komt te staan</system:String>
 	<system:String x:Key="Export.Button.Foldername">Geen map geselecteerd!</system:String>
+	<system:String x:Key="Import.Button.Filename">Geen CSV-bestand geselecteerd!</system:String>
+	<system:String x:Key="Import.Button.Prepare.Label">CSV voorbereiden</system:String>
+	<system:String x:Key="Import.Button.Prepare.Tooltip">Creëer een (leeg) CSV bestand met alleen de noodzakelijke headers voor import, dit bestand kan onder de header worden aangevuld met de te importeren data</system:String>
+	<system:String x:Key="Import.Button.Label">CSV importeren</system:String>
+	<system:String x:Key="Import.Button.Tooltip">Importeer een CSV bestand</system:String>
 	<!--#endregion-->
 
+	<!--#region General labels-->
+	<system:String x:Key="Messagebox.Default.Title">Mededeling</system:String>
+	<system:String x:Key="Import.FileDialog.Description">Map voor voorbereide csv bestand, met noodzakelijke velden</system:String>
+	<system:String x:Key="Import.Messagebox.Error.Unknown">Onbekende fout</system:String>
+	<system:String x:Key="Import.Messagebox.Error.Unknown.Long">Er is een onbekende fout opgetreden</system:String>
+	<system:String x:Key="Import.Messagebox.Error.Inline">van regel</system:String>
+	<system:String x:Key="Import.Messagebox.Error.Line">Fout in regel</system:String>
+	<system:String x:Key="Import.Messagebox.Error.Message">Fouten gevonden tijdens importeren</system:String>
+	<system:String x:Key="Import.Messagebox.Error.Existing.Long">Bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Messagebox.Error.Existing.Short">Bestaat al</system:String>
+	<!--#endregion-->
+	
 	<!--#region Status Line messages-->
 	<system:String x:Key="Export.Statusline.Text">Status:</system:String>
 	<system:String x:Key="Export.Statusline.Prefix.Error">Fout in regel</system:String>
@@ -169,6 +186,19 @@
 	<system:String x:Key="Export.Statusline.Completed.Error.Single">regel overgeslagen vanwege fouten</system:String>
 	<system:String x:Key="Export.Statusline.Completed.Error">regels overgeslagen vanwege fouten</system:String>
 	<system:String x:Key="Export.Statusline.Completed">regels verwerkt</system:String>
+	<system:String x:Key="Import.Statusline.Completed.Prepare">CSV Bestand voorbereid in:</system:String>
+
+	<system:String x:Key="Import.Statusline.Completed">regels verwerkt</system:String>
+	<system:String x:Key="Import.Statusline.Completed.Single">regel verwerkt</system:String>
+	<system:String x:Key="Import.Statusline.Completed.Error.Single">regel overgeslagen vanwege fouten</system:String>
+	<system:String x:Key="Import.Statusline.Completed.Error">regels overgeslagen vanwege fouten</system:String>
+	<system:String x:Key="Import.Statusline.Completed.Ok">regels correct ingelezen</system:String>
+	<system:String x:Key="Import.Statusline.Completed.Ok.Single">regel correct ingelezen</system:String>
+	<system:String x:Key="Import.Statusline.Description">Geen regels ingelezen</system:String>
+	<system:String x:Key="Import.Statusline.Prefix.Added">Toegevoegd: </system:String>
+	<system:String x:Key="Import.Statusline.Prefix.Error">Fout in regel</system:String>
+	<system:String x:Key="Import.Statusline.Text">Status: </system:String>
+	<system:String x:Key="Import.Statusline.None">Geen</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -189,11 +219,17 @@
 	<!--#region Import page-->
 	<system:String x:Key="Import.Brands.Title">Merken Importeren</system:String>
 	<system:String x:Key="Import.Brands.Subtitle">Importeer merken uit een CSV bestand, hierin staan uitsluitend merknamen</system:String>
-	<system:String x:Key="Import.Brands.Filename">Importeer merken</system:String>
-	<system:String x:Key="Import.Brands.Messagebox.Error.Existing.Long">Ingelezen merk bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Brands.Filename">Merken</system:String>
+	<system:String x:Key="Import.Brands.Messagebox.Error.Existing.Long">Merk bestaat al in de tabel</system:String>
 	<system:String x:Key="Import.Brands.Messagebox.Error.Existing.Short">Merk Bestaat al</system:String>
 	<system:String x:Key="Import.Brands.Button.Label">Merk</system:String>
-	<system:String x:Key="Import.Brands.Button.Tooltip">Selecteer het te importeren CSV bestand met merken</system:String>
+	<system:String x:Key="Import.Brands.Button.Tooltip">Selecteer het te importeren CSV bestand met merken (bestand moet een geldige header bevatten, gebruik de kop CSV voorbereiden voor een bestand met de header)</system:String>
+	<system:String x:Key="Import.Brands.FileDialog.Description">Selecteer het te importeren CSV bestand met merken</system:String>
+	<system:String x:Key="Import.Brands.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Button-->
+	<system:String x:Key="Import.Brands.Button.Text">Merken</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -222,6 +258,12 @@
 	<system:String x:Key="Import.Category.Messagebox.Error.Existing.Short">Categorie Bestaat al</system:String>
 	<system:String x:Key="Import.Category.Button.Label">Categorie</system:String>
 	<system:String x:Key="Import.Category.Button.Tooltip">Selecteer het te importeren CSV bestand met categoriën</system:String>
+	<system:String x:Key="Import.Category.FileDialog.Description">Selecteer het te importeren CSV bestand met categorieën</system:String>
+	<system:String x:Key="Import.Category.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Category.Button.Text">Categoriën</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -250,6 +292,12 @@
 	<system:String x:Key="Import.Country.Messagebox.Error.Existing.Short">Land Bestaat al</system:String>
 	<system:String x:Key="Import.Country.Button.Label">Land</system:String>
 	<system:String x:Key="Import.Country.Button.Tooltip">Selecteer het te importeren CSV bestand met landen</system:String>
+	<system:String x:Key="Import.Country.FileDialog.Description">Selecteer het te importeren CSV bestand met landen</system:String>
+	<system:String x:Key="Import.Country.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Country.Button.Text">Landen</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -268,7 +316,6 @@
 	<!--#region Buttons-->
 	<system:String x:Key="Export.Currency.Button.Text">Valuta</system:String>
 	<!--#endregion-->
-
 	<!--#endregion-->
 
 	<!--#region Import page-->
@@ -279,6 +326,13 @@
 	<system:String x:Key="Import.Currency.Messagebox.Error.Existing.Short">Valuta Bestaat al</system:String>
 	<system:String x:Key="Import.Currency.Button.Label">Valuta</system:String>
 	<system:String x:Key="Import.Currency.Button.Tooltip">Selecteer het te importeren CSV bestand met valuta</system:String>
+	<system:String x:Key="Import.Currency.FileDialog.Description">Selecteer het te importeren CSV bestand met valuta</system:String>
+	<system:String x:Key="Import.Currency.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Currency.Button.Text">Valuta</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -308,6 +362,13 @@
 	<system:String x:Key="Import.StorageLocation.Messagebox.Error.Existing.Short">Voorraadlocatie Bestaat al</system:String>
 	<system:String x:Key="Import.StorageLocation.Button.Label">Voorraadlocatie</system:String>
 	<system:String x:Key="Import.StorageLocation.Button.Tooltip">Selecteer het te importeren CSV bestand met voorraadlocaties</system:String>
+	<system:String x:Key="Import.StorageLocation.FileDialog.Description">Selecteer het te importeren CSV bestand met voorraadlocaties</system:String>
+	<system:String x:Key="Import.StorageLocation.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.StorageLocation.Button.Text">Voorraadlocaties</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -336,6 +397,13 @@
 	<system:String x:Key="Import.Product.Messagebox.Error.Existing.Short">Artikel Bestaat al</system:String>
 	<system:String x:Key="Import.Product.Button.Label">Artikel</system:String>
 	<system:String x:Key="Import.Product.Button.Tooltip">Selecteer het te importeren CSV bestand met artikelen</system:String>
+	<system:String x:Key="Import.Product.FileDialog.Description">Selecteer het te importeren CSV bestand met artikelen</system:String>
+	<system:String x:Key="Import.Product.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Product.Button.Text">Artikelen</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -364,6 +432,13 @@
 	<system:String x:Key="Import.ProductSupplier.Messagebox.Error.Existing.Short">Leverancier Bestaat al</system:String>
 	<system:String x:Key="Import.ProductSupplier.Button.Label">Productleverancier</system:String>
 	<system:String x:Key="Import.ProductSupplier.Button.Tooltip">Selecteer het te importeren CSV bestand met leveranciers per product</system:String>
+	<system:String x:Key="Import.ProductSupplier.FileDialog.Description">Selecteer het te importeren CSV bestand met leveranciers per product</system:String>
+	<system:String x:Key="Import.ProductSupplier.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.ProductSupplier.Button.Text">Leveranciers pp</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -392,6 +467,14 @@
 	<system:String x:Key="Import.Project.Messagebox.Error.Existing.Short">Project Bestaat al</system:String>
 	<system:String x:Key="Import.Project.Button.Label">Project</system:String>
 	<system:String x:Key="Import.Project.Button.Tooltip">Selecteer het te importeren CSV bestand met projecten</system:String>
+	<system:String x:Key="Import.Project.FileDialog.Description">Selecteer het te importeren CSV bestand met projecten</system:String>
+	<system:String x:Key="Import.Project.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Project.Button.Text">Projecten</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -420,6 +503,13 @@
 	<system:String x:Key="Import.Supplier.Messagebox.Error.Existing.Short">Leverancier Bestaat al</system:String>
 	<system:String x:Key="Import.Supplier.Button.Label">Leverancier</system:String>
 	<system:String x:Key="Import.Supplier.Button.Tooltip">Selecteer het te importeren CSV bestand met leveranciers</system:String>
+	<system:String x:Key="Import.Supplier.FileDialog.Description">Selecteer het te importeren CSV bestand met leveranciers</system:String>
+	<system:String x:Key="Import.Supplier.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Supplier.Button.Text">Leveranciers</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -448,6 +538,13 @@
 	<system:String x:Key="Import.SupplierContact.Messagebox.Error.Existing.Short">Contact personen Bestaat al</system:String>
 	<system:String x:Key="Import.SupplierContact.Button.Label">Contact personen</system:String>
 	<system:String x:Key="Import.SupplierContact.Button.Tooltip">Selecteer het te importeren CSV bestand met contact personen per leverancier</system:String>
+	<system:String x:Key="Import.SupplierContact.FileDialog.Description">Selecteer het te importeren CSV bestand met contactpersonen per leverancier</system:String>
+	<system:String x:Key="Import.SupplierContact.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.SupplierContact.Button.Text">Contact p.l.</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -476,6 +573,13 @@
 	<system:String x:Key="Import.SupplierContactFunction.Messagebox.Error.Existing.Short">Functies Bestaat al</system:String>
 	<system:String x:Key="Import.SupplierContactFunction.Button.Label">Functies</system:String>
 	<system:String x:Key="Import.SupplierContactFunction.Button.Tooltip">Selecteer het te importeren CSV bestand met functies</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.FileDialog.Description">Selecteer het te importeren CSV bestand met functies</system:String>
+	<system:String x:Key="Import.SupplierContactFunction.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.SupplierContactFunction.Button.Text">Functies</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -504,6 +608,13 @@
 	<system:String x:Key="Import.Time.Messagebox.Error.Existing.Short">Urenregistratie Bestaat al</system:String>
 	<system:String x:Key="Import.Time.Button.Label">Urenregistratie</system:String>
 	<system:String x:Key="Import.Time.Button.Tooltip">Selecteer het te importeren CSV bestand met urenregistratie</system:String>
+	<system:String x:Key="Import.Time.FileDialog.Description">Selecteer het te importeren CSV bestand met urenregistratie</system:String>
+	<system:String x:Key="Import.Time.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Time.Button.Text">Urenregistratie</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -532,6 +643,13 @@
 	<system:String x:Key="Import.Unit.Messagebox.Error.Existing.Short">Eenheden Bestaat al</system:String>
 	<system:String x:Key="Import.Unit.Button.Label">Eenheden</system:String>
 	<system:String x:Key="Import.Unit.Button.Tooltip">Selecteer het te importeren CSV bestand met eenheden</system:String>
+	<system:String x:Key="Import.Unit.FileDialog.Description">Selecteer het te importeren CSV bestand met eenheden</system:String>
+	<system:String x:Key="Import.Unit.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Unit.Button.Text">Eenheden</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
@@ -560,6 +678,13 @@
 	<system:String x:Key="Import.WorkType.Messagebox.Error.Existing.Short">Werksoorten Bestaat al</system:String>
 	<system:String x:Key="Import.WorkType.Button.Label">Werksoorten</system:String>
 	<system:String x:Key="Import.WorkType.Button.Tooltip">Selecteer het te importeren CSV bestand met werksoorten</system:String>
+	<system:String x:Key="Import.WorkType.FileDialog.Description">Selecteer het te importeren CSV bestand met werksoortenn</system:String>
+	<system:String x:Key="Import.WorkType.FileDialog.FilterTest">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.WorkType.Button.Text">Werksoorten</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
