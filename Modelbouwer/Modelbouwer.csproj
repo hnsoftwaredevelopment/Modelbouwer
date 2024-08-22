@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.8.16.33</AssemblyVersion>
-    <FileVersion>24.8.16.33</FileVersion>
+    <AssemblyVersion>24.8.22.25</AssemblyVersion>
+    <FileVersion>24.8.22.25</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
   </PropertyGroup>
 
@@ -556,6 +556,11 @@
     <None Update="Resources\Config\modelbuilder.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

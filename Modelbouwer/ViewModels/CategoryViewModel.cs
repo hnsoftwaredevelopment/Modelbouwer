@@ -12,4 +12,5 @@ public partial class CategoryViewModel : ObservableObject
 
 	[ObservableProperty]
 	public int categoryParentId;
+
 }

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Modelbouwer.Helper;
 public class DBCommands
@@ -188,7 +189,7 @@ public class DBCommands
 
 	#region Fill lists
 	#region BrandList
-	public static List<BrandModel> GetBrandList( List<BrandModel> brandList )
+	public static ObservableCollection<BrandModel> GetBrandList( ObservableCollection<BrandModel>? brandList = null )
 	{
 		DataTable? _dt = null;
 		_dt = GetData( DBNames.BrandTable, DBNames.BrandFieldNameName );
@@ -207,31 +208,38 @@ public class DBCommands
 		return brandList;
 	}
 	#endregion
+
 	#region CategoryList
-	public static List<CategoryModel> GetCategoryList( List<CategoryModel> categoryList )
+	public static ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
 	{
+		if ( categoryList == null )
+		{
+			categoryList = new ObservableCollection<CategoryModel>();
+		}
+
 		DataTable? _dt = null;
 		_dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameFullpath );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			if ( _dt.Rows [ i ] [ 2 ] == DBNull.Value )
+			//int _id = (int) _dt.Rows [ i ] [ 0 ];
+			int _parent = 0;
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
+
+			categoryList.Add( new CategoryModel
 			{
-				categoryList.Add( new CategoryModel
-				{
-					CategoryId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
-					CategoryParentId = int.Parse( _dt.Rows [ i ] [ 1 ].ToString() ),
-					CategoryName = _dt.Rows [ i ] [ 2 ].ToString(),
-					CategoryFullpath = _dt.Rows [ i ] [ 3 ].ToString()
-				} );
-			}
+				CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
+				CategoryParentId = _parent,
+				CategoryName = _dt.Rows [ i ] [ 2 ].ToString(),
+				CategoryFullpath = _dt.Rows [ i ] [ 3 ].ToString()
+			} );
 		}
 		return categoryList;
 	}
 	#endregion
 
 	#region StorageLocationList
-	public static List<StorageLocationModel> GetStorageLocationList( List<StorageLocationModel> storagelocationList )
+	public static ObservableCollection<StorageLocationModel> GetStorageLocationList( ObservableCollection<StorageLocationModel>? storagelocationList = null )
 	{
 		DataTable? _dt = null;
 		_dt = GetData( DBNames.StorageTable, DBNames.StorageFieldNameFullpath );
@@ -254,7 +262,7 @@ public class DBCommands
 	#endregion
 
 	#region WorktypeList
-	public static List<WorktypeModel> GetWorktypeList( List<WorktypeModel> worktypeList )
+	public static ObservableCollection<WorktypeModel> GetWorktypeList( ObservableCollection<WorktypeModel>? worktypeList = null )
 	{
 		DataTable? _dt = null;
 		_dt = GetData( DBNames.WorktypeTable, DBNames.WorktypeFieldNameFullpath );
@@ -391,6 +399,53 @@ public class DBCommands
 		}
 		return result;
 	}
+
+	// used for Generic imput
+	public static void InsertInTable<T>( List<T> itemsToInsert, string tableName, string [ ] headers, Dictionary<string, string> headerToPropertyMap ) where T : INameable, new()
+	{
+		foreach ( var item in itemsToInsert )
+		{
+			var columns = new List<string>();
+			var values = new List<string>();
+
+			foreach ( var header in headers )
+			{
+				string propertyName = headerToPropertyMap.ContainsKey(header) ? headerToPropertyMap[header] : header;
+				var propertyInfo = typeof(T).GetProperty(propertyName);
+
+				if ( propertyInfo != null )
+				{
+					var value = propertyInfo.GetValue(item);
+
+					// Als het gaat om de ParentId (of vergelijkbare eigenschap) en de waarde is 0, voeg NULL toe
+					if ( propertyName.ToLower().Contains( "parentid" ) && value is int intValue && intValue == 0 )
+					{
+						values.Add( "NULL" );
+					}
+					else if ( value is string strValue )
+					{
+						// Voeg aanhalingstekens toe om stringwaarden te omringen
+						values.Add( $"'{strValue}'" );
+					}
+					else
+					{
+						// Voor andere waarden gewoon direct toevoegen
+						values.Add( value?.ToString() ?? "NULL" );
+					}
+
+					columns.Add( header ); // Voeg kolomnamen toe
+				}
+			}
+
+			// Build the SQL query string
+			string columnsJoined = string.Join(", ", columns);
+			string valuesJoined = string.Join(", ", values);
+			string sqlQuery = $"INSERT INTO {DBNames.Database}.{tableName} ({columnsJoined}) VALUES ({valuesJoined});";
+
+			ExecuteNonQuery( StringHelper.EscapeBackslashes( sqlQuery ) );
+		}
+	}
+
 	#endregion
 
 	#region Insert Fields and Image in table

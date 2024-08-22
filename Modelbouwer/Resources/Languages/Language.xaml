@@ -73,7 +73,7 @@
 	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Export.Header">Exporteren</system:String>
 	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Export.Tooltip">Exporteer alle categorieën naar een CSV bestand</system:String>
 	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Import.Header">Importeren</system:String>
-	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Import.Tooltip">Importeer alle categorieën uit een CSV bestand</system:String>
+	<system:String x:Key="mainRibbon.Manage.Metadata.Category.Import.Tooltip">Importeer alle categorieën uit een CSV bestand, maak eerst een export van het huidige CSV bestand zodat alle Id`s overeenkomen</system:String>
 
 	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Group.Header">Landen beheren</system:String>
 	<system:String x:Key="mainRibbon.Manage.Metadata.Country.Edit.Label">Landen</system:String>
@@ -174,7 +174,7 @@
 	<system:String x:Key="Import.Messagebox.Error.Existing.Long">Bestaat al in de tabel</system:String>
 	<system:String x:Key="Import.Messagebox.Error.Existing.Short">Bestaat al</system:String>
 	<!--#endregion-->
-	
+
 	<!--#region Status Line messages-->
 	<system:String x:Key="Export.Statusline.Text">Status:</system:String>
 	<system:String x:Key="Export.Statusline.Prefix.Error">Fout in regel</system:String>
@@ -195,9 +195,9 @@
 	<system:String x:Key="Import.Statusline.Completed.Ok">regels correct ingelezen</system:String>
 	<system:String x:Key="Import.Statusline.Completed.Ok.Single">regel correct ingelezen</system:String>
 	<system:String x:Key="Import.Statusline.Description">Geen regels ingelezen</system:String>
-	<system:String x:Key="Import.Statusline.Prefix.Added">Toegevoegd: </system:String>
+	<system:String x:Key="Import.Statusline.Prefix.Added">Toegevoegd:</system:String>
 	<system:String x:Key="Import.Statusline.Prefix.Error">Fout in regel</system:String>
-	<system:String x:Key="Import.Statusline.Text">Status: </system:String>
+	<system:String x:Key="Import.Statusline.Text">Status:</system:String>
 	<system:String x:Key="Import.Statusline.None">Geen</system:String>
 	<!--#endregion-->
 	<!--#endregion-->

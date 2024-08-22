@@ -1,8 +1,21 @@
 ﻿namespace Modelbouwer.Model;
-public class CategoryModel
+public class CategoryModel : INameable
 {
-	public string? CategoryName { get; set; }
-	public string? CategoryFullpath { get; set; }
 	public int CategoryId { get; set; }
 	public int CategoryParentId { get; set; }
+	public string? CategoryName { get; set; }
+	public string? CategoryFullpath { get; set; }
+
+	// Define the property that you want to use in TLists (for example in the errorList
+	public string Name => CategoryName;
+
+	// Mapping dictionary for mapping Database Header to Property name
+	public static readonly Dictionary<string, string> HeaderToPropertyMap = new()
+	{
+		{ DBNames.CategoryFieldNameId, "CategoryId" },
+		{ DBNames.CategoryFieldNameParentId, "CategoryParentId" },
+		{ DBNames.CategoryFieldNameName, "CategoryName" },
+		{ DBNames.CategoryFieldNameFullpath, "CategoryFullpath" }
+	};
+
 }
