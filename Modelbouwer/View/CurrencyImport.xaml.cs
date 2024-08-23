@@ -39,7 +39,7 @@ public partial class CurrencyImport : Page
 		{
 			Title = (string)FindResource("Import.Currency.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.Currency.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.Currency.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

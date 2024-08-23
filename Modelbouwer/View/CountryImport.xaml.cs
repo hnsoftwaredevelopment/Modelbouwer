@@ -38,7 +38,7 @@ public partial class CountryImport : Page
 		{
 			Title = (string)FindResource("Import.Country.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.Country.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.Country.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

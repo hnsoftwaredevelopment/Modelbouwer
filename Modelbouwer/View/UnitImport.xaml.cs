@@ -38,7 +38,7 @@ public partial class UnitImport : Page
 		{
 			Title = (string)FindResource("Import.Unit.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.Unit.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.Unit.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

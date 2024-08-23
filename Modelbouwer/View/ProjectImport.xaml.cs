@@ -39,7 +39,7 @@ public partial class ProjectImport : Page
 		{
 			Title = (string)FindResource("Import.Project.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.Project.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.Project.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

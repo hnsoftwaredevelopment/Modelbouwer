@@ -39,7 +39,7 @@ public partial class ProductSupplierImport : Page
 		{
 			Title = (string)FindResource("Import.ProductSupplier.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.ProductSupplier.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.ProductSupplier.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

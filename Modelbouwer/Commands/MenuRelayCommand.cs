@@ -25,8 +25,8 @@ public class MenuRelayCommand : ICommand
 
 	public event EventHandler CanExecuteChanged
 	{
-		add { CommandManager.RequerySuggested += value; }
-		remove { CommandManager.RequerySuggested -= value; }
+		add => CommandManager.RequerySuggested += value;
+		remove => CommandManager.RequerySuggested -= value;
 	}
 }
 #pragma warning restore CS8612 // Nullability of reference types in type doesn't match implicitly implemented member.

@@ -18,18 +18,12 @@ public class DBCommands
 	#region GetData Sorted
 	public static DataTable GetData( string _table, string _orderByFieldName )
 	{
-		string selectQuery;
-		if ( _orderByFieldName.Equals( "nosort", StringComparison.CurrentCultureIgnoreCase ) )
-		{
-			selectQuery = $"" +
-				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{_table}";
-		}
-		else
-		{
-			selectQuery = $"" +
+		string selectQuery =  _orderByFieldName.Equals( "nosort", StringComparison.CurrentCultureIgnoreCase )
+			?  $"" +
+				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{_table}"
+			:  $"" +
 				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
-				$"{DBNames.SqlOrder}{_orderByFieldName}";
-		}
+				$"{DBNames.SqlOrder}{_orderByFieldName}" ;
 		return GetTable( selectQuery );
 	}
 	#endregion
@@ -37,20 +31,14 @@ public class DBCommands
 	#region GetData Sorted and filtered
 	public static DataTable GetData( string _table, string _orderByFieldName, string _whereFieldName, string _whereFieldValue )
 	{
-		string selectQuery;
-		if ( _orderByFieldName.Equals( "nosort", StringComparison.CurrentCultureIgnoreCase ) )
-		{
-			selectQuery = $"" +
+		string selectQuery =  _orderByFieldName.Equals( "nosort", StringComparison.CurrentCultureIgnoreCase )
+			?  $"" +
 				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
-				$"{DBNames.SqlWhere}{_whereFieldName} = '{_whereFieldValue}';";
-		}
-		else
-		{
-			selectQuery = $"" +
+				$"{DBNames.SqlWhere}{_whereFieldName} = '{_whereFieldValue}';"
+			:  $"" +
 				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
 				$"{DBNames.SqlWhere}{_whereFieldName} = '{_whereFieldValue}'" +
-				$"{DBNames.SqlOrder}{_orderByFieldName};";
-		}
+				$"{DBNames.SqlOrder}{_orderByFieldName};" ;
 		return GetTable( selectQuery );
 	}
 	#endregion
@@ -58,28 +46,21 @@ public class DBCommands
 	#region Get data sorted, and filtered on two criteria
 	public static DataTable GetData( string _table, string _orderByFieldName, string _whereFieldName, string _whereFieldValue, string _andWhereFieldName, string _andWhereFieldValue )
 	{
-		string selectQuery;
-		if ( _orderByFieldName.Equals( "nosort", StringComparison.CurrentCultureIgnoreCase ) )
-		{
-			selectQuery = $"" +
+		string selectQuery =  _orderByFieldName.Equals( "nosort", StringComparison.CurrentCultureIgnoreCase )
+			?  $"" +
 				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
 				$"{DBNames.SqlWhere}{_whereFieldName} = '{_whereFieldValue}'" +
-				$"{DBNames.SqlAnd}{_andWhereFieldName} = '{_andWhereFieldValue}';";
-		}
-		else
-		{
-			selectQuery = $"" +
+				$"{DBNames.SqlAnd}{_andWhereFieldName} = '{_andWhereFieldValue}';"
+			:  $"" +
 				$"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.Database}.{_table}" +
 				$"{DBNames.SqlWhere}{_whereFieldName} = '{_whereFieldValue}'" +
 				$"{DBNames.SqlAnd}{_andWhereFieldName} = '{_andWhereFieldValue}'" +
-				$"{DBNames.SqlOrder}{_orderByFieldName};";
-		}
-
+				$"{DBNames.SqlOrder}{_orderByFieldName};" ;
 		MySqlConnection connection = new(DBConnect.ConnectionString);
 		connection.Open();
 		DataTable table = new();
 		MySqlDataAdapter adapter = new(selectQuery, connection);
-		adapter.Fill( table );
+		_ = adapter.Fill( table );
 		connection.Close();
 		//return GetTable( selectQuery );
 		return table;
@@ -91,28 +72,28 @@ public class DBCommands
 	{
 		// There is an Id or String available for each condition, so one of them has a value the other one is 0 or ""
 		StringBuilder sqlQuery = new();
-		sqlQuery.Append( DBNames.SqlSelect );
+		_ = sqlQuery.Append( DBNames.SqlSelect );
 		string prefix = "";
 
 		for ( int i = 0; i < _fields.GetLength( 0 ); i++ )
 		{
 			if ( i != 0 )
 			{ prefix = ", "; }
-			sqlQuery.Append( $"{prefix}{_fields [ i, 0 ]}" );
+			_ = sqlQuery.Append( $"{prefix}{_fields [ i, 0 ]}" );
 		}
 
-		sqlQuery.Append( $"{DBNames.SqlFrom}{_table.ToLower()} " );
+		_ = sqlQuery.Append( $"{DBNames.SqlFrom}{_table.ToLower()} " );
 		prefix = "";
 
 		if ( _whereFields.GetLength( 0 ) > 0 )
 		{
-			sqlQuery.Append( DBNames.SqlWhere );
+			_ = sqlQuery.Append( DBNames.SqlWhere );
 
 			for ( int i = 0; i < _whereFields.GetLength( 0 ); i++ )
 			{
 				if ( i != 0 )
 				{ prefix = DBNames.SqlAnd; }
-				sqlQuery.Append( $"{prefix}{_whereFields [ i, 0 ]} = @{_whereFields [ i, 0 ]}" );
+				_ = sqlQuery.Append( $"{prefix}{_whereFields [ i, 0 ]} = @{_whereFields [ i, 0 ]}" );
 			}
 		}
 
@@ -145,11 +126,13 @@ public class DBCommands
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Blob ).Value = DBNull.Value;
 					break;
 				case "date":
-					String[] _tempDates = _whereFields[i, 2].Split("-");
+					string[] _tempDates = _whereFields[i, 2].Split("-");
 
 					// Add leading zero's to date and month
-					GeneralHelper helper = new();
-					var _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
+					_ = new
+					// Add leading zero's to date and month
+					GeneralHelper();
+					string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _tempDate;
 					break;
 			}
@@ -160,7 +143,7 @@ public class DBCommands
 		double resultDouble;
 		float resultFloat;
 
-		if ( _fields [ 0, 1 ].ToLower() == "string" || _fields [ 0, 1 ].ToLower() == "date" || _fields [ 0, 1 ].ToLower() == "time" )
+		if ( _fields [ 0, 1 ].ToLower() is "string" or "date" or "time" )
 		{ resultString = ( string ) cmd.ExecuteScalar(); }
 		if ( _fields [ 0, 1 ].ToLower() == "int" )
 		{ resultInt = ( int ) cmd.ExecuteScalar(); resultString = resultInt.ToString(); }
@@ -180,7 +163,7 @@ public class DBCommands
 		connection.Open();
 		DataTable table = new();
 		MySqlDataAdapter adapter = new(_sqlQuery, connection);
-		adapter.Fill( table );
+		_ = adapter.Fill( table );
 		connection.Close();
 
 		return table;
@@ -191,8 +174,7 @@ public class DBCommands
 	#region BrandList
 	public static ObservableCollection<BrandModel> GetBrandList( ObservableCollection<BrandModel>? brandList = null )
 	{
-		DataTable? _dt = null;
-		_dt = GetData( DBNames.BrandTable, DBNames.BrandFieldNameName );
+		DataTable? _dt = GetData( DBNames.BrandTable, DBNames.BrandFieldNameName );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
@@ -212,17 +194,11 @@ public class DBCommands
 	#region CategoryList
 	public static ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
 	{
-		if ( categoryList == null )
-		{
-			categoryList = new ObservableCollection<CategoryModel>();
-		}
-
-		DataTable? _dt = null;
-		_dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameFullpath );
+		categoryList ??= [ ];
+		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameFullpath );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			//int _id = (int) _dt.Rows [ i ] [ 0 ];
 			int _parent = 0;
 			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
 
@@ -241,21 +217,20 @@ public class DBCommands
 	#region StorageLocationList
 	public static ObservableCollection<StorageLocationModel> GetStorageLocationList( ObservableCollection<StorageLocationModel>? storagelocationList = null )
 	{
-		DataTable? _dt = null;
-		_dt = GetData( DBNames.StorageTable, DBNames.StorageFieldNameFullpath );
+		storagelocationList ??= [ ];
+		DataTable? _dt = GetData( DBNames.StorageTable, DBNames.StorageFieldNameFullpath );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			if ( _dt.Rows [ i ] [ 2 ] == DBNull.Value )
+			int _parent = 0;
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
+			storagelocationList.Add( new StorageLocationModel
 			{
-				storagelocationList.Add( new StorageLocationModel
-				{
-					StorageLocationId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
-					StorageLocationParentId = int.Parse( _dt.Rows [ i ] [ 1 ].ToString() ),
-					StorageLocationName = _dt.Rows [ i ] [ 2 ].ToString(),
-					StorageLocationFullpath = _dt.Rows [ i ] [ 3 ].ToString()
-				} );
-			}
+				StorageLocationId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
+				StorageLocationParentId = _parent,
+				StorageLocationName = _dt.Rows [ i ] [ 2 ].ToString(),
+				StorageLocationFullpath = _dt.Rows [ i ] [ 3 ].ToString()
+			} );
 		}
 		return storagelocationList;
 	}
@@ -264,21 +239,21 @@ public class DBCommands
 	#region WorktypeList
 	public static ObservableCollection<WorktypeModel> GetWorktypeList( ObservableCollection<WorktypeModel>? worktypeList = null )
 	{
-		DataTable? _dt = null;
-		_dt = GetData( DBNames.WorktypeTable, DBNames.WorktypeFieldNameFullpath );
+		worktypeList ??= [ ];
+		DataTable? _dt = GetData( DBNames.WorktypeTable, DBNames.WorktypeFieldNameFullpath );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			if ( _dt.Rows [ i ] [ 2 ] == DBNull.Value )
+			int _parent = 0;
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
+
+			worktypeList.Add( new WorktypeModel
 			{
-				worktypeList.Add( new WorktypeModel
-				{
-					WorktypeId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
-					WorktypeParentId = int.Parse( _dt.Rows [ i ] [ 1 ].ToString() ),
-					WorktypeName = _dt.Rows [ i ] [ 2 ].ToString(),
-					WorktypeFullpath = _dt.Rows [ i ] [ 3 ].ToString()
-				} );
-			}
+				WorktypeId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
+				WorktypeParentId = _parent,
+				WorktypeName = _dt.Rows [ i ] [ 2 ].ToString(),
+				WorktypeFullpath = _dt.Rows [ i ] [ 3 ].ToString()
+			} );
 		}
 		return worktypeList;
 	}
@@ -305,7 +280,7 @@ public class DBCommands
 
 		foreach ( DataRow dr in _dt.Rows )
 		{
-			List<string> rowValues = new();
+			List<string> rowValues = [];
 
 			foreach ( string header in _header )
 			{
@@ -353,7 +328,6 @@ public class DBCommands
 
 	public static string InsertInTable( string _table, string [ , ] _fields )
 	{
-		string result = string.Empty;
 		string sqlQuery = $"{DBNames.SqlInsert}{DBNames.Database}.{_table} ";
 
 		string sqlFields = "( ";
@@ -373,19 +347,12 @@ public class DBCommands
 
 		sqlQuery = string.Concat( $"{sqlQuery}{sqlFields}{DBNames.SqlValues}{sqlValues};" );
 
+		string result;
 		try
 		{
 			int rowsAffected = ExecuteNonQueryTable(sqlQuery, _fields);
 
-			if ( rowsAffected > 0 )
-			{
-
-				result = "Rij toegevoegd.";
-			}
-			else
-			{
-				result = "Rij niet toegevoegd.";
-			}
+			result = rowsAffected > 0 ? "Rij toegevoegd." : "Rij niet toegevoegd.";
 		}
 		catch ( MySqlException ex )
 		{
@@ -403,19 +370,19 @@ public class DBCommands
 	// used for Generic imput
 	public static void InsertInTable<T>( List<T> itemsToInsert, string tableName, string [ ] headers, Dictionary<string, string> headerToPropertyMap ) where T : INameable, new()
 	{
-		foreach ( var item in itemsToInsert )
+		foreach ( T item in itemsToInsert )
 		{
-			var columns = new List<string>();
-			var values = new List<string>();
+			List<string> columns = [];
+			List<string> values = [];
 
-			foreach ( var header in headers )
+			foreach ( string header in headers )
 			{
 				string propertyName = headerToPropertyMap.ContainsKey(header) ? headerToPropertyMap[header] : header;
-				var propertyInfo = typeof(T).GetProperty(propertyName);
+				System.Reflection.PropertyInfo? propertyInfo = typeof( T ).GetProperty( propertyName );
 
 				if ( propertyInfo != null )
 				{
-					var value = propertyInfo.GetValue(item);
+					object? value = propertyInfo.GetValue( item );
 
 					// Als het gaat om de ParentId (of vergelijkbare eigenschap) en de waarde is 0, voeg NULL toe
 					if ( propertyName.ToLower().Contains( "parentid" ) && value is int intValue && intValue == 0 )
@@ -451,12 +418,11 @@ public class DBCommands
 	#region Insert Fields and Image in table
 	public static string InsertInTable( string _table, string [ , ] _fields, byte [ ] _image, string _imageName )
 	{
-		var result = string.Empty;
-		var sqlQuery = $"{DBNames.SqlInsert}{_table} ";
+		string sqlQuery = $"{DBNames.SqlInsert}{_table} ";
 
-		var sqlFields = "(";
-		var sqlValues = "(";
-		var prefix = "";
+		string sqlFields = "(";
+		string sqlValues = "(";
+		string prefix = "";
 
 		for ( int i = 0; i < _fields.GetLength( 0 ); i++ )
 		{
@@ -471,19 +437,12 @@ public class DBCommands
 
 		sqlQuery = $"{sqlQuery}{sqlFields} {DBNames.SqlValues} {sqlValues};";
 
+		string result;
 		try
 		{
 			int rowsAffected = ExecuteNonQueryTable(sqlQuery, _fields, _image, _imageName);
 
-			if ( rowsAffected > 0 )
-			{
-
-				result = "Rij toegevoegd.";
-			}
-			else
-			{
-				result = "Rij niet toegevoegd.";
-			}
+			result = rowsAffected > 0 ? "Rij toegevoegd." : "Rij niet toegevoegd.";
 		}
 		catch ( MySqlException ex )
 		{
@@ -505,7 +464,7 @@ public class DBCommands
 	{
 		int result = 0;
 		StringBuilder sqlQuery = new();
-		sqlQuery.Append( $"{DBNames.SqlSelect}{DBNames.SqlCount}*) " +
+		_ = sqlQuery.Append( $"{DBNames.SqlSelect}{DBNames.SqlCount}*) " +
 			$"{DBNames.SqlFrom}{_table.ToLower()}" +
 			$"{DBNames.SqlWhere}" );
 
@@ -515,7 +474,7 @@ public class DBCommands
 		{
 			if ( i != 0 )
 			{ prefix = DBNames.SqlAnd; }
-			sqlQuery.Append( $"{prefix}`{_whereFields [ i, 0 ]}` = @{_whereFields [ i, 0 ]}" );
+			_ = sqlQuery.Append( $"{prefix}`{_whereFields [ i, 0 ]}` = @{_whereFields [ i, 0 ]}" );
 		}
 
 		using ( MySqlConnection connection = new( DBConnect.ConnectionString ) )
@@ -550,7 +509,7 @@ public class DBCommands
 							string [] _tempDates = _whereFields[i, 2].Split("-");
 
 							// Add leading zero's to date and month
-							var _tempDate = $"{_tempDates[2]}-{GeneralHelper.AddZeros(_tempDates[1], 2)}-{GeneralHelper.AddZeros(_tempDates[0], 2)}";
+							string _tempDate = $"{_tempDates[2]}-{GeneralHelper.AddZeros(_tempDates[1], 2)}-{GeneralHelper.AddZeros(_tempDates[0], 2)}";
 							cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _tempDate;
 							break;
 					}
@@ -571,7 +530,7 @@ public class DBCommands
 		connection.Open();
 
 		using MySqlCommand cmd = new(_sqlQuery, connection);
-		cmd.ExecuteNonQuery();
+		_ = cmd.ExecuteNonQuery();
 	}
 	#endregion Execute NonQuery
 
@@ -605,10 +564,10 @@ public class DBCommands
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.LongText ).Value = _fields [ i, 2 ];
 						break;
 					case "date":
-						String[] _tempDates = _fields[i, 2].Split("-");
+						string[] _tempDates = _fields[i, 2].Split("-");
 
 						// Add leading zero's to date and month
-						var _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
+						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
 					case "time":
@@ -652,10 +611,10 @@ public class DBCommands
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.LongText ).Value = _whereFields [ i, 2 ];
 						break;
 					case "date":
-						String[] _tempDates = _whereFields[i, 2].Split("-");
+						string[] _tempDates = _whereFields[i, 2].Split("-");
 
 						// Add leading zero's to date and month
-						var _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
+						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
 					case "time":
@@ -684,11 +643,11 @@ public class DBCommands
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.LongText ).Value = _fields [ i, 2 ];
 						break;
 					case "date":
-						String[] _tempDates = _fields[i, 2].Split("-");
+						string[] _tempDates = _fields[i, 2].Split("-");
 
 						// Add leading zero's to date and month
 						GeneralHelper helper = new();
-						var _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
+						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
 					case "time":
@@ -729,10 +688,10 @@ public class DBCommands
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Float ).Value = float.Parse( _whereFields [ i, 2 ] );
 						break;
 					case "date":
-						String[] _tempDates = _whereFields[i, 2].Split("-");
+						string[] _tempDates = _whereFields[i, 2].Split("-");
 
 						// Add leading zero's to date and month
-						var _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
+						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _tempDate;
 						break;
 					case "time":
@@ -779,10 +738,10 @@ public class DBCommands
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.LongText ).Value = _fields [ i, 2 ];
 						break;
 					case "date":
-						String[] _tempDates = _fields[i, 2].Split("-");
+						string[] _tempDates = _fields[i, 2].Split("-");
 
 						// Add leading zero's to date and month
-						var _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
+						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
 					case "time":

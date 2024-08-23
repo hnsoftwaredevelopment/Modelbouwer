@@ -621,7 +621,7 @@
 
 				<!--#region Countries registration-->
 				<syncfusion:RibbonBar
-					Name="barCountrieys"
+					Name="barCountries"
 					syncfusion:Ribbon.KeyTip="LA"
 					syncfusion:Ribbon.ShowInMoreCommands="False"
 					CollapseImage=".\Resources\Icons\metadataCountry.png"

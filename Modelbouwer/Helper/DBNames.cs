@@ -317,7 +317,7 @@ public class DBNames
 	public static readonly string TimeFieldTypeId = "int";
 	public static readonly string TimeFieldNameProjectId = "project_Id";
 	public static readonly string TimeFieldTypeProjectId = "int";
-	public static readonly string TimeFieldNameWorktypeId = "worktype_Id";
+	public static readonly string TimeFieldNameWorktypeId = "Worktype_Id";
 	public static readonly string TimeFieldTypeWorktypeId = "int";
 	public static readonly string TimeFieldNameWorkDate = "WorkDate";
 	public static readonly string TimeFieldTypeWorkDate = "date";
@@ -477,7 +477,7 @@ public class DBNames
 	#endregion Unit table
 
 	#region Worktype Table
-	public static readonly string WorktypeTable = "worktype";
+	public static readonly string WorktypeTable = "Worktype";
 	public static readonly string WorktypeFieldNameId = "Id";
 	public static readonly string WorktypeFieldTypeId = "int";
 	public static readonly string WorktypeFieldNameParentId = "ParentId";

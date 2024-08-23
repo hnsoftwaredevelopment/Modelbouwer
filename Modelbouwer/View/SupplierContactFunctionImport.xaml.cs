@@ -39,7 +39,7 @@ public partial class SupplierContactFunctionImport : Page
 		{
 			Title = (string)FindResource("Import.SupplierContactFunction.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.SupplierContactFunction.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.SupplierContactFunction.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

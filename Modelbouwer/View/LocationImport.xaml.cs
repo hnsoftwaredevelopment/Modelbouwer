@@ -38,7 +38,7 @@ public partial class LocationImport : Page
 		{
 			Title = (string)FindResource("Import.StorageLocation.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.StorageLocation.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.StorageLocation.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

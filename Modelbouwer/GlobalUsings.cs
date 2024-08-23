@@ -4,7 +4,6 @@
 global using System.Data;
 global using System.IO;
 global using System.Text;
-global using System.Text.RegularExpressions;
 global using System.Windows.Forms;
 global using System.Windows.Input;
 
@@ -14,5 +13,6 @@ global using Modelbouwer.Helper;
 global using Modelbouwer.Interfaces;
 global using Modelbouwer.Model;
 global using Modelbouwer.View;
+global using Modelbouwer.ViewModels;
 
 global using MySql.Data.MySqlClient;

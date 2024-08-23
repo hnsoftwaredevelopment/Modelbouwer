@@ -36,9 +36,9 @@ public partial class WorktypeImport : Page
 	{
 		OpenFileDialog fileDialog = new ()
 		{
-			Title = (string)FindResource("Import.Worktype.FileDialog.Description"),
+			Title = (string)FindResource("Import.WorkType.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.Worktype.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.WorkType.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

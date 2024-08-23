@@ -39,7 +39,7 @@ public partial class BrandImport : System.Windows.Controls.Page
 		{
 			Title = (string)FindResource("Import.Brands.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.Brands.FileDialog.FilterTest")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.Brands.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

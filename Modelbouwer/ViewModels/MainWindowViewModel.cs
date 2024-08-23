@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS8602 // Dereference of a possibly null reference.
-using Modelbouwer.Commands;
+﻿using Modelbouwer.Commands;
 
 namespace Modelbouwer.ViewModels;
 
@@ -55,9 +54,9 @@ public class MainWindowViewModel
 	public CurrencyManagement currencyManagementPage = new();
 	public CurrencyImport currencyImportPage = new();
 	public CurrencyExport currencyExportPage = new();
-	public WorktypeManagement worktypeManagementPage = new();
-	public WorktypeImport worktypeImportPage = new();
-	public WorktypeExport worktypeExportPage = new();
+	public WorktypeManagement WorktypeManagementPage = new();
+	public WorktypeImport WorktypeImportPage = new();
+	public WorktypeExport WorktypeExportPage = new();
 
 	public MainWindow mainWindow = ( MainWindow ) System.Windows.Application.Current.MainWindow;
 	#endregion
@@ -71,158 +70,157 @@ public class MainWindowViewModel
 	{
 		if ( parameter != null )
 		{
-			var heritage = parameter.ToString().ToLower();
+			string heritage = parameter.ToString().ToLower();
 			switch ( heritage )
 			{
 				case "project":
-					mainWindow.MainFrame.Navigate( projectManagementPage );
+					_ = mainWindow.MainFrame.Navigate( projectManagementPage );
 					break;
 				case "storage":
-					mainWindow.MainFrame.Navigate( storageManagementPage );
+					_ = mainWindow.MainFrame.Navigate( storageManagementPage );
 					break;
 				case "time":
-					mainWindow.MainFrame.Navigate( timeManagementPage );
+					_ = mainWindow.MainFrame.Navigate( timeManagementPage );
 					break;
 				case "timeimport":
-					mainWindow.MainFrame.Navigate( timeImportPage );
+					_ = mainWindow.MainFrame.Navigate( timeImportPage );
 					break;
 				case "timeexport":
-					mainWindow.MainFrame.Navigate( timeExportPage );
+					_ = mainWindow.MainFrame.Navigate( timeExportPage );
 					break;
 				case "timereport":
-					mainWindow.MainFrame.Navigate( timeReportPage );
+					_ = mainWindow.MainFrame.Navigate( timeReportPage );
 					break;
 				case "projectimport":
-					mainWindow.MainFrame.Navigate( projectImportPage );
+					_ = mainWindow.MainFrame.Navigate( projectImportPage );
 					break;
 				case "projectexport":
-					mainWindow.MainFrame.Navigate( projectExportPage );
+					_ = mainWindow.MainFrame.Navigate( projectExportPage );
 					break;
 				case "projectreport":
-					mainWindow.MainFrame.Navigate( projectReportPage );
+					_ = mainWindow.MainFrame.Navigate( projectReportPage );
 					break;
 				case "storageorder":
-					mainWindow.MainFrame.Navigate( storageOrderPage );
+					_ = mainWindow.MainFrame.Navigate( storageOrderPage );
 					break;
 				case "storagereceipt":
-					mainWindow.MainFrame.Navigate( storageReceiptPage );
+					_ = mainWindow.MainFrame.Navigate( storageReceiptPage );
 					break;
 				case "storagereportmanagement":
-					mainWindow.MainFrame.Navigate( storageReportManagementPage );
+					_ = mainWindow.MainFrame.Navigate( storageReportManagementPage );
 					break;
 				case "storagereportorder":
-					mainWindow.MainFrame.Navigate( storageReportOrderPage );
+					_ = mainWindow.MainFrame.Navigate( storageReportOrderPage );
 					break;
 				case "storagereportreceipt":
-					mainWindow.MainFrame.Navigate( storageReportReceiptPage );
+					_ = mainWindow.MainFrame.Navigate( storageReportReceiptPage );
 					break;
 				case "product":
-					mainWindow.MainFrame.Navigate( productManagementPage );
+					_ = mainWindow.MainFrame.Navigate( productManagementPage );
 					break;
 				case "productimport":
-					mainWindow.MainFrame.Navigate( productImportPage );
+					_ = mainWindow.MainFrame.Navigate( productImportPage );
 					break;
 				case "productexport":
-					mainWindow.MainFrame.Navigate( productExportPage );
+					_ = mainWindow.MainFrame.Navigate( productExportPage );
 					break;
 				case "productsupplierimport":
-					mainWindow.MainFrame.Navigate( productSupplierImportPage );
+					_ = mainWindow.MainFrame.Navigate( productSupplierImportPage );
 					break;
 				case "productsupplierexport":
-					mainWindow.MainFrame.Navigate( productSupplierExportPage );
+					_ = mainWindow.MainFrame.Navigate( productSupplierExportPage );
 					break;
 				case "category":
-					mainWindow.MainFrame.Navigate( categoryManagementPage );
+					_ = mainWindow.MainFrame.Navigate( categoryManagementPage );
 					break;
 				case "categoryimport":
-					mainWindow.MainFrame.Navigate( categoryImportPage );
+					_ = mainWindow.MainFrame.Navigate( categoryImportPage );
 					break;
 				case "categoryexport":
-					mainWindow.MainFrame.Navigate( categoryExportPage );
+					_ = mainWindow.MainFrame.Navigate( categoryExportPage );
 					break;
 				case "unit":
-					mainWindow.MainFrame.Navigate( unitManagement );
+					_ = mainWindow.MainFrame.Navigate( unitManagement );
 					break;
 				case "unitimport":
-					mainWindow.MainFrame.Navigate( unitImportPage );
+					_ = mainWindow.MainFrame.Navigate( unitImportPage );
 					break;
 				case "unitexport":
-					mainWindow.MainFrame.Navigate( unitExportPage );
+					_ = mainWindow.MainFrame.Navigate( unitExportPage );
 					break;
 				case "country":
-					mainWindow.MainFrame.Navigate( countryManagementPage );
+					_ = mainWindow.MainFrame.Navigate( countryManagementPage );
 					break;
 				case "countryimport":
-					mainWindow.MainFrame.Navigate( countryImportPage );
+					_ = mainWindow.MainFrame.Navigate( countryImportPage );
 					break;
 				case "countryexport":
-					mainWindow.MainFrame.Navigate( countryExportPage );
+					_ = mainWindow.MainFrame.Navigate( countryExportPage );
 					break;
 				case "supplier":
-					mainWindow.MainFrame.Navigate( supplierManagementPage );
+					_ = mainWindow.MainFrame.Navigate( supplierManagementPage );
 					break;
 				case "supplierimport":
-					mainWindow.MainFrame.Navigate( supplierImportPage );
+					_ = mainWindow.MainFrame.Navigate( supplierImportPage );
 					break;
 				case "supplierexport":
-					mainWindow.MainFrame.Navigate( supplierExportPage );
+					_ = mainWindow.MainFrame.Navigate( supplierExportPage );
 					break;
 				case "suppliercontact":
-					mainWindow.MainFrame.Navigate( supplierContactManagementPage );
+					_ = mainWindow.MainFrame.Navigate( supplierContactManagementPage );
 					break;
 				case "suppliercontactimport":
-					mainWindow.MainFrame.Navigate( supplierContactImportPage );
+					_ = mainWindow.MainFrame.Navigate( supplierContactImportPage );
 					break;
 				case "suppliercontactexport":
-					mainWindow.MainFrame.Navigate( supplierContactExportPage );
+					_ = mainWindow.MainFrame.Navigate( supplierContactExportPage );
 					break;
 				case "suppliercontactfunction":
-					mainWindow.MainFrame.Navigate( supplierContactFunctionManagementPage );
+					_ = mainWindow.MainFrame.Navigate( supplierContactFunctionManagementPage );
 					break;
 				case "suppliercontactfunctionimport":
-					mainWindow.MainFrame.Navigate( supplierContactFunctionImportPage );
+					_ = mainWindow.MainFrame.Navigate( supplierContactFunctionImportPage );
 					break;
 				case "suppliercontactfunctionexport":
-					mainWindow.MainFrame.Navigate( supplierContactFunctionExportPage );
+					_ = mainWindow.MainFrame.Navigate( supplierContactFunctionExportPage );
 					break;
 				case "location":
-					mainWindow.MainFrame.Navigate( locationManagementPage );
+					_ = mainWindow.MainFrame.Navigate( locationManagementPage );
 					break;
 				case "locationimport":
-					mainWindow.MainFrame.Navigate( locationImportPage );
+					_ = mainWindow.MainFrame.Navigate( locationImportPage );
 					break;
 				case "locationexport":
-					mainWindow.MainFrame.Navigate( locationExportPage );
+					_ = mainWindow.MainFrame.Navigate( locationExportPage );
 					break;
 				case "brand":
-					mainWindow.MainFrame.Navigate( brandManagementPage );
+					_ = mainWindow.MainFrame.Navigate( brandManagementPage );
 					break;
 				case "brandimport":
-					mainWindow.MainFrame.Navigate( brandImportPage );
+					_ = mainWindow.MainFrame.Navigate( brandImportPage );
 					break;
 				case "brandexport":
-					mainWindow.MainFrame.Navigate( brandExportPage );
+					_ = mainWindow.MainFrame.Navigate( brandExportPage );
 					break;
 				case "currency":
-					mainWindow.MainFrame.Navigate( currencyManagementPage );
+					_ = mainWindow.MainFrame.Navigate( currencyManagementPage );
 					break;
 				case "currencyimport":
-					mainWindow.MainFrame.Navigate( currencyImportPage );
+					_ = mainWindow.MainFrame.Navigate( currencyImportPage );
 					break;
 				case "currencyexport":
-					mainWindow.MainFrame.Navigate( currencyExportPage );
+					_ = mainWindow.MainFrame.Navigate( currencyExportPage );
 					break;
 				case "worktype":
-					mainWindow.MainFrame.Navigate( worktypeManagementPage );
+					_ = mainWindow.MainFrame.Navigate( WorktypeManagementPage );
 					break;
 				case "worktypeimport":
-					mainWindow.MainFrame.Navigate( worktypeImportPage );
+					_ = mainWindow.MainFrame.Navigate( WorktypeImportPage );
 					break;
 				case "worktypeexport":
-					mainWindow.MainFrame.Navigate( worktypeExportPage );
+					_ = mainWindow.MainFrame.Navigate( WorktypeExportPage );
 					break;
 			}
 		}
 	}
 }
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
