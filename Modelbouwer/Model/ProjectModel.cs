@@ -10,7 +10,7 @@ public class ProjectModel : ObservableObject
 	public string? ProjectEndDate { get; set; }
 	public string? ProjectEndDateStr { get; set; }
 	public string? ProjectExpectedTime { get; set; }
-	public byte[]? ProjectImage { get; set; }
+	public byte [ ]? ProjectImage { get; set; }
 	public int ProjectImageRotationAngle { get; set; }
 	public bool ProjectClosed { get; set; }
 	public string? ProjectMemo { get; set; }
@@ -31,4 +31,19 @@ public class ProjectModel : ObservableObject
 	public string? ProjectAverageHoursPerDay { get; set; }
 	public string? ProjectAverageHoursPerDayLong { get; set; }
 	public string? ProjectBuildDays { get; set; }
+
+	// Define the property that you want to use in TLists (for example in the errorList
+	public string Name => ProjectName;
+
+	// Mapping dictionary for mapping Database Header to Property name
+	public static readonly Dictionary<string, string> HeaderToPropertyMap = new()
+	{
+		{ DBNames.ProjectFieldNameId, "ProjectId" },
+		{ DBNames.ProjectFieldNameCode, "ProjectCode"},
+		{ DBNames.ProjectFieldNameName, "ProjectName"},
+		{ DBNames.ProjectFieldNameStartDate, "ProjectStartDate"},
+		{ DBNames.ProjectFieldNameEndDate, "ProjectEndDate"},
+		{ DBNames.ProjectFieldNameExpectedTime, "ProjectExpectedTime"},
+		{ DBNames.ProjectFieldNameClosed, "ProjectClosed"}
+	};
 }

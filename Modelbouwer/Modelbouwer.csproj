@@ -2,16 +2,21 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.8.22.25</AssemblyVersion>
-    <FileVersion>24.8.22.25</FileVersion>
+    <AssemblyVersion>24.8.23.0</AssemblyVersion>
+    <FileVersion>24.8.23.0</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
+    <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
-  <ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+    <ItemGroup>
     <None Remove="Resources\Icons\acceptreceipt.png" />
     <None Remove="Resources\Icons\app.png" />
     <None Remove="Resources\Icons\appExit.png" />
@@ -35,10 +40,10 @@
     <None Remove="Resources\Icons\Icon1.ico" />
     <None Remove="Resources\Icons\logo.ico" />
     <None Remove="Resources\Icons\metadata.png" />
-    <None Remove="Resources\Icons\metadataCategory.png" />
-    <None Remove="Resources\Icons\metadataCategoryExport.png" />
-    <None Remove="Resources\Icons\metadataCategoryImport.png" />
-    <None Remove="Resources\Icons\metadataCategoryReport.png" />
+    <None Remove="Resources\Icons\metadataCountry.png" />
+    <None Remove="Resources\Icons\metadataCountryExport.png" />
+    <None Remove="Resources\Icons\metadataCountryImport.png" />
+    <None Remove="Resources\Icons\metadataCountryReport.png" />
     <None Remove="Resources\Icons\metadataContact.png" />
     <None Remove="Resources\Icons\metadataContactType.png" />
     <None Remove="Resources\Icons\metadataCountry.png" />
@@ -145,6 +150,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Icons\logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
@@ -226,16 +235,16 @@
     <Resource Include="Resources\Icons\metadata.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\metadataCategory.png">
+    <Resource Include="Resources\Icons\metadataCountry.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\metadataCategoryExport.png">
+    <Resource Include="Resources\Icons\metadataCountryExport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\metadataCategoryImport.png">
+    <Resource Include="Resources\Icons\metadataCountryImport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\metadataCategoryReport.png">
+    <Resource Include="Resources\Icons\metadataCountryReport.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\metadataContact.png">
@@ -537,6 +546,8 @@
     </Resource>
   </ItemGroup>
 
+  
+
   <ItemGroup>
     <Compile Update="Resources\Languages\Language.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -556,11 +567,6 @@
     <None Update="Resources\Config\modelbuilder.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -15,4 +15,25 @@ public class ProductModel
 	public int ProductCategoryId { get; set; }
 	public int ProductStorageId { get; set; }
 	public string? ProductMemo { get; set; }
+
+	// Define the property that you want to use in TLists (for example in the errorList
+	public string Name => ProductName;
+
+	// Mapping dictionary for mapping Database Header to Property name
+	public static readonly Dictionary<string, string> HeaderToPropertyMap = new()
+	{
+		{ DBNames.ProductFieldNameId, "ProductId" },
+		{ DBNames.ProductFieldNameCode, "ProductCode" },
+		{ DBNames.ProductFieldNameName, "ProductName" },
+		{ DBNames.ProductFieldNameDimensions, "ProductDimensions" },
+		{ DBNames.ProductFieldNamePrice, "ProductPrice" },
+		{ DBNames.ProductFieldNameMinimalStock, "ProductMinimalStock" },
+		{ DBNames.ProductFieldNameStandardOrderQuantity, "ProductStandardQuantity" },
+		{ DBNames.ProductFieldNameProjectCosts, "ProductCosts" },
+		{ DBNames.ProductFieldNameUnitId, "ProductUnitId" },
+		{ DBNames.ProductFieldNameBrandId, "ProductBrandId" },
+		{ DBNames.ProductFieldNameCategoryId, "ProductCategoryId" },
+		{ DBNames.ProductFieldNameStorageId, "ProductStorageId" }
+	};
+
 }

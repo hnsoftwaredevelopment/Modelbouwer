@@ -17,5 +17,4 @@ public class CategoryModel : INameable
 		{ DBNames.CategoryFieldNameName, "CategoryName" },
 		{ DBNames.CategoryFieldNameFullpath, "CategoryFullpath" }
 	};
-
 }
