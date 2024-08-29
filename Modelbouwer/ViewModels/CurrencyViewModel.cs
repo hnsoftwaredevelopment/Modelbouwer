@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class CurrencyViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -15,4 +17,18 @@ public partial class CurrencyViewModel : ObservableObject
 
 	[ObservableProperty]
 	public string? currencySymbol;
+
+	public ObservableCollection<CurrencyModel> Currency
+	{
+		get => _currency;
+		set
+		{
+			if ( _currency != value )
+			{
+				_currency = value;
+				OnPropertyChanged( nameof( Currency ) );
+			}
+		}
+	}
+	private ObservableCollection<CurrencyModel>? _currency;
 }

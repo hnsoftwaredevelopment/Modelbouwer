@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class productViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -42,4 +44,18 @@ public partial class productViewModel : ObservableObject
 
 	[ObservableProperty]
 	public string? productMemo;
+
+	public ObservableCollection<ProductModel> Product
+	{
+		get => _product;
+		set
+		{
+			if ( _product != value )
+			{
+				_product = value;
+				OnPropertyChanged( nameof( Product ) );
+			}
+		}
+	}
+	private ObservableCollection<ProductModel>? _product;
 }

@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class TimeViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -21,4 +23,18 @@ public partial class TimeViewModel : ObservableObject
 
 	[ObservableProperty]
 	public string? timeComment;
+
+	public ObservableCollection<TimeModel> Time
+	{
+		get => _time;
+		set
+		{
+			if ( _time != value )
+			{
+				_time = value;
+				OnPropertyChanged( nameof( Time ) );
+			}
+		}
+	}
+	private ObservableCollection<TimeModel>? _time;
 }

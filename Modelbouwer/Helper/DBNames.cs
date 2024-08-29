@@ -18,6 +18,7 @@ public class DBNames
 	public static readonly string SqlIsNull = " IS NULL ";
 	public static readonly string SqlLimit = " LIMIT ";
 	public static readonly string SqlLimit1 = " LIMIT 1 ";
+	public static readonly string SqlLower = " LOWER ( ";
 	public static readonly string SqlMax = "MAX( ";
 	public static readonly string SqlMin = "MIN( ";
 	public static readonly string SqlOr = " OR ";

@@ -3,6 +3,8 @@ using System.Reflection;
 
 using Modelbouwer.View.Dialog;
 
+using Application = System.Windows.Application;
+
 namespace Modelbouwer.Helper;
 public class GeneralHelper
 {
@@ -14,8 +16,8 @@ public class GeneralHelper
 	#region Add zeros to a timestring
 	public static string AddZeros( string TempString, int TotalLength )
 	{
-		var _temp = new string('0', TotalLength);
-		var NewString = (_temp + TempString.Trim()).Substring((_temp + TempString.Trim()).Length - TotalLength, TotalLength);
+		string _temp = new('0', TotalLength);
+		string NewString = (_temp + TempString.Trim()).Substring((_temp + TempString.Trim()).Length - TotalLength, TotalLength);
 
 		return NewString;
 	}
@@ -28,13 +30,13 @@ public class GeneralHelper
 	/// <returns>A string containing the current timestamp</returns>
 	public static string GetFilePrefix()
 	{
-		var _tempMonth = "0" + DateTime.Now.Month.ToString();
-		var _tempDay = "0" + DateTime.Now.Day.ToString();
-		var _tempHour = "0" + DateTime.Now.Hour.ToString();
-		var _tempMinute = "0" + DateTime.Now.Minute.ToString();
-		var _tempSecond = "0" + DateTime.Now.Second.ToString();
+		string _tempMonth = "0" + DateTime.Now.Month.ToString();
+		string _tempDay = "0" + DateTime.Now.Day.ToString();
+		string _tempHour = "0" + DateTime.Now.Hour.ToString();
+		string _tempMinute = "0" + DateTime.Now.Minute.ToString();
+		string _tempSecond = "0" + DateTime.Now.Second.ToString();
 
-		var Prefix = DateTime.Now.Year.ToString() +
+		string Prefix = DateTime.Now.Year.ToString() +
 			_tempMonth.Substring(_tempMonth.Length - 2, 2) +
 			_tempDay.Substring(_tempDay.Length - 2, 2) +
 			_tempHour.Substring(_tempHour.Length - 2, 2) +
@@ -54,47 +56,30 @@ public class GeneralHelper
 	/// <returns>_header <see langword="abstract"/>string contining the file header</returns>
 	public static string [ ] GetHeaders( string ExportFile )
 	{
-		string[]? _header = null;
-
-		switch ( ExportFile.ToLower() )
+		string [ ]? _header = ExportFile.ToLower() switch
 		{
-			case "brand":
-				_header = [ DBNames.BrandFieldNameName ];
-				break;
-			case "category":
-				_header =
-				[
-					DBNames.CategoryFieldNameId,
+			"brand" => [ DBNames.BrandFieldNameName ],
+			"category" => [
+								DBNames.CategoryFieldNameId,
 					DBNames.CategoryFieldNameParentId,
 					DBNames.CategoryFieldNameName,
 					DBNames.CategoryFieldNameFullpath
-				];
-				break;
-			case "contacttype":
-				_header = [ DBNames.ContactTypeFieldNameName ];
-				break;
-			case "country":
-				_header =
-				[
-					DBNames.CountryFieldNameCode,
+							],
+			"contacttype" => [ DBNames.ContactTypeFieldNameName ],
+			"country" => [
+								DBNames.CountryFieldNameCode,
 					DBNames.CountryFieldNameName,
 					DBNames.CountryFieldNameDefCurrencySymbol,
 					DBNames.CountryFieldNameDefCurrencyId
-				];
-				break;
-			case "currency":
-				_header =
-				[
-					DBNames.CurrencyFieldNameCode,
+							],
+			"currency" => [
+								DBNames.CurrencyFieldNameCode,
 					DBNames.CurrencyFieldNameName,
 					DBNames.CurrencyFieldNameSymbol,
 					DBNames.CurrencyFieldNameRate
-				];
-				break;
-			case "product":
-				_header =
-				[
-					DBNames.ProductFieldNameCode,
+							],
+			"product" => [
+								DBNames.ProductFieldNameCode,
 					DBNames.ProductFieldNameName,
 					DBNames.ProductFieldNameDimensions,
 					DBNames.ProductFieldNamePrice,
@@ -105,44 +90,32 @@ public class GeneralHelper
 					DBNames.ProductFieldNameBrandId,
 					DBNames.ProductFieldNameCategoryId,
 					DBNames.ProductFieldNameStorageId
-				];
-				break;
-			case "productsupplier":
-				_header =
-				[
-					DBNames.ProductSupplierFieldNameProductId,
+							],
+			"productsupplier" => [
+								DBNames.ProductSupplierFieldNameProductId,
 					DBNames.ProductSupplierFieldNameSupplierId,
 					DBNames.ProductSupplierFieldNameCurrencyId,
 					DBNames.ProductSupplierFieldNameProductNumber,
 					DBNames.ProductSupplierFieldNameProductName,
 					DBNames.ProductSupplierFieldNamePrice,
 					DBNames.ProductSupplierFieldNameProductUrl
-				];
-				break;
-			case "project":
-				_header =
-				[
-					DBNames.ProjectFieldNameCode,
+							],
+			"project" => [
+								DBNames.ProjectFieldNameCode,
 					DBNames.ProjectFieldNameName,
 					DBNames.ProjectFieldNameStartDate,
 					DBNames.ProjectFieldNameEndDate,
 					DBNames.ProjectFieldNameExpectedTime,
 					DBNames.ProjectFieldNameClosed
-				];
-				break;
-			case "storagelocation":
-				_header =
-				[
-					DBNames.StorageFieldNameId,
+							],
+			"storagelocation" => [
+								DBNames.StorageFieldNameId,
 					DBNames.StorageFieldNameParentId,
 					DBNames.StorageFieldNameName,
 					DBNames.StorageFieldNameFullpath
-				];
-				break;
-			case "supplier":
-				_header =
-				[
-					DBNames.SupplierFieldNameCode,
+							],
+			"supplier" => [
+								DBNames.SupplierFieldNameCode,
 					DBNames.SupplierFieldNameName,
 					DBNames.SupplierFieldNameAddress1,
 					DBNames.SupplierFieldNameAddress2,
@@ -154,53 +127,34 @@ public class GeneralHelper
 					DBNames.SupplierFieldNameOrderCosts,
 					DBNames.SupplierFieldNameCurrencyId,
 					DBNames.SupplierFieldNameCountryId
-				];
-				break;
-			case "suppliercontact":
-				_header =
-				[
-					DBNames.SupplierContactFieldNameSupplierId,
+							],
+			"suppliercontact" => [
+								DBNames.SupplierContactFieldNameSupplierId,
 					DBNames.SupplierContactFieldNameName,
 					DBNames.SupplierContactFieldNameTypeId,
 					DBNames.SupplierContactFieldNameMail,
 					DBNames.SupplierContactFieldNamePhone
-				];
-				break;
-			case "suppliercontactfunction":
-				_header =
-				[
-					DBNames.ContactTypeFieldNameName
-				];
-				break;
-			case "time":
-				_header =
-				[
-					DBNames.TimeFieldNameProjectId,
+							],
+			"suppliercontactfunction" => [
+								DBNames.ContactTypeFieldNameName
+							],
+			"time" => [
+								DBNames.TimeFieldNameProjectId,
 					DBNames.TimeFieldNameWorktypeId,
 					DBNames.TimeFieldNameWorkDate,
 					DBNames.TimeFieldNameStartTime,
 					DBNames.TimeFieldNameEndTime,
 					DBNames.TimeFieldNameComment
-				];
-				break;
-			case "unit":
-				_header =
-				[ DBNames.UnitFieldNameUnitName ];
-				break;
-			case "worktype":
-				_header =
-				[
-					DBNames.WorktypeFieldNameId,
+							],
+			"unit" => [ DBNames.UnitFieldNameUnitName ],
+			"worktype" => [
+								DBNames.WorktypeFieldNameId,
 					DBNames.WorktypeFieldNameParentId,
 					DBNames.WorktypeFieldNameName,
 					DBNames.WorktypeFieldNameFullpath
-				];
-				break;
-			default:
-				_header = [ "" ];
-				break;
-		}
-
+							],
+			_ => [ "" ],
+		};
 		return _header;
 	}
 	#endregion
@@ -217,12 +171,11 @@ public class GeneralHelper
 	#region Format Date in string to correct notation
 	public static string FormatDate( string _date )
 	{
-		string _result = "";
 		// Input date looks like "d-m-yyyy 00:00:00"
 
 		//Remove Time from string and split it up in seperate elements
-		var _temp = _date.Replace(" 00:00:00", "" ).Split( '-' );
-		_result = $"{_temp [ 2 ]}-{AddZeros( _temp [ 1 ], 2 )}-{AddZeros( _temp [ 0 ], 2 )}";
+		string [ ] _temp = _date.Replace(" 00:00:00", "" ).Split( '-' );
+		string _result = $"{_temp [ 2 ]}-{AddZeros( _temp [ 1 ], 2 )}-{AddZeros( _temp [ 0 ], 2 )}";
 
 		return _result;
 	}
@@ -231,12 +184,10 @@ public class GeneralHelper
 	#region Get Table Name for generic methods (FindMissingItems)
 	public string GetTableNameForModel<T>()
 	{
-		var modelType = typeof(T);
-		if ( ModelTableHelper.ModelTableMappings.TryGetValue( modelType, out var tableName ) )
-		{
-			return tableName;
-		}
-		throw new InvalidOperationException( $"No table name mapping found for type {modelType.Name}" );
+		Type modelType = typeof(T);
+		return ModelTableHelper.ModelTableMappings.TryGetValue( modelType, out string? tableName )
+			? tableName
+			: throw new InvalidOperationException( $"No table name mapping found for type {modelType.Name}" );
 	}
 	#endregion
 
@@ -244,18 +195,18 @@ public class GeneralHelper
 	#region Check what new lines are in the list that should be added to the existing list 
 	public (List<T> MissingItems, List<(string Name, int ErrorCode, int LineNumber)> SkippedItems) FindMissingItems<T>( ObservableCollection<T> observableCollection, List<T> itemList, string [ ] headers, Dictionary<string, string> headerToPropertyMap, int errorIdentifier ) where T : INameable
 	{
-		var missingItems = new List<T>();
-		var skippedItems = new List<(string Name, int ErrorCode, int LineNumber)>();
+		List<T> missingItems = [];
+		List<(string Name, int ErrorCode, int LineNumber)> skippedItems = [];
 
 		for ( int i = 0; i < itemList.Count; i++ )
 		{
-			var itemInList = itemList[i];
+			T itemInList = itemList[i];
 			bool existsInObservable = observableCollection.Any(itemInObservable =>
 			headers.All(header =>
 			{
 				string propertyName = headerToPropertyMap.ContainsKey(header) ? headerToPropertyMap[header] : header;
-				var propertyInObservable = typeof(T).GetProperty(propertyName)?.GetValue(itemInObservable);
-				var propertyInList = typeof(T).GetProperty(propertyName)?.GetValue(itemInList);
+				object? propertyInObservable = typeof(T).GetProperty(propertyName)?.GetValue(itemInObservable);
+				object? propertyInList = typeof(T).GetProperty(propertyName)?.GetValue(itemInList);
 				return Equals(propertyInObservable, propertyInList);
 			})
 		);
@@ -277,22 +228,22 @@ public class GeneralHelper
 	#region import flat csv file (no levels in the data)
 	public static string ProcessCsvFile( string table, int errorIdentifier, string dispFileName, string [ ] checkField, string metadataType )
 	{
-		int lineCount = 0, errorCount = 0, headerCount = 0;
-		string completed = "", completedError = "", completedOk = "", linesRead = "", linesError = "";
+		int lineCount = 0, errorCount = 0;
+		string completed = "", completedError = "", linesError = "";
 		string insertPart, valuesPart, prefix;
-		var errorList = new List<ErrorList>();
+		List<ErrorList> errorList = [];
 
 		//Get the headers
-		var headers = GetHeaders(metadataType);
+		string [ ] headers = GetHeaders(metadataType);
 
 		//Read the lines of the CSV file into a list
-		var lines = File.ReadLines(dispFileName);
+		IEnumerable<string> lines = File.ReadLines( dispFileName );
 
-		var _errorClass = new ErrorClass();
+		ErrorClass _errorClass = new();
 
-		foreach ( var line in lines )
+		foreach ( string line in lines )
 		{
-			headerCount = 0;
+			int headerCount = 0;
 			insertPart = $"{DBNames.SqlInsert}{DBNames.Database}.{table} (";
 			valuesPart = $"{DBNames.SqlValues}(";
 			prefix = "";
@@ -303,7 +254,7 @@ public class GeneralHelper
 			{
 				lineCount++;
 				// Sla de rij over als het record al bestaat
-				string [,] _wherefields = null;
+				string [,]? _wherefields = null;
 				if ( checkField.Length == 3 )
 				{
 					_wherefields = new string [ 1, 3 ] { { checkField [ 0 ], checkField [ 1 ], fields [ int.Parse( checkField [ 2 ] ) ] } };
@@ -354,11 +305,11 @@ public class GeneralHelper
 				// Controleer of er al een record beschikbaar is voor deze regel
 				if ( _wherefields != null )
 				{
-					var existingDatatype = DBCommands.CheckForRecords(table, _wherefields);
+					int existingDatatype = DBCommands.CheckForRecords(table, _wherefields);
 
 					if ( existingDatatype == 0 )
 					{
-						foreach ( var header in headers )
+						foreach ( string header in headers )
 						{
 							if ( fields [ headerCount ] != "" )
 							{
@@ -384,14 +335,14 @@ public class GeneralHelper
 							prefix = ", ";
 						}
 
-						var sqlQuery = $"{insertPart}) {valuesPart});";
+						string sqlQuery = $"{insertPart}) {valuesPart});";
 
-						DBCommands.InsertInTable( sqlQuery );
+						_ = DBCommands.InsertInTable( sqlQuery );
 					}
 					else
 					{
 						errorCount++;
-						var error = _errorClass.GetErrorMessages(errorIdentifier);
+						(string Label, string ErrorMessageShort, string ErrorMessageLong) error = _errorClass.GetErrorMessages( errorIdentifier );
 						errorList.Add( new ErrorList
 						{
 							LineNumber = lineCount,
@@ -407,40 +358,39 @@ public class GeneralHelper
 		#region Status message
 		if ( lineCount != 0 )
 		{
-			if ( lineCount == 1 )
-			{ completed = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Single" ); }
-			else
-			{ completed = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed" ); }
+			completed = lineCount == 1
+				? ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Single" )
+				: ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed" );
 		}
 
 		if ( errorCount != 0 )
 		{
-			if ( errorCount == 1 )
-			{ completedError = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error.Single" ); }
-			else
-			{ completedError = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error" ); }
+			completedError = errorCount == 1
+				? ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error.Single" )
+				: ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error" );
 		}
 
-		if ( lineCount == 0 ) { linesRead = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.None" ) + " "; } else { linesRead = lineCount.ToString() + " "; }
-		if ( lineCount - errorCount == 1 )
-		{ completedOk = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Ok.Single" ); }
-		else
-		{ completedOk = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Ok" ); }
+		string linesRead = lineCount == 0
+	? ( string ) Application.Current.FindResource( "Import.Statusline.None" ) + " "
+	: lineCount.ToString() + " ";
+		_ = lineCount - errorCount == 1
+			? ( string ) Application.Current.FindResource( "Import.Statusline.Completed.Ok.Single" )
+			: ( string ) Application.Current.FindResource( "Import.Statusline.Completed.Ok" );
 
 		if ( lineCount - errorCount != 0 ) { linesRead = ( lineCount - errorCount ).ToString() + " "; }
 		if ( errorCount != 0 ) { linesError = ", " + errorCount.ToString() + " "; }
 
-		var statusMessage = $"{linesRead}{completed}{linesError}{completedError}.";
+		string statusMessage = $"{linesRead}{completed}{linesError}{completedError}.";
 		#endregion
 
 		#region Display Scrollable error message
 		if ( errorList.Count > 0 )
 		{
-			var errorMessage = $"{statusMessage}{System.Environment.NewLine}{System.Environment.NewLine}";
+			string errorMessage = $"{statusMessage}{System.Environment.NewLine}{System.Environment.NewLine}";
 
 			for ( int i = 0; i < errorList.Count; i++ )
 			{
-				var error = _errorClass.GetErrorMessages(errorList [ i ].ErrorCode);
+				_ = _errorClass.GetErrorMessages( errorList [ i ].ErrorCode );
 				errorMessage += $"{( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Line" )} {errorList [ i ].LineNumber} - {errorList [ i ].Line}{System.Environment.NewLine}";
 			}
 
@@ -455,10 +405,8 @@ public class GeneralHelper
 	#region import leveled csv file (containing parent Id)
 	public static string ProcessCsvFile<T>( string table, int errorIdentifier, string dispFileName, string [ ] checkField, string [ ] idFields, string metadataType, Func<ObservableCollection<T>> getExistingDataList ) where T : INameable, new()
 	{
-		int lineCount = 0, readCount = 0, errorCount = 0;
-		string completed = "", completedError = "", completedOk = "", linesRead = "", linesError = "";
-		string insertPart, valuesPart, prefix;
-		List<ErrorList> errorList = [];
+		int lineCount = 0;
+		string completed = "", completedError = "", linesError = "";
 		List<T> itemList = [];
 
 		ErrorClass? _errorClass = new ();
@@ -474,24 +422,24 @@ public class GeneralHelper
 
 
 		// Create item list from csv file, without header and root items wil get 0 as parentId
-		foreach ( var line in lines )
+		foreach ( string line in lines )
 		{
 			if ( !( line.Contains( headers [ 0 ] ) && line.Contains( headers [ 1 ] ) && line.Contains( headers [ 2 ] ) ) )
 			{
-				var _splitLine = line.Split(";");
-				var _parentId = 0;
+				string [ ] _splitLine = line.Split(";");
+				int _parentId = 0;
 				lineCount++;
-				var item = new T();
+				T item = new();
 
 				if ( _splitLine [ 1 ] != "" ) { _parentId = int.Parse( _splitLine [ 1 ] ); }
 
 				// Assign values from CSV to the model properties
 				for ( int i = 0; i < properties.Length; i++ )
 				{
-					var property = properties[i];
+					PropertyInfo property = properties[i];
 					if ( i < _splitLine.Length )
 					{
-						var value = _splitLine[i];
+						string value = _splitLine[i];
 
 						// Controleer of de waarde leeg is en het type int is
 						if ( string.IsNullOrEmpty( value ) && property.PropertyType == typeof( int ) )
@@ -509,7 +457,7 @@ public class GeneralHelper
 							try
 							{
 								// Convert the value to the correct type
-								var convertedValue = Convert.ChangeType(value, property.PropertyType);
+								object convertedValue = Convert.ChangeType(value, property.PropertyType);
 								property.SetValue( item, convertedValue );
 							}
 							catch ( Exception ex )
@@ -523,58 +471,57 @@ public class GeneralHelper
 			}
 		}
 
-		var (_importItems, _errorList) = generalHelper.FindMissingItems( existingDataList, itemList, headers, CategoryModel.HeaderToPropertyMap, errorIdentifier );
+		(List<T> _importItems, List<(string Name, int ErrorCode, int LineNumber)> _errorList) = generalHelper.FindMissingItems( existingDataList, itemList, headers, CategoryModel.HeaderToPropertyMap, errorIdentifier );
 
 		// Write importItems to Database
 		// First Get the tablename
-		string tableName = generalHelper.GetTableNameForModel<T>();
+		_ = generalHelper.GetTableNameForModel<T>();
 
 		DBCommands.InsertInTable( _importItems, generalHelper.GetTableNameForModel<T>(), headers, CategoryModel.HeaderToPropertyMap );
 
 
 		// Determine the numbers
-		readCount = itemList.Count();
+		_ = itemList.Count();
 		lineCount = _importItems.Count();
-		errorCount = _errorList.Count();
+		int errorCount = _errorList.Count();
 
 
 		#region Status message
 		if ( lineCount != 0 )
 		{
-			if ( lineCount == 1 )
-			{ completed = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Single" ); }
-			else
-			{ completed = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed" ); }
+			completed = lineCount == 1
+				? ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Single" )
+				: ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed" );
 		}
 
 		if ( errorCount != 0 )
 		{
-			if ( errorCount == 1 )
-			{ completedError = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error.Single" ); }
-			else
-			{ completedError = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error" ); }
+			completedError = errorCount == 1
+				? ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error.Single" )
+				: ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Error" );
 		}
 
-		if ( lineCount == 0 ) { linesRead = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.None" ) + " "; } else { linesRead = lineCount.ToString() + " "; }
-		if ( lineCount - errorCount == 1 )
-		{ completedOk = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Ok.Single" ); }
-		else
-		{ completedOk = ( string ) System.Windows.Application.Current.FindResource( "Import.Statusline.Completed.Ok" ); }
+		string linesRead = lineCount == 0
+	? ( string ) Application.Current.FindResource( "Import.Statusline.None" ) + " "
+	: lineCount.ToString() + " ";
+		_ = lineCount - errorCount == 1
+			? ( string ) Application.Current.FindResource( "Import.Statusline.Completed.Ok.Single" )
+			: ( string ) Application.Current.FindResource( "Import.Statusline.Completed.Ok" );
 
 		//if ( lineCount - errorCount != 0 ) { linesRead = ( lineCount - errorCount ).ToString() + " "; } // Line gives wrong value Why is it used
 		if ( errorCount != 0 ) { linesError = ", " + errorCount.ToString() + " "; }
 
-		var statusMessage = $"{linesRead}{completed}{linesError}{completedError}.";
+		string statusMessage = $"{linesRead}{completed}{linesError}{completedError}.";
 		#endregion
 
 		#region Display Scrollable error message
 		if ( _errorList.Count > 0 )
 		{
-			var errorMessage = $"{statusMessage}{System.Environment.NewLine}{System.Environment.NewLine}";
+			string errorMessage = $"{statusMessage}{System.Environment.NewLine}{System.Environment.NewLine}";
 
 			for ( int i = 0; i < _errorList.Count; i++ )
 			{
-				var error = _errorClass.GetErrorMessages(_errorList [ i ].ErrorCode);
+				_ = _errorClass.GetErrorMessages( _errorList [ i ].ErrorCode );
 				errorMessage += $"{( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Line" )} {_errorList [ i ].LineNumber} - {_errorList [ i ].Name}{System.Environment.NewLine}";
 			}
 
@@ -605,7 +552,7 @@ public class GeneralHelper
 	{
 		int categoryLevel = GetCategoryLevel(category, allCategories);
 
-		foreach ( var gridCategory in gridCategories )
+		foreach ( CategoryModel gridCategory in gridCategories )
 		{
 			int gridCategoryLevel = GetCategoryLevel(gridCategory, allCategories);
 
@@ -622,11 +569,11 @@ public class GeneralHelper
 	#region Check if the first line contains the header
 	private bool IsHeaderLine<T>( T firstLine, string [ ] headers )
 	{
-		var properties = typeof(T).GetProperties();
+		PropertyInfo [ ] properties = typeof(T).GetProperties();
 
 		for ( int i = 0; i < headers.Length; i++ )
 		{
-			var property = properties.FirstOrDefault(p => p.Name.Equals(headers[i], StringComparison.OrdinalIgnoreCase));
+			PropertyInfo? property = properties.FirstOrDefault( p => p.Name.Equals( headers [ i ], StringComparison.OrdinalIgnoreCase ) );
 
 			if ( property == null )
 			{
@@ -634,7 +581,7 @@ public class GeneralHelper
 			}
 
 			// get the vaule of the property
-			var value = property.GetValue(firstLine)?.ToString();
+			string? value = property.GetValue( firstLine )?.ToString();
 
 			if ( value != headers [ i ] )
 			{
@@ -644,5 +591,15 @@ public class GeneralHelper
 		return true; // All properties are equal to the headers
 	}
 	#endregion
+	#endregion
+
+	#region Get strings from language.xaml
+	public static string GetResourceString( string key )
+	{
+		// Controleer of de resource bestaat
+		return Application.Current.Resources.Contains( key )
+			? Application.Current.Resources [ key ]?.ToString() ?? $"Resource '{key}' is leeg."
+			: $"Resource '{key}' niet gevonden.";
+	}
 	#endregion
 }

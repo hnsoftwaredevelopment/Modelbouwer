@@ -174,18 +174,16 @@ public class DBCommands
 	#region BrandList
 	public static ObservableCollection<BrandModel> GetBrandList( ObservableCollection<BrandModel>? brandList = null )
 	{
+		brandList ??= [ ];
 		DataTable? _dt = GetData( DBNames.BrandTable, DBNames.BrandFieldNameName );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			if ( _dt.Rows [ i ] [ 2 ] == DBNull.Value )
+			brandList.Add( new BrandModel
 			{
-				brandList.Add( new BrandModel
-				{
-					BrandId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
-					BrandName = _dt.Rows [ i ] [ 1 ].ToString(),
-				} );
-			}
+				BrandId = ( int ) _dt.Rows [ i ] [ 0 ],
+				BrandName = _dt.Rows [ i ] [ 1 ].ToString(),
+			} );
 		}
 		return brandList;
 	}
@@ -211,6 +209,26 @@ public class DBCommands
 			} );
 		}
 		return categoryList;
+	}
+	#endregion
+
+	#region CountryList
+	public static ObservableCollection<CountryModel> GetCountryList( ObservableCollection<CountryModel>? countryList = null )
+	{
+		countryList ??= [ ];
+		DataTable? _dt = GetData( DBNames.CountryTable, DBNames.CountryFieldNameName );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			countryList.Add( new CountryModel
+			{
+				CountryId = ( int ) _dt.Rows [ i ] [ 0 ],
+				CountryCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				CountryName = _dt.Rows [ i ] [ 3 ].ToString(),
+				CountryDefaultCurrencyId = ( int ) _dt.Rows [ i ] [ 4 ]
+			} );
+		}
+		return countryList;
 	}
 	#endregion
 
@@ -338,7 +356,7 @@ public class DBCommands
 		{
 			if ( i != 0 )
 			{ prefix = ", "; }
-			sqlFields = string.Concat( $"{sqlFields}{prefix}{_fields [ i, 0 ]}" );
+			sqlFields = string.Concat( $"{sqlFields}{prefix}`{_fields [ i, 0 ]}`" );
 			sqlValues = string.Concat( $"{sqlValues}{prefix}@{_fields [ i, 0 ]}" );
 		}
 
@@ -459,6 +477,86 @@ public class DBCommands
 	#endregion
 	#endregion
 
+	#region Update record in database
+	public static string UpdateInTable( string _table, string [ , ] _fieldsToUpdate, string [ , ] _whereFields )
+	{
+		string sqlQuery = $"{DBNames.SqlUpdate}{DBNames.Database}.{_table} {DBNames.SqlSet}";
+		string sqlUpdateFields = "", sqlWhereFields = $"{DBNames.SqlWhere}", prefix = "";
+
+		// Concatenate the fields to change
+		for ( int i = 0; i < _fieldsToUpdate.GetLength( 0 ); i++ )
+		{
+			if ( i != 0 )
+			{ prefix = ", "; }
+			sqlUpdateFields = string.Concat( $"{sqlUpdateFields}{prefix}`{_fieldsToUpdate [ i, 0 ]}` = @{_fieldsToUpdate [ i, 0 ]}" );
+		}
+
+		prefix = "";
+
+		// Concatenate the condition fields
+		for ( int i = 0; i < _whereFields.GetLength( 0 ); i++ )
+		{
+			if ( i != 0 )
+			{ prefix = ", "; }
+			sqlWhereFields = string.Concat( $"{sqlWhereFields}{prefix}`{_whereFields [ i, 0 ]}` = @{_whereFields [ i, 0 ]}" );
+		}
+
+		sqlQuery = string.Concat( $"{sqlQuery}{sqlUpdateFields}{sqlWhereFields};" );
+
+		string result;
+		try
+		{
+			int rowsAffected = ExecuteNonQueryTable(sqlQuery, _whereFields, _fieldsToUpdate);
+
+			result = rowsAffected > 0 ? $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.Updated" )}." : $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.NotUpdated" )}.";
+		}
+		catch ( MySqlException ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
+			throw;
+		}
+		catch ( Exception ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
+			throw;
+		}
+		return result;
+	}
+	#endregion
+
+	#region Delete records from database
+	public static string DeleteRecord( string _table, string [ , ] _whereFields )
+	{
+		string sqlQuery = $"{DBNames.SqlDeleteFrom}{DBNames.Database}.{_table}{DBNames.SqlWhere}", prefix = "";
+
+		for ( int i = 0; i < _whereFields.GetLength( 0 ); i++ )
+		{
+			if ( i != 0 ) { prefix = $"{DBNames.SqlAnd}"; }
+
+			sqlQuery = string.Concat( $"{sqlQuery}{prefix}`{_whereFields [ i, 0 ]}` = @{_whereFields [ i, 0 ]}" );
+		}
+
+		string result;
+		try
+		{
+			int rowsAffected = ExecuteNonQueryTable(sqlQuery, _whereFields);
+
+			result = rowsAffected > 0 ? $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.Deleted" )}." : $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.NotDeleted" )}.";
+		}
+		catch ( MySqlException ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
+			throw;
+		}
+		catch ( Exception ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
+			throw;
+		}
+		return result;
+	}
+	#endregion
+
 	#region Check if there is a record in the table based (returns no of records)
 	public static int CheckForRecords( string _table, string [ , ] _whereFields )
 	{
@@ -474,7 +572,7 @@ public class DBCommands
 		{
 			if ( i != 0 )
 			{ prefix = DBNames.SqlAnd; }
-			_ = sqlQuery.Append( $"{prefix}`{_whereFields [ i, 0 ]}` = @{_whereFields [ i, 0 ]}" );
+			_ = sqlQuery.Append( $"{prefix}{DBNames.SqlLower}`{_whereFields [ i, 0 ]}` ) = @{_whereFields [ i, 0 ]}" );
 		}
 
 		using ( MySqlConnection connection = new( DBConnect.ConnectionString ) )

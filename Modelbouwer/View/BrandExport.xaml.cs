@@ -23,8 +23,8 @@ public partial class BrandExport : Page
 
 		if ( _dt == null )
 		{
-			dispFolderName.Text = TryFindResource( "Export.Brands.Empty" ) as string;
-			dispStatusLine.Text = TryFindResource( "Export.Brands.Empty" ) as string;
+			dispFolderName.Text = TryFindResource( "Export.Brand.Empty" ) as string;
+			dispStatusLine.Text = TryFindResource( "Export.Brand.Empty" ) as string;
 
 			columnExportButton.Width = new GridLength( 0 );
 			columnSelectFolderButton.Width = new GridLength( 0 );
@@ -52,7 +52,7 @@ public partial class BrandExport : Page
 	#region Export after selecting folder
 	private void Export( object sender, RoutedEventArgs e )
 	{
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Brands.Filename")}.csv";
+		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Brand.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Brand");
 
 		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );

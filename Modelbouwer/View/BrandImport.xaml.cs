@@ -23,7 +23,7 @@ public partial class BrandImport : System.Windows.Controls.Page
 
 		DialogResult result = folderDialog.ShowDialog();
 
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Brands.Filename")}.csv";
+		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Brand.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Brand");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
@@ -37,9 +37,9 @@ public partial class BrandImport : System.Windows.Controls.Page
 	{
 		OpenFileDialog fileDialog = new ()
 		{
-			Title = (string)FindResource("Import.Brands.FileDialog.Description"),
+			Title = (string)FindResource("Import.Brand.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.Brands.FileDialog.FilterText")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.Brand.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 

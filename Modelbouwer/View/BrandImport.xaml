@@ -28,7 +28,7 @@
 					<TextBlock
 						Grid.Column="0"
 						Style="{DynamicResource Title}"
-						Text="{StaticResource Import.Brands.Title}" />
+						Text="{StaticResource Import.Brand.Title}" />
 
 					<Button
 						Grid.Column="1"
@@ -42,7 +42,7 @@
 				<TextBlock
 					Grid.Column="0"
 					Style="{DynamicResource SubTitle}"
-					Text="{StaticResource Import.Brands.Subtitle}" />
+					Text="{StaticResource Import.Brand.Subtitle}" />
 			</StackPanel>
 			<!--  endregion Title of the page  -->
 
@@ -74,7 +74,7 @@
 							<Image Source="{StaticResource Import}" />
 							<StackPanel Margin="5,0,0,0" Orientation="Vertical">
 								<TextBlock HorizontalAlignment="Center" Text="{StaticResource Import.Button.Label}" />
-								<TextBlock HorizontalAlignment="Center" Text="{StaticResource Import.Brands.Button.Text}" />
+								<TextBlock HorizontalAlignment="Center" Text="{StaticResource Import.Brand.Button.Text}" />
 							</StackPanel>
 						</StackPanel>
 					</Button>
@@ -98,7 +98,7 @@
 			</StackPanel>
 			<!--#endregion-->
 
-			<!--#region Brands export Status bar-->
+			<!--#region Brand export Status bar-->
 			<DockPanel
 				Grid.Row="3"
 				Height="30"

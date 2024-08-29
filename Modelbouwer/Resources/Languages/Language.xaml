@@ -199,40 +199,62 @@
 	<system:String x:Key="Import.Statusline.Prefix.Error">Fout in regel</system:String>
 	<system:String x:Key="Import.Statusline.Text">Status:</system:String>
 	<system:String x:Key="Import.Statusline.None">Geen</system:String>
+
+	<system:String x:Key="Maintanance.Statusline.None">Geen</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists">Niet opgeslagen, bestaat al</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.Unchanged">Niet opgeslagen, niets gewijzigd of bestaat al</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.Empty">Niet opgeslagen, niets ingevoerd</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.Added">is toegevoegd</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.Changed">zijn gewijzigd</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.DataOf">De gegevens van</system:String>
+	<system:String x:Key="Maintanance.Statusline.Deleted">is verwijderd</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotDeleted">is niet verwijderd</system:String>
+	<system:String x:Key="Maintanance.Statusline.Updated">is gewijzigd</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotUpdated">is niet gewijzigd</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
-	<!--#region Brands-->
+	<!--#region Brand-->
 	<!--#region Export page-->
-	<system:String x:Key="Export.Brands.Title">Merken Exporteren</system:String>
-	<system:String x:Key="Export.Brands.Subtitle">Exporteer merken naar een CSV bestand</system:String>
-	<system:String x:Key="Export.Brands.Filename">Merken</system:String>
-	<system:String x:Key="Export.Brands.Button.Label">Merk</system:String>
-	<system:String x:Key="Export.Brands.Button.Tooltip">Selecteer het te importeren CSV bestand met merken</system:String>
-	<system:String x:Key="Export.Brands.Empty">Er zijn geen merken beschikbaar om te exporteren</system:String>
+	<system:String x:Key="Export.Brand.Title">Merken Exporteren</system:String>
+	<system:String x:Key="Export.Brand.Subtitle">Exporteer merken naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Brand.Filename">Merken</system:String>
+	<system:String x:Key="Export.Brand.Button.Label">Merk</system:String>
+	<system:String x:Key="Export.Brand.Button.Tooltip">Selecteer het te importeren CSV bestand met merken</system:String>
+	<system:String x:Key="Export.Brand.Empty">Er zijn geen merken beschikbaar om te exporteren</system:String>
 
 	<!--#region Buttons-->
-	<system:String x:Key="Export.Brands.Button.Text">Merken</system:String>
+	<system:String x:Key="Export.Brand.Button.Text">Merken</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Import page-->
-	<system:String x:Key="Import.Brands.Title">Merken Importeren</system:String>
-	<system:String x:Key="Import.Brands.Subtitle">Importeer merken uit een CSV bestand, hierin staan uitsluitend merknamen</system:String>
-	<system:String x:Key="Import.Brands.Filename">Merken</system:String>
-	<system:String x:Key="Import.Brands.Messagebox.Error.Existing.Long">Merk bestaat al in de tabel</system:String>
-	<system:String x:Key="Import.Brands.Messagebox.Error.Existing.Short">Merk Bestaat al</system:String>
-	<system:String x:Key="Import.Brands.Button.Label">Merk</system:String>
-	<system:String x:Key="Import.Brands.Button.Tooltip">Selecteer het te importeren CSV bestand met merken (bestand moet een geldige header bevatten, gebruik de kop CSV voorbereiden voor een bestand met de header)</system:String>
-	<system:String x:Key="Import.Brands.FileDialog.Description">Selecteer het te importeren CSV bestand met merken</system:String>
-	<system:String x:Key="Import.Brands.FileDialog.FilterText">CSV Bestanden</system:String>
+	<system:String x:Key="Import.Brand.Title">Merken Importeren</system:String>
+	<system:String x:Key="Import.Brand.Subtitle">Importeer merken uit een CSV bestand, hierin staan uitsluitend merknamen</system:String>
+	<system:String x:Key="Import.Brand.Filename">Merken</system:String>
+	<system:String x:Key="Import.Brand.Messagebox.Error.Existing.Long">Merk bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Brand.Messagebox.Error.Existing.Short">Merk Bestaat al</system:String>
+	<system:String x:Key="Import.Brand.Button.Label">Merk</system:String>
+	<system:String x:Key="Import.Brand.Button.Tooltip">Selecteer het te importeren CSV bestand met merken (bestand moet een geldige header bevatten, gebruik de kop CSV voorbereiden voor een bestand met de header)</system:String>
+	<system:String x:Key="Import.Brand.FileDialog.Description">Selecteer het te importeren CSV bestand met merken</system:String>
+	<system:String x:Key="Import.Brand.FileDialog.FilterText">CSV Bestanden</system:String>
 
 	<!--#region Button-->
-	<system:String x:Key="Import.Brands.Button.Text">Merken</system:String>
+	<system:String x:Key="Import.Brand.Button.Text">Merken</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Brand.Title">Merken beheren</system:String>
+	<system:String x:Key="Edit.Brand.Subtitle">Wijzig een merk, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Brand.Name.Label">Merknaam:</system:String>
+	<system:String x:Key="Edit.Brand.Name.Tag">Merknaam</system:String>
+	<system:String x:Key="Edit.Brand.Action.Tooltip.Add">Merk toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Brand.Action.Tooltip.Delete">Geselecteerde merk verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Brand.Action.Tooltip.Save">Gewijzigde merk opslaan</system:String>
+	<system:String x:Key="Edit.Brand.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Brand.DataGrid.Header.Name">Merknaam</system:String>
+
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -267,6 +289,15 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Category.Title">Categorieen beheren</system:String>
+	<system:String x:Key="Edit.Category.Subtitle">Wijzig een categorie, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Category.Name.Label">Categorienaam:</system:String>
+	<system:String x:Key="Edit.Category.Name.Tag">Categorienaam</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.Add">Categorie toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.Delete">Geselecteerde categorie verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.Save">Gewijzigde categorie opslaan</system:String>
+	<system:String x:Key="Edit.Category.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Category.DataGrid.Header.Name">Categorienaam</system:String>	
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -301,6 +332,15 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Country.Title">Landen beheren</system:String>
+	<system:String x:Key="Edit.Country.Subtitle">Wijzig een land, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Country.Name.Label">Landnaam:</system:String>
+	<system:String x:Key="Edit.Country.Name.Tag">Landnaam</system:String>
+	<system:String x:Key="Edit.Country.Action.Tooltip.Add">Land toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Country.Action.Tooltip.Delete">Geselecteerde land verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Country.Action.Tooltip.Save">Gewijzigde land opslaan</system:String>
+	<system:String x:Key="Edit.Country.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Country.DataGrid.Header.Name">Landnaam</system:String>	
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -336,6 +376,15 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Currency.Title">Valuta beheren</system:String>
+	<system:String x:Key="Edit.Currency.Subtitle">Wijzig een valuta, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Currency.Name.Label">Valutanaam:</system:String>
+	<system:String x:Key="Edit.Currency.Name.Tag">Valutanaam</system:String>
+	<system:String x:Key="Edit.Currency.Action.Tooltip.Add">Valuta toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Currency.Action.Tooltip.Delete">Geselecteerde valuta verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Currency.Action.Tooltip.Save">Gewijzigde valuta opslaan</system:String>
+	<system:String x:Key="Edit.Currency.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Currency.DataGrid.Header.Name">Valutanaam</system:String>	
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -372,6 +421,15 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.StorageLocation.Title">Voorraad locaties beheren</system:String>
+	<system:String x:Key="Edit.StorageLocation.Subtitle">Wijzig een locatie, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.StorageLocation.Name.Label">Locatienaam:</system:String>
+	<system:String x:Key="Edit.StorageLocation.Name.Tag">Locatienaam</system:String>
+	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Add">Locatie toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Delete">Geselecteerde locatie verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Save">Gewijzigde locatie opslaan</system:String>
+	<system:String x:Key="Edit.StorageLocation.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.StorageLocation.DataGrid.Header.Name">Locatienaam</system:String>	
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -407,6 +465,15 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Product.Title">Produkten beheren</system:String>
+	<system:String x:Key="Edit.Product.Subtitle">Wijzig een produkt, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Product.Name.Label">Produktnaam:</system:String>
+	<system:String x:Key="Edit.Product.Name.Tag">Produktnaam</system:String>
+	<system:String x:Key="Edit.Product.Action.Tooltip.Add">Produkt toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Product.Action.Tooltip.Delete">Geselecteerde produkt verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Product.Action.Tooltip.Save">Gewijzigde produkt opslaan</system:String>
+	<system:String x:Key="Edit.Product.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Product.DataGrid.Header.Name">Produktnaam</system:String>	
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -442,6 +509,15 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Supplier.Title">Leveranciers beheren</system:String>
+	<system:String x:Key="Edit.Supplier.Subtitle">Wijzig een leverancier, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Supplier.Name.Label">Leveranciernaam:</system:String>
+	<system:String x:Key="Edit.Supplier.Name.Tag">Leveranciernaam</system:String>
+	<system:String x:Key="Edit.Supplier.Action.Tooltip.Add">Leverancier toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Supplier.Action.Tooltip.Delete">Geselecteerde leverancier verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Supplier.Action.Tooltip.Save">Gewijzigde leverancier opslaan</system:String>
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.Name">Leveranciernaam</system:String>	
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -475,10 +551,105 @@
 	<!--#endregion-->
 	<!--#endregion-->
 
+	<!--#region Maintanance-->
+	<system:String x:Key="Edit.Project.Title">Projekten beheren</system:String>
+	<system:String x:Key="Edit.Project.Subtitle">Wijzig een projekt, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Project.Name.Label">Projektnaam:</system:String>
+	<system:String x:Key="Edit.Project.Name.Tag">Projektnaam</system:String>
+	<system:String x:Key="Edit.Project.Action.Tooltip.Add">Projekt toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Project.Action.Tooltip.Delete">Geselecteerde projekt verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Project.Action.Tooltip.Save">Gewijzigde projekt opslaan</system:String>
+	<system:String x:Key="Edit.Project.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Project.DataGrid.Header.Name">Projektnaam</system:String>
+	<!--#endregion-->
+
+	<!--#endregion-->
+
+	<!--#region Unit>-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.Unit.Title">Eenheden Exporteren</system:String>
+	<system:String x:Key="Export.Unit.Subtitle">Exporteer eenheden naar een CSV bestand</system:String>
+	<system:String x:Key="Export.Unit.Filename">Eenheden</system:String>
+	<system:String x:Key="Export.Unit.Button.Label">Eenheden</system:String>
+	<system:String x:Key="Export.Unit.Button.Tooltip">Selecteer het te importeren CSV bestand met eenheden</system:String>
+	<system:String x:Key="Export.Unit.Empty">Er zijn geen eenheden beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.Unit.Button.Text">Eenheden</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.Unit.Title">Eenheden Importeren</system:String>
+	<system:String x:Key="Import.Unit.Subtitle">Importeer eenheden uit een CSV bestand, hierin staan uitsluitend eenhedennamen</system:String>
+	<system:String x:Key="Import.Unit.Filename">Importeer eenheden</system:String>
+	<system:String x:Key="Import.Unit.Messagebox.Error.Existing.Long">Ingelezen eenheden bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.Unit.Messagebox.Error.Existing.Short">Eenheden Bestaat al</system:String>
+	<system:String x:Key="Import.Unit.Button.Label">Eenheden</system:String>
+	<system:String x:Key="Import.Unit.Button.Tooltip">Selecteer het te importeren CSV bestand met eenheden</system:String>
+	<system:String x:Key="Import.Unit.FileDialog.Description">Selecteer het te importeren CSV bestand met eenheden</system:String>
+	<system:String x:Key="Import.Unit.FileDialog.FilterText">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.Unit.Button.Text">Eenheden</system:String>
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Unit.Title">Eenheden beheren</system:String>
+	<system:String x:Key="Edit.Unit.Subtitle">Wijzig een eenheid, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Unit.Name.Label">Eenheidnaam:</system:String>
+	<system:String x:Key="Edit.Unit.Name.Tag">Eenheidnaam</system:String>
+	<system:String x:Key="Edit.Unit.Action.Tooltip.Add">Eenheid toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Unit.Action.Tooltip.Delete">Geselecteerde eenheid verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Unit.Action.Tooltip.Save">Gewijzigde eenheid opslaan</system:String>
+	<system:String x:Key="Edit.Unit.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Unit.DataGrid.Header.Name">Eenheidnaam</system:String>
 	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Work type-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.WorkType.Title">Werksoorten Exporteren</system:String>
+	<system:String x:Key="Export.WorkType.Subtitle">Exporteer werksoorten naar een CSV bestand</system:String>
+	<system:String x:Key="Export.WorkType.Filename">Werksoorten</system:String>
+	<system:String x:Key="Export.WorkType.Button.Label">Werksoorten</system:String>
+	<system:String x:Key="Export.WorkType.Button.Tooltip">Selecteer het te importeren CSV bestand met werksoorten</system:String>
+	<system:String x:Key="Export.WorkType.Empty">Er zijn geen werksoorten beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.WorkType.Button.Text">Werksoorten</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.WorkType.Title">Werksoorten Importeren</system:String>
+	<system:String x:Key="Import.WorkType.Subtitle">Importeer werksoorten uit een CSV bestand, hierin staan uitsluitend werksoortennamen</system:String>
+	<system:String x:Key="Import.WorkType.Filename">Importeer werksoorten</system:String>
+	<system:String x:Key="Import.WorkType.Messagebox.Error.Existing.Long">Ingelezen werksoorten bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.WorkType.Messagebox.Error.Existing.Short">Werksoorten Bestaat al</system:String>
+	<system:String x:Key="Import.WorkType.Button.Label">Werksoorten</system:String>
+	<system:String x:Key="Import.WorkType.Button.Tooltip">Selecteer het te importeren CSV bestand met werksoorten</system:String>
+	<system:String x:Key="Import.WorkType.FileDialog.Description">Selecteer het te importeren CSV bestand met werksoortenn</system:String>
+	<system:String x:Key="Import.WorkType.FileDialog.FilterText">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.WorkType.Button.Text">Werksoorten</system:String>
+	<!--#endregion-->
+
+	<!--#endregion-->
+
+	<!--#region Maintanance-->
+	<system:String x:Key="Edit.Worktype.Title">Werksoorten beheren</system:String>
+	<system:String x:Key="Edit.Worktype.Subtitle">Wijzig een werksoort, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Worktype.Name.Label">Werksoortnaam:</system:String>
+	<system:String x:Key="Edit.Worktype.Name.Tag">Werksoortnaam</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.Add">Werksoort toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.Delete">Geselecteerde werksoort verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.Save">Gewijzigde werksoort opslaan</system:String>
+	<system:String x:Key="Edit.Worktype.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Worktype.DataGrid.Header.Name">Werksoortnaam</system:String>
 	<!--#endregion-->
 
 	<!--#region Supplier-->
@@ -586,6 +757,12 @@
 	<!--#endregion-->
 	<!--#endregion-->
 
+	<!--#region Maintenance page-->
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#endregion-->
+
 	<!--#region Time registration-->
 	<!--#region Export page-->
 	<system:String x:Key="Export.Time.Title">Urenregistratie Exporteren</system:String>
@@ -618,85 +795,23 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.Time.Title">Tijden beheren</system:String>
+	<system:String x:Key="Edit.Time.Subtitle">Wijzig een tijd, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Time.Name.Label">Tijdnaam:</system:String>
+	<system:String x:Key="Edit.Time.Name.Tag">Tijdnaam</system:String>
+	<system:String x:Key="Edit.Time.Action.Tooltip.Add">Tijd toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Time.Action.Tooltip.Delete">Geselecteerde tijd verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Time.Action.Tooltip.Save">Gewijzigde tijd opslaan</system:String>
+	<system:String x:Key="Edit.Time.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Time.DataGrid.Header.Name">Tijdnaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
-	<!--#region Unit>-->
-	<!--#region Export page-->
-	<system:String x:Key="Export.Unit.Title">Eenheden Exporteren</system:String>
-	<system:String x:Key="Export.Unit.Subtitle">Exporteer eenheden naar een CSV bestand</system:String>
-	<system:String x:Key="Export.Unit.Filename">Eenheden</system:String>
-	<system:String x:Key="Export.Unit.Button.Label">Eenheden</system:String>
-	<system:String x:Key="Export.Unit.Button.Tooltip">Selecteer het te importeren CSV bestand met eenheden</system:String>
-	<system:String x:Key="Export.Unit.Empty">Er zijn geen eenheden beschikbaar om te exporteren</system:String>
-
-	<!--#region Buttons-->
-	<system:String x:Key="Export.Unit.Button.Text">Eenheden</system:String>
-	<!--#endregion-->
-	<!--#endregion-->
-
-	<!--#region Import page-->
-	<system:String x:Key="Import.Unit.Title">Eenheden Importeren</system:String>
-	<system:String x:Key="Import.Unit.Subtitle">Importeer eenheden uit een CSV bestand, hierin staan uitsluitend eenhedennamen</system:String>
-	<system:String x:Key="Import.Unit.Filename">Importeer eenheden</system:String>
-	<system:String x:Key="Import.Unit.Messagebox.Error.Existing.Long">Ingelezen eenheden bestaat al in de tabel</system:String>
-	<system:String x:Key="Import.Unit.Messagebox.Error.Existing.Short">Eenheden Bestaat al</system:String>
-	<system:String x:Key="Import.Unit.Button.Label">Eenheden</system:String>
-	<system:String x:Key="Import.Unit.Button.Tooltip">Selecteer het te importeren CSV bestand met eenheden</system:String>
-	<system:String x:Key="Import.Unit.FileDialog.Description">Selecteer het te importeren CSV bestand met eenheden</system:String>
-	<system:String x:Key="Import.Unit.FileDialog.FilterText">CSV Bestanden</system:String>
-
-	<!--#region Buttons-->
-	<system:String x:Key="Import.Unit.Button.Text">Eenheden</system:String>
-	<!--#endregion-->
-
-	<!--#endregion-->
-
-	<!--#region Maintenance page-->
-	<!--#endregion-->
-	<!--#endregion-->
-
-	<!--#region Work type-->
-	<!--#region Export page-->
-	<system:String x:Key="Export.WorkType.Title">Werksoorten Exporteren</system:String>
-	<system:String x:Key="Export.WorkType.Subtitle">Exporteer werksoorten naar een CSV bestand</system:String>
-	<system:String x:Key="Export.WorkType.Filename">Werksoorten</system:String>
-	<system:String x:Key="Export.WorkType.Button.Label">Werksoorten</system:String>
-	<system:String x:Key="Export.WorkType.Button.Tooltip">Selecteer het te importeren CSV bestand met werksoorten</system:String>
-	<system:String x:Key="Export.WorkType.Empty">Er zijn geen werksoorten beschikbaar om te exporteren</system:String>
-
-	<!--#region Buttons-->
-	<system:String x:Key="Export.WorkType.Button.Text">Werksoorten</system:String>
-	<!--#endregion-->
-	<!--#endregion-->
-
-	<!--#region Import page-->
-	<system:String x:Key="Import.WorkType.Title">Werksoorten Importeren</system:String>
-	<system:String x:Key="Import.WorkType.Subtitle">Importeer werksoorten uit een CSV bestand, hierin staan uitsluitend werksoortennamen</system:String>
-	<system:String x:Key="Import.WorkType.Filename">Importeer werksoorten</system:String>
-	<system:String x:Key="Import.WorkType.Messagebox.Error.Existing.Long">Ingelezen werksoorten bestaat al in de tabel</system:String>
-	<system:String x:Key="Import.WorkType.Messagebox.Error.Existing.Short">Werksoorten Bestaat al</system:String>
-	<system:String x:Key="Import.WorkType.Button.Label">Werksoorten</system:String>
-	<system:String x:Key="Import.WorkType.Button.Tooltip">Selecteer het te importeren CSV bestand met werksoorten</system:String>
-	<system:String x:Key="Import.WorkType.FileDialog.Description">Selecteer het te importeren CSV bestand met werksoortenn</system:String>
-	<system:String x:Key="Import.WorkType.FileDialog.FilterText">CSV Bestanden</system:String>
-
-	<!--#region Buttons-->
-	<system:String x:Key="Import.WorkType.Button.Text">Werksoorten</system:String>
-	<!--#endregion-->
-
-	<!--#endregion-->
-
-	<!--#region Maintenance page-->
-	<!--#endregion-->
-	<!--#endregion-->
-	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Settings-->
 	<system:String x:Key="mainRibbon.Manage.Settings.Button.Label">Instellingen</system:String>
 	<system:String x:Key="mainRibbon.Manage.Settings.Group.Header">Instellingen</system:String>
-	<!--#endregion-->
 	<!--#endregion-->
 
 </ResourceDictionary>
