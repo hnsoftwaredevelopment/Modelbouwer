@@ -216,7 +216,7 @@ public class DBCommands
 	public static ObservableCollection<CountryModel> GetCountryList( ObservableCollection<CountryModel>? countryList = null )
 	{
 		countryList ??= [ ];
-		DataTable? _dt = GetData( DBNames.CountryTable, DBNames.CountryFieldNameName );
+		DataTable? _dt = GetData( DBNames.CountryView, DBNames.CountryFieldNameName );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
@@ -224,11 +224,51 @@ public class DBCommands
 			{
 				CountryId = ( int ) _dt.Rows [ i ] [ 0 ],
 				CountryCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				CountryName = _dt.Rows [ i ] [ 3 ].ToString(),
-				CountryDefaultCurrencyId = ( int ) _dt.Rows [ i ] [ 4 ]
+				CountryName = _dt.Rows [ i ] [ 2 ].ToString(),
+				CountryCurrencyId = ( int ) _dt.Rows [ i ] [ 3 ],
+				CountryCurrencySymbol = _dt.Rows [ i ] [ 4 ].ToString()
 			} );
 		}
 		return countryList;
+	}
+	public static ObservableCollection<CountryViewModel> GetCountryViewList( ObservableCollection<CountryViewModel>? countryList = null )
+	{
+		countryList ??= [ ];
+		DataTable? _dt = GetData( DBNames.CountryView, DBNames.CountryFieldNameName );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			countryList.Add( new CountryViewModel
+			{
+				CountryId = ( int ) _dt.Rows [ i ] [ 0 ],
+				CountryCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				CountryName = _dt.Rows [ i ] [ 2 ].ToString(),
+				CountryCurrencyId = ( int ) _dt.Rows [ i ] [ 3 ],
+				CountryCurrencySymbol = _dt.Rows [ i ] [ 4 ].ToString()
+			} );
+		}
+		return countryList;
+	}
+	#endregion
+
+	#region CurrencyList
+	public static ObservableCollection<CurrencyModel> GetCurrencyList( ObservableCollection<CurrencyModel>? currencyList = null )
+	{
+		currencyList ??= [ ];
+		DataTable? _dt = GetData( DBNames.CurrencyTable, DBNames.CurrencyFieldNameName );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			currencyList.Add( new CurrencyModel
+			{
+				CurrencyId = ( int ) _dt.Rows [ i ] [ 0 ],
+				CurrencyCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				CurrencySymbol = _dt.Rows [ i ] [ 2 ].ToString(),
+				CurrencyName = _dt.Rows [ i ] [ 3 ].ToString(),
+				CurrencyConversionRate = ( double ) _dt.Rows [ i ] [ 4 ]
+			} );
+		}
+		return currencyList;
 	}
 	#endregion
 

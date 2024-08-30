@@ -30,7 +30,7 @@ public partial class BrandViewModel : ObservableObject
 	private bool isTextChanged;
 
 	[ObservableProperty]
-	private BrandModel selectedBrand;
+	private BrandModel _selectedBrand;
 
 	private BrandModel? _temporaryBrand;
 	private string? _originalBrandName;

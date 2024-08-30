@@ -202,6 +202,10 @@
 
 	<system:String x:Key="Maintanance.Statusline.None">Geen</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists">Niet opgeslagen, bestaat al</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists.Prefix">Niet opgeslagen,</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists.Concat">en</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists.Suffix">bestaan al</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists.SuffixSingle">bestaat al</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.Unchanged">Niet opgeslagen, niets gewijzigd of bestaat al</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.Empty">Niet opgeslagen, niets ingevoerd</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.Added">is toegevoegd</system:String>
@@ -297,7 +301,7 @@
 	<system:String x:Key="Edit.Category.Action.Tooltip.Delete">Geselecteerde categorie verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Category.Action.Tooltip.Save">Gewijzigde categorie opslaan</system:String>
 	<system:String x:Key="Edit.Category.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Category.DataGrid.Header.Name">Categorienaam</system:String>	
+	<system:String x:Key="Edit.Category.DataGrid.Header.Name">Categorienaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -334,13 +338,20 @@
 	<!--#region Maintenance page-->
 	<system:String x:Key="Edit.Country.Title">Landen beheren</system:String>
 	<system:String x:Key="Edit.Country.Subtitle">Wijzig een land, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Country.Code.Label">Zoekcode:</system:String>
+	<system:String x:Key="Edit.Country.Code.Tag">Zoekcode</system:String>
 	<system:String x:Key="Edit.Country.Name.Label">Landnaam:</system:String>
 	<system:String x:Key="Edit.Country.Name.Tag">Landnaam</system:String>
+	<system:String x:Key="Edit.Country.Currency.Label">Standaard valuta:</system:String>
+	<system:String x:Key="Edit.Country.Currency.Tag">Selecteer valuta</system:String>
 	<system:String x:Key="Edit.Country.Action.Tooltip.Add">Land toevoegen aan de tabel</system:String>
 	<system:String x:Key="Edit.Country.Action.Tooltip.Delete">Geselecteerde land verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Country.Action.Tooltip.Save">Gewijzigde land opslaan</system:String>
 	<system:String x:Key="Edit.Country.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Country.DataGrid.Header.Name">Landnaam</system:String>	
+	<system:String x:Key="Edit.Country.DataGrid.Header.Name">Landnaam</system:String>
+	<system:String x:Key="Edit.Country.DataGrid.Header.Code">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Country.DataGrid.Header.CurrencyId">ValutaId</system:String>
+	<system:String x:Key="Edit.Country.DataGrid.Header.CurrencySymbol">Valuta</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -384,7 +395,7 @@
 	<system:String x:Key="Edit.Currency.Action.Tooltip.Delete">Geselecteerde valuta verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Currency.Action.Tooltip.Save">Gewijzigde valuta opslaan</system:String>
 	<system:String x:Key="Edit.Currency.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Currency.DataGrid.Header.Name">Valutanaam</system:String>	
+	<system:String x:Key="Edit.Currency.DataGrid.Header.Name">Valutanaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -429,7 +440,7 @@
 	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Delete">Geselecteerde locatie verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Save">Gewijzigde locatie opslaan</system:String>
 	<system:String x:Key="Edit.StorageLocation.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.StorageLocation.DataGrid.Header.Name">Locatienaam</system:String>	
+	<system:String x:Key="Edit.StorageLocation.DataGrid.Header.Name">Locatienaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -473,7 +484,7 @@
 	<system:String x:Key="Edit.Product.Action.Tooltip.Delete">Geselecteerde produkt verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Product.Action.Tooltip.Save">Gewijzigde produkt opslaan</system:String>
 	<system:String x:Key="Edit.Product.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Product.DataGrid.Header.Name">Produktnaam</system:String>	
+	<system:String x:Key="Edit.Product.DataGrid.Header.Name">Produktnaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -517,7 +528,7 @@
 	<system:String x:Key="Edit.Supplier.Action.Tooltip.Delete">Geselecteerde leverancier verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Supplier.Action.Tooltip.Save">Gewijzigde leverancier opslaan</system:String>
 	<system:String x:Key="Edit.Supplier.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Supplier.DataGrid.Header.Name">Leveranciernaam</system:String>	
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.Name">Leveranciernaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

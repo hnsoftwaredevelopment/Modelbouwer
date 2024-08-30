@@ -95,16 +95,17 @@ public class DBNames
 
 	#region Country table
 	public static readonly string CountryTable = "country";
+	public static readonly string CountryView = "view_country";
 	public static readonly string CountryFieldNameId = "Id";
 	public static readonly string CountryFieldTypeId = "int";
 	public static readonly string CountryFieldNameCode = "Code";
 	public static readonly string CountryFieldTypeCode = "string";
-	public static readonly string CountryFieldNameDefCurrencySymbol = "Defaultcurrency_Symbol";
-	public static readonly string CountryFieldTypeDefCurrencySymbol = "string";
+	public static readonly string CountryFieldNameCurrencySymbol = "Symbol";
+	public static readonly string CountryFieldTypeCurrencySymbol = "string";
 	public static readonly string CountryFieldNameName = "Name";
 	public static readonly string CountryFieldTypeName = "string";
-	public static readonly string CountryFieldNameDefCurrencyId = "Defaultcurrency_Id";
-	public static readonly string CountryFieldTypeDefCurrencyId = "int";
+	public static readonly string CountryFieldNameCurrencyId = "Defaultcurrency_Id";
+	public static readonly string CountryFieldTypeCurrencyId = "int";
 	#endregion
 
 	#region Product table

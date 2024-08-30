@@ -69,8 +69,8 @@ public class GeneralHelper
 			"country" => [
 								DBNames.CountryFieldNameCode,
 					DBNames.CountryFieldNameName,
-					DBNames.CountryFieldNameDefCurrencySymbol,
-					DBNames.CountryFieldNameDefCurrencyId
+					DBNames.CountryFieldNameCurrencySymbol,
+					DBNames.CountryFieldNameCurrencyId
 							],
 			"currency" => [
 								DBNames.CurrencyFieldNameCode,
