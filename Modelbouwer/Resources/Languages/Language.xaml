@@ -297,10 +297,21 @@
 	<system:String x:Key="Edit.Category.Subtitle">Wijzig een categorie, voeg toe of verwijder</system:String>
 	<system:String x:Key="Edit.Category.Name.Label">Categorienaam:</system:String>
 	<system:String x:Key="Edit.Category.Name.Tag">Categorienaam</system:String>
-	<system:String x:Key="Edit.Category.Action.Tooltip.Add">Categorie toevoegen aan de tabel</system:String>
-	<system:String x:Key="Edit.Category.Action.Tooltip.Delete">Geselecteerde categorie verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.AddTask">Categorie toevoegen aan de tabe, op niveau van geselecteerde categoriel</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.AddSubTask">Categorie toevoegen aan de tabel, met geselecteerde categorie als hoofdcategorie</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.Delete">Geselecteerde categorie, en onderliggende subcategoriën, verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Category.Action.Tooltip.Save">Gewijzigde categorie opslaan</system:String>
+	<system:String x:Key="Edit.Category.Action.ContextMenu.Label.Expand">Categoriën openklappen</system:String>
+	<system:String x:Key="Edit.Category.Action.ContextMenu.Label.Collapse">Categoriën dichtklappen</system:String>
+	<system:String x:Key="Edit.Category.Action.ContextMenu.Label.Save">Wijzigingen opslaan</system:String>
+	<system:String x:Key="Edit.Category.Action.ContextMenu.Label.AddTask">Categorie toevoegen</system:String>
+	<system:String x:Key="Edit.Category.Action.ContextMenu.Label.AddSubTask">Subcategorie toevoegen</system:String>
+	<system:String x:Key="Edit.Category.Action.ContextMenu.Label.DeleteTask">Verwijder categorie</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.Expand">Alle (sub)categoriën openklappen</system:String>
+	<system:String x:Key="Edit.Category.Action.Tooltip.Collapse">Alle (sub)categoriën dicktklappen</system:String>
 	<system:String x:Key="Edit.Category.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Category.DataGrid.Header.ParentId">Ouder Id</system:String>
+	<system:String x:Key="Edit.Category.DataGrid.Header.Fullpath">Volledig pad</system:String>
 	<system:String x:Key="Edit.Category.DataGrid.Header.Name">Categorienaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->

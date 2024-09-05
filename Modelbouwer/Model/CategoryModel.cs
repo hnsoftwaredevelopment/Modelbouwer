@@ -1,10 +1,13 @@
-﻿namespace Modelbouwer.Model;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.Model;
 public class CategoryModel : INameable
 {
 	public int CategoryId { get; set; }
-	public int CategoryParentId { get; set; }
+	public int? CategoryParentId { get; set; }
 	public string? CategoryName { get; set; }
-	public string? CategoryFullpath { get; set; }
+
+	public ObservableCollection<CategoryModel> SubCategories { get; set; } = [ ];
 
 	// Define the property that you want to use in TLists (for example in the errorList
 	public string Name => CategoryName;
@@ -14,7 +17,6 @@ public class CategoryModel : INameable
 	{
 		{ DBNames.CategoryFieldNameId, "CategoryId" },
 		{ DBNames.CategoryFieldNameParentId, "CategoryParentId" },
-		{ DBNames.CategoryFieldNameName, "CategoryName" },
-		{ DBNames.CategoryFieldNameFullpath, "CategoryFullpath" }
+		{ DBNames.CategoryFieldNameName, "CategoryName" }
 	};
 }

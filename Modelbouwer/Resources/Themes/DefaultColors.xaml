@@ -10,7 +10,7 @@
 	<Color x:Key="Default.Box.Background">Transparent</Color>
 	<!--#endregion-->
 
-	<!--#region OptionMark Colors  -->
+	<!--#region OptionMark Colors-->
 	<SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FFE6E6E6" />
 	<SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC" />
 	<SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070" />
@@ -23,14 +23,14 @@
 	<SolidColorBrush x:Key="OptionMark.Static.Background" Color="#FFFFFFFF" />
 	<SolidColorBrush x:Key="OptionMark.Static.Border" Color="#FF707070" />
 	<SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="#FF212121" />
-	<!--#endregion OptionMark Colors  -->
+	<!--#endregion OptionMark Colors-->
 
-	<!--#region Textbox Colors  -->
+	<!--#region Textbox Colors-->
 	<SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5" />
 	<SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA" />
 	<SolidColorBrush x:Key="TextBox.Static.Border" Color="{DynamicResource Default.Box.Border}" />
-	<!--#endregion Textbox Colors  -->
-	
+	<!--#endregion Textbox Colors-->
+
 	<!--#region ComboBox Colorss-->
 	<SolidColorBrush x:Key="ComboBox.Focus.Border" Color="#FF569DE5" />
 	<SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF7EB4EA" />
@@ -42,30 +42,30 @@
 	<SolidColorBrush x:Key="DisabledBrush" Color="#A5FFFFFF" />
 	<!--#endregion DatePicker colors-->
 
-	<!--#region Primary colors  -->
+	<!--#region Primary colors-->
 	<SolidColorBrush x:Key="PrimaryBlueColor" Color="#263FAA" />
 	<SolidColorBrush x:Key="PrimaryGrayColor" Color="#64677A" />
-	<!--#endregion Primary colors  -->
+	<!--#endregion Primary colors-->
 
-	<!--#region  Secondary colors  -->
+	<!--#region  Secondary colors-->
 	<SolidColorBrush x:Key="SecondaryBlueColor" Color="#004BFF" />
 	<SolidColorBrush x:Key="SecondaryGrayColor" Color="#9296A5" />
-	<!--#endregion Secondary colors  -->
+	<!--#endregion Secondary colors-->
 
-	<!--#region Tertiary colors  -->
+	<!--#region Tertiary colors-->
 	<SolidColorBrush x:Key="TertiaryBlueColor" Color="#496FFF" />
 	<SolidColorBrush x:Key="TertiaryGrayColor" Color="#CECECE" />
-	<!--#endregion Tertiary colors  -->
+	<!--#endregion Tertiary colors-->
 
-	<!--#region Text colors  -->
+	<!--#region Text colors-->
 	<SolidColorBrush x:Key="PrimaryTextColor" Color="#FFFFFF" />
 	<SolidColorBrush x:Key="PrimaryCheckedColor" Color="Black" />
 	<SolidColorBrush x:Key="PrimaryUnCheckedColor" Color="#9296A5" />
-	<!--#endregion Text colors  -->
+	<!--#endregion Text colors-->
 
-	<!--#region Background colors  -->
+	<!--#region Background colors-->
 	<SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#FFEEEEEE" />
-	<!--#endregion Background colors  -->
+	<!--#endregion Background colors-->
 
 
 

@@ -6,8 +6,8 @@
 
 	<!--#region Default ComboBoxAdv-->
 	<Style TargetType="{x:Type local:ComboBoxAdv}">
-		<Setter Property="Background" Value="{DynamicResource ComboBox.Background}"/>
-		<Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}"/>
+		<Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />

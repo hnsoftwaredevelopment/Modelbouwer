@@ -15,7 +15,6 @@ public partial class CountryManagement : Page
 
 	private void ButtonNew( object sender, RoutedEventArgs e )
 	{
-
 		inpCountryId.Text = "0";
 		if ( DataContext is CombinedCountryViewModel viewModel )
 		{

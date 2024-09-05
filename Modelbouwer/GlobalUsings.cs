@@ -1,6 +1,4 @@
-//global using Modelbuilder.ViewModels;
 //global using Syncfusion.Windows.PdfViewer;
-//global using CommunityToolkit.Mvvm.ComponentModel;
 global using System.Data;
 global using System.Globalization;
 global using System.IO;

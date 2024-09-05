@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 
+using Syncfusion.Data.Extensions;
+
 namespace Modelbouwer.Helper;
 public class DBCommands
 {
@@ -190,25 +192,34 @@ public class DBCommands
 	#endregion
 
 	#region CategoryList
-	public static ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
+	public ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
 	{
 		categoryList ??= [ ];
-		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameFullpath );
+		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameName );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			int _parent = 0;
+			int? _parent = null;
 			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
 
 			categoryList.Add( new CategoryModel
 			{
 				CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
 				CategoryParentId = _parent,
-				CategoryName = _dt.Rows [ i ] [ 2 ].ToString(),
-				CategoryFullpath = _dt.Rows [ i ] [ 3 ].ToString()
+				CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
 			} );
 		}
-		return categoryList;
+		return GetCategoryHierarchy( categoryList );
+	}
+
+	private ObservableCollection<CategoryModel> GetCategoryHierarchy( ObservableCollection<CategoryModel>? categoryList )
+	{
+		ILookup<int?, CategoryModel> lookup = categoryList.ToLookup( c => c.CategoryParentId );
+		foreach ( CategoryModel category in categoryList )
+		{
+			category.SubCategories = lookup [ category.CategoryId ].ToObservableCollection();
+		}
+		return lookup [ null ].ToObservableCollection();
 	}
 	#endregion
 
@@ -564,6 +575,33 @@ public class DBCommands
 	}
 	#endregion
 
+	#region Replace start of FullPath with changed FullPath
+	public static void ChangeFullPath( string _table, string _fullPathFieldName, string _oldPath, string _newPath )
+	{
+		///UPDATE Category SET CategoryFullPath = CONCAT('Item A', SUBSTRING(CategoryFullPath, 7)) WHERE CategoryFullPath LIKE 'Item 1%';
+		string sqlQuery = $"" +
+			$"{DBNames.SqlUpdate}{_table}" +
+			$"{DBNames.SqlSet}{_fullPathFieldName} = " +
+			$"{DBNames.SqlConcat}'{_newPath}',{DBNames.SqlSubString}{_fullPathFieldName}, {_oldPath.Length + 1} ) )" +
+			$"{DBNames.SqlWhere}{_fullPathFieldName}{DBNames.SqlLike}'{_oldPath}%';";
+
+		try
+		{
+			ExecuteNonQuery( sqlQuery );
+		}
+		catch ( MySqlException ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
+			throw;
+		}
+		catch ( Exception ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
+			throw;
+		}
+	}
+	#endregion
+
 	#region Delete records from database
 	public static string DeleteRecord( string _table, string [ , ] _whereFields )
 	{
@@ -594,6 +632,42 @@ public class DBCommands
 			throw;
 		}
 		return result;
+	}
+	#endregion
+
+	#region Delete recordTree from table based on (Parent) Id
+	public static void DeleteRecordTree( string _table, string _idField, string _parentIdField, int _id = 0 )
+	{
+		if ( _id != 0 )
+		{
+			string sqlQuery = $"" +
+				$"{DBNames.SqlWithRecursive}RecordTree{DBNames.SqlAs}( " +
+				$"{DBNames.SqlSelect}{_idField}" +
+				$"{DBNames.SqlFrom}{_table}" +
+				$"{DBNames.SqlWhere}{_idField} = {_id} " +
+				$"{DBNames.SqlUnionAll} " +
+				$"{DBNames.SqlSelect}c.{_idField}" +
+				$"{DBNames.SqlFrom}{_table} c " +
+				$"{DBNames.SqlInnerJoin}RecordTree rt{DBNames.SqlOn}c.{_parentIdField} = rt.{_idField} ) " +
+				$"{DBNames.SqlDeleteFrom}{_table}" +
+				$"{DBNames.SqlWhere}{_idField} " +
+				$"{DBNames.SqlIn}( {DBNames.SqlSelect}{_idField}{DBNames.SqlFrom}RecordTree );";
+
+			try
+			{
+				ExecuteNonQuery( sqlQuery );
+			}
+			catch ( MySqlException ex )
+			{
+				Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
+				throw;
+			}
+			catch ( Exception ex )
+			{
+				Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
+				throw;
+			}
+		}
 	}
 	#endregion
 
@@ -690,8 +764,8 @@ public class DBCommands
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
 					case "int":
-						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Int32 ).Value = int.Parse( _fields [ i, 2 ] );
-						break;
+					{ cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Int32 ).Value = _fields [ i, 2 ] is "0" or "" ? null : int.Parse( _fields [ i, 2 ] ); }
+					break;
 					case "double":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Double ).Value = double.Parse( _fields [ i, 2 ] );
 						break;

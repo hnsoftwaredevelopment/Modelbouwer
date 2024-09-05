@@ -7,26 +7,19 @@ public partial class CategoryViewModel : ObservableObject
 	public string? categoryName;
 
 	[ObservableProperty]
-	public string? categoryFullpath;
-
-	[ObservableProperty]
 	public int categoryId;
 
 	[ObservableProperty]
 	public int categoryParentId;
 
-	public ObservableCollection<CategoryModel> Category
-	{
-		get => _category;
-		set
-		{
-			if ( _category != value )
-			{
-				_category = value;
-				OnPropertyChanged( nameof( Category ) );
-			}
-		}
-	}
-	private ObservableCollection<CategoryModel>? _category;
+	public ObservableCollection<CategoryModel> Category { get; set; }
 
+	[ObservableProperty]
+	private CategoryModel? _selectedCategory;
+
+	public CategoryViewModel()
+	{
+		DBCommands dbCommands = new();
+		Category = new ObservableCollection<CategoryModel>( dbCommands.GetCategoryList() );
+	}
 }

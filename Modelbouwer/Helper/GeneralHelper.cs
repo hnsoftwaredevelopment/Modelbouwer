@@ -565,6 +565,33 @@ public class GeneralHelper
 	}
 	#endregion
 
+	#region Check if CategoryName has been changed and FullPath should be updated
+	public static string [ , ] CheckCategoryNameChange( string _categoryName, string _categoryFullpath )
+	{
+		string [ , ] _result = new string[1,4];
+		string [ ] _temp = _categoryFullpath.Split( "\\" );
+
+		// The CategoryName should always be the last CategoryFullPath item
+		if ( _temp [ ^1 ] == _categoryName ) // ^1 means _temp.Length - 1
+		{
+			_result [ 0, 0 ] = "0";
+			_result [ 0, 1 ] = _categoryName;
+			_result [ 0, 2 ] = _categoryFullpath;
+			_result [ 0, 3 ] = _categoryFullpath; //Unchanged Path
+		}
+		else
+		{
+			_temp [ ^1 ] = _categoryName;
+			_result [ 0, 0 ] = "1";
+			_result [ 0, 1 ] = _categoryName;
+			_result [ 0, 2 ] = _categoryFullpath;
+			_result [ 0, 3 ] = string.Join( "\\", _temp );
+		};
+
+		return _result;
+	}
+	#endregion
+
 	#region Remove header from list if available
 	#region Check if the first line contains the header
 	private bool IsHeaderLine<T>( T firstLine, string [ ] headers )
