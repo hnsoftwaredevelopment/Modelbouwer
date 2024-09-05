@@ -1,4 +1,4 @@
-﻿namespace Modelbouwer.Models;
+﻿namespace Modelbouwer.Model;
 public class MonthsModel
 {
 	public string? MonthDescriptionLong { get; set; }

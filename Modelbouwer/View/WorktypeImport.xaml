@@ -28,9 +28,9 @@
 					</Grid.ColumnDefinitions>
 
 					<TextBlock
-						Grid.Column = "0"
-						Style       = "{DynamicResource Title}"
-						Text        = "{StaticResource Import.WorkType.Title}" />
+						Grid.Column="0"
+						Style="{DynamicResource Title}"
+						Text="{StaticResource Import.WorkType.Title}" />
 
 					<Button
 						Grid.Column="1"

@@ -15,14 +15,13 @@ public partial class CategoryImport : Page
 	#region Prepare an empty CSV file, with only headers
 	private void Prepare( object sender, RoutedEventArgs e )
 	{
-		var folderDialog = new FolderBrowserDialog()
+		FolderBrowserDialog folderDialog = new()
 		{
 			Description = (string)FindResource("Import.FileDialog.Description")
 		};
+		_ = folderDialog.ShowDialog();
 
-		DialogResult result = folderDialog.ShowDialog();
-
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Category.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Category.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Category");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
@@ -55,12 +54,13 @@ public partial class CategoryImport : Page
 	#region Import selected CSV file
 	private void Import( object sender, RoutedEventArgs e )
 	{
-		var errorIdentifier = 5; //See Error Class for meaning of this number
+		int errorIdentifier = 5; //See Error Class for meaning of this number
 		string[] checkField = [DBNames.CategoryFieldNameName, DBNames.CategoryFieldTypeName, "0"]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
 		string[] idFields = [DBNames.CategoryFieldNameId, DBNames.CategoryFieldNameParentId]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
 		string metadataType = "Category"; // Used for getting the headers for import
 
-		dispStatusLine.Text = GeneralHelper.ProcessCsvFile( DBNames.CategoryTable, errorIdentifier, dispFileName.Text, checkField, idFields, metadataType, () => DBCommands.GetCategoryList() );
+		DBCommands dbCommands = new();
+		dispStatusLine.Text = GeneralHelper.ProcessCsvFile( DBNames.CategoryTable, errorIdentifier, dispFileName.Text, checkField, idFields, metadataType, () => dbCommands.GetCategoryList() );
 	}
 	#endregion
 }

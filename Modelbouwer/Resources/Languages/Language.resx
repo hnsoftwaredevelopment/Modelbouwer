@@ -2480,13 +2480,13 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
   <data name="ExportWorktypesFileName" xml:space="preserve">
     <value>Werksoorten</value>
   </data>
-  <data name="ExportBrandsFileName" xml:space="preserve">
+  <data name="ExportBrandFileName" xml:space="preserve">
     <value>Merken</value>
   </data>
-  <data name="ExportBrandsSubTitle" xml:space="preserve">
+  <data name="ExportBrandSubTitle" xml:space="preserve">
     <value>Exporteer merken naar een CSV bestand</value>
   </data>
-  <data name="ExportBrandsTitle" xml:space="preserve">
+  <data name="ExportBrandTitle" xml:space="preserve">
     <value>Exporteer merken</value>
   </data>
   <data name="mainRibbonTabManageMetadataMetadataBrandEditLabel" xml:space="preserve">
@@ -2555,22 +2555,22 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
   <data name="ExportProductsSupplierTitle" xml:space="preserve">
     <value>Exporteer artikelen per leverancier</value>
   </data>
-  <data name="ImportBrandsTitle" xml:space="preserve">
+  <data name="ImportBrandTitle" xml:space="preserve">
     <value>Importeer merken</value>
   </data>
-  <data name="ImportBrandsSubTitle" xml:space="preserve">
+  <data name="ImportBrandSubTitle" xml:space="preserve">
     <value>Importeer data vanuit een CSV bestand, deze bevat alleen de omschrijving van de merken</value>
   </data>
-  <data name="ImportBrandsMessageboxErrorExistingUnit" xml:space="preserve">
+  <data name="ImportBrandMessageboxErrorExistingUnit" xml:space="preserve">
     <value>Ingelezen merk bestaat al in de tabel</value>
   </data>
-  <data name="ImportBrandsMessageboxErrorAlreadyExists" xml:space="preserve">
+  <data name="ImportBrandMessageboxErrorAlreadyExists" xml:space="preserve">
     <value>Merk Bestaat al</value>
   </data>
-  <data name="ImportBrandsLabel" xml:space="preserve">
+  <data name="ImportBrandLabel" xml:space="preserve">
     <value>Merk</value>
   </data>
-  <data name="ImportBrandsImportButtonTooltip" xml:space="preserve">
+  <data name="ImportBrandImportButtonTooltip" xml:space="preserve">
     <value>Selecteer het te importeren CSV bestand met merken</value>
   </data>
   <data name="ImportContactTypesTitle" xml:space="preserve">

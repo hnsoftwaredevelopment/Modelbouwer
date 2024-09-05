@@ -5,12 +5,222 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
 	Title="CountryManagement"
+	d:DataContext="{d:DesignInstance Type={x:Type viewmodels:CombinedCountryViewModel}}"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
 	mc:Ignorable="d">
 
 	<Grid>
-		<TextBlock Text="CountryManagement" />
+		<Grid.RowDefinitions>
+			<RowDefinition Height="95" />
+			<RowDefinition Height="96" />
+			<RowDefinition Height="10" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="20" />
+		</Grid.RowDefinitions>
+
+		<!--#region Title of the page-->
+		<StackPanel
+			Grid.Row="0"
+			Margin="10,0,10,0"
+			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+			<TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Country.Title}" />
+			<Canvas>
+				<Path Style="{DynamicResource DefaultTitleLine}" />
+			</Canvas>
+			<TextBlock Style="{DynamicResource DefaultSubTitle}" Text="{StaticResource Edit.Country.Subtitle}" />
+		</StackPanel>
+		<!--#endregion-->
+
+		<!--#endregion-->
+
+		<!--#endregion-->
+
+		<!--#endregion-->
+
+		<!--#endregion-->
+
+		<!--#endregion-->
+
+		<!--#region Hidden fields-->
+		<TextBox
+			x:Name="inpCountryId"
+			Grid.Row="2"
+			Style="{DynamicResource HiddenTextBox}"
+			Text="{Binding CountryViewModel.SelectedCountry.CountryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		<TextBox
+			x:Name="inpCountryCurrencyId"
+			Grid.Row="2"
+			Style="{DynamicResource HiddenTextBox}"
+			Text="{Binding CountryViewModel.SelectedCountry.CountryCurrencyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		<Grid
+			Grid.Row="1"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center">
+			<!--#region Row defenition-->
+			<Grid.RowDefinitions>
+				<RowDefinition Height="32" />
+				<RowDefinition Height="32" />
+				<RowDefinition Height="32" />
+			</Grid.RowDefinitions>
+			<!--#endregion-->
+
+			<!--#region Colomn defenition-->
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="120" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<!--#endregion-->
+
+			<!--#region Code-->
+			<Label
+				Grid.Row="0"
+				Content="{StaticResource Edit.Country.Code.Label}"
+				Style="{DynamicResource DefaultLabel}" />
+
+			<TextBox
+				x:Name="inpCountryCode"
+				Grid.Row="0"
+				Grid.Column="1"
+				Width="200"
+				Style="{DynamicResource DefaultTextBox}"
+				Text="{Binding CountryViewModel.SelectedCountry.CountryCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<!--#endregion-->
+
+			<!--#region Name-->
+			<Label
+				Grid.Row="1"
+				Content="{StaticResource Edit.Country.Name.Label}"
+				Style="{DynamicResource DefaultLabel}" />
+
+			<TextBox
+				x:Name="inpCountryName"
+				Grid.Row="1"
+				Grid.Column="1"
+				Width="450"
+				Style="{DynamicResource DefaultTextBox}"
+				Text="{Binding CountryViewModel.SelectedCountry.CountryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<!--#endregion-->
+
+			<!--#region Default currency-->
+			<Label
+				Grid.Row="2"
+				Content="{StaticResource Edit.Country.Currency.Label}"
+				Style="{DynamicResource DefaultLabel}" />
+
+			<syncfusion:ComboBoxAdv
+				Grid.Row="2"
+				Grid.Column="1"
+				Width="50"
+				Height="25"
+				HorizontalAlignment="Left"
+				ItemsSource="{Binding CurrencyViewModel.Currency}"
+				SelectedValue="{Binding CountryViewModel.SelectedCountry.CountryCurrencyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				SelectedValuePath="CurrencyId"
+				Tag="{StaticResource Edit.Country.Currency.Tag}">
+
+				<!--#region Column definition of the dropdown list-->
+				<syncfusion:ComboBoxAdv.ItemTemplate>
+					<DataTemplate>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="15" />
+								<ColumnDefinition Width="35" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<TextBlock Grid.Column="0" Text="{Binding CurrencySymbol}" />
+							<TextBlock Grid.Column="1" Text="{Binding CurrencyCode}" />
+							<TextBlock Grid.Column="2" Text="{Binding CurrencyName}" />
+						</Grid>
+					</DataTemplate>
+				</syncfusion:ComboBoxAdv.ItemTemplate>
+				<!--#endregion-->
+
+				<!--#region Definition of the presentation of the selected item-->
+				<syncfusion:ComboBoxAdv.SelectionBoxTemplate>
+					<DataTemplate>
+						<!--  Only 1 item wil be displayed when item is selected  -->
+						<TextBlock Text="{Binding CurrencySymbol}" />
+					</DataTemplate>
+				</syncfusion:ComboBoxAdv.SelectionBoxTemplate>
+				<!--#endregion-->
+			</syncfusion:ComboBoxAdv>
+			<!--#endregion-->
+		</Grid>
+
+		<!--#region Action toolbar-->
+		<ToolBarTray
+			Grid.Row="3"
+			Margin="10,2,0,2"
+			Style="{DynamicResource DefaultToolBarTray}">
+			<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
+				<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Country.Action.Tooltip.Add}">
+					<Image Style="{DynamicResource ToolBarAddIcon}" />
+				</Button>
+				<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Country.Action.Tooltip.Delete}">
+					<Image Style="{DynamicResource ToolBarDeleteIcon}" />
+				</Button>
+				<Button Click="ButtonSave" ToolTip="{StaticResource Edit.Country.Action.Tooltip.Save}">
+					<Image Style="{DynamicResource ToolBarSaveIcon}" />
+				</Button>
+			</ToolBar>
+		</ToolBarTray>
+		<!--#region Datagrid-->
+		<DataGrid
+			x:Name="CountryDataGrid"
+			Grid.Row="4"
+			Margin="10,5,10,5"
+			AutoGenerateColumns="False"
+			CanUserAddRows="False"
+			CanUserDeleteRows="False"
+			ItemsSource="{Binding CountryViewModel.Country, Mode=TwoWay}"
+			SelectedItem="{Binding CountryViewModel.SelectedCountry, Mode=TwoWay}"
+			SelectionChanged="SelectionChanged">
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Binding="{Binding CountryId}"
+					Header="{StaticResource Edit.Country.DataGrid.Header.Id}"
+					Visibility="Collapsed" />
+				<DataGridTextColumn
+					Binding="{Binding CountryCurrencyId}"
+					Header="{StaticResource Edit.Country.DataGrid.Header.CurrencyId}"
+					Visibility="Collapsed" />
+				<DataGridTextColumn
+					Width="130"
+					Binding="{Binding CountryCode}"
+					Header="{StaticResource Edit.Country.DataGrid.Header.Code}" />
+				<DataGridTextColumn
+					Width="*"
+					Binding="{Binding CountryName}"
+					Header="{StaticResource Edit.Country.DataGrid.Header.Name}" />
+				<DataGridTextColumn
+					Width="55"
+					Binding="{Binding CountryCurrencySymbol}"
+					Header="{StaticResource Edit.Country.DataGrid.Header.CurrencySymbol}" />
+			</DataGrid.Columns>
+		</DataGrid>
+
+		<!--#region Country export Status bar-->
+		<DockPanel
+			Grid.Row="5"
+			Height="30"
+			Margin="10,0,10,0"
+			VerticalAlignment="Center"
+			Background="LightGray">
+			<Grid>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
+					<TextBlock
+						x:Name="dispStatusLine"
+						Style="{DynamicResource Status.Description}"
+						Text="{DynamicResource Import.Statusline.Description}" />
+				</StackPanel>
+			</Grid>
+		</DockPanel>
+
 	</Grid>
 </Page>

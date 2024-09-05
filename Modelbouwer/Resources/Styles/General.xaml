@@ -9,59 +9,59 @@
 	<!--#region Default Font-->
 	<FontFamily x:Key="Default.Font">Poppins</FontFamily>
 	<Style TargetType="TextBlock">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="TextBox">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="Label">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="Button">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="ComboBox">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="CheckBox">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="RadioButton">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="MenuItem">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="GroupBox">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="TabItem">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="ToolTip">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="ContextMenu">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="PasswordBox">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 
 	<Style TargetType="RichTextBox">
-		<Setter Property="FontFamily" Value="{StaticResource Default.Font}" />
+		<Setter Property="FontFamily" Value="{DynamicResource Default.Font}" />
 	</Style>
 	<!--#endregion-->
 
@@ -283,9 +283,9 @@
 
 	<!--#region  Defaul checkbox-->
 	<Style x:Key="DefaultCheckBox" TargetType="CheckBox">
-		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-		<Setter Property="Background" Value="{StaticResource OptionMark.Static.Background}" />
-		<Setter Property="BorderBrush" Value="{StaticResource OptionMark.Static.Border}" />
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}" />
+		<Setter Property="Background" Value="{DynamicResource OptionMark.Static.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource OptionMark.Static.Border}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="Template">
@@ -336,29 +336,29 @@
 
 					<ControlTemplate.Triggers>
 						<Trigger Property="HasContent" Value="true">
-							<Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}" />
+							<Setter Property="FocusVisualStyle" Value="{DynamicResource OptionMarkFocusVisual}" />
 							<Setter Property="Padding" Value="4,-1,0,0" />
 						</Trigger>
 
 						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.MouseOver.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.MouseOver.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.MouseOver.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.MouseOver.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.MouseOver.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.MouseOver.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsEnabled" Value="false">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.Disabled.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.Disabled.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.Disabled.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.Disabled.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Disabled.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Disabled.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsPressed" Value="true">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.Pressed.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.Pressed.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.Pressed.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.Pressed.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Pressed.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Pressed.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Pressed.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.Pressed.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsChecked" Value="true">
@@ -379,9 +379,9 @@
 
 	<!--#region Checkbox that is vissible if valueShow is checked-->
 	<Style x:Key="HideOnNotShowCheckBox" TargetType="CheckBox">
-		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-		<Setter Property="Background" Value="{StaticResource OptionMark.Static.Background}" />
-		<Setter Property="BorderBrush" Value="{StaticResource OptionMark.Static.Border}" />
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}" />
+		<Setter Property="Background" Value="{DynamicResource OptionMark.Static.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource OptionMark.Static.Border}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="Visibility" Value="Visible" />
@@ -434,29 +434,29 @@
 
 					<ControlTemplate.Triggers>
 						<Trigger Property="HasContent" Value="true">
-							<Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}" />
+							<Setter Property="FocusVisualStyle" Value="{DynamicResource OptionMarkFocusVisual}" />
 							<Setter Property="Padding" Value="4,-1,0,0" />
 						</Trigger>
 
 						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.MouseOver.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.MouseOver.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.MouseOver.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.MouseOver.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.MouseOver.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.MouseOver.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsEnabled" Value="false">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.Disabled.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.Disabled.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.Disabled.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.Disabled.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Disabled.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Disabled.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsPressed" Value="true">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.Pressed.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.Pressed.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.Pressed.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.Pressed.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Pressed.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Pressed.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Pressed.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.Pressed.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsChecked" Value="true">
@@ -485,9 +485,9 @@
 
 	<!--#region Checkbox that is vissible if valueShow is checked-->
 	<Style x:Key="HideOnShowCheckBox" TargetType="CheckBox">
-		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-		<Setter Property="Background" Value="{StaticResource OptionMark.Static.Background}" />
-		<Setter Property="BorderBrush" Value="{StaticResource OptionMark.Static.Border}" />
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}" />
+		<Setter Property="Background" Value="{DynamicResource OptionMark.Static.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource OptionMark.Static.Border}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="Visibility" Value="Visible" />
@@ -540,29 +540,29 @@
 
 					<ControlTemplate.Triggers>
 						<Trigger Property="HasContent" Value="true">
-							<Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}" />
+							<Setter Property="FocusVisualStyle" Value="{DynamicResource OptionMarkFocusVisual}" />
 							<Setter Property="Padding" Value="4,-1,0,0" />
 						</Trigger>
 
 						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.MouseOver.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.MouseOver.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.MouseOver.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.MouseOver.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.MouseOver.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.MouseOver.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.MouseOver.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsEnabled" Value="false">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.Disabled.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.Disabled.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.Disabled.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.Disabled.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Disabled.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Disabled.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.Disabled.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsPressed" Value="true">
-							<Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource OptionMark.Pressed.Background}" />
-							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource OptionMark.Pressed.Border}" />
-							<Setter TargetName="optionMark" Property="Fill" Value="{StaticResource OptionMark.Pressed.Glyph}" />
-							<Setter TargetName="indeterminateMark" Property="Fill" Value="{StaticResource OptionMark.Pressed.Glyph}" />
+							<Setter TargetName="checkBoxBorder" Property="Background" Value="{DynamicResource OptionMark.Pressed.Background}" />
+							<Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource OptionMark.Pressed.Border}" />
+							<Setter TargetName="optionMark" Property="Fill" Value="{DynamicResource OptionMark.Pressed.Glyph}" />
+							<Setter TargetName="indeterminateMark" Property="Fill" Value="{DynamicResource OptionMark.Pressed.Glyph}" />
 						</Trigger>
 
 						<Trigger Property="IsChecked" Value="true">
@@ -594,7 +594,7 @@
 	<!--#region Default Textbox, with rounded corners and Tag enabled-->
 	<Style x:Key="DefaultTextBox" TargetType="TextBox">
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-		<Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TextBox.Static.Border}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="Height" Value="24" />
@@ -648,11 +648,11 @@
 						</Trigger>
 
 						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource TextBox.MouseOver.Border}" />
 						</Trigger>
 
 						<Trigger Property="IsKeyboardFocused" Value="true">
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource TextBox.Focus.Border}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -675,7 +675,7 @@
 	<!--  If the ValueShow checkbox is unchecked the style will HIDE the element with the style, and make visible if checkbox is checked  -->
 	<Style x:Key="HideOnNotShowTextBox" TargetType="TextBox">
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-		<Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TextBox.Static.Border}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="Height" Value="24" />
@@ -729,11 +729,11 @@
 						</Trigger>
 
 						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource TextBox.MouseOver.Border}" />
 						</Trigger>
 
 						<Trigger Property="IsKeyboardFocused" Value="true">
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource TextBox.Focus.Border}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -762,7 +762,7 @@
 	<!--  If the ValueShow checkbox is checked the style will HIDE the element with the style, and make visible if checkbox is unchecked  -->
 	<Style x:Key="HideOnShowTextBox" TargetType="TextBox">
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-		<Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TextBox.Static.Border}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="Height" Value="24" />
@@ -816,11 +816,11 @@
 						</Trigger>
 
 						<Trigger Property="IsMouseOver" Value="true">
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource TextBox.MouseOver.Border}" />
 						</Trigger>
 
 						<Trigger Property="IsKeyboardFocused" Value="true">
-							<Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+							<Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource TextBox.Focus.Border}" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
@@ -2195,10 +2195,10 @@
 	</ControlTemplate>
 
 	<Style x:Key="ButtonlessComboBoxStyle" TargetType="{x:Type ComboBox}">
-		<Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}" />
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource ComboBoxFocusVisual}" />
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
-		<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}" />
-		<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}" />
+		<Setter Property="Background" Value="{DynamicResource ButtonNormalBackground}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource ButtonNormalBorder}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
@@ -2273,11 +2273,11 @@
 		</Setter>
 		<Style.Triggers>
 			<Trigger Property="IsEditable" Value="true">
-				<Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}" />
+				<Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorder}" />
 				<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
 				<Setter Property="IsTabStop" Value="false" />
 				<Setter Property="Padding" Value="3" />
-				<Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}" />
+				<Setter Property="Template" Value="{DynamicResource ComboBoxEditableTemplate}" />
 			</Trigger>
 		</Style.Triggers>
 	</Style>
@@ -2285,7 +2285,7 @@
 
 	<!--#region WHite button with Rounded Corners-->
 	<Style x:Key="ButtonRoundedWhite" TargetType="{x:Type Button}">
-		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+		<Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}" />
 		<Setter Property="Background" Value="White" />
 		<Setter Property="BorderBrush" Value="Blue" />
 		<Setter Property="Foreground" Value="DarkBlue" />
@@ -2512,11 +2512,11 @@
 					<Condition Property="skin:SkinStorage.EnableTouch" Value="false" />
 					<Condition SourceName="PART_DropDownButton" Property="IsMouseOver" Value="true" />
 				</MultiTrigger.Conditions>
-				<Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource SplitButtonAdvHoverBackgroundBrush}" />
-				<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-				<Setter TargetName="PART_DropDownButton" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-				<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverInnerBorderBrush}" />
-				<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+				<Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource SplitButtonAdvHoverBackgroundBrush}" />
+				<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+				<Setter TargetName="PART_DropDownButton" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+				<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverInnerBorderBrush}" />
+				<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 			</MultiTrigger>
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
@@ -2529,11 +2529,11 @@
 					<Condition Property="skin:SkinStorage.EnableTouch" Value="false" />
 					<Condition SourceName="PART_Button" Property="IsMouseOver" Value="true" />
 				</MultiTrigger.Conditions>
-				<Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource SplitButtonAdvHoverBackgroundBrush}" />
-				<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-				<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverInnerBorderBrush}" />
-				<Setter TargetName="PART_DropDownButton" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-				<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+				<Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource SplitButtonAdvHoverBackgroundBrush}" />
+				<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+				<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverInnerBorderBrush}" />
+				<Setter TargetName="PART_DropDownButton" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+				<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 			</MultiTrigger>
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
@@ -2542,11 +2542,11 @@
 				</MultiTrigger.Conditions>
 			</MultiTrigger>
 			<Trigger Property="IsPressed" Value="True">
-				<Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource SplitButtonAdvPressedBackgroundBrush}" />
-				<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvPressedBorderBrush}" />
-				<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvPressedBackgroundBrush}" />
-				<Setter TargetName="PART_DropDownButton" Property="BorderBrush" Value="{StaticResource SplitButtonAdvPressedBorderBrush}" />
-				<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+				<Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource SplitButtonAdvPressedBackgroundBrush}" />
+				<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvPressedBorderBrush}" />
+				<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvPressedBackgroundBrush}" />
+				<Setter TargetName="PART_DropDownButton" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvPressedBorderBrush}" />
+				<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 			</Trigger>
 			<Trigger Property="IsDropDownPressed" Value="True" />
 			<Trigger Property="IsEnabled" Value="False">
@@ -2563,21 +2563,21 @@
 					<Condition Property="IconTemplate" Value="{x:Null}" />
 					<Condition Property="IconTemplateSelector" Value="{x:Null}" />
 				</MultiTrigger.Conditions>
-				<Setter TargetName="LargeIconContent" Property="ContentTemplate" Value="{StaticResource LargeIconTemplate}" />
+				<Setter TargetName="LargeIconContent" Property="ContentTemplate" Value="{DynamicResource LargeIconTemplate}" />
 				<Setter TargetName="LargeIconContent" Property="Tag" Value="{Binding LargeIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
 			</MultiTrigger>
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 	<Style TargetType="{x:Type local:SplitButtonAdv}">
-		<Setter Property="Foreground" Value="{StaticResource SplitButtonAdvForeground}" />
+		<Setter Property="Foreground" Value="{DynamicResource SplitButtonAdvForeground}" />
 		<Setter Property="SmallIcon" Value="/Syncfusion.Shared.WPF;component//Controls/ButtonControls/Images/WordArt16.png" />
 		<Setter Property="LargeIcon" Value="/Syncfusion.Shared.WPF;component//Controls/ButtonControls/Images/WordArt32.png" />
 		<Setter Property="HorizontalAlignment" Value="Center" />
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="Label" Value="Split Button" />
 		<Setter Property="BorderThickness" Value="1" />
-		<Setter Property="Background" Value="{StaticResource SplitButtonAdvBackgroundBrush}" />
-		<Setter Property="BorderBrush" Value="{StaticResource SplitButtonAdvBorderBrush}" />
+		<Setter Property="Background" Value="{DynamicResource SplitButtonAdvBackgroundBrush}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource SplitButtonAdvBorderBrush}" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
 		<Setter Property="Template">
@@ -2686,12 +2686,12 @@
 								<Condition Property="skin:SkinStorage.EnableTouch" Value="false" />
 								<Condition SourceName="PART_DropDownButtonNormal" Property="IsMouseOver" Value="true" />
 							</MultiTrigger.Conditions>
-							<Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource SplitButtonAdvHoverBackgroundBrush}" />
-							<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverInnerBorderBrush}" />
-							<Setter TargetName="PART_DropDownButtonNormal" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-							<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
-							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource SplitButtonAdvHoverBackgroundBrush}" />
+							<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverInnerBorderBrush}" />
+							<Setter TargetName="PART_DropDownButtonNormal" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+							<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 						</MultiTrigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
@@ -2704,12 +2704,12 @@
 								<Condition Property="skin:SkinStorage.EnableTouch" Value="false" />
 								<Condition SourceName="PART_ButtonNormal" Property="IsMouseOver" Value="true" />
 							</MultiTrigger.Conditions>
-							<Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource SplitButtonAdvHoverBackgroundBrush}" />
-							<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-							<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
-							<Setter TargetName="PART_DropDownButtonNormal" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverBorderBrush}" />
-							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvHoverInnerBorderBrush}" />
-							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource SplitButtonAdvHoverBackgroundBrush}" />
+							<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+							<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="PART_DropDownButtonNormal" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverBorderBrush}" />
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvHoverInnerBorderBrush}" />
+							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 						</MultiTrigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
@@ -2721,8 +2721,8 @@
 							<MultiTrigger.Conditions>
 								<Condition Property="skin:SkinStorage.EnableTouch" Value="false" />
 							</MultiTrigger.Conditions>
-							<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
-							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 						</MultiTrigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
@@ -2733,8 +2733,8 @@
 							<MultiTrigger.Conditions>
 								<Condition Property="skin:SkinStorage.EnableTouch" Value="false" />
 							</MultiTrigger.Conditions>
-							<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
-							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 						</MultiTrigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
@@ -2742,12 +2742,12 @@
 							</MultiTrigger.Conditions>
 						</MultiTrigger>
 						<Trigger Property="IsPressed" Value="True">
-							<Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource SplitButtonAdvPressedBackgroundBrush}" />
-							<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvPressedBorderBrush}" />
-							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource SplitButtonAdvPressedBackgroundBrush}" />
-							<Setter TargetName="PART_DropDownButtonNormal" Property="BorderBrush" Value="{StaticResource SplitButtonAdvPressedBorderBrush}" />
-							<Setter TargetName="Arrow" Property="Fill" Value="{StaticResource SplitButtonAdvHoverForeground}" />
-							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{StaticResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource SplitButtonAdvPressedBackgroundBrush}" />
+							<Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvPressedBorderBrush}" />
+							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvPressedBackgroundBrush}" />
+							<Setter TargetName="PART_DropDownButtonNormal" Property="BorderBrush" Value="{DynamicResource SplitButtonAdvPressedBorderBrush}" />
+							<Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
+							<Setter TargetName="PART_NormalText" Property="Foreground" Value="{DynamicResource SplitButtonAdvHoverForeground}" />
 						</Trigger>
 						<Trigger Property="IsDropDownPressed" Value="True" />
 						<Trigger Property="IsEnabled" Value="False">
@@ -2758,7 +2758,7 @@
 								<Condition Property="IconTemplate" Value="{x:Null}" />
 								<Condition Property="IconTemplateSelector" Value="{x:Null}" />
 							</MultiTrigger.Conditions>
-							<Setter TargetName="SmallIconContent" Property="ContentTemplate" Value="{StaticResource SmallIconTemplate}" />
+							<Setter TargetName="SmallIconContent" Property="ContentTemplate" Value="{DynamicResource SmallIconTemplate}" />
 							<Setter TargetName="SmallIconContent" Property="Tag" Value="{Binding SmallIcon, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
 						</MultiTrigger>
 					</ControlTemplate.Triggers>
@@ -2767,7 +2767,7 @@
 		</Setter>
 		<Style.Triggers>
 			<Trigger Property="SizeMode" Value="Large">
-				<Setter Property="Template" Value="{StaticResource LargeModeTemplate}" />
+				<Setter Property="Template" Value="{DynamicResource LargeModeTemplate}" />
 			</Trigger>
 		</Style.Triggers>
 	</Style>

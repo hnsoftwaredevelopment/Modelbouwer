@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class projectViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -87,4 +89,18 @@ public partial class projectViewModel : ObservableObject
 
 	[ObservableProperty]
 	public string? projectBuildDays;
+
+	public ObservableCollection<ProjectModel> Project
+	{
+		get => _project;
+		set
+		{
+			if ( _project != value )
+			{
+				_project = value;
+				OnPropertyChanged( nameof( Project ) );
+			}
+		}
+	}
+	private ObservableCollection<ProjectModel>? _project;
 }

@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class StorageLocationViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -12,4 +14,18 @@ public partial class StorageLocationViewModel : ObservableObject
 
 	[ObservableProperty]
 	public int storagelocationParentId;
+
+	public ObservableCollection<StorageLocationModel> StorageLocation
+	{
+		get => _storagelocation;
+		set
+		{
+			if ( _storagelocation != value )
+			{
+				_storagelocation = value;
+				OnPropertyChanged( nameof( StorageLocation ) );
+			}
+		}
+	}
+	private ObservableCollection<StorageLocationModel>? _storagelocation;
 }

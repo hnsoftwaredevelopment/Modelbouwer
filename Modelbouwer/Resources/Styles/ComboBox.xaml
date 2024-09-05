@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:Syncfusion.Windows.Tools.Controls;assembly=Syncfusion.Shared.WPF"
+	xmlns:skin="clr-namespace:Syncfusion.Windows.Shared;assembly=Syncfusion.Shared.WPF">
+
+	<!--#region Default ComboBoxAdv-->
+	<Style TargetType="{x:Type local:ComboBoxAdv}">
+		<Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+	</Style>
+	<!--#endregion-->
+</ResourceDictionary>

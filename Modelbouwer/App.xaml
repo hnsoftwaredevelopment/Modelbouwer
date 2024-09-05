@@ -10,13 +10,15 @@
 				<ResourceDictionary Source="Resources/Icons/Icons.xaml" />
 				<ResourceDictionary Source="Resources/Icons/TimeIcons.xaml" />
 				<ResourceDictionary Source="Resources/Languages/Language.xaml" />
-				<ResourceDictionary Source="Resources/Themes/DefaultColors.xaml" />
-				<ResourceDictionary Source="Resources/Styles/General.xaml" />
+				<ResourceDictionary Source="Resources/Styles/ComboBox.xaml" />
 				<ResourceDictionary Source="Resources/Styles/DataGrid.xaml" />
+				<ResourceDictionary Source="Resources/Styles/General.xaml" />
 				<ResourceDictionary Source="Resources/Styles/Label.xaml" />
 				<ResourceDictionary Source="Resources/Styles/TextBlock.xaml" />
 				<ResourceDictionary Source="Resources/Styles/TextBox.xaml" />
+				<ResourceDictionary Source="Resources/Styles/TreeView.xaml" />
 				<ResourceDictionary Source="Resources/Styles/XMLValues.xaml" />
+				<ResourceDictionary Source="Resources/Themes/DefaultColors.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Application.Resources>

@@ -965,9 +965,9 @@
 				</syncfusion:RibbonBar>
 				<!--#endregion-->
 
-				<!--#region Brands registration-->
+				<!--#region Brand registration-->
 				<syncfusion:RibbonBar
-					Name="barBrands"
+					Name="barBrand"
 					syncfusion:Ribbon.KeyTip="MR"
 					syncfusion:Ribbon.ShowInMoreCommands="False"
 					CollapseImage=".\Resources\Icons\brandEdit.png"
@@ -995,7 +995,7 @@
 					</syncfusion:RibbonButton>
 					<!--#endregion-->
 
-					<!--#region Import Brands button-->
+					<!--#region Import Brand button-->
 					<syncfusion:RibbonButton
 						Command="{Binding OpenManagementCommand}"
 						CommandParameter="BrandImport"
@@ -1015,7 +1015,7 @@
 					</syncfusion:RibbonButton>
 					<!--#endregion-->
 
-					<!--#region Export Brands button-->
+					<!--#region Export Brand button-->
 					<syncfusion:RibbonButton
 						Command="{Binding OpenManagementCommand}"
 						CommandParameter="BrandExport"

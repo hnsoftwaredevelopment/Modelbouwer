@@ -72,27 +72,27 @@ namespace Modelbouwer.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Merken.
         /// </summary>
-        public static string ExportBrandsFileName {
+        public static string ExportBrandFileName {
             get {
-                return ResourceManager.GetString("ExportBrandsFileName", resourceCulture);
+                return ResourceManager.GetString("ExportBrandFileName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Exporteer merken naar een CSV bestand.
         /// </summary>
-        public static string ExportBrandsSubTitle {
+        public static string ExportBrandSubTitle {
             get {
-                return ResourceManager.GetString("ExportBrandsSubTitle", resourceCulture);
+                return ResourceManager.GetString("ExportBrandSubTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Exporteer merken.
         /// </summary>
-        public static string ExportBrandsTitle {
+        public static string ExportBrandTitle {
             get {
-                return ResourceManager.GetString("ExportBrandsTitle", resourceCulture);
+                return ResourceManager.GetString("ExportBrandTitle", resourceCulture);
             }
         }
         
@@ -1233,54 +1233,54 @@ namespace Modelbouwer.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Selecteer het te importeren CSV bestand met merken.
         /// </summary>
-        public static string ImportBrandsImportButtonTooltip {
+        public static string ImportBrandImportButtonTooltip {
             get {
-                return ResourceManager.GetString("ImportBrandsImportButtonTooltip", resourceCulture);
+                return ResourceManager.GetString("ImportBrandImportButtonTooltip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Merk.
         /// </summary>
-        public static string ImportBrandsLabel {
+        public static string ImportBrandLabel {
             get {
-                return ResourceManager.GetString("ImportBrandsLabel", resourceCulture);
+                return ResourceManager.GetString("ImportBrandLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Merk Bestaat al.
         /// </summary>
-        public static string ImportBrandsMessageboxErrorAlreadyExists {
+        public static string ImportBrandMessageboxErrorAlreadyExists {
             get {
-                return ResourceManager.GetString("ImportBrandsMessageboxErrorAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("ImportBrandMessageboxErrorAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ingelezen merk bestaat al in de tabel.
         /// </summary>
-        public static string ImportBrandsMessageboxErrorExistingUnit {
+        public static string ImportBrandMessageboxErrorExistingUnit {
             get {
-                return ResourceManager.GetString("ImportBrandsMessageboxErrorExistingUnit", resourceCulture);
+                return ResourceManager.GetString("ImportBrandMessageboxErrorExistingUnit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Importeer data vanuit een CSV bestand, deze bevat alleen de omschrijving van de merken.
         /// </summary>
-        public static string ImportBrandsSubTitle {
+        public static string ImportBrandSubTitle {
             get {
-                return ResourceManager.GetString("ImportBrandsSubTitle", resourceCulture);
+                return ResourceManager.GetString("ImportBrandSubTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Importeer merken.
         /// </summary>
-        public static string ImportBrandsTitle {
+        public static string ImportBrandTitle {
             get {
-                return ResourceManager.GetString("ImportBrandsTitle", resourceCulture);
+                return ResourceManager.GetString("ImportBrandTitle", resourceCulture);
             }
         }
         

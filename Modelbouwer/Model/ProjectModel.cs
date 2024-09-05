@@ -1,4 +1,4 @@
-﻿namespace Modelbouwer.Models;
+﻿namespace Modelbouwer.Model;
 
 public class ProjectModel : ObservableObject
 {

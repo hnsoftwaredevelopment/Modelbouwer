@@ -86,7 +86,7 @@ internal class ErrorClass
 				break;
 			case 3:
 				// Brand already excists
-				_metadataType = "Brands";
+				_metadataType = "Brand";
 				_errorLevel = 1;
 				break;
 			case 4:
