@@ -17,6 +17,7 @@ public partial class BrandExport : Page
 	}
 
 	#region Get the Data
+
 	private void GetData()
 	{
 		_dt = DBCommands.GetData( DBNames.BrandTable, "nosort" );
@@ -32,27 +33,30 @@ public partial class BrandExport : Page
 		else
 		{
 			columnSelectFolderButton.Width = ( GridLength ) FindResource( "Column.SelectFolder.Button.Width" );
-
 		}
 	}
-	#endregion
+
+	#endregion Get the Data
 
 	#region Select folder
+
 	private void SelectFolder( object sender, RoutedEventArgs e )
 	{
 		FolderBrowserDialog folderDialog = new();
-		DialogResult result = folderDialog.ShowDialog();
+		_ = folderDialog.ShowDialog();
 
 		dispFolderName.Text = $"{folderDialog.SelectedPath}";
 
 		columnExportButton.Width = ( GridLength ) FindResource( "Column.Export.Button.Width" );
 	}
-	#endregion
+
+	#endregion Select folder
 
 	#region Export after selecting folder
+
 	private void Export( object sender, RoutedEventArgs e )
 	{
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Brand.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Brand.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Brand");
 
 		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );
@@ -60,7 +64,7 @@ public partial class BrandExport : Page
 		columnExportButton.Width = new GridLength( 0 );
 
 		dispStatusLine.Text = $"{_dt!.Rows.Count} {( string ) FindResource( "Export.Statusline.Completed" )}";
-
 	}
-	#endregion
+
+	#endregion Export after selecting folder
 }

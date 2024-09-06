@@ -3,6 +3,7 @@
 public class DBNames
 {
 	#region Sql commands
+
 	public static readonly string SqlAnd = " AND ";
 	public static readonly string SqlAsc = " ASC ";
 	public static readonly string SqlAs = " AS ";
@@ -42,13 +43,17 @@ public class DBNames
 	public static readonly string SqlValues = " VALUES ";
 	public static readonly string SqlWhere = " WHERE ";
 	public static readonly string SqlWithRecursive = "WITH RECURSIVE ";
-	#endregion
+
+	#endregion Sql commands
 
 	#region Database
+
 	public static readonly string Database = "modelbuilder";
-	#endregion
+
+	#endregion Database
 
 	#region Settings table
+
 	public static readonly string SettingsTable = "settings";
 	public static readonly string SettingsFieldNameCulture = "Culture";
 	public static readonly string SettingsFieldNameLanguage = "Language";
@@ -57,18 +62,22 @@ public class DBNames
 	public static readonly string SettingsFieldTypeCulture = "string";
 	public static readonly string SettingsFieldTypeLanguage = "string";
 	public static readonly string SettingsFieldTypeHourRate = "double";
-	#endregion
+
+	#endregion Settings table
 
 	#region Brand table
+
 	public static readonly string BrandTable = "brand";
 	public static readonly string BrandFieldNameId = "Id";
 	public static readonly string BrandFieldNameName = "Name";
 
 	public static readonly string BrandFieldTypeId = "int";
 	public static readonly string BrandFieldTypeName = "string";
+
 	#endregion Brand table
 
 	#region Category table
+
 	public static readonly string CategoryTable = "category";
 	public static readonly string CategoryFieldNameId = "Id";
 	public static readonly string CategoryFieldNameParentId = "ParentId";
@@ -78,17 +87,21 @@ public class DBNames
 	public static readonly string CategoryFieldTypeParentId = "int";
 	public static readonly string CategoryFieldTypeName = "string";
 	public static readonly string CategoryFieldTypeFullpath = "string";
+
 	#endregion Category table
 
 	#region Contacttype table
+
 	public static readonly string ContactTypeTable = "contacttype";
 	public static readonly string ContactTypeFieldNameId = "Id";
 	public static readonly string ContactTypeFieldTypeId = "Int";
 	public static readonly string ContactTypeFieldNameName = "Name";
 	public static readonly string ContactTypeFieldTypeName = "string";
-	#endregion
+
+	#endregion Contacttype table
 
 	#region Currency table
+
 	public static readonly string CurrencyTable = "currency";
 	public static readonly string CurrencyFieldNameId = "Id";
 	public static readonly string CurrencyFieldTypeId = "int";
@@ -100,9 +113,11 @@ public class DBNames
 	public static readonly string CurrencyFieldTypeName = "string";
 	public static readonly string CurrencyFieldNameRate = "ConversionRate";
 	public static readonly string CurrencyFieldTypeRate = "double";
-	#endregion
+
+	#endregion Currency table
 
 	#region Country table
+
 	public static readonly string CountryTable = "country";
 	public static readonly string CountryView = "view_country";
 	public static readonly string CountryFieldNameId = "Id";
@@ -115,9 +130,11 @@ public class DBNames
 	public static readonly string CountryFieldTypeName = "string";
 	public static readonly string CountryFieldNameCurrencyId = "Defaultcurrency_Id";
 	public static readonly string CountryFieldTypeCurrencyId = "int";
-	#endregion
+
+	#endregion Country table
 
 	#region Product table
+
 	public static readonly string ProductTable = "product";
 	public static readonly string ProductView = "view_product";
 	public static readonly string ProductFieldNameId = "Id";
@@ -150,9 +167,11 @@ public class DBNames
 	public static readonly string ProductFieldTypeStorageId = "int";
 	public static readonly string ProductFieldNameMemo = "Memo";
 	public static readonly string ProductFieldTypeMemo = "longtext";
+
 	#endregion Product table
 
 	#region ProductSupplier table
+
 	public static readonly string ProductSupplierTable = "productsupplier";
 	public static readonly string ProductSupplierView = "view_productsupplier";
 	public static readonly string ProductSupplierFieldNameId = "Id";
@@ -175,9 +194,11 @@ public class DBNames
 	public static readonly string ProductSupplierFieldTypeProductUrl = "string";
 	public static readonly string ProductSupplierFieldNameDefaultSupplier = "DefaultSupplier";
 	public static readonly string ProductSupplierFieldTypeDefaultSupplier = "string";
+
 	#endregion ProductSupplier table
 
 	#region Project table
+
 	public static readonly string ProjectTable = "project";
 	public static readonly string ProjectFieldNameId = "Id";
 	public static readonly string ProjectFieldTypeId = "int";
@@ -215,9 +236,11 @@ public class DBNames
 	public static readonly string ProjectCostsViewFieldTypeTotal = "double";
 
 	public static readonly string ProjectExportView = "view_projectexport";
+
 	#endregion Project table
 
 	#region Stock table
+
 	public static readonly string StockTable = "stock";
 	public static readonly string StockView = "view_stock";
 	public static readonly string StockFieldNameId = "Id";
@@ -232,9 +255,11 @@ public class DBNames
 	public static readonly string StockViewFieldTypeProductId = "int";
 	public static readonly string StockViewFieldNameAmount = "Amount";
 	public static readonly string StockViewFieldTypeAmount = "double";
+
 	#endregion Stock table
 
 	#region Stocklog table
+
 	public static readonly string StocklogTable = "stocklog";
 	public static readonly string StocklogFieldNameId = "Id";
 	public static readonly string StocklogFieldTypeId = "int";
@@ -254,9 +279,11 @@ public class DBNames
 	public static readonly string StocklogFieldTypeAmountUsed = "double";
 	public static readonly string StocklogFieldNameDate = "LogDate";
 	public static readonly string StocklogFieldTypeDate = "date";
+
 	#endregion Stocklog table
 
 	#region Storage table
+
 	public static readonly string StorageTable = "storage";
 	public static readonly string StorageFieldNameId = "Id";
 	public static readonly string StorageFieldTypeId = "int";
@@ -266,10 +293,13 @@ public class DBNames
 	public static readonly string StorageFieldTypeName = "string";
 	public static readonly string StorageFieldNameFullpath = "Fullpath";
 	public static readonly string StorageFieldTypeFullpath = "string";
+
 	#endregion Storage table
 
 	#region Supplier tables
+
 	#region Supplier table
+
 	public static readonly string SupplierTable = "supplier";
 	public static readonly string SupplierView = "view_supplier";
 	public static readonly string SupplierFieldNameId = "Id";
@@ -300,9 +330,11 @@ public class DBNames
 	public static readonly string SupplierFieldTypeMinShippingCosts = "double";
 	public static readonly string SupplierFieldNameOrderCosts = "OrderCosts";
 	public static readonly string SupplierFieldTypeOrderCosts = "double";
+
 	#endregion Supplier table
 
 	#region SupplierContact Table
+
 	public static readonly string SupplierContactTable = "suppliercontact";
 	public static readonly string SupplierContactView = "view_suppliercontact";
 	public static readonly string SupplierContactFieldNameId = "Id";
@@ -319,10 +351,13 @@ public class DBNames
 	public static readonly string SupplierContactFieldTypePhone = "string";
 	public static readonly string SupplierContactFieldNameMail = "Mail";
 	public static readonly string SupplierContactFieldTypeMail = "string";
+
 	#endregion SupplierContact Table
-	#endregion Supplier Tables
+
+	#endregion Supplier tables
 
 	#region Time
+
 	public static readonly string TimeTable = "time";
 	public static readonly string TimeFieldNameId = "Id";
 	public static readonly string TimeFieldTypeId = "int";
@@ -372,9 +407,11 @@ public class DBNames
 	public static readonly string TimeViewFieldTypeWorkedMinutes = "int";
 
 	public static readonly string TimeExportView = "view_timeexport";
+
 	#endregion Time
 
 	#region ProductUsage
+
 	public static readonly string ProductUsageTable = "productusage";
 	public static readonly string ProductUsageFieldNameId = "Id";
 	public static readonly string ProductUsageFieldTypeId = "int";
@@ -414,9 +451,11 @@ public class DBNames
 	public static readonly string ProductUsageViewFieldTypeAmountUsed = "double";
 	public static readonly string ProductUsageViewFieldNameUsageDate = "UsageDate";
 	public static readonly string ProductUsageViewFieldTypeUsageDate = "date";
+
 	#endregion ProductUsage
 
 	#region Order table and view
+
 	public static readonly string OrderTable = "supplyorder";
 	public static readonly string OrderView = "view_supplyorder";
 	public static readonly string OpenOrderView = "view_supplyopenorder";
@@ -477,17 +516,21 @@ public class DBNames
 
 	public static readonly string OpenOrderLineFieldNameSupplyOrderId = "Supplyorder_Id";
 	public static readonly string OpenOrderLineFieldTypeSupplyOrderId = "int";
-	#endregion Ordertables and views
+
+	#endregion Order table and view
 
 	#region Unit Table
+
 	public static readonly string UnitTable = "unit";
 	public static readonly string UnitFieldNameUnitId = "Id";
 	public static readonly string UnitFieldTypeUnitId = "int";
 	public static readonly string UnitFieldNameUnitName = "Name";
 	public static readonly string UnitFieldTypeUnitName = "string";
-	#endregion Unit table
+
+	#endregion Unit Table
 
 	#region Worktype Table
+
 	public static readonly string WorktypeTable = "Worktype";
 	public static readonly string WorktypeFieldNameId = "Id";
 	public static readonly string WorktypeFieldTypeId = "int";
@@ -497,5 +540,6 @@ public class DBNames
 	public static readonly string WorktypeFieldTypeName = "string";
 	public static readonly string WorktypeFieldNameFullpath = "FullPath";
 	public static readonly string WorktypeFieldTypeFullpath = "string";
+
 	#endregion Worktype Table
 }

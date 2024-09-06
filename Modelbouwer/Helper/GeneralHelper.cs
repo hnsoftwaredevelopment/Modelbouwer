@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Reflection;
+﻿using System.Reflection;
 
 using Modelbouwer.View.Dialog;
 
 using Application = System.Windows.Application;
 
 namespace Modelbouwer.Helper;
+
 public class GeneralHelper
 {
 	public GeneralHelper()
@@ -14,6 +14,7 @@ public class GeneralHelper
 	}
 
 	#region Add zeros to a timestring
+
 	public static string AddZeros( string TempString, int TotalLength )
 	{
 		string _temp = new('0', TotalLength);
@@ -21,9 +22,11 @@ public class GeneralHelper
 
 		return NewString;
 	}
-	#endregion
+
+	#endregion Add zeros to a timestring
 
 	#region Get Timestamp as Filename prefix
+
 	/// <summary>
 	/// Get file prefix. The filename for an csv exportfile wil start with a timestamp, this function generates the timestamp for the current export action
 	/// </summary>
@@ -46,9 +49,11 @@ public class GeneralHelper
 
 		return Prefix;
 	}
-	#endregion
+
+	#endregion Get Timestamp as Filename prefix
 
 	#region Get Im-/Export file headers
+
 	/// <summary>
 	/// All CSV export files will have different named columns to export. Therefore each file will also have <see langword="abstract"/>different header
 	/// </summary>
@@ -157,18 +162,22 @@ public class GeneralHelper
 		};
 		return _header;
 	}
-	#endregion
+
+	#endregion Get Im-/Export file headers
 
 	#region Write header to empty CSV file
+
 	public static void PrepareCsv( string _filename, string [ ] _header )
 	{
 		StreamWriter sw = new(_filename, false);
 		sw.WriteLine( string.Join( ";", _header ) );
 		sw.Close();
 	}
-	#endregion
+
+	#endregion Write header to empty CSV file
 
 	#region Format Date in string to correct notation
+
 	public static string FormatDate( string _date )
 	{
 		// Input date looks like "d-m-yyyy 00:00:00"
@@ -179,9 +188,11 @@ public class GeneralHelper
 
 		return _result;
 	}
-	#endregion
+
+	#endregion Format Date in string to correct notation
 
 	#region Get Table Name for generic methods (FindMissingItems)
+
 	public string GetTableNameForModel<T>()
 	{
 		Type modelType = typeof(T);
@@ -189,10 +200,13 @@ public class GeneralHelper
 			? tableName
 			: throw new InvalidOperationException( $"No table name mapping found for type {modelType.Name}" );
 	}
-	#endregion
+
+	#endregion Get Table Name for generic methods (FindMissingItems)
 
 	#region Prepare data for Import
-	#region Check what new lines are in the list that should be added to the existing list 
+
+	#region Check what new lines are in the list that should be added to the existing list
+
 	public (List<T> MissingItems, List<(string Name, int ErrorCode, int LineNumber)> SkippedItems) FindMissingItems<T>( ObservableCollection<T> observableCollection, List<T> itemList, string [ ] headers, Dictionary<string, string> headerToPropertyMap, int errorIdentifier ) where T : INameable
 	{
 		List<T> missingItems = [];
@@ -223,9 +237,11 @@ public class GeneralHelper
 
 		return (MissingItems: missingItems, SkippedItems: skippedItems);
 	}
-	#endregion
+
+	#endregion Check what new lines are in the list that should be added to the existing list
 
 	#region import flat csv file (no levels in the data)
+
 	public static string ProcessCsvFile( string table, int errorIdentifier, string dispFileName, string [ ] checkField, string metadataType )
 	{
 		int lineCount = 0, errorCount = 0;
@@ -352,10 +368,10 @@ public class GeneralHelper
 					}
 				}
 			}
-
 		}
 
 		#region Status message
+
 		if ( lineCount != 0 )
 		{
 			completed = lineCount == 1
@@ -381,9 +397,11 @@ public class GeneralHelper
 		if ( errorCount != 0 ) { linesError = ", " + errorCount.ToString() + " "; }
 
 		string statusMessage = $"{linesRead}{completed}{linesError}{completedError}.";
-		#endregion
+
+		#endregion Status message
 
 		#region Display Scrollable error message
+
 		if ( errorList.Count > 0 )
 		{
 			string errorMessage = $"{statusMessage}{System.Environment.NewLine}{System.Environment.NewLine}";
@@ -396,13 +414,16 @@ public class GeneralHelper
 
 			ScrollableMessagebox.Show( errorMessage, ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Message" ), "Warning" );
 		}
-		#endregion
+
+		#endregion Display Scrollable error message
 
 		return statusMessage;
 	}
-	#endregion
+
+	#endregion import flat csv file (no levels in the data)
 
 	#region import leveled csv file (containing parent Id)
+
 	public static string ProcessCsvFile<T>( string table, int errorIdentifier, string dispFileName, string [ ] checkField, string [ ] idFields, string metadataType, Func<ObservableCollection<T>> getExistingDataList ) where T : INameable, new()
 	{
 		int lineCount = 0;
@@ -419,7 +440,6 @@ public class GeneralHelper
 		IEnumerable<string>? lines = File.ReadLines(dispFileName);
 
 		PropertyInfo[]? properties = typeof(T).GetProperties();
-
 
 		// Create item list from csv file, without header and root items wil get 0 as parentId
 		foreach ( string line in lines )
@@ -479,14 +499,13 @@ public class GeneralHelper
 
 		DBCommands.InsertInTable( _importItems, generalHelper.GetTableNameForModel<T>(), headers, CategoryModel.HeaderToPropertyMap );
 
-
 		// Determine the numbers
 		_ = itemList.Count();
 		lineCount = _importItems.Count();
 		int errorCount = _errorList.Count();
 
-
 		#region Status message
+
 		if ( lineCount != 0 )
 		{
 			completed = lineCount == 1
@@ -512,9 +531,11 @@ public class GeneralHelper
 		if ( errorCount != 0 ) { linesError = ", " + errorCount.ToString() + " "; }
 
 		string statusMessage = $"{linesRead}{completed}{linesError}{completedError}.";
-		#endregion
+
+		#endregion Status message
 
 		#region Display Scrollable error message
+
 		if ( _errorList.Count > 0 )
 		{
 			string errorMessage = $"{statusMessage}{System.Environment.NewLine}{System.Environment.NewLine}";
@@ -527,14 +548,18 @@ public class GeneralHelper
 
 			ScrollableMessagebox.Show( errorMessage, ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Message" ), "Warning" );
 		}
-		#endregion
+
+		#endregion Display Scrollable error message
 
 		return statusMessage;
 	}
-	#endregion
-	#endregion
+
+	#endregion import leveled csv file (containing parent Id)
+
+	#endregion Prepare data for Import
 
 	#region Get the Level of an item in a list
+
 	private int GetCategoryLevel( CategoryModel category, ObservableCollection<CategoryModel> allCategories )
 	{
 		int level = 0;
@@ -545,9 +570,11 @@ public class GeneralHelper
 		}
 		return level;
 	}
-	#endregion
+
+	#endregion Get the Level of an item in a list
 
 	#region Check if Catergory Exists
+
 	private bool CategoryExists( ObservableCollection<CategoryModel> gridCategories, CategoryModel category, ObservableCollection<CategoryModel> allCategories )
 	{
 		int categoryLevel = GetCategoryLevel(category, allCategories);
@@ -563,9 +590,11 @@ public class GeneralHelper
 		}
 		return false;
 	}
-	#endregion
+
+	#endregion Check if Catergory Exists
 
 	#region Check if CategoryName has been changed and FullPath should be updated
+
 	public static string [ , ] CheckCategoryNameChange( string _categoryName, string _categoryFullpath )
 	{
 		string [ , ] _result = new string[1,4];
@@ -590,10 +619,13 @@ public class GeneralHelper
 
 		return _result;
 	}
-	#endregion
+
+	#endregion Check if CategoryName has been changed and FullPath should be updated
 
 	#region Remove header from list if available
+
 	#region Check if the first line contains the header
+
 	private bool IsHeaderLine<T>( T firstLine, string [ ] headers )
 	{
 		PropertyInfo [ ] properties = typeof(T).GetProperties();
@@ -617,10 +649,13 @@ public class GeneralHelper
 		}
 		return true; // All properties are equal to the headers
 	}
-	#endregion
-	#endregion
+
+	#endregion Check if the first line contains the header
+
+	#endregion Remove header from list if available
 
 	#region Get strings from language.xaml
+
 	public static string GetResourceString( string key )
 	{
 		// Controleer of de resource bestaat
@@ -628,5 +663,6 @@ public class GeneralHelper
 			? Application.Current.Resources [ key ]?.ToString() ?? $"Resource '{key}' is leeg."
 			: $"Resource '{key}' niet gevonden.";
 	}
-	#endregion
+
+	#endregion Get strings from language.xaml
 }

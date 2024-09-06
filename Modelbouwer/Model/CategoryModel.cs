@@ -1,6 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿namespace Modelbouwer.Model;
 
-namespace Modelbouwer.Model;
 public class CategoryModel : INameable
 {
 	public int CategoryId { get; set; }

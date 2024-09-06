@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class CountryModel
 {
 	public int CountryCurrencyId { get; set; }
@@ -19,5 +20,4 @@ public class CountryModel
 		{ DBNames.CountryFieldNameCurrencySymbol, "CountryCurrencySymbol" },
 		{ DBNames.CountryFieldNameName, "CountryName" }
 	};
-
 }

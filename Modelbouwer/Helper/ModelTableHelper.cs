@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Helper;
+
 /// <summary>
 /// The model table helper.
 /// This helper Connects Models to Tabels
@@ -24,11 +25,9 @@ public static class ModelTableHelper
 	/// <returns>A string</returns>
 	public static string GetTableNameForModel<T>()
 	{
-		var modelType = typeof(T);
-		if ( ModelTableMappings.TryGetValue( modelType, out var tableName ) )
-		{
-			return tableName;
-		}
-		throw new InvalidOperationException( $"No table name mapping found for type {modelType.Name}" );
+		Type modelType = typeof(T);
+		return ModelTableMappings.TryGetValue( modelType, out string? tableName )
+			? tableName
+			: throw new InvalidOperationException( $"No table name mapping found for type {modelType.Name}" );
 	}
 }

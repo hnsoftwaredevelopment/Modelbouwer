@@ -3,7 +3,6 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:Syncfusion.Windows.Tools.Controls;assembly=Syncfusion.Shared.WPF"
 	xmlns:skin="clr-namespace:Syncfusion.Windows.Shared;assembly=Syncfusion.Shared.WPF"
-	xmlns:system="clr-namespace:System;assembly=System.Runtime"
 	xmlns:t="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
 	<!--#region Default Font-->
@@ -668,6 +667,25 @@
 				<Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
 			</MultiTrigger>
 		</Style.Triggers>
+	</Style>
+	<!--#endregion-->
+
+	<!--#region Syncfusion: DoubleTextBox-->
+	<Style x:Key="SyncfusionDoubleTextBox" TargetType="skin:DoubleTextBox">
+		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource TextBox.Static.Border}" />
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="CornerRadius" Value="5" />
+		<Setter Property="UseNullOption" Value="True" />
+		<Setter Property="WatermarkTextIsVisible" Value="True" />
+		<Setter Property="Height" Value="24" />
+		<Setter Property="HorizontalContentAlignment" Value="Right" />
+		<Setter Property="Padding" Value="2,0" />
+		<Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="FocusVisualStyle" Value="{x:Null}" />
 	</Style>
 	<!--#endregion-->
 
@@ -2042,7 +2060,7 @@
 						SnapsToDevicePixels="true">
 						<!-- Remove ToggleButton appearance; we still need the ToggleButton because it displays the content.
 						<Grid HorizontalAlignment="Right" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-							<Path x:Name="Arrow" Fill="Black" HorizontalAlignment="Center" Margin="3,1,0,0" VerticalAlignment="Center" Data="{StaticResource DownArrowGeometry}"/>
+							<Path x:Name="Arrow" Fill="Black" HorizontalAlignment="Center" Margin="3,1,0,0" VerticalAlignment="Center" Data="{StaticResource DownArrowGeometry}" />
 						</Grid>
 						-->
 					</t:ButtonChrome>
@@ -2052,7 +2070,7 @@
 						</Trigger>
 						<!-- Remove ToggleButton appearance trigger
 						<Trigger Property="IsEnabled" Value="false">
-							<Setter Property="Fill" TargetName="Arrow" Value="#AFAFAF"/>
+							<Setter Property="Fill" TargetName="Arrow" Value="#AFAFAF" />
 						</Trigger>
 						-->
 					</ControlTemplate.Triggers>
@@ -2167,7 +2185,7 @@
 				IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
 				Style="{StaticResource ComboBoxEditableTextBox}" />
 			<!-- Remove the ToggleButton button; now you make the textbox clickable....
-				<ToggleButton Style="{StaticResource ComboBoxToggleButton}" Grid.Column="1" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+				<ToggleButton Style="{StaticResource ComboBoxToggleButton}" Grid.Column="1" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
 			-->
 		</Grid>
 		<ControlTemplate.Triggers>
@@ -2336,7 +2354,6 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-
 
 	<LinearGradientBrush x:Key="PopupBackground" StartPoint="0.5,0" EndPoint="0.5,1">
 		<GradientStop Offset="0.028" Color="#FFE8EBED" />

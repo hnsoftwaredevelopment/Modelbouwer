@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class CountryViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -36,7 +34,7 @@ public partial class CountryViewModel : ObservableObject
 	public CountryModel? selectedItem;
 
 	[ObservableProperty]
-	private CountryModel _selectedCountry;
+	private CountryModel? _selectedCountry;
 
 	private bool _isAddingNew;
 

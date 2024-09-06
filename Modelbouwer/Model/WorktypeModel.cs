@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class WorktypeModel : INameable
 {
 	public string? WorktypeName { get; set; }

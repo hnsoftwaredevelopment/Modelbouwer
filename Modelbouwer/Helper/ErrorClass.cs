@@ -49,7 +49,7 @@ internal class ErrorClass
 	public string GetSingleErrorMessage( int Error )
 	{
 		// Use default error in case no matching error is found
-		var ErrorMessage = (string)System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Default.Long");
+		string ErrorMessage = (string)System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Default.Long");
 
 		switch ( Error )
 		{
@@ -57,6 +57,7 @@ internal class ErrorClass
 				// Endtime bigger or equal then Starttime
 				ErrorMessage = ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.StartEndTimeError" );
 				break;
+
 			case 41:
 				// Incorrect number of fields in CSV file
 				ErrorMessage = ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.HeaderError" );
@@ -64,14 +65,15 @@ internal class ErrorClass
 		}
 		return ErrorMessage;
 	}
+
 	public (string Label, string ErrorMessageShort, string ErrorMessageLong) GetErrorMessages( int Error )
 	{
 		// Use default error in case no matching error is found
-		var _metadataType = "";
-		var _errorLevel = 0;
-		var Label=(string)System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Unknown");
-		var ErrorMessageShort = (string)System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Unknown");
-		var ErrorMessageLong = (string)System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Unknown.Long");
+		string _metadataType = "";
+		int _errorLevel = 0;
+		_ = ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Unknown" );
+		_ = ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Unknown" );
+		_ = ( string ) System.Windows.Application.Current.FindResource( "Import.Messagebox.Error.Unknown.Long" );
 		switch ( Error )
 		{
 			case 1:
@@ -79,141 +81,169 @@ internal class ErrorClass
 				_metadataType = "Product";
 				_errorLevel = 1;
 				break;
+
 			case 2:
 				// Worktype already exists
 				_metadataType = "WorkType";
 				_errorLevel = 1;
 				break;
+
 			case 3:
 				// Brand already excists
 				_metadataType = "Brand";
 				_errorLevel = 1;
 				break;
+
 			case 4:
 				// Unit Already Excists
 				_metadataType = "Unit";
 				_errorLevel = 1;
 				break;
+
 			case 5:
 				// Category already excists
 				_metadataType = "Category";
 				_errorLevel = 1;
 				break;
+
 			case 6:
 				// Storage already exists
 				_metadataType = "Storage";
 				_errorLevel = 1;
 				break;
+
 			case 7:
 				// Project already exists
 				_metadataType = "Project";
 				_errorLevel = 1;
 				break;
+
 			case 8:
 				// Contacttype already excists
 				_metadataType = "ContactType";
 				_errorLevel = 1;
 				break;
+
 			case 9:
 				// Supplier already excists
 				_metadataType = "Supplier";
 				_errorLevel = 1;
 				break;
+
 			case 10:
 				// Currency already excists
 				_metadataType = "Currency";
 				_errorLevel = 1;
 				break;
+
 			case 11:
 				// Country already excists
 				_metadataType = "Country";
 				_errorLevel = 1;
 				break;
+
 			case 12:
 				// Category Parent Id already excists
 				_metadataType = "CategoryParentId";
 				_errorLevel = 1;
 				break;
+
 			case 13:
 				// Worktype Parent Id already excists
 				_metadataType = "WorktypeParentId";
 				_errorLevel = 1;
 				break;
+
 			case 14:
 				// Product already exists for this supplier
 				_metadataType = "ProductSupplier";
 				_errorLevel = 1;
 				break;
+
 			case 15:
 				// Contact already exists for this supplier
 				_metadataType = "SupplierContact";
 				_errorLevel = 1;
 				break;
+
 			case 16:
 				// Time entry already exists
 				_metadataType = "Time";
 				_errorLevel = 1;
 				break;
+
 			case 21:
 				// Not existing ProductCode
 				_metadataType = "ProductCode";
 				_errorLevel = 2;
 				break;
+
 			case 22:
 				// Not existing WorktypeName
 				_metadataType = "WorktypeName";
 				_errorLevel = 2;
 				break;
+
 			case 23:
 				// Not existing BrandId
 				_metadataType = "BrandId";
 				_errorLevel = 2;
 				break;
+
 			case 24:
 				// Not existing UnitId
 				_metadataType = "UnitId";
 				_errorLevel = 2;
 				break;
+
 			case 25:
 				// Not existing Category
 				_metadataType = "Category";
 				_errorLevel = 2;
 				break;
+
 			case 26:
 				// Not existing StorageId
 				_metadataType = "StorageId";
 				_errorLevel = 2;
 				break;
+
 			case 27:
 				// Not existing ProjectId
 				_metadataType = "ProjectId";
 				_errorLevel = 2;
 				break;
+
 			case 28:
 				// Not existing Contacttype
 				_metadataType = "Contacttype";
 				_errorLevel = 2;
 				break;
+
 			case 29:
 				// Not existing Supplier
 				_metadataType = "Supplier";
 				_errorLevel = 2;
 				break;
+
 			case 30:
 				// Not existing Currency
 				_metadataType = "Currency";
 				_errorLevel = 2;
 				break;
+
 			case 31:
 				// Not existing Country
 				_metadataType = "Country";
 				_errorLevel = 2;
 				break;
+
 			case 32:
 				// Not existing Category Parent Id
 				_metadataType = "CategoryParentId";
 				_errorLevel = 2;
 				break;
+
 			case 33:
 				// Not existing Worktype Parent Id
 				_metadataType = "WorktypeParentId";
@@ -221,18 +251,21 @@ internal class ErrorClass
 				break;
 		}
 
-		Label = ( string ) System.Windows.Application.Current.FindResource( $"Import.{_metadataType}.Button.Label" );
-
+		string Label = ( string ) System.Windows.Application.Current.FindResource( $"Import.{_metadataType}.Button.Label" );
+		string ErrorMessageShort;
+		string ErrorMessageLong;
 		switch ( _errorLevel )
 		{
 			case 1:
 				ErrorMessageShort = ( string ) System.Windows.Application.Current.FindResource( $"Import.Messagebox.Error.Existing.Short" );
 				ErrorMessageLong = ( string ) System.Windows.Application.Current.FindResource( $"Import.Messagebox.Error.Existing.Long" );
 				break;
+
 			case 2:
 				ErrorMessageShort = ( string ) System.Windows.Application.Current.FindResource( $"Import.{_metadataType}.Messagebox.Error.NonExiststing.Short" );
 				ErrorMessageLong = ( string ) System.Windows.Application.Current.FindResource( $"Import.{_metadataType}.Messagebox.Error.NonExiststing.Long" );
 				break;
+
 			default:
 				ErrorMessageShort = "Unknown";
 				ErrorMessageLong = "Unknow error ocured";

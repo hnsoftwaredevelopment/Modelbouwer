@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class ProductModel
 {
 	public int ProductId { get; set; }
@@ -35,5 +36,4 @@ public class ProductModel
 		{ DBNames.ProductFieldNameCategoryId, "ProductCategoryId" },
 		{ DBNames.ProductFieldNameStorageId, "ProductStorageId" }
 	};
-
 }

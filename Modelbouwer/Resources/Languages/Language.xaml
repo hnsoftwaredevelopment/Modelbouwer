@@ -400,13 +400,27 @@
 	<!--#region Maintenance page-->
 	<system:String x:Key="Edit.Currency.Title">Valuta beheren</system:String>
 	<system:String x:Key="Edit.Currency.Subtitle">Wijzig een valuta, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Currency.Code.Label">Zoeknaam:</system:String>
+	<system:String x:Key="Edit.Currency.Code.Tag">ZOEK</system:String>
+	<system:String x:Key="Edit.Currency.Code.Tooltip">Verkorte naam om deze valuta te kunnen vinden</system:String>
 	<system:String x:Key="Edit.Currency.Name.Label">Valutanaam:</system:String>
-	<system:String x:Key="Edit.Currency.Name.Tag">Valutanaam</system:String>
+	<system:String x:Key="Edit.Currency.Name.Tag">Valuta</system:String>
+	<system:String x:Key="Edit.Currency.Name.Tooltip">Naam voor deze valuta</system:String>
+	<system:String x:Key="Edit.Currency.Symbol.Label">Symbool:</system:String>
+	<system:String x:Key="Edit.Currency.Symbol.Tag">Symbool</system:String>
+	<system:String x:Key="Edit.Currency.Symbol.Tooltip">Valuta symbool</system:String>
+	<system:String x:Key="Edit.Currency.Rate.Label">Wisselkoers:</system:String>
+	<system:String x:Key="Edit.Currency.Rate.Tag">Koers</system:String>
+	<system:String x:Key="Edit.Currency.Rate.Tooltip">Gemiddelde wisselkoers naar euro</system:String>
 	<system:String x:Key="Edit.Currency.Action.Tooltip.Add">Valuta toevoegen aan de tabel</system:String>
 	<system:String x:Key="Edit.Currency.Action.Tooltip.Delete">Geselecteerde valuta verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Currency.Action.Tooltip.Save">Gewijzigde valuta opslaan</system:String>
 	<system:String x:Key="Edit.Currency.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Currency.DataGrid.Header.Name">Valutanaam</system:String>
+	<system:String x:Key="Edit.Currency.DataGrid.Header.Code">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Currency.DataGrid.Header.Name">Naam</system:String>
+	<system:String x:Key="Edit.Currency.DataGrid.Header.ConversionRate">Koers</system:String>
+	<system:String x:Key="Edit.Currency.DataGrid.Header.CurrencySymbol">Valuta</system:String>
+
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -835,5 +849,4 @@
 	<system:String x:Key="mainRibbon.Manage.Settings.Button.Label">Instellingen</system:String>
 	<system:String x:Key="mainRibbon.Manage.Settings.Group.Header">Instellingen</system:String>
 	<!--#endregion-->
-
 </ResourceDictionary>

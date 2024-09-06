@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class StockModel
 {
 	public int StorageId { get; set; }
