@@ -264,7 +264,7 @@ public class DBCommands
 	#endregion CountryList
 
 	#region CurrencyList
-	public static ObservableCollection<CurrencyModel> GetCurrencyList( ObservableCollection<CurrencyModel>? currencyList = null )
+	public ObservableCollection<CurrencyModel> GetCurrencyList( ObservableCollection<CurrencyModel>? currencyList = null )
 	{
 		currencyList ??= [ ];
 		DataTable? _dt = GetData( DBNames.CurrencyTable, DBNames.CurrencyFieldNameName );

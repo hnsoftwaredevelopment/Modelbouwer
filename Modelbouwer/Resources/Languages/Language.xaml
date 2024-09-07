@@ -200,6 +200,10 @@
 	<system:String x:Key="Import.Statusline.Text">Status:</system:String>
 	<system:String x:Key="Import.Statusline.None">Geen</system:String>
 
+    <system:String x:Key="Maintanance.Statusline.Read.None">Geen regels ingelezen</system:String>
+    <system:String x:Key="Maintanance.Statusline.Read.Single">Regel ingelezen</system:String>
+    <system:String x:Key="Maintanance.Statusline.Read">Regels ingelezen</system:String>
+    
 	<system:String x:Key="Maintanance.Statusline.None">Geen</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists">Niet opgeslagen, bestaat al</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists.Prefix">Niet opgeslagen,</system:String>
@@ -211,8 +215,8 @@
 	<system:String x:Key="Maintanance.Statusline.NotSaved.Added">is toegevoegd</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.Changed">zijn gewijzigd</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.DataOf">De gegevens van</system:String>
-	<system:String x:Key="Maintanance.Statusline.Deleted">is verwijderd</system:String>
-	<system:String x:Key="Maintanance.Statusline.NotDeleted">is niet verwijderd</system:String>
+	<system:String x:Key="Maintanance.Statusline.Deleted">Regel is verwijderd</system:String>
+	<system:String x:Key="Maintanance.Statusline.NotDeleted">Regel is niet verwijderd</system:String>
 	<system:String x:Key="Maintanance.Statusline.Updated">is gewijzigd</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotUpdated">is niet gewijzigd</system:String>
 	<!--#endregion-->

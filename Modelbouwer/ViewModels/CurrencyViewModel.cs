@@ -16,6 +16,9 @@ public partial class CurrencyViewModel : ObservableObject
 	[ObservableProperty]
 	public string? currencyName;
 
+	[ObservableProperty]
+	private CurrencyModel? _selectedCurrency;
+
 	public ObservableCollection<CurrencyModel> Currency
 	{
 		get => _currency;
@@ -32,9 +35,6 @@ public partial class CurrencyViewModel : ObservableObject
 
 	[ObservableProperty]
 	public CurrencyModel? selectedItem;
-
-	[ObservableProperty]
-	private CurrencyModel? _selectedCurrency;
 
 	private bool _isAddingNew;
 
@@ -68,7 +68,7 @@ public partial class CurrencyViewModel : ObservableObject
 		IsAddingNew = true;
 	}
 
-	partial void OnSelectedCurrencyChanged( CurrencyModel value )
+	partial void OnSelectedCurrencyChanged( CurrencyModel? value )
 	{
 		if ( value != null )
 		{
@@ -78,6 +78,12 @@ public partial class CurrencyViewModel : ObservableObject
 
 	public CurrencyViewModel()
 	{
-		Currency = new ObservableCollection<CurrencyModel>( DBCommands.GetCurrencyList() );
+		DBCommands dbCommands = new();
+		Currency = new ObservableCollection<CurrencyModel>( dbCommands.GetCurrencyList() );
+
+		if ( Currency != null && Currency.Any() )
+		{
+			SelectedCurrency = Currency.First();
+		}
 	}
 }

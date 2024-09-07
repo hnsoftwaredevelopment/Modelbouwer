@@ -531,7 +531,7 @@ public class DBNames
 
 	#region Worktype Table
 
-	public static readonly string WorktypeTable = "Worktype";
+	public static readonly string WorktypeTable = "worktype";
 	public static readonly string WorktypeFieldNameId = "Id";
 	public static readonly string WorktypeFieldTypeId = "int";
 	public static readonly string WorktypeFieldNameParentId = "ParentId";
