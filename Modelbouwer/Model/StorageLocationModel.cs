@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class StorageLocationModel : INameable
 {
 	public string? StorageLocationName { get; set; }

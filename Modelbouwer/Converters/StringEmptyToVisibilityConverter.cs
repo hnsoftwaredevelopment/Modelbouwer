@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Converters;
+
 public class StringEmptyToVisibilityConverter : IValueConverter
 {
 	public object Convert( object value, Type targetType, object parameter, CultureInfo culture )

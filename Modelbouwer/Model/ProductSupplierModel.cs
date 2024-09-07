@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class ProductSupplierModel
 {
 	public int ProductSupplierId { get; set; }
@@ -27,5 +28,4 @@ public class ProductSupplierModel
 		{ DBNames.ProductSupplierFieldNameProductUrl, "ProductSupplierURL" },
 		{ DBNames.ProductSupplierFieldNameDefaultSupplier, "ProductSupplierDefaultSupplier" }
 	};
-
 }

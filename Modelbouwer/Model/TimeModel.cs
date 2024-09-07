@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class TimeModel
 {
 	public int TimeId { get; set; }

@@ -14,25 +14,27 @@ public partial class BrandImport : System.Windows.Controls.Page
 	}
 
 	#region Prepare an empty CSV file, with only headers
+
 	private void Prepare( object sender, RoutedEventArgs e )
 	{
-		var folderDialog = new FolderBrowserDialog()
+		FolderBrowserDialog folderDialog = new()
 		{
 			Description = (string)FindResource("Import.FileDialog.Description")
 		};
+		_ = folderDialog.ShowDialog();
 
-		DialogResult result = folderDialog.ShowDialog();
-
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Brand.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Brand.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Brand");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
 
 		dispStatusLine.Text = $"{( string ) FindResource( "Import.Statusline.Completed.Prepare" )} {folderDialog.SelectedPath}\\{_filename}";
 	}
-	#endregion
+
+	#endregion Prepare an empty CSV file, with only headers
 
 	#region Select file to import
+
 	private void SelectFile( object sender, RoutedEventArgs e )
 	{
 		OpenFileDialog fileDialog = new ()
@@ -51,17 +53,19 @@ public partial class BrandImport : System.Windows.Controls.Page
 			columnImportButton.Width = ( GridLength ) FindResource( "Column.Import.Button.Width" );
 		}
 	}
-	#endregion
+
+	#endregion Select file to import
 
 	#region Import selected CSV file
+
 	private void Import( object sender, RoutedEventArgs e )
 	{
-		var errorIdentifier = 3; //See Error Class for meaning of this number
+		int errorIdentifier = 3; //See Error Class for meaning of this number
 		string[] checkField = [DBNames.BrandFieldNameName, DBNames.BrandFieldTypeName, "0"]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
 		string metadataType = "Brand"; // Used for getting the headers for import
 
 		dispStatusLine.Text = GeneralHelper.ProcessCsvFile( DBNames.BrandTable, errorIdentifier, dispFileName.Text, checkField, metadataType );
 	}
-	#endregion
-}
 
+	#endregion Import selected CSV file
+}

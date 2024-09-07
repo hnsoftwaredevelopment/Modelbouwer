@@ -57,6 +57,7 @@
 			Grid.Row="2"
 			Style="{DynamicResource HiddenTextBox}"
 			Text="{Binding CountryViewModel.SelectedCountry.CountryCurrencyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		<!--#endregion-->
 		<Grid
 			Grid.Row="1"
 			HorizontalAlignment="Left"
@@ -169,6 +170,8 @@
 				</Button>
 			</ToolBar>
 		</ToolBarTray>
+		<!--#endregion-->
+		
 		<!--#region Datagrid-->
 		<DataGrid
 			x:Name="CountryDataGrid"
@@ -203,6 +206,7 @@
 					Header="{StaticResource Edit.Country.DataGrid.Header.CurrencySymbol}" />
 			</DataGrid.Columns>
 		</DataGrid>
+		<!--#endregion-->
 
 		<!--#region Country export Status bar-->
 		<DockPanel
@@ -221,6 +225,6 @@
 				</StackPanel>
 			</Grid>
 		</DockPanel>
-
+<!--#endregion-->
 	</Grid>
 </Page>

@@ -1,9 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-
-using Syncfusion.Data.Extensions;
-
-namespace Modelbouwer.Helper;
+﻿namespace Modelbouwer.Helper;
 public class DBCommands
 {
 	#region GetData
@@ -15,7 +10,7 @@ public class DBCommands
 
 		return GetTable( selectQuery );
 	}
-	#endregion
+	#endregion GetData unsorted
 
 	#region GetData Sorted
 	public static DataTable GetData( string _table, string _orderByFieldName )
@@ -28,7 +23,7 @@ public class DBCommands
 				$"{DBNames.SqlOrder}{_orderByFieldName}" ;
 		return GetTable( selectQuery );
 	}
-	#endregion
+	#endregion GetData Sorted
 
 	#region GetData Sorted and filtered
 	public static DataTable GetData( string _table, string _orderByFieldName, string _whereFieldName, string _whereFieldValue )
@@ -43,7 +38,7 @@ public class DBCommands
 				$"{DBNames.SqlOrder}{_orderByFieldName};" ;
 		return GetTable( selectQuery );
 	}
-	#endregion
+	#endregion GetData Sorted and filtered
 
 	#region Get data sorted, and filtered on two criteria
 	public static DataTable GetData( string _table, string _orderByFieldName, string _whereFieldName, string _whereFieldValue, string _andWhereFieldName, string _andWhereFieldValue )
@@ -67,7 +62,7 @@ public class DBCommands
 		//return GetTable( selectQuery );
 		return table;
 	}
-	#endregion
+	#endregion Get data sorted, and filtered on two criteria
 
 	#region Get Field(s) from table
 	public static string GetData( string _table, string [ , ] _whereFields, string [ , ] _fields )
@@ -112,21 +107,27 @@ public class DBCommands
 				case "string":
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _whereFields [ i, 2 ];
 					break;
+
 				case "int":
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Int32 ).Value = int.Parse( _whereFields [ i, 2 ] );
 					break;
+
 				case "double":
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Double ).Value = double.Parse( _whereFields [ i, 2 ] );
 					break;
+
 				case "float":
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Float ).Value = float.Parse( _whereFields [ i, 2 ] );
 					break;
+
 				case "longtext":
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.LongText ).Value = DBNull.Value;
 					break;
+
 				case "longblob":
 					cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Blob ).Value = DBNull.Value;
 					break;
+
 				case "date":
 					string[] _tempDates = _whereFields[i, 2].Split("-");
 
@@ -170,7 +171,7 @@ public class DBCommands
 
 		return table;
 	}
-	#endregion
+	#endregion Get the data table based on the select query
 
 	#region Fill lists
 	#region BrandList
@@ -189,7 +190,7 @@ public class DBCommands
 		}
 		return brandList;
 	}
-	#endregion
+	#endregion BrandList
 
 	#region CategoryList
 	public ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
@@ -221,7 +222,7 @@ public class DBCommands
 		}
 		return lookup [ null ].ToObservableCollection();
 	}
-	#endregion
+	#endregion CategoryList
 
 	#region CountryList
 	public static ObservableCollection<CountryModel> GetCountryList( ObservableCollection<CountryModel>? countryList = null )
@@ -260,7 +261,7 @@ public class DBCommands
 		}
 		return countryList;
 	}
-	#endregion
+	#endregion CountryList
 
 	#region CurrencyList
 	public static ObservableCollection<CurrencyModel> GetCurrencyList( ObservableCollection<CurrencyModel>? currencyList = null )
@@ -281,7 +282,7 @@ public class DBCommands
 		}
 		return currencyList;
 	}
-	#endregion
+	#endregion CurrencyList
 
 	#region StorageLocationList
 	public static ObservableCollection<StorageLocationModel> GetStorageLocationList( ObservableCollection<StorageLocationModel>? storagelocationList = null )
@@ -303,7 +304,7 @@ public class DBCommands
 		}
 		return storagelocationList;
 	}
-	#endregion
+	#endregion StorageLocationList
 
 	#region WorktypeList
 	public static ObservableCollection<WorktypeModel> GetWorktypeList( ObservableCollection<WorktypeModel>? worktypeList = null )
@@ -326,9 +327,9 @@ public class DBCommands
 		}
 		return worktypeList;
 	}
-	#endregion
-	#endregion
-	#endregion
+	#endregion WorktypeList
+	#endregion Fill lists
+	#endregion GetData
 
 	#region Export data to CSV file
 	/// <summary>
@@ -370,7 +371,7 @@ public class DBCommands
 			sw.WriteLine( string.Join( ";", rowValues ) );
 		}
 	}
-	#endregion
+	#endregion Export data to CSV file
 
 	#region Insert data in the database
 	#region Insert new record in Table
@@ -482,7 +483,7 @@ public class DBCommands
 		}
 	}
 
-	#endregion
+	#endregion Insert new record in Table
 
 	#region Insert Fields and Image in table
 	public static string InsertInTable( string _table, string [ , ] _fields, byte [ ] _image, string _imageName )
@@ -525,8 +526,8 @@ public class DBCommands
 		}
 		return result;
 	}
-	#endregion
-	#endregion
+	#endregion Insert Fields and Image in table
+	#endregion Insert data in the database
 
 	#region Update record in database
 	public static string UpdateInTable( string _table, string [ , ] _fieldsToUpdate, string [ , ] _whereFields )
@@ -573,7 +574,7 @@ public class DBCommands
 		}
 		return result;
 	}
-	#endregion
+	#endregion Update record in database
 
 	#region Replace start of FullPath with changed FullPath
 	public static void ChangeFullPath( string _table, string _fullPathFieldName, string _oldPath, string _newPath )
@@ -600,7 +601,7 @@ public class DBCommands
 			throw;
 		}
 	}
-	#endregion
+	#endregion Replace start of FullPath with changed FullPath
 
 	#region Delete records from database
 	public static string DeleteRecord( string _table, string [ , ] _whereFields )
@@ -633,7 +634,7 @@ public class DBCommands
 		}
 		return result;
 	}
-	#endregion
+	#endregion Delete records from database
 
 	#region Delete recordTree from table based on (Parent) Id
 	public static void DeleteRecordTree( string _table, string _idField, string _parentIdField, int _id = 0 )
@@ -669,7 +670,7 @@ public class DBCommands
 			}
 		}
 	}
-	#endregion
+	#endregion Delete recordTree from table based on (Parent) Id
 
 	#region Check if there is a record in the table based (returns no of records)
 	public static int CheckForRecords( string _table, string [ , ] _whereFields )
@@ -702,21 +703,27 @@ public class DBCommands
 						case "string":
 							cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _whereFields [ i, 2 ];
 							break;
+
 						case "int":
 							cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Int32 ).Value = int.Parse( _whereFields [ i, 2 ] );
 							break;
+
 						case "double":
 							cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Double ).Value = double.Parse( _whereFields [ i, 2 ] );
 							break;
+
 						case "float":
 							cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Float ).Value = float.Parse( _whereFields [ i, 2 ] );
 							break;
+
 						case "longtext":
 							cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.LongText ).Value = DBNull.Value;
 							break;
+
 						case "longblob":
 							cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Blob ).Value = DBNull.Value;
 							break;
+
 						case "date":
 							string [] _tempDates = _whereFields[i, 2].Split("-");
 
@@ -732,7 +739,7 @@ public class DBCommands
 		}
 		return result;
 	}
-	#endregion
+	#endregion Check if there is a record in the table based (returns no of records)
 
 	#region Execute Non Query Handlers
 	#region Execute Non Query
@@ -744,7 +751,7 @@ public class DBCommands
 		using MySqlCommand cmd = new(_sqlQuery, connection);
 		_ = cmd.ExecuteNonQuery();
 	}
-	#endregion Execute NonQuery
+	#endregion Execute Non Query
 
 	#region Execute Non Query SqlText + Array with Fields
 	public static int ExecuteNonQueryTable( string _sqlQuery, string [ , ] _fields )
@@ -763,18 +770,23 @@ public class DBCommands
 					case "string":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
+
 					case "int":
 					{ cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Int32 ).Value = _fields [ i, 2 ] is "0" or "" ? null : int.Parse( _fields [ i, 2 ] ); }
 					break;
+
 					case "double":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Double ).Value = double.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "float":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Float ).Value = float.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "longtext":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.LongText ).Value = _fields [ i, 2 ];
 						break;
+
 					case "date":
 						string[] _tempDates = _fields[i, 2].Split("-");
 
@@ -782,6 +794,7 @@ public class DBCommands
 						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
+
 					case "time":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
@@ -791,7 +804,7 @@ public class DBCommands
 		}
 		return rowsAffected;
 	}
-	#endregion SqlText + Array with Fields
+	#endregion Execute Non Query SqlText + Array with Fields
 
 	#region Execute Non Query SqlText + Array with WhereFields + Array with Fields
 	public static int ExecuteNonQueryTable( string sqlQuery, string [ , ] _whereFields, string [ , ] _fields )
@@ -810,18 +823,23 @@ public class DBCommands
 					case "string":
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.String ).Value = _whereFields [ i, 2 ];
 						break;
+
 					case "int":
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.Int32 ).Value = int.Parse( _whereFields [ i, 2 ] );
 						break;
+
 					case "double":
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.Double ).Value = double.Parse( _whereFields [ i, 2 ] );
 						break;
+
 					case "float":
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.Float ).Value = float.Parse( _whereFields [ i, 2 ] );
 						break;
+
 					case "longtext":
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.LongText ).Value = _whereFields [ i, 2 ];
 						break;
+
 					case "date":
 						string[] _tempDates = _whereFields[i, 2].Split("-");
 
@@ -829,6 +847,7 @@ public class DBCommands
 						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
+
 					case "time":
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
@@ -842,18 +861,23 @@ public class DBCommands
 					case "string":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
+
 					case "int":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Int32 ).Value = int.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "double":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Double ).Value = double.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "float":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Float ).Value = float.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "longtext":
 						cmd.Parameters.Add( "@" + _whereFields [ i, 0 ], MySqlDbType.LongText ).Value = _fields [ i, 2 ];
 						break;
+
 					case "date":
 						string[] _tempDates = _fields[i, 2].Split("-");
 
@@ -862,6 +886,7 @@ public class DBCommands
 						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
+
 					case "time":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
@@ -871,7 +896,7 @@ public class DBCommands
 		}
 		return rowsAffected;
 	}
-	#endregion
+	#endregion Execute Non Query SqlText + Array with WhereFields + Array with Fields
 
 	#region SqlText + Array with WhereFields + Memo
 	public static int ExecuteNonQueryTable( string sqlQuery, string [ , ] _whereFields, string _memoField, string _memoContent )
@@ -890,15 +915,19 @@ public class DBCommands
 					case "string":
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _whereFields [ i, 2 ];
 						break;
+
 					case "int":
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Int32 ).Value = int.Parse( _whereFields [ i, 2 ] );
 						break;
+
 					case "double":
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Double ).Value = double.Parse( _whereFields [ i, 2 ] );
 						break;
+
 					case "float":
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.Float ).Value = float.Parse( _whereFields [ i, 2 ] );
 						break;
+
 					case "date":
 						string[] _tempDates = _whereFields[i, 2].Split("-");
 
@@ -906,6 +935,7 @@ public class DBCommands
 						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _tempDate;
 						break;
+
 					case "time":
 						cmd.Parameters.Add( $"@{_whereFields [ i, 0 ]}", MySqlDbType.String ).Value = _whereFields [ i, 2 ];
 						break;
@@ -918,9 +948,9 @@ public class DBCommands
 		}
 		return rowsAffected;
 	}
-	#endregion
+	#endregion SqlText + Array with WhereFields + Memo
 
-	#region Execute Non Query: SqlText + Array with Fields + Image 
+	#region Execute Non Query: SqlText + Array with Fields + Image
 	private static int ExecuteNonQueryTable( string _sqlQuery, string [ , ] _fields, byte [ ] _image, string _imageName )
 	{
 		int rowsAffected = 0;
@@ -937,18 +967,23 @@ public class DBCommands
 					case "string":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
+
 					case "int":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Int32 ).Value = int.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "double":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Double ).Value = double.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "float":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Float ).Value = float.Parse( _fields [ i, 2 ] );
 						break;
+
 					case "longtext":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.LongText ).Value = _fields [ i, 2 ];
 						break;
+
 					case "date":
 						string[] _tempDates = _fields[i, 2].Split("-");
 
@@ -956,6 +991,7 @@ public class DBCommands
 						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
 						break;
+
 					case "time":
 						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _fields [ i, 2 ];
 						break;
@@ -967,7 +1003,6 @@ public class DBCommands
 		}
 		return rowsAffected;
 	}
-	#endregion
-	#endregion
-
+	#endregion Execute Non Query: SqlText + Array with Fields + Image
+	#endregion Execute Non Query Handlers
 }

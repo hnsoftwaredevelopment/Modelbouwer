@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.9.5.16</AssemblyVersion>
-    <FileVersion>24.9.5.16</FileVersion>
+    <AssemblyVersion>24.9.6.44</AssemblyVersion>
+    <FileVersion>24.9.6.44</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
@@ -158,6 +158,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
     <PackageReference Include="MySql.Data" Version="9.0.0" />
     <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="26.2.11" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="26.2.11" />
@@ -570,6 +571,9 @@
     <EmbeddedResource Update="Resources\Languages\Language.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Languages\Syncfusion.SfGrid.WPF.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
 

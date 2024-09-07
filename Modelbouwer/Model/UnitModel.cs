@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class UnitModel
 {
 	public int UnitId { get; set; }

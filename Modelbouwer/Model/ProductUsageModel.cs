@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class ProductUsageModel
 {
 	public int ProductUsageId { get; set; }

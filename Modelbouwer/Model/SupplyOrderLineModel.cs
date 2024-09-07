@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class SupplyOrderLineModel
 {
 	public int SupplyOrderLineId { get; set; }

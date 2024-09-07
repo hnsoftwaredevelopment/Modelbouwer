@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class SupplierModel
 {
 	public int SupplierId { get; set; }
@@ -15,5 +16,4 @@ public class SupplierModel
 	public string? SupplierMemo { get; set; }
 	public int SupplierCurrencyId { get; set; }
 	public int SupplierCountryId { get; set; }
-
 }

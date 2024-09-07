@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Helper;
+
 public class StringHelper
 {
 	/// <summary>
@@ -8,7 +9,7 @@ public class StringHelper
 	/// <returns>A string</returns>
 	public static string EscapeBackslashes( string input )
 	{
-		var result = new System.Text.StringBuilder();
+		StringBuilder result = new();
 
 		bool prevCharWasBackslash = false;
 
@@ -19,12 +20,12 @@ public class StringHelper
 				if ( prevCharWasBackslash )
 				{
 					// Voeg de backslash toe zoals deze is (dus een dubbele backslash)
-					result.Append( c );
+					_ = result.Append( c );
 				}
 				else
 				{
 					// Voeg een dubbele backslash toe
-					result.Append( "\\\\" );
+					_ = result.Append( "\\\\" );
 				}
 
 				prevCharWasBackslash = true;
@@ -32,7 +33,7 @@ public class StringHelper
 			else
 			{
 				// Voeg het huidige karakter toe en reset de flag
-				result.Append( c );
+				_ = result.Append( c );
 				prevCharWasBackslash = false;
 			}
 		}

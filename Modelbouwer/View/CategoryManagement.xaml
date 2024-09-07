@@ -250,6 +250,6 @@
 				</StackPanel>
 			</Grid>
 		</DockPanel>
-
+		<!--#endregion-->
 	</Grid>
 </Page>

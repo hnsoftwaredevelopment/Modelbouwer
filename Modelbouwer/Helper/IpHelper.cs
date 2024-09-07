@@ -1,8 +1,9 @@
 ﻿namespace Modelbouwer.Helper;
+
 public class IpHelper
 {
-	static string filePath = @".\Resources\Config\Modelbuilder.Config";
-	static string defaultContent = "3924, 2400, 2400, 2412";
+	private static readonly string filePath = @".\Resources\Config\Modelbuilder.Config";
+	private static readonly string defaultContent = "3924, 2400, 2400, 2412";
 
 	public static string GetIP( string _forcelocal = "" )
 	{
@@ -28,4 +29,3 @@ public class IpHelper
 		return $"{ipPart [ 0 ]}.{ipPart [ 1 ]}.{ipPart [ 2 ]}.{ipPart [ 3 ]}";
 	}
 }
-

@@ -1,4 +1,5 @@
 ﻿namespace Modelbouwer.Model;
+
 public class CurrencyModel
 {
 	public double CurrencyConversionRate { get; set; }
@@ -19,5 +20,4 @@ public class CurrencyModel
 		{ DBNames.CurrencyFieldNameName, "CurrencyName" },
 		{ DBNames.CurrencyFieldNameSymbol, "CurrencySymbol" }
 	};
-
 }

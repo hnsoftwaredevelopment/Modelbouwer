@@ -134,7 +134,7 @@
 	</DrawingGroup>
 	<DrawingImage x:Key="searchfile" Drawing="{StaticResource searchfileDrawingGroup}" />
 	<!--#endregion-->
-	
+
 	<!--#region Save-->
 	<Geometry x:Key="saveGeometry1">F1 M74,74.016999z M0,0z M3.1600651,0C20.071622,0 36.983179,0 53.894736,0 57.263157,3.3684213 60.631579,6.7368427 64,10.105264 64,27.016821 64,43.928378 64,60.839935 64.04553,63.648729 61.057391,64.251116 58.848452,64 40.285656,64 21.722861,64 3.1600651,64 0.3512707,64.04553 -0.25111616,61.057391 0,58.848452 0,40.285656 0,21.722861 0,3.1600651 -0.03453985,1.4674813 1.4670782,-0.03441121 3.1600651,0z</Geometry>
 	<Geometry x:Key="saveGeometry2">F1 M74,74.016999z M0,0z M13.074335,0C25.697232,0 38.32013,0 50.943027,0 50.892657,5.5600648 51.045166,11.132966 50.864217,16.684787 50.462851,19.04698 47.951902,20.099144 45.786412,19.793815 36.047119,19.780455 26.306474,19.820535 16.568025,19.773795 14.024243,19.597188 12.714745,16.937293 13.074337,14.637202 13.074337,9.7581361 13.074337,4.8790706 13.074337,4.99999999803435E-06z M51.272924,64.017363C38.430095,64.017363 25.587267,64.017363 12.744438,64.017363 12.759008,57.171831 12.715308,50.324823 12.766258,43.480212 12.954433,40.778255 15.764351,39.31244 18.230951,39.691807 27.987744,39.706347 37.746009,39.662717 47.50188,39.713627 50.203269,39.901801 51.670887,42.71172 51.289191,45.178319 51.283791,51.458 51.278341,57.73768 51.272921,64.017361z</Geometry>
@@ -182,17 +182,32 @@
 		<GeometryDrawing Brush="#FF808080" Geometry="{StaticResource addtaskGeometry2}" />
 		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource addtaskGeometry3}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FF808080" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FF808080"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource addtaskGeometry4}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FF808080" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FF808080"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource addtaskGeometry5}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FF008000" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FF008000"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FF008000" Geometry="{StaticResource addtaskGeometry6}" />
@@ -215,24 +230,39 @@
 		<GeometryDrawing Brush="#FF808080" Geometry="{StaticResource addsubtaskGeometry2}" />
 		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource addsubtaskGeometry3}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FF008000" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FF008000"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource addsubtaskGeometry4}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FF808080" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FF808080"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource addsubtaskGeometry5}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FF808080" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FF808080"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FF008000" Geometry="{StaticResource addsubtaskGeometry6}" />
 	</DrawingGroup>
 	<DrawingImage x:Key="addsubtask" Drawing="{StaticResource addsubtaskDrawingGroup}" />
 	<!--#endregion-->
-	
+
 	<!--#region Delete Tasks-->
 	<Geometry x:Key="deletetaskGeometry1">F1 M21.305001,24.256z M0,0z M4.0376071,6.7491485C3.7410789,6.866502 3.0120456,6.594513 3.0460206,7.0093865 3.0529906,8.2413831 2.8861126,9.7607437 3.9133056,10.666431 5.1327241,11.547513 6.707234,11.201348 8.1084829,11.280398 9.5848581,11.280398 11.061232,11.280398 12.537607,11.280398 12.468727,10.976697 12.681415,10.391426 12.41986,10.280398 10.811974,10.280398 9.2040871,10.280398 7.5962009,10.280398 6.6711854,10.166183 5.1762021,10.578564 4.3913556,9.6904384 3.8460882,8.8101054 4.1253417,7.7210079 4.0376071,6.7491485z</Geometry>
 	<Geometry x:Key="deletetaskGeometry2">F1 M21.305001,24.256z M0,0z M4.0376071,6.7491485C3.7392088,6.8647692 3.0321345,6.5997302 3.0392144,6.9998874 3.0635734,10.280029 2.9879474,13.563207 3.0843194,16.841452 3.1505274,17.834702 3.7190241,18.867413 4.7576402,19.094813 6.0442347,19.420019 7.386782,19.237603 8.7013631,19.28466 9.9814931,19.28466 11.261624,19.28466 12.541754,19.28466 12.472874,18.980959 12.685562,18.395688 12.424007,18.28466 10.816121,18.28466 9.2082341,18.28466 7.6003483,18.28466 6.6753343,18.170373 5.1803493,18.582789 4.3955029,17.694655 3.8058477,16.614363 4.1371322,15.324421 4.0432474,14.14873 4.0369074,11.682212 4.0495974,9.215639 4.0376074,6.7491485z</Geometry>
@@ -248,17 +278,32 @@
 		<GeometryDrawing Brush="#FFCA0D0D" Geometry="{StaticResource deletetaskGeometry2}" />
 		<GeometryDrawing Brush="#FFF9F9F9" Geometry="{StaticResource deletetaskGeometry3}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FFCA0D0D" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FFCA0D0D"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FFF9F9F9" Geometry="{StaticResource deletetaskGeometry4}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FFCA0D0D" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FFCA0D0D"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource deletetaskGeometry5}">
 			<GeometryDrawing.Pen>
-				<Pen Brush="#FFCA0D0D" Thickness="0.479487" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+				<Pen
+					Brush="#FFCA0D0D"
+					EndLineCap="Flat"
+					LineJoin="Round"
+					StartLineCap="Flat"
+					Thickness="0.479487" />
 			</GeometryDrawing.Pen>
 		</GeometryDrawing>
 		<GeometryDrawing Brush="#FFCA0D0D" Geometry="{StaticResource deletetaskGeometry6}" />
@@ -1499,5 +1544,4 @@
 				Stretch="Fill" />
 		</Grid>
 	</DataTemplate>
-
 </ResourceDictionary>
