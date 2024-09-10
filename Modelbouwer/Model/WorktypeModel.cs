@@ -2,10 +2,11 @@
 
 public class WorktypeModel : INameable
 {
-	public string? WorktypeName { get; set; }
-	public string? WorktypeFullpath { get; set; }
 	public int WorktypeId { get; set; }
-	public int WorktypeParentId { get; set; }
+	public int? WorktypeParentId { get; set; }
+	public string? WorktypeName { get; set; }
+
+	public ObservableCollection<WorktypeModel> SubWorktypes { get; set; } = [ ];
 
 	// Define the property that you want to use in TLists (for example in the errorList
 	public string Name => WorktypeName;
@@ -15,7 +16,6 @@ public class WorktypeModel : INameable
 	{
 		{ DBNames.WorktypeFieldNameId, "WorktypeId" },
 		{ DBNames.WorktypeFieldNameParentId, "WorktypeParentId" },
-		{ DBNames.WorktypeFieldNameName, "WorktypeName" },
-		{ DBNames.WorktypeFieldNameFullpath, "WorktypeFullpath" }
+		{ DBNames.WorktypeFieldNameName, "WorktypeName" }
 	};
 }

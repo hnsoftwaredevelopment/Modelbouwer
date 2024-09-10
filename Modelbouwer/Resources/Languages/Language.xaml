@@ -200,10 +200,10 @@
 	<system:String x:Key="Import.Statusline.Text">Status:</system:String>
 	<system:String x:Key="Import.Statusline.None">Geen</system:String>
 
-    <system:String x:Key="Maintanance.Statusline.Read.None">Geen regels ingelezen</system:String>
-    <system:String x:Key="Maintanance.Statusline.Read.Single">Regel ingelezen</system:String>
-    <system:String x:Key="Maintanance.Statusline.Read">Regels ingelezen</system:String>
-    
+	<system:String x:Key="Maintanance.Statusline.Read.None">Geen regels ingelezen</system:String>
+	<system:String x:Key="Maintanance.Statusline.Read.Single">Regel ingelezen</system:String>
+	<system:String x:Key="Maintanance.Statusline.Read">Regels ingelezen</system:String>
+
 	<system:String x:Key="Maintanance.Statusline.None">Geen</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists">Niet opgeslagen, bestaat al</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotSaved.AlreadyExcists.Prefix">Niet opgeslagen,</system:String>
@@ -604,7 +604,7 @@
 	<system:String x:Key="Edit.ContactType.DataGrid.Header.Name">Functie</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
-	
+
 	<!--#region Project-->
 	<!--#region Export page-->
 	<system:String x:Key="Export.Project.Title">Projecten Exporteren</system:String>
@@ -728,13 +728,31 @@
 	<!--#region Maintanance-->
 	<system:String x:Key="Edit.Worktype.Title">Werksoorten beheren</system:String>
 	<system:String x:Key="Edit.Worktype.Subtitle">Wijzig een werksoort, voeg toe of verwijder</system:String>
-	<system:String x:Key="Edit.Worktype.Name.Label">Werksoortnaam:</system:String>
-	<system:String x:Key="Edit.Worktype.Name.Tag">Werksoortnaam</system:String>
-	<system:String x:Key="Edit.Worktype.Action.Tooltip.Add">Werksoort toevoegen aan de tabel</system:String>
-	<system:String x:Key="Edit.Worktype.Action.Tooltip.Delete">Geselecteerde werksoort verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Worktype.Name.Label">Werksoort:</system:String>
+	<system:String x:Key="Edit.Worktype.Name.Tag">Werksoort</system:String>
+	<system:String x:Key="Edit.Worktype.Name.Tooltip">Omschrijving van het soort werkzaamheden (waar heb je aan gewerkt?)</system:String>
+	<system:String x:Key="Edit.Worktype.Id.Label">Id:</system:String>
+	<system:String x:Key="Edit.Worktype.Id.Tag">Id</system:String>
+	<system:String x:Key="Edit.Worktype.Id.Tooltip">Id</system:String>
+	<system:String x:Key="Edit.Worktype.ParentId.Label">ParentId:</system:String>
+	<system:String x:Key="Edit.Worktype.ParentId.Tag">ParentId</system:String>
+	<system:String x:Key="Edit.Worktype.ParentId.Tooltip">ParentId</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.AddTask">Werksoort toevoegen aan de tabel, op niveau van geselecteerde werksoort</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.AddSubTask">Werksoort toevoegen aan de tabel, met geselecteerde werksoort als hoofdwerksoort</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.Delete">Geselecteerde werksoort, en onderliggende werksoorten, verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Worktype.Action.Tooltip.Save">Gewijzigde werksoort opslaan</system:String>
+	<system:String x:Key="Edit.Worktype.Action.ContextMenu.Label.Expand">Werksoorten openklappen</system:String>
+	<system:String x:Key="Edit.Worktype.Action.ContextMenu.Label.Collapse">Werksoorten dichtklappen</system:String>
+	<system:String x:Key="Edit.Worktype.Action.ContextMenu.Label.Save">Wijzigingen opslaan</system:String>
+	<system:String x:Key="Edit.Worktype.Action.ContextMenu.Label.AddTask">Werksoort toevoegen</system:String>
+	<system:String x:Key="Edit.Worktype.Action.ContextMenu.Label.AddSubTask">Subwerksoort toevoegen</system:String>
+	<system:String x:Key="Edit.Worktype.Action.ContextMenu.Label.DeleteTask">Verwijder werksoort</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.Expand">Alle (sub)werksoorten openklappen</system:String>
+	<system:String x:Key="Edit.Worktype.Action.Tooltip.Collapse">Alle (sub)werksoorten dicktklappen</system:String>
 	<system:String x:Key="Edit.Worktype.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Worktype.DataGrid.Header.ParentId">ParentId</system:String>
 	<system:String x:Key="Edit.Worktype.DataGrid.Header.Name">Werksoortnaam</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Supplier-->
@@ -843,7 +861,6 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
-	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#endregion-->

@@ -1,31 +1,64 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class WorktypeViewModel : ObservableObject
 {
 	[ObservableProperty]
-	public string? categoryName;
+	public string? worktypeName;
 
 	[ObservableProperty]
-	public string? categoryFullpath;
+	public int worktypeId;
 
 	[ObservableProperty]
-	public int categoryId;
+	public int worktypeParentId;
+
+	public ObservableCollection<WorktypeModel> Worktype { get; set; }
 
 	[ObservableProperty]
-	public int categoryParentId;
+	private WorktypeModel? _selectedWorktype;
 
-	public ObservableCollection<WorktypeModel> Worktype
+	private readonly ObservableCollection<WorktypeModel>? _worktype;
+
+	[ObservableProperty]
+	public WorktypeModel? selectedItem;
+
+	private bool _isAddingNew;
+
+	public bool IsAddingNew
 	{
-		get => _worktype;
+		get => _isAddingNew;
 		set
 		{
-			if ( _worktype != value )
+			if ( _isAddingNew != value )
 			{
-				_worktype = value;
-				OnPropertyChanged( nameof( Worktype ) );
+				_isAddingNew = value;
+				OnPropertyChanged( nameof( IsAddingNew ) );
 			}
 		}
 	}
-	private ObservableCollection<WorktypeModel>? _worktype;
+
+	public void AddNewItem()
+	{
+		// Voeg het nieuwe, lege item toe aan de lijst
+		WorktypeModel newWorktype = new()
+		{
+			WorktypeId = 0,
+			WorktypeParentId = 0,
+			WorktypeName = string.Empty
+		};
+
+		Worktype.Add( newWorktype );
+		SelectedWorktype = newWorktype;
+		IsAddingNew = true;
+	}
+
+	public WorktypeViewModel()
+	{
+		DBCommands dbCommands = new();
+		Worktype = new ObservableCollection<WorktypeModel>( dbCommands.GetWorktypeList() );
+
+		if ( Worktype != null && Worktype.Any() )
+		{
+			SelectedWorktype = Worktype.First();
+		}
+	}
+
 }

@@ -254,7 +254,6 @@ public class DBCommands
 	}
 	#endregion Brand
 
-
 	#region CountryList
 	public static ObservableCollection<CountryModel> GetCountryList( ObservableCollection<CountryModel>? countryList = null )
 	{
@@ -356,25 +355,45 @@ public class DBCommands
 	#endregion Brand
 
 	#region WorktypeList
-	public static ObservableCollection<WorktypeModel> GetWorktypeList( ObservableCollection<WorktypeModel>? worktypeList = null )
+	public ObservableCollection<WorktypeModel> GetWorktypeList( ObservableCollection<WorktypeModel>? worktypeList = null )
 	{
 		worktypeList ??= [ ];
-		DataTable? _dt = GetData( DBNames.WorktypeTable, DBNames.WorktypeFieldNameFullpath );
+		DataTable? _dt = GetData( DBNames.WorktypeTable, DBNames.WorktypeFieldNameName );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			int _parent = 0;
-			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
+			int? _parent = null;
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int? ) _dt.Rows [ i ] [ 1 ]; }
 
-			worktypeList.Add( new WorktypeModel
+			if ( _parent != null )
 			{
-				WorktypeId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
-				WorktypeParentId = _parent,
-				WorktypeName = _dt.Rows [ i ] [ 2 ].ToString(),
-				WorktypeFullpath = _dt.Rows [ i ] [ 3 ].ToString()
-			} );
+				worktypeList.Add( new WorktypeModel
+				{
+					WorktypeId = ( int ) _dt.Rows [ i ] [ 0 ],
+					WorktypeParentId = ( int ) _parent,
+					WorktypeName = _dt.Rows [ i ] [ 2 ].ToString()
+				} );
+			}
+			else
+			{
+				worktypeList.Add( new WorktypeModel
+				{
+					WorktypeId = ( int ) _dt.Rows [ i ] [ 0 ],
+					WorktypeName = _dt.Rows [ i ] [ 2 ].ToString()
+				} );
+			}
+
 		}
-		return worktypeList;
+		return GetWorktypeHierarchy( worktypeList );
+	}
+	private ObservableCollection<WorktypeModel> GetWorktypeHierarchy( ObservableCollection<WorktypeModel>? worktypeList )
+	{
+		ILookup<int?, WorktypeModel> lookup = worktypeList.ToLookup(c => c.WorktypeParentId )    ;
+		foreach ( WorktypeModel worktype in worktypeList )
+		{
+			worktype.SubWorktypes = lookup [ worktype.WorktypeId ].ToObservableCollection();
+		}
+		return lookup [ null ].ToObservableCollection();
 	}
 	#endregion WorktypeList
 	#endregion Fill lists
