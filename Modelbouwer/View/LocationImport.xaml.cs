@@ -15,15 +15,14 @@ public partial class LocationImport : Page
 	#region Prepare an empty CSV file, with only headers
 	private void Prepare( object sender, RoutedEventArgs e )
 	{
-		var folderDialog = new FolderBrowserDialog()
+		FolderBrowserDialog folderDialog = new()
 		{
 			Description = (string)FindResource("Import.FileDialog.Description")
 		};
+		_ = folderDialog.ShowDialog();
 
-		DialogResult result = folderDialog.ShowDialog();
-
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.StorageLocation.Filename")}.csv";
-		string[] _header = GeneralHelper.GetHeaders("StorageLocation");
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Storage.Filename")}.csv";
+		string[] _header = GeneralHelper.GetHeaders("Storage");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
 
@@ -36,9 +35,9 @@ public partial class LocationImport : Page
 	{
 		OpenFileDialog fileDialog = new ()
 		{
-			Title = (string)FindResource("Import.StorageLocation.FileDialog.Description"),
+			Title = (string)FindResource("Import.Storage.FileDialog.Description"),
 			DefaultExt = ".csv",
-			Filter = $"{(string)FindResource("Import.StorageLocation.FileDialog.FilterText")}  (*.csv)|*.csv",
+			Filter = $"{(string)FindResource("Import.Storage.FileDialog.FilterText")}  (*.csv)|*.csv",
 			FilterIndex = 1
 		};
 
@@ -55,12 +54,13 @@ public partial class LocationImport : Page
 	#region Import selected CSV file
 	private void Import( object sender, RoutedEventArgs e )
 	{
-		var errorIdentifier = 5; //See Error Class for meaning of this number
+		int errorIdentifier = 5; //See Error Class for meaning of this number
 		string[] checkField = [DBNames.StorageFieldNameName, DBNames.StorageFieldTypeName, "0"]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
 		string[] idFields = [DBNames.StorageFieldNameId, DBNames.StorageFieldNameParentId]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
-		string metadataType = "StorageLocation"; // Used for getting the headers for import
+		string metadataType = "Storage"; // Used for getting the headers for import
+		DBCommands dbCommands = new();
 
-		dispStatusLine.Text = GeneralHelper.ProcessCsvFile( DBNames.StorageTable, errorIdentifier, dispFileName.Text, checkField, idFields, metadataType, () => DBCommands.GetStorageLocationList() );
+		dispStatusLine.Text = GeneralHelper.ProcessCsvFile( DBNames.StorageTable, errorIdentifier, dispFileName.Text, checkField, idFields, metadataType, () => dbCommands.GetStorageList() );
 	}
 	#endregion
 }

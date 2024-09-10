@@ -461,15 +461,31 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
-	<system:String x:Key="Edit.StorageLocation.Title">Voorraad locaties beheren</system:String>
-	<system:String x:Key="Edit.StorageLocation.Subtitle">Wijzig een locatie, voeg toe of verwijder</system:String>
-	<system:String x:Key="Edit.StorageLocation.Name.Label">Locatienaam:</system:String>
-	<system:String x:Key="Edit.StorageLocation.Name.Tag">Locatienaam</system:String>
-	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Add">Locatie toevoegen aan de tabel</system:String>
-	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Delete">Geselecteerde locatie verwijderen uit de tabel</system:String>
-	<system:String x:Key="Edit.StorageLocation.Action.Tooltip.Save">Gewijzigde locatie opslaan</system:String>
-	<system:String x:Key="Edit.StorageLocation.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.StorageLocation.DataGrid.Header.Name">Locatienaam</system:String>
+	<system:String x:Key="Edit.Storage.Title">Voorraad locaties beheren</system:String>
+	<system:String x:Key="Edit.Storage.Subtitle">Wijzig een locatie, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.Storage.Name.Label">Locatienaam:</system:String>
+	<system:String x:Key="Edit.Storage.Name.Tag">Locatienaam</system:String>
+	<system:String x:Key="Edit.Storage.Name.Tooltip">Omschrijving van de opslaglocaties</system:String>
+	<system:String x:Key="Edit.Storage.Action.Tooltip.AddTask">Locatie toevoegen aan de tabel, op niveau van geselecteerde locatie</system:String>
+	<system:String x:Key="Edit.Storage.Id.Label">Id:</system:String>
+	<system:String x:Key="Edit.Storage.Id.Tag">Id</system:String>
+	<system:String x:Key="Edit.Storage.Id.Tooltip">Id</system:String>
+	<system:String x:Key="Edit.Storage.ParentId.Label">ParentId:</system:String>
+	<system:String x:Key="Edit.Storage.ParentId.Tag">ParentId</system:String>
+	<system:String x:Key="Edit.Storage.ParentId.Tooltip">ParentId</system:String>
+	<system:String x:Key="Edit.Storage.Action.Tooltip.AddSubTask">Locatie toevoegen aan de tabel, met geselecteerde locatie als hoofdlocatie</system:String>
+	<system:String x:Key="Edit.Storage.Action.Tooltip.Delete">Geselecteerde locatie, en onderliggende locaties, verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.Storage.Action.Tooltip.Save">Gewijzigde locatie opslaan</system:String>
+	<system:String x:Key="Edit.Storage.Action.ContextMenu.Label.Expand">Locaties openklappen</system:String>
+	<system:String x:Key="Edit.Storage.Action.ContextMenu.Label.Collapse">Locaties dichtklappen</system:String>
+	<system:String x:Key="Edit.Storage.Action.ContextMenu.Label.Save">Wijzigingen opslaan</system:String>
+	<system:String x:Key="Edit.Storage.Action.ContextMenu.Label.AddTask">Locatie toevoegen</system:String>
+	<system:String x:Key="Edit.Storage.Action.ContextMenu.Label.AddSubTask">Sublocatie toevoegen</system:String>
+	<system:String x:Key="Edit.Storage.Action.ContextMenu.Label.DeleteTask">Verwijder locatie</system:String>
+	<system:String x:Key="Edit.Storage.Action.Tooltip.Expand">Alle (sub)locaties openklappen</system:String>
+	<system:String x:Key="Edit.Storage.Action.Tooltip.Collapse">Alle (sub)locaties dicktklappen</system:String>
+	<system:String x:Key="Edit.Storage.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Storage.DataGrid.Header.Name">Locatienaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

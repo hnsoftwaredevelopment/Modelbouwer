@@ -315,7 +315,7 @@ public class DBCommands
 	#endregion CurrencyList
 
 	#region StorageLocationList
-	public static ObservableCollection<StorageLocationModel> GetStorageLocationList( ObservableCollection<StorageLocationModel>? storagelocationList = null )
+	public static ObservableCollection<StorageModel> GetStorageList1( ObservableCollection<StorageModel>? storagelocationList = null )
 	{
 		storagelocationList ??= [ ];
 		DataTable? _dt = GetData( DBNames.StorageTable, DBNames.StorageFieldNameFullpath );
@@ -324,15 +324,55 @@ public class DBCommands
 		{
 			int _parent = 0;
 			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
-			storagelocationList.Add( new StorageLocationModel
+			storagelocationList.Add( new StorageModel
 			{
-				StorageLocationId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
-				StorageLocationParentId = _parent,
-				StorageLocationName = _dt.Rows [ i ] [ 2 ].ToString(),
-				StorageLocationFullpath = _dt.Rows [ i ] [ 3 ].ToString()
+				StorageId = int.Parse( _dt.Rows [ i ] [ 0 ].ToString() ),
+				StorageParentId = _parent,
+				StorageName = _dt.Rows [ i ] [ 2 ].ToString()
 			} );
 		}
 		return storagelocationList;
+	}
+
+	public ObservableCollection<StorageModel> GetStorageList( ObservableCollection<StorageModel>? storageList = null )
+	{
+		storageList ??= [ ];
+		DataTable? _dt = GetData( DBNames.StorageTable, DBNames.StorageFieldNameName );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			int? _parent = null;
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int? ) _dt.Rows [ i ] [ 1 ]; }
+
+			if ( _parent != null )
+			{
+				storageList.Add( new StorageModel
+				{
+					StorageId = ( int ) _dt.Rows [ i ] [ 0 ],
+					StorageParentId = ( int ) _parent,
+					StorageName = _dt.Rows [ i ] [ 3 ].ToString()
+				} );
+			}
+			else
+			{
+				storageList.Add( new StorageModel
+				{
+					StorageId = ( int ) _dt.Rows [ i ] [ 0 ],
+					StorageName = _dt.Rows [ i ] [ 3 ].ToString()
+				} );
+			}
+
+		}
+		return GetStorageHierarchy( storageList );
+	}
+	private ObservableCollection<StorageModel> GetStorageHierarchy( ObservableCollection<StorageModel>? storagelocationList )
+	{
+		ILookup<int?, StorageModel> lookup =      storagelocationList.ToLookup(c => c.StorageParentId )      ;
+		foreach ( StorageModel storagelocation in storagelocationList )
+		{
+			storagelocation.SubStorage = lookup [ storagelocation.StorageId ].ToObservableCollection();
+		}
+		return lookup [ null ].ToObservableCollection();
 	}
 	#endregion StorageLocationList
 
@@ -395,7 +435,7 @@ public class DBCommands
 		}
 		return lookup [ null ].ToObservableCollection();
 	}
-	#endregion WorktypeList
+	#endregion
 	#endregion Fill lists
 	#endregion GetData
 

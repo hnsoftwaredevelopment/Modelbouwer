@@ -21,8 +21,8 @@ public partial class LocationExport : Page
 
 		if (_dt == null)
 		{
-			dispFolderName.Text = TryFindResource("Export.StorageLocation.Empty") as string;
-			dispStatusLine.Text = TryFindResource("Export.StorageLocation.Empty") as string;
+			dispFolderName.Text = TryFindResource("Export.Storage.Empty") as string;
+			dispStatusLine.Text = TryFindResource("Export.Storage.Empty") as string;
 
 			columnExportButton.Width = new GridLength(0);
 			columnSelectFolderButton.Width = new GridLength(0);
@@ -50,8 +50,8 @@ public partial class LocationExport : Page
 	#region Perform Export after selecting folder
 	private void Export(object sender, RoutedEventArgs e)
 	{
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.StorageLocation.Filename")}.csv";
-		string[] _header = GeneralHelper.GetHeaders("StorageLocation");
+		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Storage.Filename")}.csv";
+		string[] _header = GeneralHelper.GetHeaders("Storage");
 
 		DBCommands.ExportToCsv(_dt, $"{dispFolderName.Text}\\{_filename}", _header, "Header");
 

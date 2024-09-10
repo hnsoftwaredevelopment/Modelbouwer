@@ -13,7 +13,7 @@ public static class ModelTableHelper
 	public static readonly Dictionary<Type, string> ModelTableMappings = new()
 		{
 			{ typeof(CategoryModel), DBNames.CategoryTable },
-			{ typeof(StorageLocationModel), DBNames.StorageTable },
+			{ typeof(StorageModel), DBNames.StorageTable },
 			{ typeof(WorktypeModel), DBNames.WorktypeTable }
 		};
 
