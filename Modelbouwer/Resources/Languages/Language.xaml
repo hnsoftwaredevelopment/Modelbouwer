@@ -561,6 +561,50 @@
 	<!--#endregion-->
 	<!--#endregion-->
 
+	<!--#region Supplier Contact Type-->
+	<!--#region Export page-->
+	<system:String x:Key="Export.ContactType.Title">Functies van contactpersonen Exporteren</system:String>
+	<system:String x:Key="Export.ContactType.Subtitle">Exporteer functies van contactpersonen naar een CSV bestand</system:String>
+	<system:String x:Key="Export.ContactType.Filename">Functies van contactpersonen</system:String>
+	<system:String x:Key="Export.ContactType.Button.Label">Functies</system:String>
+	<system:String x:Key="Export.ContactType.Button.Tooltip">Selecteer het te importeren CSV bestand met functies van contactpersonen</system:String>
+	<system:String x:Key="Export.ContactType.Empty">Er zijn geen functies van contactpersonen beschikbaar om te exporteren</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Export.ContactType.Button.Text">Functies</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Import page-->
+	<system:String x:Key="Import.ContactType.Title">Functies van contactpersonen Importeren</system:String>
+	<system:String x:Key="Import.ContactType.Subtitle">Importeer functies van contactpersonen uit een CSV bestand, hierin staan uitsluitend Leveranciernamen</system:String>
+	<system:String x:Key="Import.ContactType.Filename">Importeer functies van contactpersonen</system:String>
+	<system:String x:Key="Import.ContactType.Messagebox.Error.Existing.Long">Ingelezen functie bestaat al in de tabel</system:String>
+	<system:String x:Key="Import.ContactType.Messagebox.Error.Existing.Short">Functie Bestaat al</system:String>
+	<system:String x:Key="Import.ContactType.Button.Label">Persoonsfunctie</system:String>
+	<system:String x:Key="Import.ContactType.Button.Tooltip">Selecteer het te importeren CSV bestand met functies van contactpersonen</system:String>
+	<system:String x:Key="Import.ContactType.FileDialog.Description">Selecteer het te importeren CSV bestand met functies van contactpersonen</system:String>
+	<system:String x:Key="Import.ContactType.FileDialog.FilterText">CSV Bestanden</system:String>
+
+	<!--#region Buttons-->
+	<system:String x:Key="Import.ContactType.Button.Text">Functies</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.ContactType.Title">Functies van contactpersonen beheren</system:String>
+	<system:String x:Key="Edit.ContactType.Subtitle">Wijzig een functie van contactpersonen, voeg toe of verwijder</system:String>
+	<system:String x:Key="Edit.ContactType.Name.Label">Functie:</system:String>
+	<system:String x:Key="Edit.ContactType.Name.Tag">Functie van contactpersonen</system:String>
+	<system:String x:Key="Edit.ContactType.Name.Tooltip">De functie die een contactpersoon kan bekleden</system:String>
+	<system:String x:Key="Edit.ContactType.Action.Tooltip.Add">Functie toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.ContactType.Action.Tooltip.Delete">Geselecteerde functie verwijderen uit de tabel</system:String>
+	<system:String x:Key="Edit.ContactType.Action.Tooltip.Save">Gewijzigde functie opslaan</system:String>
+	<system:String x:Key="Edit.ContactType.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.ContactType.DataGrid.Header.Name">Functie</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+	
 	<!--#region Project-->
 	<!--#region Export page-->
 	<system:String x:Key="Export.Project.Title">Projecten Exporteren</system:String>

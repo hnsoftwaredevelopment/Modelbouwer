@@ -236,6 +236,25 @@ public class DBCommands
 	}
 	#endregion CategoryList
 
+	#region ContactTypeList
+	public static ObservableCollection<SupplierContactTypeModel> GetContactTypeList( ObservableCollection<SupplierContactTypeModel>? _list = null )
+	{
+		_list ??= [ ];
+		DataTable? _dt = GetData( DBNames.ContactTypeTable, DBNames.ContactTypeFieldNameName );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			_list.Add( new SupplierContactTypeModel
+			{
+				ContactTypeId = ( int ) _dt.Rows [ i ] [ 0 ],
+				ContactTypeName = _dt.Rows [ i ] [ 1 ].ToString(),
+			} );
+		}
+		return _list;
+	}
+	#endregion Brand
+
+
 	#region CountryList
 	public static ObservableCollection<CountryModel> GetCountryList( ObservableCollection<CountryModel>? countryList = null )
 	{

@@ -827,7 +827,7 @@
 					<!--#endregion-->
 					<!--#endregion-->
 
-					<!--#region Functios for Contacts per Supplier-->
+					<!--#region Functions for Contacts per Supplier-->
 					<!--#region SupplierContactTypeegistration button-->
 					<syncfusion:RibbonButton
 						Width="70"
