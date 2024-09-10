@@ -203,19 +203,31 @@ public class DBCommands
 			int? _parent = null;
 			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
 
-			categoryList.Add( new CategoryModel
+			if ( _parent != null )
 			{
-				CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
-				CategoryParentId = _parent,
-				CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
-			} );
+				categoryList.Add( new CategoryModel
+				{
+					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
+					CategoryParentId = ( int ) _parent,
+					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+				} );
+			}
+			else
+			{
+				categoryList.Add( new CategoryModel
+				{
+					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
+					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+				} );
+			}
+
 		}
 		return GetCategoryHierarchy( categoryList );
 	}
 
 	private ObservableCollection<CategoryModel> GetCategoryHierarchy( ObservableCollection<CategoryModel>? categoryList )
 	{
-		ILookup<int?, CategoryModel> lookup = categoryList.ToLookup( c => c.CategoryParentId );
+		ILookup<int?, CategoryModel> lookup =      categoryList.ToLookup( c => c.CategoryParentId )  ;
 		foreach ( CategoryModel category in categoryList )
 		{
 			category.SubCategories = lookup [ category.CategoryId ].ToObservableCollection();
@@ -305,6 +317,24 @@ public class DBCommands
 		return storagelocationList;
 	}
 	#endregion StorageLocationList
+
+	#region UnitdList
+	public static ObservableCollection<UnitModel> GetUnitList( ObservableCollection<UnitModel>? unitList = null )
+	{
+		unitList ??= [ ];
+		DataTable? _dt = GetData( DBNames.UnitTable, DBNames.UnitFieldNameUnitName );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			unitList.Add( new UnitModel
+			{
+				UnitId = ( int ) _dt.Rows [ i ] [ 0 ],
+				UnitName = _dt.Rows [ i ] [ 1 ].ToString(),
+			} );
+		}
+		return unitList;
+	}
+	#endregion Brand
 
 	#region WorktypeList
 	public static ObservableCollection<WorktypeModel> GetWorktypeList( ObservableCollection<WorktypeModel>? worktypeList = null )

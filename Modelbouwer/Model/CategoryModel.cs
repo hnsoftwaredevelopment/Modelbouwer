@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.Model;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.Model;
 
 public class CategoryModel : INameable
 {

@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class CountryViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -66,15 +68,6 @@ public partial class CountryViewModel : ObservableObject
 		Country.Add( newCountry );
 		SelectedCountry = newCountry;
 		IsAddingNew = true;
-	}
-
-	partial void OnSelectedCountryChanged( CountryModel value )
-	{
-		if ( value != null )
-		{
-			// Zet de geselecteerde Country
-			SelectedCountry = value;
-		}
 	}
 
 	public CountryViewModel()

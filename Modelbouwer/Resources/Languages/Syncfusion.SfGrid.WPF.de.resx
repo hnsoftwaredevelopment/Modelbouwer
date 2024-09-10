@@ -121,109 +121,115 @@
     <value>Klicken Sie hier, um eine neue Zeile hinzuzufügen</value>
   </data>
   <data name="AdvancedFiltersButtonText" xml:space="preserve">
-    <value>Erweiterte Filter</value>
+    <value>Fortgeschrittene Filter</value>
   </data>
   <data name="After" xml:space="preserve">
-    <value>nach</value>
+    <value>Nach</value>
   </data>
   <data name="AfterOrEqual" xml:space="preserve">
-    <value>Nach-oder-gleich</value>
+    <value>Nach oder gleich</value>
   </data>
   <data name="AND" xml:space="preserve">
-    <value>und</value>
+    <value>Und</value>
   </data>
   <data name="Before" xml:space="preserve">
-    <value>vor</value>
+    <value>Vor</value>
   </data>
   <data name="BeforeOrEqual" xml:space="preserve">
-    <value>Vor-oder-gleich</value>
+    <value>Vor oder gleich</value>
   </data>
   <data name="BeginsWith" xml:space="preserve">
-    <value>beginnt mit</value>
+    <value>Beginnt mit</value>
+  </data>
+  <data name="Blanks" xml:space="preserve">
+    <value>(Leerzeichen)</value>
   </data>
   <data name="Bottom" xml:space="preserve">
-    <value>Boden</value>
+    <value>Unten :</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Stornieren</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
-    <value>Filter löschen</value>
+    <value>Klaren Filter</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Schließen</value>
   </data>
   <data name="ColumnChooserTitle" xml:space="preserve">
-    <value>Spaltenauswahl</value>
+    <value>Spaltenwähler</value>
   </data>
   <data name="ColumnChooserWaterMark" xml:space="preserve">
     <value>(Keine Felder verfügbar)</value>
   </data>
   <data name="Contains" xml:space="preserve">
-    <value>enthält</value>
+    <value>Enthält</value>
   </data>
   <data name="CustomMargin" xml:space="preserve">
-    <value>Benutzerdefinierte Margin</value>
+    <value>Benutzerdefinierte Marge</value>
   </data>
   <data name="CustomMargins" xml:space="preserve">
-    <value>Benutzerdefinierte Seitenränder</value>
+    <value>Benutzerdefinierte Margen</value>
   </data>
   <data name="CustomPageSizes" xml:space="preserve">
     <value>Benutzerdefinierte Seitengrößen</value>
   </data>
   <data name="CustomSize" xml:space="preserve">
-    <value>Benutzerdefiniertes Format</value>
+    <value>Benutzerdefinierte Größe</value>
   </data>
   <data name="DateFilters" xml:space="preserve">
     <value>Datumsfilter</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Getan</value>
+    <value>Erledigt</value>
   </data>
   <data name="Empty" xml:space="preserve">
-    <value>leer</value>
+    <value>Leer</value>
   </data>
   <data name="EndsWith" xml:space="preserve">
-    <value>endet mit</value>
+    <value>Endet mit</value>
   </data>
   <data name="EnterValidFilterValue" xml:space="preserve">
-    <value>Geben Gültig Filterwert</value>
+    <value>Geben Sie einen gültigen Filterwert ein</value>
+  </data>
+  <data name="Equalss" xml:space="preserve">
+    <value>Gleich</value>
   </data>
   <data name="FitAllColumnsOnOnePage" xml:space="preserve">
-    <value>Fit Alle Spalten auf einem Blatt</value>
+    <value>Passen Sie alle Spalten auf eine Seite ein</value>
   </data>
   <data name="FitAllRowsOnOnePage" xml:space="preserve">
-    <value>Fit Alle Zeilen auf einem Blatt</value>
+    <value>Passen Sie alle Zeilen auf eine Seite ein</value>
   </data>
   <data name="FitGridOnOnePage" xml:space="preserve">
-    <value>Fit Gitter auf einem Blatt</value>
+    <value>Gitter auf einer Seite anpassen</value>
   </data>
   <data name="GreaterThan" xml:space="preserve">
-    <value>größer als</value>
+    <value>Größer als</value>
   </data>
   <data name="GreaterThanorEqual" xml:space="preserve">
-    <value>Größer als oder gleich</value>
+    <value>Größer oder gleich oder gleich</value>
   </data>
   <data name="GroupDropAreaText" xml:space="preserve">
-    <value>Ziehen Sie einen Spaltenkopf hier, um Gruppe nach dieser Spalte</value>
+    <value>Ziehen Sie hier einen Spaltenheader hier in die Gruppe nach dieser Spalte</value>
   </data>
   <data name="Height" xml:space="preserve">
-    <value>Höhe</value>
+    <value>Höhe :</value>
   </data>
   <data name="LandScapeOrientation" xml:space="preserve">
     <value>Landschaftsorientierung</value>
   </data>
   <data name="Left" xml:space="preserve">
-    <value>Links</value>
+    <value>Links :</value>
   </data>
   <data name="LessThan" xml:space="preserve">
-    <value>weniger als</value>
+    <value>Weniger als</value>
   </data>
   <data name="LessThanorEqual" xml:space="preserve">
-    <value>Kleiner als oder gleich</value>
+    <value>Weniger oder gleich oder gleich</value>
   </data>
   <data name="MatchCaseToolTip" xml:space="preserve">
-    <value>Match case</value>
+    <value>Match -Fall </value>
   </data>
   <data name="Moderate" xml:space="preserve">
     <value>Mäßig</value>
@@ -232,10 +238,10 @@
     <value>Eng</value>
   </data>
   <data name="NoItems" xml:space="preserve">
-    <value>Keine Einträge</value>
+    <value>Keine Gegenstände</value>
   </data>
   <data name="NoMatches" xml:space="preserve">
-    <value>Keine Spiele</value>
+    <value>Keine Übereinstimmungen</value>
   </data>
   <data name="Normal" xml:space="preserve">
     <value>Normal</value>
@@ -244,114 +250,111 @@
     <value>Keine Skalierung</value>
   </data>
   <data name="NotContains" xml:space="preserve">
-    <value>icht Enthält</value>
+    <value>Enthält nicht</value>
   </data>
   <data name="NotEmpty" xml:space="preserve">
     <value>Nicht leer</value>
   </data>
   <data name="NotEquals" xml:space="preserve">
-    <value>Nicht Equals</value>
+    <value>Nicht gleich</value>
   </data>
   <data name="NotNull" xml:space="preserve">
-    <value>Nicht Null</value>
+    <value>Nicht null</value>
   </data>
   <data name="Null" xml:space="preserve">
-    <value>nichtig</value>
+    <value>NULL</value>
   </data>
   <data name="NumberFilters" xml:space="preserve">
-    <value>Anzahl Filter</value>
+    <value>Zahlenfilter</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OR" xml:space="preserve">
-    <value>oder</value>
+    <value>Oder</value>
   </data>
   <data name="PortraitOrientation" xml:space="preserve">
-    <value>Hochformat</value>
+    <value>Porträtausrichtung</value>
   </data>
   <data name="Print" xml:space="preserve">
-    <value>drucken</value>
+    <value>Drucken</value>
   </data>
   <data name="PrintPreview" xml:space="preserve">
-    <value>Druckvorschau</value>
+    <value>Druckvorschau drucken</value>
   </data>
   <data name="QuickPrint" xml:space="preserve">
-    <value>Schnelldruck</value>
+    <value>Schneller Druck</value>
   </data>
   <data name="Right" xml:space="preserve">
-    <value>Recht</value>
+    <value>Rechts :</value>
   </data>
   <data name="RowErrorMessage" xml:space="preserve">
-    <value>Zeile mit Fehler</value>
+    <value>Zeile enthält Fehler</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Suchen</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
-    <value>Alle auswählen</value>
+    <value>(Wählen Sie alle aus)</value>
   </data>
   <data name="SelectDateToolTip" xml:space="preserve">
-    <value>Wählen Sie Datum</value>
+    <value>Datum auswählen</value>
   </data>
   <data name="ShowRowsWhere" xml:space="preserve">
-    <value>Zeige Zeilen, in denen:</value>
+    <value>Zeilen Zeilen wo:</value>
   </data>
   <data name="SortDateAscending" xml:space="preserve">
-    <value>Sortieren älteste zuerst</value>
+    <value>Sortieren älteste zum neuesten</value>
   </data>
   <data name="SortDateDescending" xml:space="preserve">
-    <value>Sortieren Neu Älteste</value>
+    <value>Sortieren Sie neueste bis älteste</value>
   </data>
   <data name="SortNumberAscending" xml:space="preserve">
-    <value>Aufsteigend sortieren</value>
+    <value>Sortiert kleinste zum größten</value>
   </data>
   <data name="SortNumberDescending" xml:space="preserve">
-    <value>Absteigend sortieren</value>
+    <value>Sortieren Sie am größten bis kleinsten</value>
   </data>
   <data name="SortStringAscending" xml:space="preserve">
-    <value>Sortiert von A bis Z</value>
+    <value>Sortieren a bis z</value>
   </data>
   <data name="SortStringDescending" xml:space="preserve">
-    <value>Sortieren Z bis A</value>
+    <value>Sortieren Z zu a</value>
   </data>
   <data name="TextFilters" xml:space="preserve">
-    <value>Text-Filter</value>
+    <value>Textfilter</value>
   </data>
   <data name="Top" xml:space="preserve">
-    <value>Oben</value>
+    <value>Spitze :</value>
   </data>
   <data name="Wide" xml:space="preserve">
     <value>Breit</value>
   </data>
   <data name="Width" xml:space="preserve">
-    <value>Breite</value>
+    <value>Breite :</value>
   </data>
   <data name="CantDropHere" xml:space="preserve">
-    <value>Cannot drop here</value>
+    <value>Kann hier nicht fallen</value>
   </data>
   <data name="DraggingRowsCount" xml:space="preserve">
-    <value>Dragging rows count : </value>
+    <value>Ziehen von Zeilen zählen: </value>
   </data>
   <data name="DropAbove" xml:space="preserve">
-    <value>Drop above</value>
+    <value>Oben fallen</value>
   </data>
   <data name="DropAsChild" xml:space="preserve">
-    <value>Drop as child</value>
+    <value>Drop als Kind</value>
   </data>
   <data name="DropBelow" xml:space="preserve">
-    <value>Drop below</value>
+    <value>Unten fallen</value>
   </data>
   <data name="DropStatus" xml:space="preserve">
-    <value>Drop status : </value>
+    <value>Dropstatus: </value>
   </data>
   <data name="NotBeginsWith" xml:space="preserve">
-    <value>icht Beginnt Mit</value>
+    <value>Beginnt nicht mit</value>
   </data>
   <data name="NotEndsWith" xml:space="preserve">
-    <value>icht Endet Mit</value>
-  </data>
-  <data name="Blanks" xml:space="preserve">
-    <value>(Blanks)</value>
+    <value>Endet nicht mit</value>
   </data>
 </root>

@@ -639,13 +639,14 @@
 	<!--#region Maintenance page-->
 	<system:String x:Key="Edit.Unit.Title">Eenheden beheren</system:String>
 	<system:String x:Key="Edit.Unit.Subtitle">Wijzig een eenheid, voeg toe of verwijder</system:String>
-	<system:String x:Key="Edit.Unit.Name.Label">Eenheidnaam:</system:String>
-	<system:String x:Key="Edit.Unit.Name.Tag">Eenheidnaam</system:String>
+	<system:String x:Key="Edit.Unit.Name.Label">Eenheid:</system:String>
+	<system:String x:Key="Edit.Unit.Name.Tag">Eenheid</system:String>
+	<system:String x:Key="Edit.Unit.Name.Tooltip">Geeef de naam van de eenheid in</system:String>
 	<system:String x:Key="Edit.Unit.Action.Tooltip.Add">Eenheid toevoegen aan de tabel</system:String>
 	<system:String x:Key="Edit.Unit.Action.Tooltip.Delete">Geselecteerde eenheid verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Unit.Action.Tooltip.Save">Gewijzigde eenheid opslaan</system:String>
 	<system:String x:Key="Edit.Unit.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Unit.DataGrid.Header.Name">Eenheidnaam</system:String>
+	<system:String x:Key="Edit.Unit.DataGrid.Header.Name">Eenheid</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

@@ -9,18 +9,55 @@ public partial class UnitViewModel : ObservableObject
 	[ObservableProperty]
 	public string? unitName;
 
-	public ObservableCollection<UnitModel> Unit
+	public ObservableCollection<UnitModel> Unit { get; set; }
+
+	[ObservableProperty]
+	private UnitModel? _selectedUnit;
+
+	private readonly ObservableCollection<UnitModel>? _unit;
+
+	[ObservableProperty]
+	public UnitModel? selectedItem;
+
+	private bool _isAddingNew;
+
+	public bool IsAddingNew
 	{
-		get => _unit;
+		get => _isAddingNew;
 		set
 		{
-			if ( _unit != value )
+			if ( _isAddingNew != value )
 			{
-				_unit = value;
-				OnPropertyChanged( nameof( Unit ) );
+				_isAddingNew = value;
+				OnPropertyChanged( nameof( IsAddingNew ) );
 			}
 		}
 	}
-	private ObservableCollection<UnitModel>? _unit;
+
+	public void AddNewItem()
+	{
+		// Voeg het nieuwe, lege item toe aan de lijst
+		UnitModel newUnit = new()
+		{
+			UnitId = 0,
+			UnitName = string.Empty
+		};
+
+		Unit.Add( newUnit );
+		SelectedUnit = newUnit;
+		IsAddingNew = true;
+	}
+
+
+	public UnitViewModel()
+	{
+		_ = new DBCommands();
+		Unit = new ObservableCollection<UnitModel>( collection: DBCommands.GetUnitList() );
+
+		if ( Unit != null && Unit.Any() )
+		{
+			SelectedUnit = Unit.First();
+		}
+	}
 
 }

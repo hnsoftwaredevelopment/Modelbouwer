@@ -257,7 +257,6 @@
     <value>Left :</value>
     <comment>Text for Left margin of PrintDialog</comment>
   </data>
-
   <data name="LessThan" xml:space="preserve">
     <value>Less Than</value>
     <comment>Text for Less Than</comment>
@@ -268,7 +267,7 @@
   </data>
   <data name="MatchCaseToolTip" xml:space="preserve">
     <value>Match Case </value>
-    <comment>Tooltip text for Match Case on AdvancedFiltering Popup</comment>
+    <comment>Tooltip text for Match Case on AdvancedFiltering Popup@MutedRule(StringFormat)@MutedRule(WhiteSpaceLead)</comment>
   </data>
   <data name="Moderate" xml:space="preserve">
     <value>Moderate</value>

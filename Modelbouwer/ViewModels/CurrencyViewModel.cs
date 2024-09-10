@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Collections.ObjectModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class CurrencyViewModel : ObservableObject
 {
 	[ObservableProperty]

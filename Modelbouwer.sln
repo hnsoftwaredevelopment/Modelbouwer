@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{562520CD-9CCE-4F9C-9911-E8CDAA024AB9}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Resources.Designer.t4 = Resources.Designer.t4
 	EndProjectSection
 EndProject
 Global
@@ -25,9 +26,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0DB2ACE5-F8FC-4940-92ED-16E10DA008C5}
-		RESX_NeutralResourcesLanguage = nl-NL
-		RESX_AutoCreateNewLanguageFiles = True
 		RESX_RemoveEmptyEntries = False
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_NeutralResourcesLanguage = en-US
+		SolutionGuid = {0DB2ACE5-F8FC-4940-92ED-16E10DA008C5}
 	EndGlobalSection
 EndGlobal

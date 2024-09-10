@@ -226,7 +226,7 @@
     <value>Kleiner dan of gelijk aan</value>
   </data>
   <data name="MatchCaseToolTip" xml:space="preserve">
-    <value>Hoofdlettergevoelig</value>
+    <value>Hoofdlettergevoelig </value>
   </data>
   <data name="Moderate" xml:space="preserve">
     <value>Gemiddeld</value>
@@ -343,7 +343,7 @@
     <value>Kan hier niet worden gedropt</value>
   </data>
   <data name="DraggingRowsCount" xml:space="preserve">
-    <value>Sleep rijen tellen:</value>
+    <value>Sleep rijen tellen: </value>
   </data>
   <data name="DropAbove" xml:space="preserve">
     <value>Boven laten vallen</value>
@@ -355,6 +355,6 @@
     <value>Onder laten vallen</value>
   </data>
   <data name="DropStatus" xml:space="preserve">
-    <value>Dropstatus:</value>
+    <value>Dropstatus: </value>
   </data>
 </root>
