@@ -190,7 +190,7 @@ public class DBCommands
 		}
 		return brandList;
 	}
-	#endregion BrandList
+	#endregion
 
 	#region CategoryList
 	public ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
@@ -235,6 +235,29 @@ public class DBCommands
 		return lookup [ null ].ToObservableCollection();
 	}
 	#endregion CategoryList
+
+	#region ContactList
+	public static ObservableCollection<SupplierContactModel> GetContactList( ObservableCollection<SupplierContactModel>? contactList = null )
+	{
+		contactList ??= [ ];
+		DataTable? _dt = GetData( DBNames.SupplierContactView, DBNames.SupplierContactFieldNameName );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			contactList.Add( new SupplierContactModel
+			{
+				SupplierContactId = ( int ) _dt.Rows [ i ] [ 0 ],
+				SupplierContactSuppplierId = ( int ) _dt.Rows [ i ] [ 1 ],
+				SupplierContactName = _dt.Rows [ i ] [ 2 ].ToString(),
+				SupplierContactContactTypeId = ( int ) _dt.Rows [ i ] [ 3 ],
+				SupplierContactContactType = _dt.Rows [ i ] [ 4 ].ToString(),
+				SupplierContactMail = _dt.Rows [ i ] [ 5 ].ToString(),
+				SupplierContactPhone = _dt.Rows [ i ] [ 6 ].ToString()
+			} );
+		}
+		return contactList;
+	}
+	#endregion
 
 	#region ContactTypeList
 	public static ObservableCollection<SupplierContactTypeModel> GetContactTypeList( ObservableCollection<SupplierContactTypeModel>? _list = null )
@@ -375,6 +398,38 @@ public class DBCommands
 		return lookup [ null ].ToObservableCollection();
 	}
 	#endregion StorageLocationList
+
+	#region SupplierList
+	public static ObservableCollection<SupplierModel> GetSupplierList( ObservableCollection<SupplierModel>? supplierList = null )
+	{
+		supplierList ??= [ ];
+		DataTable? _dt = GetData( DBNames.SupplierView, DBNames.SupplierFieldNameCode );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			supplierList.Add( new SupplierModel
+			{
+				SupplierId = ( int ) _dt.Rows [ i ] [ 0 ],
+				SupplierCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				SupplierName = _dt.Rows [ i ] [ 2 ].ToString(),
+				SupplierAddress1 = _dt.Rows [ i ] [ 3 ].ToString(),
+				SupplierAddress2 = _dt.Rows [ i ] [ 4 ].ToString(),
+				SupplierZip = _dt.Rows [ i ] [ 5 ].ToString(),
+				SupplierCity = _dt.Rows [ i ] [ 6 ].ToString(),
+				SupplierUrl = _dt.Rows [ i ] [ 7 ].ToString(),
+				SupplierCountryId = ( int ) _dt.Rows [ i ] [ 8 ],
+				SupplierCountry = _dt.Rows [ i ] [ 9 ].ToString(),
+				SupplierCurrencyId = ( int ) _dt.Rows [ i ] [ 10 ],
+				SupplierCurrency = _dt.Rows [ i ] [ 11 ].ToString(),
+				SupplierShippingCosts = ( double ) _dt.Rows [ i ] [ 12 ],
+				SupplierMinShippingCosts = ( double ) _dt.Rows [ i ] [ 13 ],
+				SupplierOrderCosts = ( double ) _dt.Rows [ i ] [ 14 ],
+				SupplierMemo = _dt.Rows [ i ] [ 15 ].ToString(),
+			} );
+		}
+		return supplierList;
+	}
+	#endregion
 
 	#region UnitdList
 	public static ObservableCollection<UnitModel> GetUnitList( ObservableCollection<UnitModel>? unitList = null )

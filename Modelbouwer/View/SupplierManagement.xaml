@@ -2,15 +2,790 @@
 	x:Class="Modelbouwer.View.SupplierManagement"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
+	xmlns:converter="clr-namespace:Modelbouwer.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
 	Title="SupplierManagement"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
+	d:DataContext="{d:DesignInstance Type=viewmodels:CombinedSupplierViewModel}"
+	d:DesignHeight="800"
+	d:DesignWidth="1000"
 	mc:Ignorable="d">
 
+	<Page.DataContext>
+		<viewmodels:CombinedSupplierViewModel />
+	</Page.DataContext>
+
+	<!--#region Page resources-->
+	<Page.Resources>
+		<DataTemplate x:Key="CurrencyComboTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Path=CurrencySymbol}" />
+				<TextBlock Text="{Binding Path=CurrencyId}" Visibility="Hidden" />
+			</StackPanel>
+		</DataTemplate>
+
+		<DataTemplate x:Key="CountryComboTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Path=CountryName}" />
+				<TextBlock Text="{Binding Path=CountryId}" Visibility="Hidden" />
+			</StackPanel>
+		</DataTemplate>
+
+		<DataTemplate x:Key="ContactTypeComboTemplate">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Path=ContactTypeName}" />
+				<TextBlock Text="{Binding Path=ContactTypeId}" Visibility="Hidden" />
+			</StackPanel>
+		</DataTemplate>
+	</Page.Resources>
+	<!--#endregion-->
+
 	<Grid>
-		<TextBlock Text="SupplierManagement" />
+		<Grid.RowDefinitions>
+			<RowDefinition Height="95" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="0" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="20" />
+		</Grid.RowDefinitions>
+
+		<!--#region Title of the page-->
+		<StackPanel
+			Grid.Row="0"
+			Margin="10,0,10,0"
+			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+			<TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Supplier.Title}" />
+			<Canvas>
+				<Path Style="{DynamicResource DefaultTitleLine}" />
+			</Canvas>
+			<TextBlock Style="{DynamicResource DefaultSubTitle}" Text="{StaticResource Edit.Supplier.Subtitle}" />
+		</StackPanel>
+		<!--#endregion-->
+
+		<!--#region Hidden fields-->
+		<StackPanel Grid.Row="2" Orientation="Horizontal">
+			<TextBox
+				x:Name="SupplierId"
+				Style="{DynamicResource HiddenTextBox}"
+				Text="{Binding SupplierViewModel.SupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<TextBox
+				x:Name="CountryId"
+				Style="{DynamicResource HiddenTextBox}"
+				Text="{Binding SupplierViewModel.SupplierCountryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<TextBox
+				x:Name="CurrencyId"
+				Style="{DynamicResource HiddenTextBox}"
+				Text="{Binding SupplierViewModel.SupplierCurrencyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<TextBox
+				x:Name="ContactId"
+				Style="{DynamicResource HiddenTextBox}"
+				Text="{Binding SupplierContactViewModel.SupplierContactId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<TextBox
+				x:Name="ContactTypeId"
+				Style="{DynamicResource HiddenTextBox}"
+				Text="{Binding SupplierContactViewModel.SupplierContactContactTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		</StackPanel>
+		<!--#endregion-->
+
+		<!--#region Datafields-->
+		<TabControl Grid.Row="1" Style="{DynamicResource Default TabControl}">
+			<!--#region General supplier information tab-->
+			<TabItem Header="{StaticResource Edit.Supplier.Tab.General.Label}" Style="{DynamicResource Default TabItem}">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="2*" />
+						<ColumnDefinition Width="1.1*" />
+					</Grid.ColumnDefinitions>
+
+					<!--#region Address groupbox-->
+					<StackPanel Grid.Column="0" Margin="5">
+						<GroupBox Opacity="1">
+							<GroupBox.Header>
+								<StackPanel Background="Transparent" Orientation="Horizontal">
+									<Image Source="{StaticResource supplier}" Style="{DynamicResource ImageHeaderGroup}" />
+									<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Supplier.Tab.General.Group.Address.GroupLabel}" />
+								</StackPanel>
+							</GroupBox.Header>
+							<Grid>
+								<!--#region Grid defenitions for groupbox-->
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="140" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<!--#endregion-->
+
+								<!--#region Code-->
+								<Label
+									Grid.Row="0"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Address.Code.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<TextBox
+									x:Name="SupplierCode"
+									Grid.Row="0"
+									Grid.Column="1"
+									Width="120"
+									CharacterCasing="Upper"
+									Style="{DynamicResource DefaultTextBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Code.Tag}"
+									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Code.Tooltip}" />
+								<!--#endregion-->
+
+								<!--#region Name-->
+								<Label
+									Grid.Row="1"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Address.Name.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<TextBox
+									x:Name="inpSupplierName"
+									Grid.Row="1"
+									Grid.Column="1"
+									Width="450"
+									Style="{DynamicResource DefaultTextBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Name.Tag}"
+									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Name.Tooltip}" />
+								<!--#endregion-->
+
+								<!--#region Address-->
+								<Label
+									Grid.Row="2"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Address.Address.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<TextBox
+									x:Name="SupplierAddress1"
+									Grid.Row="2"
+									Grid.Column="1"
+									Width="450"
+									Style="{DynamicResource DefaultTextBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Address.Tag}"
+									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierAddress1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Address.Tooltip}" />
+								<TextBox
+									x:Name="SupplierAddress2"
+									Grid.Row="3"
+									Grid.Column="1"
+									Width="450"
+									Style="{DynamicResource DefaultTextBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Address.Tag}"
+									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierAddress2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Address.Tooltip}" />
+								<!--#endregion-->
+
+								<!--#region Zipcode and City-->
+								<StackPanel
+									Grid.Row="4"
+									Grid.Column="0"
+									Orientation="Horizontal">
+									<Label
+										Width="AUTO"
+										Content="{StaticResource Edit.Supplier.Tab.General.Group.Address.Zip.Label}"
+										Style="{DynamicResource DefaultLabel}" />
+									<Label
+										Margin="-8,0,0,0"
+										HorizontalContentAlignment="Left"
+										Content=", " />
+									<Label
+										Width="AUTO"
+										Content="{StaticResource Edit.Supplier.Tab.General.Group.Address.City.Label}"
+										Style="{DynamicResource DefaultLabel}" />
+								</StackPanel>
+
+								<StackPanel
+									Grid.Row="4"
+									Grid.Column="1"
+									HorizontalAlignment="Left"
+									Orientation="Horizontal">
+									<TextBox
+										x:Name="SupplierZip"
+										Width="148"
+										CharacterCasing="Upper"
+										Style="{DynamicResource DefaultTextBox}"
+										Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Zip.Tag}"
+										Text="{Binding SupplierViewModel.SelectedSupplier.SupplierZip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Zip.Tooltip}" />
+
+									<Label
+										Margin="-3,0,0,0"
+										HorizontalContentAlignment="Left"
+										Content=", " />
+
+									<TextBox
+										x:Name="SupplierCity"
+										Width="290"
+										Style="{DynamicResource DefaultTextBox}"
+										Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.City.Tag}"
+										Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.City.Tooltip}" />
+								</StackPanel>
+								<!--#endregion-->
+
+								<!--#region Country-->
+								<Label
+									Grid.Row="5"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Address.Country.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<ComboBox
+									x:Name="SupplierCountry"
+									Grid.Row="5"
+									Grid.Column="1"
+									Width="280"
+									Cursor="Arrow"
+									ItemTemplate="{StaticResource CountryComboTemplate}"
+									SelectedIndex="{Binding SupplierViewModel.SelectedSupplier.SupplierCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									Style="{DynamicResource DefaultComboBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Country.Tag}"
+									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Country.Tooltip}" />
+								<!--#endregion-->
+
+								<!--#region Website-->
+								<Label
+									Grid.Row="6"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Address.Url.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<StackPanel
+									Grid.Row="6"
+									Grid.Column="1"
+									Orientation="Horizontal">
+									<TextBox
+										x:Name="SupplierUrl"
+										Width="420"
+										Style="{DynamicResource DefaultTextBox}"
+										Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Url.Tag}"
+										Text="{Binding SupplierViewModel.SelectedSupplier.SupplierUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Url.Tooltip}" />
+
+									<Button
+										x:Name="GotoWeb"
+										Width="40"
+										Margin="8,0,0,0"
+										HorizontalContentAlignment="Center"
+										Click="ButtonWeb"
+										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Url.Button.Tooltip}">
+										<Image
+											Width="21"
+											HorizontalAlignment="Center"
+											IsEnabled="False"
+											Style="{DynamicResource GotoWebIcon}" />
+									</Button>
+								</StackPanel>
+								<!--#endregion-->
+							</Grid>
+						</GroupBox>
+					</StackPanel>
+					<!--#endregion-->
+
+					<!--#region Financial groupbox-->
+					<StackPanel Grid.Column="1" Margin="5">
+						<GroupBox Opacity="1">
+							<GroupBox.Header>
+								<StackPanel Background="Transparent" Orientation="Horizontal">
+									<Image Source="{StaticResource calculator}" Style="{DynamicResource ImageHeaderGroup}" />
+									<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Supplier.Tab.General.Group.Finance.GroupLabel}" />
+								</StackPanel>
+							</GroupBox.Header>
+							<Grid>
+								<!--#region Grid defenitions for groupbox-->
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="130" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<!--#endregion-->
+
+								<!--#region Currency-->
+								<Label
+									Grid.Row="0"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Finance.Currency.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<ComboBox
+									x:Name="SupplierCurrency"
+									Grid.Row="0"
+									Grid.Column="1"
+									Width="90"
+									Cursor="Arrow"
+									ItemTemplate="{StaticResource CurrencyComboTemplate}"
+									ItemsSource="{Binding CurrencyViewModel.Currency}"
+									Style="{DynamicResource DefaultComboBox}"
+									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+								<!--#endregion-->
+
+								<!--#region Shipping costs-->
+								<Label
+									Grid.Row="1"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Finance.SendCosts.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<StackPanel
+									Grid.Row="1"
+									Grid.Column="1"
+									VerticalAlignment="Center"
+									Orientation="Horizontal">
+
+									<TextBlock
+										Margin="0,0,0,3"
+										VerticalAlignment="Bottom"
+										Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+									<syncfusion:DoubleTextBox
+										x:Name="SendCosts"
+										Width="120"
+										NumberDecimalDigits="2"
+										Style="{DynamicResource SyncfusionDoubleTextBox}"
+										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Finance.SendCosts.Tooltip}"
+										WatermarkText="{StaticResource Edit.Supplier.Tab.General.Group.Finance.SendCosts.Tag}"
+										Value="{Binding SupplierViewModel.SelectedSupplier.SupplierShippingCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+								</StackPanel>
+								<!--#endregion-->
+
+								<!--#region Shipping costs maximulValue-->
+								<Label
+									Grid.Row="2"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Finance.MaxValue.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<StackPanel
+									Grid.Row="2"
+									Grid.Column="1"
+									VerticalAlignment="Center"
+									Orientation="Horizontal">
+
+									<TextBlock
+										Margin="0,0,0,3"
+										VerticalAlignment="Bottom"
+										Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+									<syncfusion:DoubleTextBox
+										x:Name="SendCostsMax"
+										Width="120"
+										NumberDecimalDigits="2"
+										Style="{DynamicResource SyncfusionDoubleTextBox}"
+										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Finance.MaxValue.Tooltip}"
+										WatermarkText="{StaticResource Edit.Supplier.Tab.General.Group.Finance.MaxValue.Tag}"
+										Value="{Binding SupplierViewModel.SelectedSupplier.SupplierMinShippingCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+								</StackPanel>
+								<!--#endregion-->
+
+								<!--#region Order costs-->
+								<Label
+									Grid.Row="3"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.General.Group.Finance.OrderCosts.Label}"
+									Style="{DynamicResource DefaultLabel}" />
+
+								<StackPanel
+									Grid.Row="3"
+									Grid.Column="1"
+									VerticalAlignment="Center"
+									Orientation="Horizontal">
+
+									<TextBlock
+										Margin="0,0,0,3"
+										VerticalAlignment="Bottom"
+										Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+									<syncfusion:DoubleTextBox
+										x:Name="OrderCosts"
+										Width="120"
+										NumberDecimalDigits="2"
+										Style="{DynamicResource SyncfusionDoubleTextBox}"
+										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Finance.OrderCosts.Tooltip}"
+										WatermarkText="{StaticResource Edit.Supplier.Tab.General.Group.Finance.OrderCosts.Tag}"
+										Value="{Binding SupplierViewModel.SelectedSupplier.SupplierOrderCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+								</StackPanel>
+								<!--#endregion-->
+							</Grid>
+						</GroupBox>
+					</StackPanel>
+				</Grid>
+				<!--#endregion-->
+			</TabItem>
+			<!--#endregion-->
+
+			<!--#region Contactpersons for selected supplier-->
+			<TabItem Header="{StaticResource Edit.Supplier.Tab.Contacts.Label}" Style="{DynamicResource Default TabItem}">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="1.5*" />
+					</Grid.ColumnDefinitions>
+
+					<!--#region Selected contact information-->
+					<StackPanel Grid.Column="0" Margin="5">
+						<GroupBox>
+							<GroupBox.Header>
+								<StackPanel Background="Transparent" Orientation="Horizontal">
+									<Image Source="{StaticResource contacts}" Style="{DynamicResource ImageHeaderGroup}" />
+									<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Supplier.Tab.Contact.Group.GroupLabel}" />
+								</StackPanel>
+							</GroupBox.Header>
+						</GroupBox>
+
+						<Grid Margin="3,0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="*" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="150" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<!--#region Name-->
+							<Label
+								Grid.Row="0"
+								Grid.Column="0"
+								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Label}"
+								Style="{DynamicResource DefaultLabel}" />
+
+							<TextBox
+								Grid.Row="0"
+								Grid.Column="1"
+								Width="220"
+								Style="{StaticResource DefaultTextBox}"
+								Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Tag}"
+								Text="{Binding SupplierContactViewModel.SupplierContactName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Tooltip}" />
+							<!--#endregion-->
+
+							<!--#region Function-->
+							<Label
+								Grid.Row="1"
+								Grid.Column="0"
+								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Type.Label}"
+								Style="{DynamicResource DefaultLabel}" />
+
+							<ComboBox
+								x:Name="SupplierContactType"
+								Grid.Row="1"
+								Grid.Column="1"
+								Width="220"
+								Cursor="Arrow"
+								ItemTemplate="{StaticResource ContactTypeComboTemplate}"
+								ItemsSource="{Binding SupplierContactTypeViewModel.SupplierContactType}"
+								Style="{DynamicResource DefaultComboBox}"
+								Text="{Binding SupplierContactTypeViewModel.SelectedContactType.ContactTypeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+							<!--#endregion-->
+
+							<!--#region Mail-->
+							<Label
+								Grid.Row="2"
+								Grid.Column="0"
+								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Label}"
+								Style="{DynamicResource DefaultLabel}" />
+
+							<TextBox
+								Grid.Row="2"
+								Grid.Column="1"
+								Width="220"
+								Style="{StaticResource DefaultTextBox}"
+								Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tag}"
+								Text="{Binding SupplierContactViewModel.SupplierContactMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tooltip}" />
+							<!--#endregion-->
+
+							<!--#region Phone-->
+							<Label
+								Grid.Row="3"
+								Grid.Column="0"
+								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Label}"
+								Style="{DynamicResource DefaultLabel}" />
+
+							<TextBox
+								Grid.Row="3"
+								Grid.Column="1"
+								Width="220"
+								Style="{StaticResource DefaultTextBox}"
+								Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tag}"
+								Text="{Binding SupplierContactViewModel.SupplierContactPhone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tooltip}" />
+							<!--#endregion-->
+						</Grid>
+					</StackPanel>
+					<!--#endregion-->
+
+					<!--#region Contacts DataGrid-->
+					<Grid Grid.Column="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="40" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<!--#region Action toolbar-->
+						<ToolBarTray
+							Grid.Row="0"
+							Margin="10,2,0,2"
+							Style="{DynamicResource DefaultToolBarTray}">
+							<ToolBar x:Name="contactsToolbar" Style="{DynamicResource DefaultToolBar}">
+								<Button Click="ButtonNewContact" ToolTip="{StaticResource Edit.Supplier.Action.Tooltip.Add}">
+									<Image Style="{DynamicResource ToolBarAddIcon}" />
+								</Button>
+								<Button Click="ButtonDeleteContact" ToolTip="{StaticResource Edit.Supplier.Action.Tooltip.Delete}">
+									<Image Style="{DynamicResource ToolBarDeleteIcon}" />
+								</Button>
+								<Button Click="ButtonSaveContact" ToolTip="{StaticResource Edit.Supplier.Action.Tooltip.Save}">
+									<Image Style="{DynamicResource ToolBarSaveIcon}" />
+								</Button>
+							</ToolBar>
+						</ToolBarTray>
+						<!--#endregion-->
+
+						<!--#region Datagrid-->
+						<DataGrid
+							x:Name="ContactsDataGrid"
+							Grid.Row="1"
+							Margin="5,0"
+							Padding="3"
+							IsReadOnly="True"
+							IsSynchronizedWithCurrentItem="True"
+							ItemsSource="{Binding}"
+							SelectedItem="{Binding SupplierContactViewModel.SelectedContact, Mode=TwoWay}">
+							<DataGrid.Columns>
+								<DataGridTextColumn
+									Width="0"
+									Binding="{Binding Id}"
+									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Id}"
+									Visibility="Hidden" />
+								<DataGridTextColumn
+									Width="0"
+									Binding="{Binding TypeId}"
+									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.TypeId}"
+									Visibility="Hidden" />
+								<DataGridTextColumn
+									Width="180"
+									Binding="{Binding ContactType}"
+									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Type}" />
+								<DataGridTextColumn
+									Width="*"
+									Binding="{Binding ContactName}"
+									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Name}" />
+								<DataGridTextColumn
+									Width="0"
+									Binding="{Binding mail}"
+									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Mail}"
+									Visibility="Hidden" />
+								<DataGridTextColumn
+									Width="0"
+									Binding="{Binding phone}"
+									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Phone}"
+									Visibility="Hidden" />
+
+							</DataGrid.Columns>
+						</DataGrid>
+						<!--#endregion-->
+					</Grid>
+					<!--#endregion-->
+				</Grid>
+			</TabItem>
+			<!--#endregion-->
+
+			<!--#region General information Supplier (Memo)-->
+			<TabItem Header="{StaticResource Edit.Supplier.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}">
+				<Grid Margin="5">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="40" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+
+					<!--#region Rtf Toolbar-->
+					<StackPanel Grid.Row="0" Orientation="Horizontal">
+						<ToolBarTray Style="{DynamicResource RtfToolBarTray}">
+							<ToolBar Style="{DynamicResource RtfToolBar}">
+								<Button Command="ApplicationCommands.Cut" ToolTip="{StaticResource rtfToolbar.Action.Cut}">
+									<Image Style="{DynamicResource RtfToolBarCutIcon}" />
+								</Button>
+								<Button Command="ApplicationCommands.Copy" ToolTip="{StaticResource rtfToolbar.Action.Copy}">
+									<Image Style="{DynamicResource RtfToolBarCopyIcon}" />
+								</Button>
+								<Button Command="ApplicationCommands.Paste" ToolTip="{StaticResource rtfToolbar.Action.Paste}">
+									<Image Style="{DynamicResource RtfToolBarPasteIcon}" />
+								</Button>
+								<Button Command="ApplicationCommands.Undo" ToolTip="{StaticResource rtfToolbar.Action.Undo}">
+									<Image Style="{DynamicResource RtfToolBarUndoIcon}" />
+								</Button>
+								<Button Command="ApplicationCommands.Redo" ToolTip="{StaticResource rtfToolbar.Action.Redo}">
+									<Image Style="{DynamicResource RtfToolBarRedoIcon}" />
+								</Button>
+
+								<Separator Margin="6,0" />
+
+								<Button
+									x:Name="ToolStripButtonBold"
+									Command="EditingCommands.ToggleBold"
+									ToolTip="{StaticResource rtfToolbar.Action.Bold}">
+									<Image Style="{DynamicResource RtfToolBarBoldIcon}" />
+								</Button>
+								<Button
+									x:Name="ToolStripButtonItalic"
+									Command="EditingCommands.ToggleItalic"
+									ToolTip="{StaticResource rtfToolbar.Action.Italic}">
+									<Image Style="{DynamicResource RtfToolBarItalicIcon}" />
+								</Button>
+								<Button
+									x:Name="ToolStripButtonUnderline"
+									Command="EditingCommands.ToggleUnderline"
+									ToolTip="{StaticResource rtfToolbar.Action.Underline}">
+									<Image Style="{DynamicResource RtfToolBarUnderlineIcon}" />
+								</Button>
+
+								<Separator Margin="6,0" />
+
+								<Button Command="EditingCommands.ToggleBullets" ToolTip="{StaticResource rtfToolbar.Action.ListBullet}">
+									<Image Style="{DynamicResource RtfToolBarBulletListIcon}" />
+								</Button>
+								<Button Command="EditingCommands.ToggleNumbering" ToolTip="{StaticResource rtfToolbar.Action.ListNumber}">
+									<Image Style="{DynamicResource RtfToolBarNumbersListIcon}" />
+								</Button>
+
+								<Separator Margin="6,0" />
+
+								<Button Command="EditingCommands.IncreaseIndentation" ToolTip="{StaticResource rtfToolbar.Action.Indent}">
+									<Image Style="{DynamicResource RtfToolBarIndentIcon}" />
+								</Button>
+								<Button Command="EditingCommands.DecreaseIndentation" ToolTip="{StaticResource rtfToolbar.Action.Outdent}">
+									<Image Style="{DynamicResource RtfToolBarIndentRemoveIcon}" />
+								</Button>
+							</ToolBar>
+						</ToolBarTray>
+					</StackPanel>
+					<!--#endregion-->
+
+					<!--#region Memo field-->
+					<RichTextBox
+						x:Name="SupplierMemo"
+						Grid.Row="1"
+						Width="Auto"
+						MinHeight="200"
+						Margin="5"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Top"
+						HorizontalScrollBarVisibility="Auto"
+						VerticalScrollBarVisibility="Auto">
+						<FlowDocument Name="SupplierMemoFD">
+							<Paragraph>
+								<Run Text="" />
+							</Paragraph>
+						</FlowDocument>
+					</RichTextBox>
+					<!--#endregion-->
+				</Grid>
+			</TabItem>
+			<!--#endregion-->
+
+			<!--#region Order history information for selected supplier-->
+			<TabItem Header="{StaticResource Edit.Supplier.Tab.History.Label}" Style="{DynamicResource Default TabItem}">
+				<Grid Margin="5">
+					<TextBlock
+						Margin="10,10"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						FontSize="32"
+						Foreground="Red"
+						Style="{DynamicResource DefaultTextBlock}"
+						Text="Nog niet geïmplementeerd" />
+				</Grid>
+			</TabItem>
+
+			<!--#endregion-->
+		</TabControl>
+		<!--#endregion-->
+
+		<!--#region Action toolbar-->
+		<ToolBarTray
+			Grid.Row="3"
+			Margin="10,2,0,2"
+			Style="{DynamicResource DefaultToolBarTray}">
+			<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
+				<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Supplier.Action.Tooltip.Add}">
+					<Image Style="{DynamicResource ToolBarAddIcon}" />
+				</Button>
+				<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Supplier.Action.Tooltip.Delete}">
+					<Image Style="{DynamicResource ToolBarDeleteIcon}" />
+				</Button>
+				<Button Click="ButtonSave" ToolTip="{StaticResource Edit.Supplier.Action.Tooltip.Save}">
+					<Image Style="{DynamicResource ToolBarSaveIcon}" />
+				</Button>
+			</ToolBar>
+		</ToolBarTray>
+		<!--#endregion-->
+
+		<!--#region Datagrid-->
+		<DataGrid
+			x:Name="DataGrid"
+			Grid.Row="4"
+			Margin="10,5,10,5"
+			AutoGenerateColumns="False"
+			CanUserAddRows="False"
+			CanUserDeleteRows="False"
+			ItemsSource="{Binding SupplierViewModel.Supplier, Mode=TwoWay}"
+			SelectedItem="{Binding SupplierViewModel.SelectedSupplier, Mode=TwoWay}">
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Binding="{Binding SupplierId}"
+					Header="{StaticResource Edit.Supplier.DataGrid.Header.Id}"
+					Visibility="Collapsed" />
+				<DataGridTextColumn
+					Width="*"
+					Binding="{Binding SupplierName}"
+					Header="{StaticResource Edit.Supplier.DataGrid.Header.Name}" />
+			</DataGrid.Columns>
+		</DataGrid>
+		<!--#endregion-->
+
+		<!--#region Supplier export Status bar-->
+		<DockPanel
+			Grid.Row="5"
+			Height="30"
+			Margin="10,0,10,0"
+			VerticalAlignment="Center"
+			Background="LightGray">
+			<Grid>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
+					<TextBlock
+						Name="dispStatusLine"
+						Style="{DynamicResource Status.Description}"
+						Text="{DynamicResource Import.Statusline.Description}" />
+				</StackPanel>
+			</Grid>
+		</DockPanel>
+		<!--#endregion-->
 	</Grid>
+
 </Page>

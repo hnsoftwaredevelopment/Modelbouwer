@@ -171,7 +171,7 @@
 			</ToolBar>
 		</ToolBarTray>
 		<!--#endregion-->
-		
+
 		<!--#region Datagrid-->
 		<DataGrid
 			x:Name="CountryDataGrid"
@@ -225,6 +225,6 @@
 				</StackPanel>
 			</Grid>
 		</DockPanel>
-<!--#endregion-->
+		<!--#endregion-->
 	</Grid>
 </Page>

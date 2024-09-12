@@ -324,11 +324,11 @@ public class DBNames
 	public static readonly string SupplierFieldTypeCountryId = "int";
 	public static readonly string SupplierFieldNameCurrencyId = "Currency_Id";
 	public static readonly string SupplierFieldTypeCurrencyId = "int";
-	public static readonly string SupplierFieldNameShippingCosts = "ShippingCosts";
+	public static readonly string SupplierFieldNameShippingCosts = "SupplierShippingCosts";
 	public static readonly string SupplierFieldTypeShippingCosts = "double";
-	public static readonly string SupplierFieldNameMinShippingCosts = "MinShippingCosts";
+	public static readonly string SupplierFieldNameMinShippingCosts = "SupplierMinShippingCosts";
 	public static readonly string SupplierFieldTypeMinShippingCosts = "double";
-	public static readonly string SupplierFieldNameOrderCosts = "OrderCosts";
+	public static readonly string SupplierFieldNameOrderCosts = "SupplierOrderCosts";
 	public static readonly string SupplierFieldTypeOrderCosts = "double";
 
 	#endregion Supplier table
@@ -341,7 +341,7 @@ public class DBNames
 	public static readonly string SupplierContactFieldTypeId = "int";
 	public static readonly string SupplierContactFieldNameSupplierId = "Supplier_Id";
 	public static readonly string SupplierContactFieldTypeSupplierId = "int";
-	public static readonly string SupplierContactFieldNameName = "Name";
+	public static readonly string SupplierContactFieldNameName = "ContactName";
 	public static readonly string SupplierContactFieldTypeName = "string";
 	public static readonly string SupplierContactFieldNameTypeId = "Contacttype_Id";
 	public static readonly string SupplierContactFieldTypeTypeId = "int";
@@ -477,9 +477,9 @@ public class DBNames
 	public static readonly string OrderFieldTypeCurrencySymbol = "string";
 	public static readonly string OrderFieldNameConversionRate = "CurrencyConversionRate";
 	public static readonly string OrderFieldTypeConversionRate = "double";
-	public static readonly string OrderFieldNameShippingCosts = "ShippingCosts";
+	public static readonly string OrderFieldNameShippingCosts = "SupplierShippingCosts";
 	public static readonly string OrderFieldTypeShippingCosts = "double";
-	public static readonly string OrderFieldNameOrderCosts = "OrderCosts";
+	public static readonly string OrderFieldNameOrderCosts = "SupplierOrderCosts";
 	public static readonly string OrderFieldTypeOrderCosts = "double";
 	public static readonly string OrderFieldNameOrderMemo = "Memo";
 	public static readonly string OrderFieldTypeOrderMemo = "longtext";

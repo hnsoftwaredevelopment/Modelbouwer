@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
-public partial class supplierContactViewModel : ObservableObject
+﻿namespace Modelbouwer.ViewModels;
+public partial class SupplierContactViewModel : ObservableObject
 {
 	[ObservableProperty]
 	public int supplierContactId;
@@ -16,22 +14,23 @@ public partial class supplierContactViewModel : ObservableObject
 	public int supplierContactContactTypeId;
 
 	[ObservableProperty]
+	public string? supplierContactContactType;
+
+	[ObservableProperty]
 	public string? supplierContactMail;
 
 	[ObservableProperty]
 	public string? supplierContactPhone;
 
-	public ObservableCollection<SupplierContactModel> SupplierContact
+	public ObservableCollection<SupplierContactModel> SupplierContact { get; set; }
+
+	private readonly ObservableCollection<SupplierContactModel>? _supplierContact;
+
+	[ObservableProperty]
+	private SupplierContactModel? _selectedContact;
+
+	public SupplierContactViewModel()
 	{
-		get => _suppliercontact;
-		set
-		{
-			if ( _suppliercontact != value )
-			{
-				_suppliercontact = value;
-				OnPropertyChanged( nameof( SupplierContact ) );
-			}
-		}
+		SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
 	}
-	private ObservableCollection<SupplierContactModel>? _suppliercontact;
 }

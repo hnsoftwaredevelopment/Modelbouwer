@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
-public partial class supplierViewModel : ObservableObject
+﻿namespace Modelbouwer.ViewModels;
+public partial class SupplierViewModel : ObservableObject
 {
 	[ObservableProperty]
 	public int supplierId;
@@ -25,7 +23,7 @@ public partial class supplierViewModel : ObservableObject
 	public string? supplierCity;
 
 	[ObservableProperty]
-	public string? supplierURL;
+	public string? supplierUrl;
 
 	[ObservableProperty]
 	public double supplierShippingCosts;
@@ -43,19 +41,21 @@ public partial class supplierViewModel : ObservableObject
 	public int supplierCurrencyId;
 
 	[ObservableProperty]
+	public string? supplierCurrency;
+
+	[ObservableProperty]
 	public int supplierCountryId;
 
-	public ObservableCollection<SupplierModel> Supplier
+	[ObservableProperty]
+	public string? supplierCountry;
+
+	public ObservableCollection<SupplierModel>? Supplier { get; set; }
+
+	[ObservableProperty]
+	private SupplierModel? _selectedSupplier;
+
+	public SupplierViewModel()
 	{
-		get => _supplier;
-		set
-		{
-			if ( _supplier != value )
-			{
-				_supplier = value;
-				OnPropertyChanged( nameof( Supplier ) );
-			}
-		}
+		Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
 	}
-	private ObservableCollection<SupplierModel>? _supplier;
 }

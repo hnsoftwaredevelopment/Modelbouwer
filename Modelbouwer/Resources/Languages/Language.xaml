@@ -573,7 +573,80 @@
 	<system:String x:Key="Edit.Supplier.Action.Tooltip.Delete">Geselecteerde leverancier verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Supplier.Action.Tooltip.Save">Gewijzigde leverancier opslaan</system:String>
 	<system:String x:Key="Edit.Supplier.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Supplier.DataGrid.Header.Name">Leveranciernaam</system:String>
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.Name">Leverancier</system:String>
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.Mail">E-mail adres</system:String>
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.Phone">Telefoonnummer</system:String>
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.Type">Functie</system:String>
+	<system:String x:Key="Edit.Supplier.DataGrid.Header.TypeId">Functie Id</system:String>
+
+	<system:String x:Key="Edit.Supplier.Tab.General.Label">Basisgegevens</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.GroupLabel">Leverancier gegevens</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Name.Label">Naam:</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Name.Tag">Leveranciernaam</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Name.Tooltip">Volledige naam van de leverancier</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Code.Label">Zoekcode:</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Code.Tag">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Code.Tooltip">Korte unieke code om de leverancier te kunnen zoeken/</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Address.Label">Adres</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Address.Tag">Adres</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Address.Tooltip">Adres</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.City.Label">Plaats</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.City.Tag">Plaats</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.City.Tooltip">Plaats</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Country.Label">Land</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Country.Tag">Land</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Country.Tooltip">Land</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Url.Label">Website</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Url.Tag">Website</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Url.Tooltip">Website van de leverancier</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Url.Button.Tooltip">Open de website van de leverancier in je browser</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Zip.Label">Postcode</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Zip.Tag">Postcode</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Address.Zip.Tooltip">Postcode</system:String>
+
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.GroupLabel">Financiële gegevens</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.Currency.Label">Standaard valuta</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.Currency.Tag">Standaard valuta</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.Currency.Tooltip">Standaard valuta</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.MaxValue.Label">Tot bedrag</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.MaxValue.Tag">Tot bedrag</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.MaxValue.Tooltip">Tot bedrag</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.OrderCosts.Label">Order kosten</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.OrderCosts.Tag">Order kosten</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.OrderCosts.Tooltip">Order kosten</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.SendCosts.Label">Verzendkosten</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.SendCosts.Tag">Verzendkosten</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.General.Group.Finance.SendCosts.Tooltip">Verzendkosten</system:String>
+
+	<system:String x:Key="Edit.Supplier.Tab.Contacts.Action.Delete.Tooltip">Verwijder geselekteerde contactpersoon</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contacts.Action.New.Tooltip">Contact(persoon) bij leverancier toevoegen</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contacts.Action.Reset.Tooltip">Maak alle ingevulde velden leeg</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contacts.Action.Save.Tooltip">Wijzigingen opslaan</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contacts.Label">Contactpersonen</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.GroupLabel">Contact gegevens</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Mail.Label">E-mail adres</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tag">E-mail adres</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tooltip">E-mail adres</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Name.Label">Volledige naam</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Name.Tag">Volledige naam</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Name.Tooltip">Volledige naam</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Phone.Label">Telefoonnummer</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tag">Telefoonnummer</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tooltip">Telefoonnummer</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Type.Label">Functie</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Type.Tag">Functie</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Type.Tooltip">Functie</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.Group.Contact.Label">Communicatiekanalen per leverancier</system:String>
+
+	<system:String x:Key="Edit.Supplier.Tab.Contact.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.DataGrid.Header.Name">Naam</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.DataGrid.Header.Mail">E-mail</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.DataGrid.Header.Phone">Telefoon</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.DataGrid.Header.Type">Functie</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.Contact.DataGrid.Header.TypeId">Functie Id</system:String>
+
+	<system:String x:Key="Edit.Supplier.Tab.Memo.Label">Aanvullende informatie</system:String>
+	<system:String x:Key="Edit.Supplier.Tab.History.Label">Order historie</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -923,6 +996,21 @@
 	<system:String x:Key="Edit.Time.DataGrid.Header.Id">Id</system:String>
 	<system:String x:Key="Edit.Time.DataGrid.Header.Name">Tijdnaam</system:String>
 	<!--#endregion-->
+	<!--#endregion-->
+	
+	<!--#region Rtf Toolbar items-->
+	<system:String x:Key="rtfToolbar.Action.Indent">Inspringen</system:String>
+	<system:String x:Key="rtfToolbar.Action.Copy">Kopieer</system:String>
+	<system:String x:Key="rtfToolbar.Action.Cut">Knippen</system:String>
+	<system:String x:Key="rtfToolbar.Action.Paste">Plak</system:String>
+	<system:String x:Key="rtfToolbar.Action.Bold">Vet</system:String>
+	<system:String x:Key="rtfToolbar.Action.Italic">Cursief</system:String>
+	<system:String x:Key="rtfToolbar.Action.Redo">Opnieuw</system:String>
+	<system:String x:Key="rtfToolbar.Action.Underline">Onderstrepen</system:String>
+	<system:String x:Key="rtfToolbar.Action.Undo">Ongedaan maken</system:String>
+	<system:String x:Key="rtfToolbar.Action.ListBullet">Lijst</system:String>
+	<system:String x:Key="rtfToolbar.Action.ListNumber">Genummerde lijst</system:String>
+	<system:String x:Key="rtfToolbar.Action.Outdent">Terugspringen</system:String>
 	<!--#endregion-->
 
 	<!--#endregion-->
