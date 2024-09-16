@@ -876,6 +876,7 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
+	<system:String x:Key="Edit.SupplierContact.NoContactSelected.Error">Functies</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

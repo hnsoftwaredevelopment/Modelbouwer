@@ -54,6 +54,14 @@ public partial class SupplierViewModel : ObservableObject
 	[ObservableProperty]
 	private SupplierModel? _selectedSupplier;
 
+	private readonly SupplierContactViewModel _supplierContactViewModel;
+
+	public SupplierViewModel( SupplierContactViewModel supplierContactViewModel )
+	{
+		Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
+		_supplierContactViewModel = supplierContactViewModel;
+	}
+
 	public SupplierViewModel()
 	{
 		Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );

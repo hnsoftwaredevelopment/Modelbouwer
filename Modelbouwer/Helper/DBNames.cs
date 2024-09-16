@@ -341,7 +341,7 @@ public class DBNames
 	public static readonly string SupplierContactFieldTypeId = "int";
 	public static readonly string SupplierContactFieldNameSupplierId = "Supplier_Id";
 	public static readonly string SupplierContactFieldTypeSupplierId = "int";
-	public static readonly string SupplierContactFieldNameName = "ContactName";
+	public static readonly string SupplierContactFieldNameName = "Name";
 	public static readonly string SupplierContactFieldTypeName = "string";
 	public static readonly string SupplierContactFieldNameTypeId = "Contacttype_Id";
 	public static readonly string SupplierContactFieldTypeTypeId = "int";
@@ -351,6 +351,8 @@ public class DBNames
 	public static readonly string SupplierContactFieldTypePhone = "string";
 	public static readonly string SupplierContactFieldNameMail = "Mail";
 	public static readonly string SupplierContactFieldTypeMail = "string";
+
+
 
 	#endregion SupplierContact Table
 
