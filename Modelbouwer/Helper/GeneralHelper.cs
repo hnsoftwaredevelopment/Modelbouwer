@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Windows.Documents;
 
 using Modelbouwer.View.Dialog;
 
@@ -665,4 +666,22 @@ public class GeneralHelper
 	}
 
 	#endregion Get strings from language.xaml
+
+	#region Get rich text from flow document to convert a RTF (memo) field to a string
+	public static string GetRichTextFromFlowDocument( FlowDocument fDoc )
+	{
+		string result = string.Empty;
+
+		//convert to string
+		if ( fDoc != null )
+		{
+			TextRange tr = new(fDoc.ContentStart, fDoc.ContentEnd);
+
+			using MemoryStream ms = new();
+			tr.Save( ms, System.Windows.DataFormats.Rtf );
+			result = System.Text.Encoding.UTF8.GetString( ms.ToArray() );
+		}
+		return result;
+	}
+	#endregion
 }

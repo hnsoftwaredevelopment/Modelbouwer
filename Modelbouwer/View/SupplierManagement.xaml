@@ -48,8 +48,8 @@
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="95" />
-			<RowDefinition Height="*" />
-			<RowDefinition Height="0" />
+			<RowDefinition Height="290" />
+			<RowDefinition Height="30" />
 			<RowDefinition Height="40" />
 			<RowDefinition Height="*" />
 			<RowDefinition Height="20" />
@@ -135,7 +135,7 @@
 									/>
 
 								<TextBox
-									x:Name="inpSupplierName"
+									x:Name="SupplierName"
 									Grid.Row="1"
 									Grid.Column="1"
 									Width="450"
@@ -246,11 +246,13 @@
 									Grid.Column="1"
 									Width="280"
 									Cursor="Arrow"
-									ItemTemplate="{StaticResource CountryComboTemplate}"
-									SelectedIndex="{Binding SupplierViewModel.SelectedSupplier.SupplierCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									DisplayMemberPath="CountryName"
+									ItemsSource="{Binding CountryViewModel.Country}"
+									SelectedValue="{Binding SupplierViewModel.SelectedSupplier.SupplierCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									SelectedValuePath="CountryId"
 									Style="{DynamicResource DefaultComboBox}"
 									Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Country.Tag}"
-									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 									ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Country.Tooltip}"
 									/>
 								<!--#endregion-->
@@ -468,99 +470,102 @@
 									<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Supplier.Tab.Contact.Group.GroupLabel}" />
 								</StackPanel>
 							</GroupBox.Header>
-						
 
-						<Grid Margin="3,0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="*" />
-								<RowDefinition Height="*" />
-								<RowDefinition Height="*" />
-								<RowDefinition Height="*" />
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="150" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
 
-							<!--#region Name-->
-							<Label
-								Grid.Row="0"
-								Grid.Column="0"
-								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Label}"
-								Style="{DynamicResource DefaultLabel}"
-								/>
+							<Grid Margin="3,0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="150" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
 
-							<TextBox x:Name="SupplierContactName"
-								Grid.Row="0"
-								Grid.Column="1"
-								Width="400"
-								Style="{StaticResource DefaultTextBox}"
-								Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Tag}"
-								Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-								ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Tooltip}"
-								/>
-							<!--#endregion-->
+								<!--#region Name-->
+								<Label
+									Grid.Row="0"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Label}"
+									Style="{DynamicResource DefaultLabel}"
+									/>
 
-							<!--#region Function-->
-							<Label
-								Grid.Row="1"
-								Grid.Column="0"
-								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Type.Label}"
-								Style="{DynamicResource DefaultLabel}"
-								/>
+								<TextBox
+									x:Name="SupplierContactName"
+									Grid.Row="0"
+									Grid.Column="1"
+									Width="400"
+									Style="{StaticResource DefaultTextBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Tag}"
+									Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Name.Tooltip}"
+									/>
+								<!--#endregion-->
 
-							<ComboBox
-								x:Name="SupplierContactType"
-								Grid.Row="1"
-								Grid.Column="1"
-								Width="180"
-								Cursor="Arrow"
-								DisplayMemberPath="ContactTypeName"
-								SelectedValuePath="ContactTypeId"
-								SelectedValue="{Binding SupplierContactViewModel.SelectedContact.SupplierContactContactTypeId}"
-								ItemsSource="{Binding SupplierContactTypeViewModel.SupplierContactType}"
-								Style="{DynamicResource DefaultComboBox}"
-								/>
-							<!--#endregion-->
+								<!--#region Function-->
+								<Label
+									Grid.Row="1"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Type.Label}"
+									Style="{DynamicResource DefaultLabel}"
+									/>
 
-							<!--#region Mail-->
-							<Label
-								Grid.Row="2"
-								Grid.Column="0"
-								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Label}"
-								Style="{DynamicResource DefaultLabel}"
-								/>
+								<ComboBox
+									x:Name="SupplierContactType"
+									Grid.Row="1"
+									Grid.Column="1"
+									Width="180"
+									Cursor="Arrow"
+									DisplayMemberPath="ContactTypeName"
+									ItemsSource="{Binding SupplierContactTypeViewModel.SupplierContactType}"
+									SelectedValue="{Binding SupplierContactViewModel.SelectedContact.SupplierContactContactTypeId}"
+									SelectedValuePath="ContactTypeId"
+									Style="{DynamicResource DefaultComboBox}"
+									/>
+								<!--#endregion-->
 
-							<TextBox
-								Grid.Row="2" x:Name="SupplierContactMail"
-								Grid.Column="1"
-								Width="350"
-								Style="{StaticResource DefaultTextBox}"
-								Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tag}"
-								Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-								ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tooltip}"
-								/>
-							<!--#endregion-->
+								<!--#region Mail-->
+								<Label
+									Grid.Row="2"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Label}"
+									Style="{DynamicResource DefaultLabel}"
+									/>
 
-							<!--#region Phone-->
-							<Label
-								Grid.Row="3"
-								Grid.Column="0"
-								Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Label}"
-								Style="{DynamicResource DefaultLabel}"
-								/>
+								<TextBox
+									x:Name="SupplierContactMail"
+									Grid.Row="2"
+									Grid.Column="1"
+									Width="350"
+									Style="{StaticResource DefaultTextBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tag}"
+									Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactMail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Mail.Tooltip}"
+									/>
+								<!--#endregion-->
 
-							<TextBox
-								Grid.Row="3"
-								Grid.Column="1" x:Name="SupplierContactPhone"
-								Width="220"
-								Style="{StaticResource DefaultTextBox}"
-								Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tag}"
-								Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactPhone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-								ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tooltip}"
-								/>
-							<!--#endregion-->
-						</Grid>
+								<!--#region Phone-->
+								<Label
+									Grid.Row="3"
+									Grid.Column="0"
+									Content="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Label}"
+									Style="{DynamicResource DefaultLabel}"
+									/>
+
+								<TextBox
+									x:Name="SupplierContactPhone"
+									Grid.Row="3"
+									Grid.Column="1"
+									Width="220"
+									Style="{StaticResource DefaultTextBox}"
+									Tag="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tag}"
+									Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactPhone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ToolTip="{StaticResource Edit.Supplier.Tab.Contact.Group.Contact.Phone.Tooltip}"
+									/>
+								<!--#endregion-->
+							</Grid>
 						</GroupBox>
 					</StackPanel>
 					<!--#endregion-->
@@ -598,21 +603,25 @@
 							Grid.Row="1"
 							Margin="5,0"
 							Padding="3"
-							IsReadOnly="True" AutoGenerateColumns="False"
-							IsSynchronizedWithCurrentItem="True" SelectedIndex="0"
+							AutoGenerateColumns="False"
+							IsReadOnly="True"
+							IsSynchronizedWithCurrentItem="True"
 							ItemsSource="{Binding SupplierContactViewModel.FilteredContacts}"
+							SelectedIndex="0"
 							SelectedItem="{Binding SupplierContactViewModel.SelectedContact, Mode=TwoWay}"
 							>
 							<DataGrid.Columns>
 								<DataGridTextColumn
-									Width="0" Visibility="Collapsed"
+									Width="0"
 									Binding="{Binding SupplierContactId}"
 									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Id}"
+									Visibility="Collapsed"
 									/>
 								<DataGridTextColumn
-									Width="0" Visibility="Collapsed"
+									Width="0"
 									Binding="{Binding SupplierContactContactTypeId}"
 									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.TypeId}"
+									Visibility="Collapsed"
 									/>
 								<DataGridTextColumn
 									Width="180"
@@ -625,14 +634,16 @@
 									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Name}"
 									/>
 								<DataGridTextColumn
-									Width="0" Visibility="Collapsed"
+									Width="0"
 									Binding="{Binding SupplierContactMail}"
 									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Mail}"
+									Visibility="Collapsed"
 									/>
 								<DataGridTextColumn
-									Width="0" Visibility="Collapsed"
+									Width="0"
 									Binding="{Binding SupplierContactPhone}"
 									Header="{StaticResource Edit.Supplier.Tab.Contact.DataGrid.Header.Phone}"
+									Visibility="Collapsed"
 									/>
 
 							</DataGrid.Columns>
@@ -762,31 +773,16 @@
 
 		<!--#region Hidden fields-->
 		<StackPanel Grid.Row="2" Orientation="Horizontal">
-			<TextBox
-				x:Name="SupplierId"
-				Style="{DynamicResource HiddenTextBox}"
-				Text="{Binding SupplierViewModel.SelectedSupplier.SupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				/>
-			<TextBox
-				x:Name="SupplierCountryId"
-				Style="{DynamicResource HiddenTextBox}"
-				Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCountryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				/>
-			<TextBox
-				x:Name="SupplierCurrencyId"
-				Style="{DynamicResource HiddenTextBox}"
-				Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCurrencyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				/>
-			<TextBox
-				x:Name="SupplierContactId"
-				Style="{DynamicResource HiddenTextBox}"
-				Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				/>
-			<TextBox
-				x:Name="SupplierContactTypeId"
-				Style="{DynamicResource HiddenTextBox}"
-				Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactContactTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				/>
+			<Label Content="Id:"/>
+			<TextBox x:Name="SupplierId" Text="{Binding SupplierViewModel.SelectedSupplier.SupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Label Content="CountryId:"/>
+			<TextBox x:Name="SupplierCountryId" Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCountryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Label Content="CurrencyId:"/>
+			<TextBox x:Name="SupplierCurrencyId" Text="{Binding SupplierViewModel.SelectedSupplier.SupplierCurrencyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Label Content="ContactyId:"/>
+			<TextBox x:Name="SupplierContactId" Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<Label Content="ContactTypeId:"/>
+			<TextBox x:Name="SupplierContactTypeId" Text="{Binding SupplierContactViewModel.SelectedContact.SupplierContactContactTypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 		</StackPanel>
 		<!--#endregion-->
 

@@ -324,11 +324,11 @@ public class DBNames
 	public static readonly string SupplierFieldTypeCountryId = "int";
 	public static readonly string SupplierFieldNameCurrencyId = "Currency_Id";
 	public static readonly string SupplierFieldTypeCurrencyId = "int";
-	public static readonly string SupplierFieldNameShippingCosts = "SupplierShippingCosts";
+	public static readonly string SupplierFieldNameShippingCosts = "ShippingCosts";
 	public static readonly string SupplierFieldTypeShippingCosts = "double";
-	public static readonly string SupplierFieldNameMinShippingCosts = "SupplierMinShippingCosts";
+	public static readonly string SupplierFieldNameMinShippingCosts = "MinShippingCosts";
 	public static readonly string SupplierFieldTypeMinShippingCosts = "double";
-	public static readonly string SupplierFieldNameOrderCosts = "SupplierOrderCosts";
+	public static readonly string SupplierFieldNameOrderCosts = "OrderCosts";
 	public static readonly string SupplierFieldTypeOrderCosts = "double";
 
 	#endregion Supplier table

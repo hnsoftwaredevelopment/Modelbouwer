@@ -9,9 +9,9 @@
 
 	<!--#region TextBlock Bottom-->
 	<Style x:Key="Tab.Panel.Label" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="DemiBold" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Bottom" />
-		<Setter Property="FontWeight" Value="DemiBold" />
 	</Style>
 	<!--#endregion-->
 
@@ -52,37 +52,37 @@
 
 	<!--#region Textblock Bold Bold-->
 	<Style x:Key="TextBlockBold" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="Bold" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Bottom" />
-		<Setter Property="FontWeight" Value="Bold" />
 	</Style>
 	<!--#endregion-->
 
 	<!--#region Group Header Textblock-->
 	<Style x:Key="Group.Hearder.TextBlock" TargetType="TextBlock">
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="FontWeight" Value="Bold" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Bottom" />
-		<Setter Property="FontWeight" Value="Bold" />
-		<Setter Property="FontSize" Value="14" />
 	</Style>
 	<!--#endregion-->
 
 	<!--#region Textblocks Status line-->
 	<Style x:Key="Status.Label" TargetType="TextBlock">
-		<Setter Property="HorizontalAlignment" Value="Left" />
-		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="Margin" Value="4,0,0,0" />
 		<Setter Property="FontFamily" Value="Poppins" />
 		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="Margin" Value="4,0,0,0" />
+		<Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
 
 	<Style x:Key="Status.Description" TargetType="TextBlock">
-		<Setter Property="HorizontalAlignment" Value="Left" />
-		<Setter Property="VerticalAlignment" Value="Center" />
-		<Setter Property="Margin" Value="4,0,0,0" />
 		<Setter Property="FontFamily" Value="Poppins" />
 		<Setter Property="FontStyle" Value="Italic" />
 		<Setter Property="FontWeight" Value="Normal" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="Margin" Value="4,0,0,0" />
+		<Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
 
 	<!--#endregion-->

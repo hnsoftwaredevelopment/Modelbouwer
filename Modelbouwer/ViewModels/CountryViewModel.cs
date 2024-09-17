@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class CountryViewModel : ObservableObject
 {
 	[ObservableProperty]

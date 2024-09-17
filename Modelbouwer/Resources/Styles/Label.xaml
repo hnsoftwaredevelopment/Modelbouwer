@@ -2,18 +2,18 @@
 
 	<!--#region Default Label-->
 	<Style x:Key="DefaultLabel" TargetType="Label">
-		<Setter Property="Width" Value="120" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Top" />
+		<Setter Property="Width" Value="120" />
 	</Style>
 	<!--#endregion Default Label-->
 
 	<!--#region Label that is vissible if valueShow is checked-->
 	<Style x:Key="HideOnNotShowLabel" TargetType="Label">
-		<Setter Property="Width" Value="120" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Top" />
 		<Setter Property="Visibility" Value="Visible" />
+		<Setter Property="Width" Value="120" />
 
 		<Style.Triggers>
 			<DataTrigger Binding="{Binding ElementName=valueShow, Path=IsChecked}" Value="True">
@@ -28,10 +28,10 @@
 
 	<!--#region Label that is vissible if valueShow is unchecked-->
 	<Style x:Key="HideOnShowLabel" TargetType="Label">
-		<Setter Property="Width" Value="120" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Top" />
 		<Setter Property="Visibility" Value="Collapsed" />
+		<Setter Property="Width" Value="120" />
 
 		<Style.Triggers>
 			<DataTrigger Binding="{Binding ElementName=valueShow, Path=IsChecked}" Value="True">

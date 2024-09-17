@@ -876,7 +876,16 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
-	<system:String x:Key="Edit.SupplierContact.NoContactSelected.Error">Functies</system:String>
+	<system:String x:Key="Edit.SupplierContact.NoContactSelected.Error">Geen contactpersoon geselecteerd</system:String>
+	<system:String x:Key="Edit.Supplier.NoSupplierSelected.Error">Geen leverancier geselecteerd</system:String>
+	<system:String x:Key="Edit.Supplier.SupplierCode.Empty">Niet opgeslagen, geen zoeknaam voor de leverancier ingegeven</system:String>
+	<system:String x:Key="Edit.Supplier.SupplierName.Empty">Niet opgeslagen, geen naam voor de leverancier ingegeven</system:String>
+	<system:String x:Key="Edit.Supplier.SupplierCodeAndName.Empty">Niet opgeslagen, geen zoeknaam en naam voor de leverancier ingegeven</system:String>
+	<system:String x:Key="Edit.Supplier.SupplierCode.Excist">Niet opgeslagen, zoeknaam bestaat al</system:String>
+	<system:String x:Key="Edit.Supplier.SupplierName.Excist">Niet opgeslagen, naam bestaat al</system:String>
+	<system:String x:Key="Edit.Supplier.SupplierCodeAndName.Excist">Niet opgeslagen, zoeknaam en naam bestaan al</system:String>
+	<system:String x:Key="Edit.Supplier.Added">Niewe leverancier opgeslagen</system:String>
+	<system:String x:Key="Edit.Supplier.Changed">Leverancier gegevens aangepast</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

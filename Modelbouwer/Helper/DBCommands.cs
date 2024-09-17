@@ -173,6 +173,27 @@ public class DBCommands
 	}
 	#endregion Get the data table based on the select query
 
+	#region Get the latet inserted record Id from a specified table
+	public static string GetLatestIdFromTable( string _table )
+	{
+		// There is an Id or String available for each condition, so one of them has a value the other one is 0 or ""
+		string sqlQuery = $"" +
+			$"{DBNames.SqlSelect}{DBNames.SqlMax}Id)" +
+			$"{DBNames.SqlFrom}{DBNames.Database}.{_table.ToLower()}";
+
+		MySqlConnection connection = new(DBConnect.ConnectionString);
+
+		connection.Open();
+
+		MySqlCommand cmd = new(sqlQuery, connection);
+
+		string resultString = ((int)cmd.ExecuteScalar()).ToString();
+
+		return resultString;
+	}
+	#endregion
+	#endregion
+
 	#region Fill lists
 	#region BrandList
 	public static ObservableCollection<BrandModel> GetBrandList( ObservableCollection<BrandModel>? brandList = null )
@@ -492,7 +513,6 @@ public class DBCommands
 	}
 	#endregion
 	#endregion Fill lists
-	#endregion GetData
 
 	#region Export data to CSV file
 	/// <summary>
@@ -738,6 +758,51 @@ public class DBCommands
 		return result;
 	}
 	#endregion Update record in database
+
+	#region Update Memo Field in Table
+	public static string UpdateMemoFieldInTable( string _table, string [ , ] _whereFields, string _memoFieldName, string _memoFieldContent )
+	{
+		string result = string.Empty;
+		StringBuilder sqlQuery = new();
+		sqlQuery.Append( $"{DBNames.SqlUpdate}{_table.ToLower()}{DBNames.SqlSet}{_memoFieldName} = @{_memoFieldName}" );
+
+		sqlQuery.Append( DBNames.SqlWhere );
+		string prefix = "";
+
+		for ( int i = 0; i < _whereFields.GetLength( 0 ); i++ )
+		{
+			if ( i != 0 )
+			{ prefix = ", "; }
+			sqlQuery.Append( $"{prefix}{_whereFields [ i, 0 ]} = @{_whereFields [ i, 0 ]}" );
+		}
+
+		try
+		{
+			int rowsAffected = ExecuteNonQueryTable(sqlQuery.ToString(), _whereFields, _memoField: _memoFieldName, _memoContent: _memoFieldContent);
+
+			if ( rowsAffected > 0 )
+			{
+
+				result = "Rij toegevoegd.";
+			}
+			else
+			{
+				result = "Rij niet toegevoegd.";
+			}
+		}
+		catch ( MySqlException ex )
+		{
+			Debug.WriteLine( "Error (Update _table - MySqlException): " + ex.Message );
+			throw;
+		}
+		catch ( Exception ex )
+		{
+			Debug.WriteLine( "Error (Update _table): " + ex.Message );
+			throw;
+		}
+		return result;
+	}
+	#endregion
 
 	#region Replace start of FullPath with changed FullPath
 	public static void ChangeFullPath( string _table, string _fullPathFieldName, string _oldPath, string _newPath )

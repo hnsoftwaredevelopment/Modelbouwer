@@ -5,7 +5,8 @@
 			Background="White"
 			BorderBrush="DarkBlue"
 			BorderThickness="1"
-			CornerRadius="10">
+			CornerRadius="10"
+			>
 			<ScrollViewer x:Name="PART_ScrollViewer">
 				<ItemsPresenter />
 			</ScrollViewer>
