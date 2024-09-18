@@ -10,7 +10,8 @@
 	d:DataContext="{d:DesignInstance Type=viewmodels:BrandViewModel}"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
-	mc:Ignorable="d">
+	mc:Ignorable="d"
+	>
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -26,21 +27,14 @@
 		<StackPanel
 			Grid.Row="0"
 			Margin="10,0,10,0"
-			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+			>
 			<TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Brand.Title}" />
 			<Canvas>
 				<Path Style="{DynamicResource DefaultTitleLine}" />
 			</Canvas>
 			<TextBlock Style="{DynamicResource DefaultSubTitle}" Text="{StaticResource Edit.Brand.Subtitle}" />
 		</StackPanel>
-		<!--#endregion-->
-
-		<!--#region Hidden fields-->
-		<TextBox
-			x:Name="inpBrandId"
-			Grid.Row="2"
-			Style="{DynamicResource HiddenTextBox}"
-			Text="{Binding SelectedBrandId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 		<!--#endregion-->
 
 		<!--#region Datafields-->
@@ -60,15 +54,26 @@
 				Grid.Column="1"
 				Width="450"
 				Style="{DynamicResource DefaultTextBox}"
-				Text="{Binding SelectedBrandName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				Text="{Binding SelectedBrandName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				/>
 		</Grid>
+		<!--#endregion-->
+
+		<!--#region Hidden fields-->
+		<TextBox
+			x:Name="inpBrandId"
+			Grid.Row="2"
+			Style="{DynamicResource HiddenTextBox}"
+			Text="{Binding SelectedBrandId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+			/>
 		<!--#endregion-->
 
 		<!--#region Action toolbar-->
 		<ToolBarTray
 			Grid.Row="3"
 			Margin="10,2,0,2"
-			Style="{DynamicResource DefaultToolBarTray}">
+			Style="{DynamicResource DefaultToolBarTray}"
+			>
 			<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
 				<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Brand.Action.Tooltip.Add}">
 					<Image Style="{DynamicResource ToolBarAddIcon}" />
@@ -93,16 +98,19 @@
 			CanUserDeleteRows="False"
 			ItemsSource="{Binding Brand, Mode=TwoWay}"
 			SelectedItem="{Binding SelectedBrand, Mode=TwoWay}"
-			SelectionChanged="SelectionChanged">
+			SelectionChanged="SelectionChanged"
+			>
 			<DataGrid.Columns>
 				<DataGridTextColumn
 					Binding="{Binding BrandId}"
 					Header="{StaticResource Edit.Brand.DataGrid.Header.Id}"
-					Visibility="Collapsed" />
+					Visibility="Collapsed"
+					/>
 				<DataGridTextColumn
 					Width="*"
 					Binding="{Binding BrandName}"
-					Header="{StaticResource Edit.Brand.DataGrid.Header.Name}" />
+					Header="{StaticResource Edit.Brand.DataGrid.Header.Name}"
+					/>
 			</DataGrid.Columns>
 		</DataGrid>
 		<!--#endregion-->
@@ -113,14 +121,16 @@
 			Height="30"
 			Margin="10,0,10,0"
 			VerticalAlignment="Center"
-			Background="LightGray">
+			Background="LightGray"
+			>
 			<Grid>
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
 					<TextBlock
 						Name="dispStatusLine"
 						Style="{DynamicResource Status.Description}"
-						Text="{DynamicResource Import.Statusline.Description}" />
+						Text="{DynamicResource Import.Statusline.Description}"
+						/>
 				</StackPanel>
 			</Grid>
 		</DockPanel>

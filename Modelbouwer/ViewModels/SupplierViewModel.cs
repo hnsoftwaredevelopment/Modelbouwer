@@ -49,6 +49,9 @@ public partial class SupplierViewModel : ObservableObject
 	[ObservableProperty]
 	public string? supplierCountry;
 
+	[ObservableProperty]
+	public SupplierModel? selectedItem;
+
 	public ObservableCollection<SupplierModel>? Supplier { get; set; }
 
 	[ObservableProperty]
@@ -84,8 +87,6 @@ public partial class SupplierViewModel : ObservableObject
 			SupplierCity = string.Empty,
 			SupplierUrl = string.Empty,
 			SupplierMemo = string.Empty,
-			SupplierCurrency = string.Empty,
-			SupplierCountry = string.Empty,
 			SupplierShippingCosts = 0.00,
 			SupplierMinShippingCosts = 0.00,
 			SupplierOrderCosts = 0.00
@@ -96,7 +97,7 @@ public partial class SupplierViewModel : ObservableObject
 		IsAddingNew = true;
 	}
 
-	private readonly SupplierContactViewModel _supplierContactViewModel;
+	private SupplierContactViewModel _supplierContactViewModel;
 
 	public SupplierViewModel( SupplierContactViewModel supplierContactViewModel )
 	{

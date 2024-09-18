@@ -1918,6 +1918,14 @@
 		<Setter Property="Source" Value="\Resources\Icons\btnWeb.png" />
 	</Style>
 
+	<Style x:Key="SendMailIcon" TargetType="Image">
+		<Setter Property="Height" Value="31" />
+		<Setter Property="Height" Value="35" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="0,0,0,0" />
+		<Setter Property="Source" Value="{StaticResource mail}" />
+	</Style>
+
 	<!--#endregion  Button Icon resources-->
 
 	<!--#region Toolbar Icon resources-->
@@ -2408,7 +2416,7 @@
 		<Setter Property="FontWeight" Value="Bold" />
 		<Setter Property="Foreground" Value="DarkBlue" />
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
-		<Setter Property="Padding" Value="5" />
+		<Setter Property="Padding" Value="3" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Button}">

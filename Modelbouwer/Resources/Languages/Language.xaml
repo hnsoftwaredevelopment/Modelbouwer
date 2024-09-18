@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:system="clr-namespace:System;assembly=System.Runtime">
+	xmlns:system="clr-namespace:System;assembly=System.Runtime"
+	>
 
 	<!--#region Ribbon-->
 	<!--#region Tab pages-->
@@ -219,6 +220,13 @@
 	<system:String x:Key="Maintanance.Statusline.NotDeleted">Regel is niet verwijderd</system:String>
 	<system:String x:Key="Maintanance.Statusline.Updated">is gewijzigd</system:String>
 	<system:String x:Key="Maintanance.Statusline.NotUpdated">is niet gewijzigd</system:String>
+
+	<system:String x:Key="Maintanance.Mail.Subject">Verzoek om informatie</system:String>
+	<system:String x:Key="Maintanance.Mail.Salution">Beste</system:String>
+	<system:String x:Key="Maintanance.Mail.Salution.Morning">Goedenmorgen</system:String>
+	<system:String x:Key="Maintanance.Mail.Salution.Afternoon">Goedenmiddag</system:String>
+	<system:String x:Key="Maintanance.Mail.Salution.Evening">Goedenavond</system:String>
+	<system:String x:Key="Maintanance.Mail.Salution.Night">Goedennacht</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 
@@ -1007,7 +1015,7 @@
 	<system:String x:Key="Edit.Time.DataGrid.Header.Name">Tijdnaam</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
-	
+
 	<!--#region Rtf Toolbar items-->
 	<system:String x:Key="rtfToolbar.Action.Indent">Inspringen</system:String>
 	<system:String x:Key="rtfToolbar.Action.Copy">Kopieer</system:String>

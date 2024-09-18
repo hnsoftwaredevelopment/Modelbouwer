@@ -1,4 +1,7 @@
-﻿namespace Modelbouwer.View;
+﻿#pragma warning disable CS8601 // Possible null reference assignment.
+using System.Windows.Documents;
+
+namespace Modelbouwer.View;
 
 /// <summary>
 /// Interaction logic for SupplierManagement.xaml
@@ -30,7 +33,11 @@ public partial class SupplierManagement : Page
 		if ( DataContext is CombinedSupplierViewModel viewModel )
 		{
 			viewModel.SupplierViewModel.AddNewItem();
+			viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
 		}
+		SupplierCountryId.Text = string.IsNullOrEmpty( SupplierCountryId.Text ) ? "1" : SupplierCountryId.Text;
+		SupplierCurrencyId.Text = string.IsNullOrEmpty( SupplierCurrencyId.Text ) ? "1" : SupplierCurrencyId.Text;
+		SupplierContactTypeId.Text = string.IsNullOrEmpty( SupplierContactTypeId.Text ) ? "1" : SupplierContactTypeId.Text;
 	}
 	#endregion
 
@@ -59,7 +66,9 @@ public partial class SupplierManagement : Page
 
 				string _result2 = DBCommands.DeleteRecord( DBNames.SupplierContactTable, _whereContactFields );
 
-				viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
+				//viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
+
+				viewModel.SupplierViewModel.Supplier.Remove( selectedSupplier );
 
 				if ( _result2 == "" )
 				{ dispStatusLine.Text = $"{_result}"; }
@@ -85,9 +94,15 @@ public partial class SupplierManagement : Page
 			_ => ""
 		};
 
+		// Cost fields should not be empty
+		SendCosts.Text = string.IsNullOrEmpty( SendCosts.Text ) ? "0.00" : SendCosts.Text;
+		SendCostsMax.Text = string.IsNullOrEmpty( SendCostsMax.Text ) ? "0.00" : SendCostsMax.Text;
+		OrderCosts.Text = string.IsNullOrEmpty( OrderCosts.Text ) ? "0.00" : OrderCosts.Text;
+
 		// Country and Currency should be added. When empty, first Country and Currency will be selected
 		SupplierCountryId.Text = string.IsNullOrEmpty( SupplierCountryId.Text ) ? "1" : SupplierCountryId.Text;
 		SupplierCurrencyId.Text = string.IsNullOrEmpty( SupplierCurrencyId.Text ) ? "1" : SupplierCurrencyId.Text;
+		SupplierContactTypeId.Text = string.IsNullOrEmpty( SupplierContactTypeId.Text ) ? "1" : SupplierContactTypeId.Text;
 
 		if ( SupplierCode.Text != "" && SupplierName.Text != "" )
 		{
@@ -134,6 +149,7 @@ public partial class SupplierManagement : Page
 
 						// Get the Id of the newly added supplier
 						var _newId = DBCommands.GetLatestIdFromTable( DBNames.SupplierTable );
+						SupplierId.Text = _newId;
 
 						// Update memo field for the newly saved supplier
 						string[,] _whereFields = new string[1, 3]
@@ -143,6 +159,8 @@ public partial class SupplierManagement : Page
 
 						string _memo = GeneralHelper.GetRichTextFromFlowDocument(SupplierMemo.Document);
 						DBCommands.UpdateMemoFieldInTable( DBNames.SupplierTable, _whereFields, DBNames.SupplierFieldNameMemo, _memo );
+
+						viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
 
 						_result = $"{( string ) FindResource( "Edit.Supplier.Added" )} ({SupplierName.Text})";
 					}
@@ -187,11 +205,14 @@ public partial class SupplierManagement : Page
 					string _memo = GeneralHelper.GetRichTextFromFlowDocument(SupplierMemo.Document);
 					DBCommands.UpdateMemoFieldInTable( DBNames.SupplierTable, _whereFields, DBNames.SupplierFieldNameMemo, _memo );
 
+					viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
+
 					_result = $"{( string ) FindResource( "Edit.Supplier.Changed" )} ({SupplierName.Text})";
 				}
 
 				// Refresh the suppliers list
 				viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
+				var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 			}
 			else
 			{
@@ -206,11 +227,35 @@ public partial class SupplierManagement : Page
 	#region Add new contact for the selected supplier
 	private void ButtonNewContact( object sender, RoutedEventArgs e )
 	{
+		// Clear the input fields for the new contact
 		SupplierContactId.Text = "0";
+		SupplierContactName.Text = string.Empty;
+		SupplierContactMail.Text = string.Empty;
+		SupplierContactPhone.Text = string.Empty;
+		SupplierContactTypeId.Text = "1";
+
 		if ( DataContext is CombinedSupplierViewModel viewModel )
 		{
-			viewModel.SupplierContactViewModel.AddNewItem();
+			// Add a new contact
+			viewModel.SupplierContactViewModel.AddNewItem( SupplierId.Text );
+
+			// Ensure FilteredContacts is updated
+			viewModel.SupplierContactViewModel.FilterContactsBySupplierId( viewModel.SupplierViewModel.SelectedSupplier.SupplierId );
+
+
+			// Select the newly added contact if it exists
+			if ( viewModel.SupplierContactViewModel.FilteredContacts.Any() )
+			{
+				viewModel.SupplierContactViewModel.SelectedContact = viewModel.SupplierContactViewModel.FilteredContacts.Last();
+			}
+
+			// Refresh the DataGrid to show the new contact
+			ContactsDataGrid.Items.Refresh();
+
+			//viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
+			//var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 		}
+		SupplierContactTypeId.Text = string.IsNullOrEmpty( SupplierContactTypeId.Text ) ? "1" : SupplierContactTypeId.Text;
 	}
 	#endregion
 
@@ -265,11 +310,12 @@ public partial class SupplierManagement : Page
 				if ( !string.IsNullOrEmpty( SupplierContactName.Text ) )
 				{
 					// Controleer of het item nieuw is of moet worden bijgewerkt
-					if ( SupplierContactId.Text == "0" )
+					if ( SupplierContactId.Text == "0" || SupplierContactId.Text == "" )
 					{
 						// Nieuw item, dus voeg toe aan de database
-						string[,] _whereFields = new string[1, 3]
+						string[,] _whereFields = new string[2, 3]
 						{
+							{ DBNames.SupplierFieldNameId, DBNames.SupplierFieldTypeId, SupplierId.Text.ToLower() },
 							{ DBNames.SupplierContactFieldNameName, DBNames.SupplierContactFieldTypeName, SupplierContactName.Text.ToLower() }
 						};
 
@@ -279,18 +325,23 @@ public partial class SupplierManagement : Page
 						if ( _checkPresence == 0 )
 						{
 							// Voeg item toe aan de tabel
+
 							string[,] _addFields = new string[5, 3]
 							{
 								{ DBNames.SupplierContactFieldNameSupplierId, DBNames.SupplierContactFieldTypeSupplierId, SupplierId.Text },
 								{ DBNames.SupplierContactFieldNameName, DBNames.SupplierContactFieldTypeName, SupplierContactName.Text },
-								{ DBNames.SupplierContactFieldNameTypeId, DBNames.SupplierContactFieldTypeTypeId, SupplierContactTypeId.Text },
+								{ DBNames.SupplierContactFieldNameTypeId, DBNames.SupplierContactFieldTypeTypeId, SupplierContactType.SelectedValue.ToString() },
 								{ DBNames.SupplierContactFieldNameMail, DBNames.SupplierContactFieldTypeMail, SupplierContactMail.Text },
 								{ DBNames.SupplierContactFieldNamePhone, DBNames.SupplierContactFieldTypePhone, SupplierContactPhone.Text }
 							};
 							_ = DBCommands.InsertInTable( DBNames.SupplierContactTable, _addFields );
 
 							// Werk de SupplierContact-collectie bij om de nieuwe data weer te geven
-							supplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
+							//viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList );
+							//viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
+							viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
+							var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+
 
 							dispStatusLine.Text = $"{SupplierContactName.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Added" )}";
 						}
@@ -302,45 +353,25 @@ public partial class SupplierManagement : Page
 					else
 					{
 						// Bestaand item dat is gewijzigd
-						string[,] _whereFields = new string[5, 3]
-						{
-							{ DBNames.SupplierContactFieldNameSupplierId, DBNames.SupplierContactFieldTypeSupplierId, SupplierId.Text },
-							{ DBNames.SupplierContactFieldNameName, DBNames.SupplierContactFieldTypeName, SupplierContactName.Text },
-							{ DBNames.SupplierContactFieldNameTypeId, DBNames.SupplierContactFieldTypeTypeId, SupplierContactTypeId.Text },
-							{ DBNames.SupplierContactFieldNameMail, DBNames.SupplierContactFieldTypeMail, SupplierContactMail.Text },
-							{ DBNames.SupplierContactFieldNamePhone, DBNames.SupplierContactFieldTypePhone, SupplierContactPhone.Text }
-						};
-
-						// Controleer of de gewijzigde waarde al beschikbaar is in de tabel
-						int _checkPresence = DBCommands.CheckForRecords(DBNames.SupplierContactTable, _whereFields);
-
-						if ( _checkPresence == 0 )
-						{
-							_whereFields = new string [ 1, 3 ]
+						string[,] _whereFields = new string [ 1, 3 ]
 							{
 								{ DBNames.SupplierContactFieldNameId, DBNames.SupplierContactFieldTypeId, SupplierContactId.Text }
 							};
 
-							// Werk het item in de tabel bij
-							string[,] _updateFields = new string[5, 3]
+						// Werk het item in de tabel bij
+						string[,] _updateFields = new string[4, 3]
 							{
-								{ DBNames.SupplierContactFieldNameSupplierId, DBNames.SupplierContactFieldTypeSupplierId, SupplierId.Text },
 								{ DBNames.SupplierContactFieldNameName, DBNames.SupplierContactFieldTypeName, SupplierContactName.Text },
-								{ DBNames.SupplierContactFieldNameTypeId, DBNames.SupplierContactFieldTypeTypeId, SupplierContactTypeId.Text },
+								{ DBNames.SupplierContactFieldNameTypeId, DBNames.SupplierContactFieldTypeTypeId, SupplierContactType.SelectedValue.ToString() },
 								{ DBNames.SupplierContactFieldNameMail, DBNames.SupplierContactFieldTypeMail, SupplierContactMail.Text },
 								{ DBNames.SupplierContactFieldNamePhone, DBNames.SupplierContactFieldTypePhone, SupplierContactPhone.Text }
 							};
-							_ = DBCommands.UpdateInTable( DBNames.SupplierContactTable, _updateFields, _whereFields );
+						_ = DBCommands.UpdateInTable( DBNames.SupplierContactTable, _updateFields, _whereFields );
 
-							// Werk de SupplierContact-collectie bij om de nieuwe data weer te geven
-							supplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
+						viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
+						var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 
-							dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.DataOf" )} {SupplierContactName.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Changed" )}";
-						}
-						else
-						{
-							dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.Unchanged" )}";
-						}
+						dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.DataOf" )} {SupplierContactName.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Changed" )}";
 					}
 				}
 				else
@@ -351,4 +382,79 @@ public partial class SupplierManagement : Page
 		}
 	}
 	#endregion
+
+	#region Open the mail client to send a mail to the selected contact
+	private void SendMail( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedSupplierViewModel viewModel )
+		{
+			var selectedContact = (SupplierContactModel)((System.Windows.Controls.Button)sender).Tag;
+
+			if ( selectedContact != null )
+			{
+				//Determine what salution to use
+				int _hour = DateTime.Now.Hour;
+				string _salution = "";
+
+				if ( _hour >= 5 && _hour < 12 ) { _salution = $"{( string ) FindResource( "Maintanance.Mail.Salution.Morning" )}"; }
+				else if ( _hour >= 12 && _hour < 18 ) { _salution = $"{( string ) FindResource( "Maintanance.Mail.Salution.Afternoon" )}"; }
+				else if ( _hour >= 18 && _hour < 24 ) { _salution = $"{( string ) FindResource( "Maintanance.Mail.Salution.Evening" )}"; }
+				else { _salution = $"{( string ) FindResource( "Maintanance.Mail.Salution.Night" )}"; }
+				var emailAddress = selectedContact.SupplierContactMail;
+				var contactName = selectedContact.SupplierContactName;
+				var subject = $"{( string ) FindResource( "Maintanance.Mail.Subject" )}";
+				var body = $"{_salution} {contactName},\n\n";
+
+				// Construct the mailto URL
+				var mailtoUrl = $"mailto:{emailAddress}?subject={Uri.EscapeDataString(subject)}&body={Uri.EscapeDataString(body)}";
+
+				// Open the default mail client
+				Process.Start( new ProcessStartInfo
+				{
+					FileName = mailtoUrl,
+					UseShellExecute = true
+				} );
+			}
+		}
+	}
+	#endregion
+
+	#region Update the MemoField
+	private void UpdateRichTextBox( string memoText )
+	{
+		// Create a new FlowDocument and Paragraph
+		FlowDocument flowDoc = new FlowDocument();
+		Paragraph paragraph = new Paragraph();
+
+		// Add the memo text as a Run in the Paragraph
+		paragraph.Inlines.Add( new Run( memoText ) );
+
+		// Set the FlowDocument to the RichTextBox
+		SupplierMemo.Document = flowDoc;
+		flowDoc.Blocks.Add( paragraph );
+	}
+	#endregion
+
+	private void SetRtfContent( string rtfContent )
+	{
+		using ( var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) ) )
+		{
+			TextRange textRange = new TextRange(SupplierMemo.Document.ContentStart, SupplierMemo.Document.ContentEnd);
+			textRange.Load( stream, System.Windows.DataFormats.Rtf );
+		}
+	}
+
+	private void DataGrid_SelectionChanged( object sender, SelectionChangedEventArgs e )
+	{
+		if ( DataContext is CombinedSupplierViewModel viewModel )
+		{
+			var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+			if ( selectedSupplier != null )
+			{
+				//UpdateRichTextBox( selectedSupplier.SupplierMemo );
+				SetRtfContent( selectedSupplier.SupplierMemo );
+			}
+		}
+	}
 }
+#pragma warning restore CS8601 // Possible null reference assignment.

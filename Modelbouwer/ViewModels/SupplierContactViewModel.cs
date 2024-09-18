@@ -44,13 +44,13 @@ public partial class SupplierContactViewModel : ObservableObject
 		}
 	}
 
-	public void AddNewItem()
+	public void AddNewItem( string supplierId )
 	{
 		SupplierContactModel newContact = new()
 		{
 			SupplierContactId = 0,
-			SupplierContactSuppplierId = 0,
-			SupplierContactContactTypeId = 0,
+			SupplierContactSuppplierId = int.Parse(supplierId),
+			SupplierContactContactTypeId = 1,
 			SupplierContactName = string.Empty,
 			SupplierContactContactType = string.Empty,
 			SupplierContactMail = string.Empty,
@@ -60,6 +60,10 @@ public partial class SupplierContactViewModel : ObservableObject
 		SupplierContact.Add( newContact );
 		SelectedContact = newContact;
 		IsAddingNew = true;
+
+		// Refresh the list to display
+		OnPropertyChanged( nameof( FilteredContacts ) );
+		FilterContactsBySupplierId( int.Parse( supplierId ) );
 	}
 
 	public SupplierModel? SelectedSupplier

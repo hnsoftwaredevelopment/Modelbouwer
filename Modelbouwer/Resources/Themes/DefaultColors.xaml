@@ -4,6 +4,9 @@
 	<SolidColorBrush x:Key="WarningBackgroundColor" Color="#FFFFCC00" />
 	<SolidColorBrush x:Key="WarningBorderColor" Color="Black" />
 	<SolidColorBrush x:Key="HamburgerBrushColor" Color="#FF2F37AF" />
+	<SolidColorBrush x:Key="MailBlue" Color="#FF293475" />
+	<SolidColorBrush x:Key="White" Color="#FFFFFFFF" />
+	<SolidColorBrush x:Key="Black" Color="Black" />
 
 	<Color x:Key="Default.Box.Border">#FFABADB3</Color>
 	<Color x:Key="Default.Box.Background">Transparent</Color>
