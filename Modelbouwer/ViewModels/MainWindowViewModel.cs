@@ -167,7 +167,8 @@ public class MainWindowViewModel
 					_ = mainWindow.MainFrame.Navigate( supplierExportPage );
 					break;
 				case "suppliercontact":
-					_ = mainWindow.MainFrame.Navigate( supplierContactManagementPage );
+					_ = mainWindow.MainFrame.Navigate( supplierManagementPage );
+					supplierManagementPage.SelectTab( "contacts" );
 					break;
 				case "suppliercontactimport":
 					_ = mainWindow.MainFrame.Navigate( supplierContactImportPage );

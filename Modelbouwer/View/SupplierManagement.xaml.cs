@@ -13,6 +13,18 @@ public partial class SupplierManagement : Page
 		InitializeComponent();
 	}
 
+	#region Open Supplier Manitenance page on specific Tab page
+	public void SelectTab( string tabName )
+	{
+		switch ( tabName.ToLower() )
+		{
+			case "contacts":
+				TabControl.SelectedItem = ContactsTab;
+				break;
+		}
+	}
+	#endregion
+
 	#region Open browser with Supplier URL
 	private void ButtonWeb( object sender, RoutedEventArgs e )
 	{
