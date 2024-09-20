@@ -228,6 +228,12 @@
 	<system:String x:Key="Maintanance.Mail.Salution.Evening">Goedenavond</system:String>
 	<system:String x:Key="Maintanance.Mail.Salution.Night">Goedennacht</system:String>
 	<!--#endregion-->
+	
+	<!--#region Image Toolbar buttons-->
+	<system:String x:Key="ToolBar.Button.Image.Add.Label">Afbeelding laden</system:String>
+	<system:String x:Key="ToolBar.Button.Image.Remove.Label">Afbeelding verwijderen</system:String>
+	<system:String x:Key="ToolBar.Button.Image.Rotate.Label">Afbeelding 45° draaien</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Brand-->
@@ -538,6 +544,50 @@
 	<system:String x:Key="Edit.Product.Action.Tooltip.Save">Gewijzigde produkt opslaan</system:String>
 	<system:String x:Key="Edit.Product.DataGrid.Header.Id">Id</system:String>
 	<system:String x:Key="Edit.Product.DataGrid.Header.Name">Produktnaam</system:String>
+
+	<system:String x:Key="Edit.Product.Tab.General.Label">Produkt gegevens</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Text">Produkt gegevens</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Code.Label">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Code.Tag">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Code.Tooltip">Geef de zoeknaam voor dit produkt</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Brand.Label">Merk</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Brand.Tag">Merk</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Brand.Tooltip">Welk merk</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Name.Label">Produkt naam</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Name.Tag">Produktnaam</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Name.Tooltip">Geef de naam van dit produkt</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Category.Label">Categorie</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Category.Tag">Categorie</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Category.Tooltip">Tot welke categorie behoort dit produkt</system:String>
+
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Text">Voorraad gegevens</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.MinStock.Label">Minimale voorraad</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.MinStock.Tag">Minimale voorraad</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.MinStock.Tooltip">Vanaf welke hoeveelheid moet dit produkt worden besteld</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Quantity.Label">Bestel per</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Quantity.Tag">Hoeveelheid</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Quantity.Tooltip">Per hoeveel dient dit produkt te worden besteld</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Label">Verpakking</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tag">Verpakkingseenheid</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tooltip">Wordt dit produkt bijvoorbeeld per stuk, per fles of per liter verkocht</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Dimensions.Label">Afmetingen</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Dimensions.Tag">Afmeting</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Dimensions.Tooltip">Wat zijn de maten van dit product</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Location.Label">Voorraad lokatie</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Location.Tag">Lokatie</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Location.Tooltip">Waar wordt dit product opgeslagen</system:String>
+
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Text">Projekt gegevens</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Label">Kostprijs</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Tag">Kostprijs</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Tooltip">Wat is de kostprijs van dit produkt, voor de calculaties</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.ProjectCosts.Label">Project kosten</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.ProjectCosts.Tag">Project Kosten</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.ProjectCosts.Tooltip">Moet dit produkt worden meegerekend bij de project kosten</system:String>
+
+	<system:String x:Key="Edit.Product.Tab.Memo.Label">Aanvullende informatie</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Label">Leveranciers</system:String>
+	<system:String x:Key="Edit.Product.Tab.Inventory.Label">Voorraad</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

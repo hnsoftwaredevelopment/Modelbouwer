@@ -452,6 +452,39 @@ public class DBCommands
 	}
 	#endregion
 
+	#region ProductList
+	public static ObservableCollection<ProductModel> GetProductList( ObservableCollection<ProductModel> productList = null )
+	{
+		productList ??= [ ];
+		DataTable? _dt = GetData(DBNames.ProductTable, DBNames.ProductFieldNameCode);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			byte[] productImage = (byte[])_dt.Rows [ i ][10];
+
+			productList.Add( new ProductModel
+			{
+				ProductId = ( int ) _dt.Rows [ i ] [ 0 ],
+				ProductCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				ProductName = _dt.Rows [ i ] [ 2 ].ToString(),
+				ProductDimensions = _dt.Rows [ i ] [ 3 ].ToString(),
+				ProductPrice = ( double ) _dt.Rows [ i ] [ 4 ],
+				ProductMinimalStock = ( double ) _dt.Rows [ i ] [ 5 ],
+				ProductStandardQuantity = ( double ) _dt.Rows [ i ] [ 6 ],
+				ProductProjectCosts = ( int ) _dt.Rows [ i ] [ 7 ],
+				ProductUnitId = ( int ) _dt.Rows [ i ] [ 8 ],
+				ProductImageRotationAngle = _dt.Rows [ i ] [ 9 ].ToString(),
+				ProductImage = ( byte [ ] ) _dt.Rows [ i ] [ 10 ],
+				ProductBrandId = ( int ) _dt.Rows [ i ] [ 11 ],
+				ProductCategoryId = ( int ) _dt.Rows [ i ] [ 12 ],
+				ProductStorageId = ( int ) _dt.Rows [ i ] [ 13 ],
+				ProductMemo = _dt.Rows [ i ] [ 14 ].ToString()
+			} );
+		}
+		return productList;
+	}
+	#endregion
+
 	#region UnitdList
 	public static ObservableCollection<UnitModel> GetUnitList( ObservableCollection<UnitModel>? unitList = null )
 	{

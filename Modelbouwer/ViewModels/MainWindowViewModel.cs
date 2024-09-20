@@ -39,7 +39,7 @@ public class MainWindowViewModel
 	public SupplierManagement supplierManagementPage = new();
 	public SupplierImport supplierImportPage = new();
 	public SupplierExport supplierExportPage = new();
-	public SupplierContactManagement supplierContactManagementPage = new();
+	//public SupplierContactManagement supplierContactManagementPage = new();
 	public SupplierContactImport supplierContactImportPage = new();
 	public SupplierContactExport supplierContactExportPage = new();
 	public SupplierContactFunctionManagement supplierContactFunctionManagementPage = new();

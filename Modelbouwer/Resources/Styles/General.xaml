@@ -1932,7 +1932,7 @@
 	<Style x:Key="ToolBarAddIcon" TargetType="Image">
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="0,0,5,0" />
-		<Setter Property="Source" Value="\Resources\Icons\toolbarAdd.png" />
+		<Setter Property="Source" Value="{StaticResource add}" />
 	</Style>
 
 	<Style x:Key="ToolBarCancelIcon" TargetType="Image">
@@ -1944,7 +1944,7 @@
 	<Style x:Key="ToolBarDeleteIcon" TargetType="Image">
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="5,0,0,0" />
-		<Setter Property="Source" Value="\Resources\Icons\toolbarDelete.png" />
+		<Setter Property="Source" Value="{StaticResource remove}" />
 	</Style>
 
 	<Style x:Key="ToolBarResetIcon" TargetType="Image">
@@ -1962,7 +1962,7 @@
 	<Style x:Key="ToolBarRotateIcon" TargetType="Image">
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="5,0,0,0" />
-		<Setter Property="Source" Value="\Resources\Icons\toolbarRotate.png" />
+		<Setter Property="Source" Value="{StaticResource rotate}" />
 	</Style>
 
 	<Style x:Key="ToolBarSmallAddIcon" TargetType="Image">

@@ -9,4 +9,19 @@ public partial class ProductManagement : Page
 	{
 		InitializeComponent();
 	}
+
+	private void ImageAdd( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void ImageDelete( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void ImageRotate( object sender, RoutedEventArgs e )
+	{
+
+	}
 }
