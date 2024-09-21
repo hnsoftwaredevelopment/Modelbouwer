@@ -48,18 +48,10 @@ public partial class ProductViewModel : ObservableObject
 	[ObservableProperty]
 	public string? productMemo;
 
-	public ObservableCollection<ProductModel> Product
-	{
-		get => _product;
-		set
-		{
-			if ( _product != value )
-			{
-				_product = value;
-				OnPropertyChanged( nameof( Product ) );
-			}
-		}
-	}
+	[ObservableProperty]
+	private ProjectModel? _selectedProject;
+
+	public ObservableCollection<ProductModel> Product {  get; set; }
 
 	private ObservableCollection<ProductModel>? _product;
 
@@ -90,7 +82,7 @@ public partial class ProductViewModel : ObservableObject
 			ProductCode = string.Empty,
 			ProductDimensions = string.Empty,
 			ProductId = 0,
-			ProductImage = (ImageSource)System.Windows.Application.Current.FindResource("noimage"),
+			//ProductImage = (ImageSource)System.Windows.Application.Current.FindResource("noimage"),
 			ProductImageRotationAngle = string.Empty,
 			ProductMemo = string.Empty,
 			ProductMinimalStock = 0.00,
@@ -103,7 +95,7 @@ public partial class ProductViewModel : ObservableObject
 		};
 
 		Product.Add( newProduct );
-		SelectedProduct = newProduct;
+		_selectedProduct = newProduct;
 		IsAddingNew = true;
 	}
 

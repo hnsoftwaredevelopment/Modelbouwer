@@ -453,7 +453,7 @@ public class DBCommands
 	#endregion
 
 	#region ProductList
-	public static ObservableCollection<ProductModel> GetProductList( ObservableCollection<ProductModel> productList = null )
+	public static ObservableCollection<ProductModel> GetProductList( ObservableCollection<ProductModel>? productList = null )
 	{
 		productList ??= [ ];
 		DataTable? _dt = GetData(DBNames.ProductTable, DBNames.ProductFieldNameCode);
