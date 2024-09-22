@@ -15,9 +15,15 @@
     d:DesignWidth="1200"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <converter:IntToBoolConverter x:Key="IntToBoolConverter" />
+        <converter:IndentToPaddingConverter x:Key="IndentToBoolConverter" />
+    </Page.Resources>
+
     <Page.DataContext>
         <viewmodels:CombinedProductViewModel />
     </Page.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="95" />
@@ -65,6 +71,7 @@
                     AllowGrouping="True"
                     AllowResizingColumns="True"
                     AutoGenerateColumns="False"
+                    ColumnSizer="Star"
                     FilterRowPosition="Top"
                     ItemsSource="{Binding ProductViewModel.Product, Mode=TwoWay}"
                     SelectedItem="{Binding ProductViewModel.SelectedProduct, Mode=TwoWay}"
@@ -76,19 +83,18 @@
                             IsHidden="True"
                             MappingName="ProductId" />
                         <syncfusion:GridTextColumn
-                            Width="320"
+                            Width="150"
+                            AllowFiltering="True"
+                            AllowSorting="True"
+                            HeaderText="{StaticResource Edit.Product.DataGrid.Header.Code}"
+                            HorizontalHeaderContentAlignment="Left"
+                            MappingName="ProductCode" />
+                        <syncfusion:GridTextColumn
                             AllowFiltering="True"
                             AllowSorting="True"
                             HeaderText="{StaticResource Edit.Product.DataGrid.Header.Name}"
                             HorizontalHeaderContentAlignment="Left"
                             MappingName="ProductName" />
-                        <syncfusion:GridTextColumn
-                            Width="250"
-                            AllowFiltering="True"
-                            AllowSorting="True"
-                            HeaderText="{StaticResource Edit.Product.DataGrid.Header.Category}"
-                            HorizontalHeaderContentAlignment="Left"
-                            MappingName="ProductCategory" />
                     </syncfusion:SfDataGrid.Columns>
                 </syncfusion:SfDataGrid>
                 <!--#endregion-->
@@ -114,7 +120,7 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="190" />
-                                <RowDefinition Height="180" />
+                                <RowDefinition Height="140" />
                                 <RowDefinition Height="90" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
@@ -220,6 +226,7 @@
                                         MaxLength="30"
                                         Style="{DynamicResource DefaultTextBox}"
                                         Tag="{DynamicResource Edit.Product.Tab.General.Group.General.Code.Tag}"
+                                        Text="{Binding ProductViewModel.SelectedProduct.ProductCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Code.Tooltip}" />
 
                                     <ComboBox
@@ -228,6 +235,11 @@
                                         Grid.Column="1"
                                         Width="250"
                                         HorizontalAlignment="Left"
+                                        Cursor="Arrow"
+                                        DisplayMemberPath="BrandName"
+                                        ItemsSource="{Binding BrandViewModel.Brand}"
+                                        SelectedValue="{Binding ProductViewModel.SelectedProduct.ProductBrandId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="BrandId"
                                         Style="{DynamicResource DefaultComboBox}"
                                         Tag="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tag}"
                                         TextSearch.TextPath="BrandName"
@@ -252,6 +264,7 @@
                                         HorizontalAlignment="Left"
                                         Style="{DynamicResource DefaultTextBox}"
                                         Tag="{DynamicResource Edit.Product.Tab.General.Group.General.Name.Tag}"
+                                        Text="{Binding ProductViewModel.SelectedProduct.ProductName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Name.Tooltip}" />
 
                                     <TextBlock
@@ -267,13 +280,19 @@
                                         Grid.ColumnSpan="2"
                                         Width="600"
                                         HorizontalAlignment="Left"
+                                        ItemsSource="{Binding CategoryViewModel.CategoryComboBoxes}"
+                                        SelectedValue="{Binding ProductViewModel.SelectedProduct.ProductCategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        SelectedValuePath="CategoryId"
                                         Style="{DynamicResource DefaultComboBox}"
                                         Tag="{DynamicResource Edit.Product.Tab.General.Group.General.Category.Tag}"
-                                        TextSearch.TextPath="BrandName"
+                                        TextSearch.TextPath="CategoryName"
                                         ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Category.Tooltip}">
-                                        <ComboBox.ItemContainerStyleSelector>
-                                            <StyleSelector />
-                                        </ComboBox.ItemContainerStyleSelector>
+                                        <ComboBox.ItemTemplate>
+                                            <HierarchicalDataTemplate ItemsSource="{Binding SubCategories}">
+                                                <TextBlock Text="{Binding CategoryName}" 
+                                                           Margin="{Binding IndentLevel, Converter={StaticResource IndentToBoolConverter}}"/>
+                                            </HierarchicalDataTemplate>
+                                        </ComboBox.ItemTemplate>
                                     </ComboBox>
                                     <!--#endregion-->
                                 </Grid>
@@ -294,8 +313,6 @@
 
                                 <Grid Margin="5,2">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="25" />
-                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="25" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="25" />
@@ -322,16 +339,9 @@
                                         Text="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Quantity.Label}"
                                         ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Quantity.Tooltip}" />
 
-
                                     <TextBlock
                                         Grid.Row="0"
                                         Grid.Column="2"
-                                        Style="{DynamicResource Tab.Panel.Label}"
-                                        Text="{DynamicResource Edit.Product.Tab.General.Group.Inventory.PackingUnit.Label}" />
-
-                                    <TextBlock
-                                        Grid.Row="2"
-                                        Grid.Column="0"
                                         Style="{DynamicResource Tab.Panel.Label}"
                                         Text="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Dimensions.Label}" />
 
@@ -344,6 +354,7 @@
                                         HorizontalContentAlignment="Left"
                                         Style="{DynamicResource DefaultTextBox}"
                                         Tag="{DynamicResource Edit.Product.Tab.General.Group.Inventory.MinStock.Tag}"
+                                        Text="{Binding ProductViewModel.SelectedProduct.ProductMinimalStock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.MinStock.Tooltip}" />
 
                                     <TextBox
@@ -355,32 +366,23 @@
                                         HorizontalContentAlignment="Left"
                                         Style="{DynamicResource DefaultTextBox}"
                                         Tag="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Quantity.Tag}"
+                                        Text="{Binding ProductViewModel.SelectedProduct.ProductStandardQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Quantity.Tooltip}" />
 
                                     <TextBox
-                                        x:Name="ProductPackingUnit"
+                                        x:Name="ProductDimensions"
                                         Grid.Row="1"
                                         Grid.Column="2"
                                         Width="150"
                                         HorizontalAlignment="Left"
                                         HorizontalContentAlignment="Left"
                                         Style="{DynamicResource DefaultTextBox}"
-                                        Tag="{DynamicResource Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tag}"
-                                        ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tooltip}" />
-
-                                    <TextBox
-                                        x:Name="ProductDimensions"
-                                        Grid.Row="3"
-                                        Grid.Column="0"
-                                        Width="150"
-                                        HorizontalAlignment="Left"
-                                        HorizontalContentAlignment="Left"
-                                        Style="{DynamicResource DefaultTextBox}"
                                         Tag="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Dimensions.Tag}"
+                                        Text="{Binding ProductViewModel.SelectedProduct.ProductDimensions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Dimensions.Tooltip}" />
 
                                     <TextBlock
-                                        Grid.Row="4"
+                                        Grid.Row="2"
                                         Grid.Column="0"
                                         Grid.ColumnSpan="4"
                                         Style="{DynamicResource Tab.Panel.Label}"
@@ -388,7 +390,7 @@
 
                                     <ComboBox
                                         x:Name="ProductLocation"
-                                        Grid.Row="5"
+                                        Grid.Row="3"
                                         Grid.Column="0"
                                         Grid.ColumnSpan="4"
                                         Width="600"
@@ -441,21 +443,32 @@
                                         Style="{DynamicResource Tab.Panel.Label}"
                                         Text="{DynamicResource Edit.Product.Tab.General.Group.Project.ProjectCosts.Label}" />
 
-                                    <TextBox
-                                        x:Name="ProductPrice"
+                                    <StackPanel
                                         Grid.Row="1"
                                         Grid.Column="0"
-                                        Width="150"
-                                        HorizontalAlignment="Left"
-                                        HorizontalContentAlignment="Left"
-                                        Style="{DynamicResource DefaultTextBox}"
-                                        Tag="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tag}"
-                                        ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tooltip}" />
+                                        Orientation="Horizontal">
+                                        <TextBlock
+                                            Margin="0,0,3,0"
+                                            VerticalAlignment="Center"
+                                            Text="€" />
+                                        <TextBox
+                                            x:Name="ProductPrice"
+                                            Width="150"
+                                            HorizontalAlignment="Left"
+                                            HorizontalContentAlignment="Right"
+                                            Language="nl-NL"
+                                            Style="{DynamicResource DefaultTextBox}"
+                                            Tag="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tag}"
+                                            Text="{Binding ProductViewModel.SelectedProduct.ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}}"
+                                            ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tooltip}" />
+                                    </StackPanel>
 
                                     <CheckBox
                                         x:Name="ProductProjectCosts"
                                         Grid.Row="1"
-                                        Grid.Column="1" />
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding ProductViewModel.SelectedProduct.ProductProjectCosts, Converter={StaticResource IntToBoolConverter}}" />
                                     <!--#endregion-->
                                 </Grid>
                             </GroupBox>

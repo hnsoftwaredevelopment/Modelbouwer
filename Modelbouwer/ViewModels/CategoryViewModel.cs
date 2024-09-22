@@ -11,6 +11,7 @@ public partial class CategoryViewModel : ObservableObject
 	public int categoryParentId;
 
 	public ObservableCollection<CategoryModel> Category { get; set; }
+	public ObservableCollection<CategoryModel> CategoryComboBoxes { get; set; } = new ObservableCollection<CategoryModel>();
 
 	[ObservableProperty]
 	private CategoryModel? _selectedCategory;
@@ -19,5 +20,6 @@ public partial class CategoryViewModel : ObservableObject
 	{
 		DBCommands dbCommands = new();
 		Category = new ObservableCollection<CategoryModel>( dbCommands.GetCategoryList() );
+		CategoryComboBoxes = new ObservableCollection<CategoryModel>( dbCommands.GetCategoryForComboBox() );
 	}
 }

@@ -248,12 +248,59 @@ public class DBCommands
 
 	private ObservableCollection<CategoryModel> GetCategoryHierarchy( ObservableCollection<CategoryModel>? categoryList )
 	{
-		ILookup<int?, CategoryModel> lookup =      categoryList.ToLookup( c => c.CategoryParentId )  ;
+		ILookup<int?, CategoryModel> lookup = categoryList.ToLookup( c => c.CategoryParentId )  ;
+
 		foreach ( CategoryModel category in categoryList )
 		{
 			category.SubCategories = lookup [ category.CategoryId ].ToObservableCollection();
 		}
+		
 		return lookup [ null ].ToObservableCollection();
+	}
+
+
+	public ObservableCollection<CategoryModel> GetCategoryForComboBox( ObservableCollection<CategoryModel>? categoryList = null )
+	{
+		categoryList ??= new ObservableCollection<CategoryModel>();
+		DataTable? _dt = GetData(DBNames.CategoryTable, DBNames.CategoryFieldNameName);
+
+		// Temporarily store categories with their parents
+		Dictionary<int, CategoryModel> categoryDictionary = new Dictionary<int, CategoryModel>();
+
+		// First pass to create CategoryModel instances
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			int categoryId = (int)_dt.Rows[i][0];
+			int? parentId = _dt.Rows[i][1] != DBNull.Value ? (int?)_dt.Rows[i][1] : null;
+
+			var category = new CategoryModel
+			{
+				CategoryId = categoryId,
+				CategoryParentId = parentId,
+				CategoryName = _dt.Rows[i][2].ToString()
+			};
+
+			categoryDictionary.Add( categoryId, category );
+		}
+
+		// Second pass to organize hierarchy and assign IndentLevel
+		foreach ( var category in categoryDictionary.Values )
+		{
+			if ( category.CategoryParentId.HasValue )
+			{
+				var parentCategory = categoryDictionary[category.CategoryParentId.Value];
+				parentCategory.SubCategories.Add( category );
+				category.IndentLevel = parentCategory.IndentLevel + 1;
+			}
+			else
+			{
+				// Root category
+				category.IndentLevel = 0;
+			}
+			categoryList.Add( category );
+		}
+
+			return categoryList;
 	}
 	#endregion CategoryList
 

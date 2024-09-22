@@ -10,6 +10,8 @@ public class CategoryModel : INameable
 
 	public ObservableCollection<CategoryModel> SubCategories { get; set; } = [ ];
 
+	public int IndentLevel { get; set; } // New property to handle indentation in ComboBoxes
+
 	// Define the property that you want to use in TLists (for example in the errorList
 	public string Name => CategoryName;
 

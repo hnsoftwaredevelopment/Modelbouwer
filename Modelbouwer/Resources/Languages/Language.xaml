@@ -545,6 +545,7 @@
 	<system:String x:Key="Edit.Product.DataGrid.Header.Id">Id</system:String>
 	<system:String x:Key="Edit.Product.DataGrid.Header.Name">Produktnaam</system:String>
     <system:String x:Key="Edit.Product.DataGrid.Header.Category">Categorie</system:String>
+    <system:String x:Key="Edit.Product.DataGrid.Header.Code">Zoeknaam</system:String>
 
 	<system:String x:Key="Edit.Product.Tab.General.Label">Produkt gegevens</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Text">Produkt gegevens</system:String>
