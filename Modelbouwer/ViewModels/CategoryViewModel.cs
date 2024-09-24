@@ -11,15 +11,34 @@ public partial class CategoryViewModel : ObservableObject
 	public int categoryParentId;
 
 	public ObservableCollection<CategoryModel> Category { get; set; }
-	public ObservableCollection<CategoryModel> CategoryComboBoxes { get; set; } = new ObservableCollection<CategoryModel>();
 
 	[ObservableProperty]
 	private CategoryModel? _selectedCategory;
+
+	//public class CategoryComparer : IComparer<CategoryModel>
+	//{
+	//	public int Compare( CategoryModel x, CategoryModel y )
+	//	{
+	//		int result = x.IndentLevel.CompareTo(y.IndentLevel);
+	//		if ( result == 0 )
+	//		{
+	//			return string.Compare( x.Name, y.Name, StringComparison.OrdinalIgnoreCase );
+	//		}
+	//		return result;
+	//	}
+	//}
+
+	//public void SetSelectedCategory( int categoryId )
+	//{
+	//	SelectedCategory = Category.FirstOrDefault( c => c.CategoryId == categoryId )
+	//					   ?? Category.FirstOrDefault( c => c.CategoryId == 1 );
+	//}
 
 	public CategoryViewModel()
 	{
 		DBCommands dbCommands = new();
 		Category = new ObservableCollection<CategoryModel>( dbCommands.GetCategoryList() );
-		CategoryComboBoxes = new ObservableCollection<CategoryModel>( dbCommands.GetCategoryForComboBox() );
+
+		SelectedCategory = Category.FirstOrDefault( c => c.CategoryId == 1 );
 	}
 }

@@ -17,4 +17,29 @@ public class CombinedProductViewModel
 		SupplierViewModel = new();
 		UnitViewModel = new();
 	}
+
+	//private void OnSelectedProductChanged()
+	//{
+	//	SetSelectedCategory();
+	//}
+
+	//public void SetSelectedCategory()
+	//{
+	//	// Zorg ervoor dat je hier toegang hebt tot ProductViewModel en CategoryViewModel
+	//	if ( ProductViewModel.SelectedProduct != null )
+	//	{
+	//		var categoryId = ProductViewModel.SelectedProduct.ProductCategoryId;
+	//		var selectedCategory = CategoryViewModel.Category.FirstOrDefault(c => c.CategoryId == categoryId);
+
+	//		if ( selectedCategory != null )
+	//		{
+	//			CategoryViewModel.SelectedCategory = selectedCategory;
+	//		}
+	//		else
+	//		{
+	//			// Als er geen categorie is geselecteerd, stel je de standaardwaarde in
+	//			CategoryViewModel.SelectedCategory = CategoryViewModel.Category.FirstOrDefault( c => c.CategoryId == 1 ); // Standaardwaarde 1
+	//		}
+	//	}
+	//}
 }

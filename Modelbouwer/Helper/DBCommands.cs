@@ -1,4 +1,7 @@
-﻿namespace Modelbouwer.Helper;
+﻿using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
+namespace Modelbouwer.Helper;
 public class DBCommands
 {
 	#region GetData
@@ -254,53 +257,55 @@ public class DBCommands
 		{
 			category.SubCategories = lookup [ category.CategoryId ].ToObservableCollection();
 		}
-		
+
 		return lookup [ null ].ToObservableCollection();
 	}
 
 
-	public ObservableCollection<CategoryModel> GetCategoryForComboBox( ObservableCollection<CategoryModel>? categoryList = null )
+	public List<CategoryModel> GetCategoryForComboBox( List<CategoryModel>? categoryList = null )
 	{
-		categoryList ??= new ObservableCollection<CategoryModel>();
-		DataTable? _dt = GetData(DBNames.CategoryTable, DBNames.CategoryFieldNameName);
+		categoryList ??= [ ];
+		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameName );
 
-		// Temporarily store categories with their parents
-		Dictionary<int, CategoryModel> categoryDictionary = new Dictionary<int, CategoryModel>();
-
-		// First pass to create CategoryModel instances
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			int categoryId = (int)_dt.Rows[i][0];
-			int? parentId = _dt.Rows[i][1] != DBNull.Value ? (int?)_dt.Rows[i][1] : null;
+			int? _parent = null;
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
 
-			var category = new CategoryModel
+			if ( _parent != null )
 			{
-				CategoryId = categoryId,
-				CategoryParentId = parentId,
-				CategoryName = _dt.Rows[i][2].ToString()
-			};
-
-			categoryDictionary.Add( categoryId, category );
-		}
-
-		// Second pass to organize hierarchy and assign IndentLevel
-		foreach ( var category in categoryDictionary.Values )
-		{
-			if ( category.CategoryParentId.HasValue )
-			{
-				var parentCategory = categoryDictionary[category.CategoryParentId.Value];
-				parentCategory.SubCategories.Add( category );
-				category.IndentLevel = parentCategory.IndentLevel + 1;
+				categoryList.Add( new CategoryModel
+				{
+					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
+					CategoryParentId = ( int ) _parent,
+					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+				} );
 			}
 			else
 			{
-				// Root category
-				category.IndentLevel = 0;
+				categoryList.Add( new CategoryModel
+				{
+					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
+					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+				} );
 			}
-			categoryList.Add( category );
 		}
+		SetCategoryIndentLevels( categoryList, 0 );
 
-			return categoryList;
+		return categoryList;
+	}
+
+	private void SetCategoryIndentLevels( List<CategoryModel> categories, int parentIndentLevel )
+	{
+		foreach ( var category in categories )
+		{
+			category.IndentLevel = parentIndentLevel;
+
+			if ( category.ComboSubCategories.Any() )
+			{
+				SetCategoryIndentLevels( category.ComboSubCategories, parentIndentLevel + 1 );
+			}
+		}
 	}
 	#endregion CategoryList
 
@@ -507,8 +512,6 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			byte[] productImage = (byte[])_dt.Rows [ i ][10];
-
 			productList.Add( new ProductModel
 			{
 				ProductId = ( int ) _dt.Rows [ i ] [ 0 ],
@@ -521,7 +524,7 @@ public class DBCommands
 				ProductProjectCosts = ( int ) _dt.Rows [ i ] [ 7 ],
 				ProductUnitId = ( int ) _dt.Rows [ i ] [ 8 ],
 				ProductImageRotationAngle = _dt.Rows [ i ] [ 9 ].ToString(),
-				ProductImage = ( byte [ ] ) _dt.Rows [ i ] [ 10 ],
+				ProductImage = _dt.Rows [ i ] [ 10 ] != DBNull.Value ? ( byte [ ] ) _dt.Rows [ i ] [ 10 ] : GetDefaultImage(),
 				ProductBrandId = ( int ) _dt.Rows [ i ] [ 11 ],
 				ProductCategoryId = ( int ) _dt.Rows [ i ] [ 12 ],
 				ProductStorageId = ( int ) _dt.Rows [ i ] [ 13 ],
@@ -529,6 +532,35 @@ public class DBCommands
 			} );
 		}
 		return productList;
+	}
+
+	private static byte [ ] GetDefaultImage()
+	{
+		// Retrieve your 'NoImage' DrawingImage from the resource dictionary
+		var drawingImage = (DrawingImage)System.Windows.Application.Current.Resources["noimage"];
+
+		// Render the DrawingImage to a bitmap
+		var drawingVisual = new DrawingVisual();
+		using ( var context = drawingVisual.RenderOpen() )
+		{
+			context.DrawImage( drawingImage, new Rect( 0, 0, drawingImage.Width, drawingImage.Height ) );
+		}
+
+		// Render to bitmap (set width and height)
+		var width = (int)drawingImage.Width;
+		var height = (int)drawingImage.Height;
+		var renderBitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+		renderBitmap.Render( drawingVisual );
+
+		// Convert bitmap to byte[]
+		var pngEncoder = new PngBitmapEncoder();
+		pngEncoder.Frames.Add( BitmapFrame.Create( renderBitmap ) );
+
+		using ( var ms = new MemoryStream() )
+		{
+			pngEncoder.Save( ms );
+			return ms.ToArray();  // Return byte array of the PNG
+		}    //return new byte[] { }; // of laad je 'NoImage' als een byte[]
 	}
 	#endregion
 

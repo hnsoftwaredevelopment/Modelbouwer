@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class ProductViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -51,9 +49,10 @@ public partial class ProductViewModel : ObservableObject
 	[ObservableProperty]
 	private ProjectModel? _selectedProject;
 
-	public ObservableCollection<ProductModel> Product {  get; set; }
+	public ObservableCollection<ProductModel> Product { get; set; }
 
 	private ObservableCollection<ProductModel>? _product;
+
 
 	[ObservableProperty]
 	private ProductModel? _selectedProduct;
@@ -73,6 +72,18 @@ public partial class ProductViewModel : ObservableObject
 		}
 	}
 
+	//public ProductModel SelectedProduct
+	//{
+	//	get => _selectedProduct;
+	//	set
+	//	{
+	//		if ( SetProperty( ref _selectedProduct, value ) )
+	//		{
+	//			OnSelectedProductChanged();
+	//		}
+	//	}
+	//}
+
 	public void AddNewItem()
 	{
 		ProductModel newProduct = new()
@@ -82,7 +93,7 @@ public partial class ProductViewModel : ObservableObject
 			ProductCode = string.Empty,
 			ProductDimensions = string.Empty,
 			ProductId = 0,
-			//ProductImage = (ImageSource)System.Windows.Application.Current.FindResource("noimage"),
+			//ProductImage = NULL,
 			ProductImageRotationAngle = string.Empty,
 			ProductMemo = string.Empty,
 			ProductMinimalStock = 0.00,

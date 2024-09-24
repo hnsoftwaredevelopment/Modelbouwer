@@ -188,8 +188,8 @@
 
 	<!--#region Default Borders-->
 	<Style x:Key="ImageBorder" TargetType="Border">
-		<Setter Property="BorderBrush" Value="Gray" />
-		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="BorderBrush" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
 		<Setter Property="VerticalAlignment" Value="Top" />
 	</Style>

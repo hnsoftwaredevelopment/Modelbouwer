@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.Model;
+﻿namespace Modelbouwer.Model;
 
 public class CategoryModel : INameable
 {
@@ -9,6 +7,7 @@ public class CategoryModel : INameable
 	public string? CategoryName { get; set; }
 
 	public ObservableCollection<CategoryModel> SubCategories { get; set; } = [ ];
+	public List<CategoryModel> ComboSubCategories { get; set; } = [ ];
 
 	public int IndentLevel { get; set; } // New property to handle indentation in ComboBoxes
 
