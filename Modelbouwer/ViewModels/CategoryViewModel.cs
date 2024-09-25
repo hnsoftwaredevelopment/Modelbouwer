@@ -11,6 +11,7 @@ public partial class CategoryViewModel : ObservableObject
 	public int categoryParentId;
 
 	public ObservableCollection<CategoryModel> Category { get; set; }
+	public List<CategoryModel> FlatCategory { get; set; }
 
 	[ObservableProperty]
 	private CategoryModel? _selectedCategory;
@@ -38,6 +39,7 @@ public partial class CategoryViewModel : ObservableObject
 	{
 		DBCommands dbCommands = new();
 		Category = new ObservableCollection<CategoryModel>( dbCommands.GetCategoryList() );
+		FlatCategory = new List<CategoryModel>( dbCommands.GetFlatCategoryList() );
 
 		SelectedCategory = Category.FirstOrDefault( c => c.CategoryId == 1 );
 	}

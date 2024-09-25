@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.View;
+﻿using Syncfusion.UI.Xaml.TreeView.Engine;
+
+namespace Modelbouwer.View;
 
 /// <summary>
 /// Interaction logic for ProductManagement.xaml
@@ -54,10 +56,9 @@ public partial class ProductManagement : Page
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
 			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
-
 			if ( selectedProduct != null && selectedProduct.ProductCategoryId > 0 )
 			{
-				var selectedCategory = viewModel.CategoryViewModel.Category
+				var selectedCategory = viewModel.CategoryViewModel.FlatCategory
 				.FirstOrDefault(c => c.CategoryId == selectedProduct.ProductCategoryId);
 
 				if ( selectedCategory != null )
@@ -69,5 +70,70 @@ public partial class ProductManagement : Page
 				}
 			}
 		}
+	}
+
+	private void CategoryPopupOpened( object sender, EventArgs e )
+	{
+
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+
+			if ( selectedProduct != null && selectedProduct.ProductCategoryId > 0 )
+			{
+				var selectedCategory = viewModel.CategoryViewModel.FlatCategory
+				.FirstOrDefault(c => c.CategoryId == selectedProduct.ProductCategoryId);
+
+				if ( selectedCategory != null )
+				{
+					ExpandAndSelectNode( selectedCategory );
+				}
+			}
+		}
+	}
+
+	private void ExpandAndSelectNode( CategoryModel category )
+	{
+		var node = FindNode(CategoryTreeView.Nodes, category);
+
+		if ( node != null )
+		{
+			ExpandParentNodes( node );
+
+			CategoryTreeView.SelectedItem = node.Content;
+			CategoryTreeView.Focus();
+		}
+	}
+
+	// Methode om de parent-nodes van de huidige node uit te klappen
+	private void ExpandParentNodes( TreeViewNode node )
+	{
+		var parentNode = node.ParentNode;
+		while ( parentNode != null )
+		{
+			parentNode.IsExpanded = true;
+			parentNode = parentNode.ParentNode;
+		}
+	}
+
+	// Methode om de juiste node te vinden in de boomstructuur
+	private TreeViewNode FindNode( TreeViewNodeCollection nodes, CategoryModel category )
+	{
+		foreach ( var node in nodes )
+		{
+			if ( node.Content is CategoryModel categoryModel && categoryModel.CategoryId == category.CategoryId )
+			{
+				return node;
+			}
+
+			// Zoek recursief in de subnodes
+			var foundNode = FindNode(node.ChildNodes, category);
+			if ( foundNode != null )
+			{
+				return foundNode;
+			}
+		}
+
+		return null;
 	}
 }

@@ -262,7 +262,7 @@ public class DBCommands
 	}
 
 
-	public List<CategoryModel> GetCategoryForComboBox( List<CategoryModel>? categoryList = null )
+	public List<CategoryModel> GetFlatCategoryList( List<CategoryModel>? categoryList = null )
 	{
 		categoryList ??= [ ];
 		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameName );
@@ -290,23 +290,9 @@ public class DBCommands
 				} );
 			}
 		}
-		SetCategoryIndentLevels( categoryList, 0 );
-
 		return categoryList;
 	}
 
-	private void SetCategoryIndentLevels( List<CategoryModel> categories, int parentIndentLevel )
-	{
-		foreach ( var category in categories )
-		{
-			category.IndentLevel = parentIndentLevel;
-
-			if ( category.ComboSubCategories.Any() )
-			{
-				SetCategoryIndentLevels( category.ComboSubCategories, parentIndentLevel + 1 );
-			}
-		}
-	}
 	#endregion CategoryList
 
 	#region ContactList

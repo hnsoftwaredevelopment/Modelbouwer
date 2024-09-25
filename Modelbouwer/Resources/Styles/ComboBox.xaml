@@ -13,4 +13,25 @@
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
 	</Style>
 	<!--#endregion-->
+
+	<Style x:Key="ComboBoxButtonStyle" TargetType="Button">
+		<Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="Padding" Value="5"/>
+		<Setter Property="Cursor" Value="Hand"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="2">
+						<ContentPresenter HorizontalAlignment="Stretch" 
+                                          VerticalAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 </ResourceDictionary>
