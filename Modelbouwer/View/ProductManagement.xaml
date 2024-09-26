@@ -72,12 +72,13 @@
 					AllowEditing="False"
 					AllowFiltering="True"
 					AllowGrouping="True"
-					AllowResizingColumns="True" SelectionChanged="ChangedProduct"
+					AllowResizingColumns="True"
 					AutoGenerateColumns="False"
 					ColumnSizer="Star"
 					FilterRowPosition="Top"
 					ItemsSource="{Binding ProductViewModel.Product, Mode=TwoWay}"
 					SelectedItem="{Binding ProductViewModel.SelectedProduct, Mode=TwoWay}"
+					SelectionChanged="ChangedProduct"
 					SortClickAction="DoubleClick"
 					>
 					<syncfusion:SfDataGrid.Columns>
@@ -219,15 +220,14 @@
 										<ColumnDefinition Width="200" />
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
-
+									
+									<!--#region ComboBox simulation for the Category-->
 									<Popup
 										x:Name="CategoryPopup"
 										AllowsTransparency="True"
-										IsOpen="False"
+										IsOpen="{Binding IsCategoryPopupOpen, Mode=TwoWay}"
 										Placement="Bottom"
-										PlacementTarget="{Binding ElementName=CategoryTextBox}"
 										StaysOpen="False"
-										Opened="CategoryPopupOpened"
 										>
 										<Border
 											Background="White"
@@ -236,7 +236,7 @@
 											>
 											<syncfusion:SfTreeView
 												x:Name="CategoryTreeView"
-												Grid.Row="5"
+												Grid.Row="5" Loaded="CategoryTreeViewLoaded"
 												Width="600"
 												Margin="10,0,0,0"
 												HorizontalAlignment="Left"
@@ -260,6 +260,7 @@
 											</syncfusion:SfTreeView>
 										</Border>
 									</Popup>
+									<!--#endregion-->
 
 									<!--#region Input lines-->
 									<TextBlock
@@ -292,7 +293,7 @@
 
 									<ComboBox
 										x:Name="ProductBrand"
-										Grid.Row="1"
+										Grid.Row="1" 
 										Grid.Column="1"
 										Width="250"
 										HorizontalAlignment="Left"
@@ -339,17 +340,13 @@
 										/>
 
 									<Button
-										Grid.Row="5" Style="{StaticResource ComboBoxButtonStyle}"
-										Grid.ColumnSpan="2" HorizontalContentAlignment="Left"
-										Width="600" HorizontalAlignment="Left"
+										Grid.Row="5"
+										Grid.ColumnSpan="2"
+										Width="600"
 										Click="CategoryChange"
-										>
-										<StackPanel Orientation="Horizontal">
-											<TextBlock Text="{Binding CategoryViewModel.SelectedCategory.CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Width="575"/>
-											<Path Data="M 0 0 L 5 5 L 10 0 Z" Fill="DarkBlue" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" Width="10" Height="10"/>
-										</StackPanel>
-									</Button>
-
+										Content="{Binding CategoryViewModel.SelectedCategory.CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										Style="{StaticResource ComboBoxButtonStyle}"
+										/>
 									<!--#endregion-->
 								</Grid>
 							</GroupBox>
@@ -452,22 +449,59 @@
 										Text="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Label}"
 										/>
 
-									<ComboBox
-										x:Name="ProductLocation"
-										Grid.Row="3"
-										Grid.Column="0"
+
+									<Button
+										Grid.Row="3" Grid.Column="0"
 										Grid.ColumnSpan="4"
 										Width="600"
-										HorizontalAlignment="Left"
-										Style="{DynamicResource DefaultComboBox}"
-										Tag="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Tag}"
-										TextSearch.TextPath="BrandName"
-										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Tooltip}"
+										Click="StorageChange" ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Tooltip}"
+										Content="{Binding StorageViewModel.SelectedStorage.StorageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										Style="{StaticResource ComboBoxButtonStyle}"
+										/>
+
+									<!--#region ComboBox simulation for the Storage Location-->
+									<Popup
+										x:Name="StoragePopup"
+										AllowsTransparency="True"
+										IsOpen="{Binding IsStoragePopupOpen, Mode=TwoWay}"
+										Placement="Bottom"
+										StaysOpen="False"
 										>
-										<ComboBox.ItemContainerStyleSelector>
-											<StyleSelector />
-										</ComboBox.ItemContainerStyleSelector>
-									</ComboBox>
+										<Border
+											Background="White"
+											BorderBrush="Gray"
+											BorderThickness="1"
+											>
+											<syncfusion:SfTreeView
+												x:Name="StorageTreeView"
+												Grid.Row="3"  Loaded="StorageTreeViewLoaded"
+												Width="600"
+												Margin="10,0,0,0"
+												HorizontalAlignment="Left"
+												VerticalAlignment="Center"
+												BorderBrush="DarkBlue"
+												BorderThickness="2"
+												ChildPropertyName="SubStorage"
+												IsAnimationEnabled="false"
+												ItemsSource="{Binding StorageViewModel.Storage}"
+												LineStroke="DarkBlue"
+												LineStrokeThickness=".75"
+												SelectedItem="{Binding StorageViewModel.SelectedStorage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+												ShowLines="True"
+												ShowRootLines="True"
+												>
+												<syncfusion:SfTreeView.ItemTemplate>
+													<HierarchicalDataTemplate ItemsSource="{Binding StorageViewModel.SubStorage}">
+														<TextBlock Text="{Binding StorageName}" />
+													</HierarchicalDataTemplate>
+												</syncfusion:SfTreeView.ItemTemplate>
+											</syncfusion:SfTreeView>
+										</Border>
+									</Popup>
+									<!--#endregion-->
+
+
+
 									<!--#endregion-->
 								</Grid>
 							</GroupBox>

@@ -657,7 +657,7 @@
 	</DrawingGroup>
 	<DrawingImage x:Key="rotate" Drawing="{StaticResource rotateDrawingGroup}" />
 	<!--#endregion-->
-	
+
 	<!--#region  Add (+) Icon-->
 	<Geometry x:Key="addGeometry">F1 M20,20z M0,0z M12.126984,0L19.872009,0 19.872009,12.128 32,12.128 32,19.872999 19.872009,19.872999 19.872009,31.999 12.126984,31.999 12.126984,19.872999 0,19.872999 0,12.128 12.126984,12.128z</Geometry>
 	<DrawingGroup x:Key="addDrawingGroup" ClipGeometry="M0,0 V20 H20 V0 H0 Z">
@@ -667,7 +667,7 @@
 	</DrawingGroup>
 	<DrawingImage x:Key="add" Drawing="{StaticResource addDrawingGroup}" />
 	<!--#endregion-->
-	
+
 	<!--#region Remove (-) Icon-->
 	<Geometry x:Key="removeGeometry">F1 M48,48z M0,0z M0,0L32,0 32,5.3 0,5.3z</Geometry>
 	<DrawingGroup x:Key="removeDrawingGroup" ClipGeometry="M0,0 V48 H48 V0 H0 Z">

@@ -14,36 +14,31 @@ public partial class ProductManagement : Page
 
 	private void ImageAdd( object sender, RoutedEventArgs e )
 	{
-
+		//OpenFileDialog ImageDialog = new();
+		//ImageDialog.Title = "Selecteer een afbeelding voor dit product";
+		//ImageDialog.Filter = "Afbeeldingen (*.jpg;*.jpeg;*.png;*.gif;*.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+		//if ( ImageDialog.ShowDialog() == true )
+		//{
+		//	ProductImage.Source = new BitmapImage( new Uri( ImageDialog.FileName ) );
+		//}
 	}
 
 	private void ImageDelete( object sender, RoutedEventArgs e )
 	{
-
+		//ProductImage.Source = null;
+		//ImageRotationAngle.Text = "0";
 	}
 
 	private void ImageRotate( object sender, RoutedEventArgs e )
 	{
+		//var _tempValue = (int.Parse(ImageRotationAngle.Text) + 90);
+		//		if ( _tempValue == 360 )
+		//		{
+		//			_tempValue = 0;
+		//		}
+		//		valueImageRotationAngle.Text = _tempValue.ToString();
+		//		ProductImage.LayoutTransform = new RotateTransform( int.Parse( valueImageRotationAngle.Text ) );
 
-	}
-	//private void CategoryTextBox_PreviewMouseDown( object sender, MouseButtonEventArgs e )
-	//{
-	//	// Open the Popup when the TextBox is clicked
-	//	CategoryPopup.IsOpen = true;
-	//	e.Handled = true;
-	//}
-
-	private void CategoryTreeView_SelectedItemChanged( object sender, RoutedPropertyChangedEventArgs<object> e )
-	{
-		if ( e.NewValue is CategoryModel selectedCategory )
-		{
-			// Update the selected category in the ViewModel
-			var viewModel = (CombinedProductViewModel)DataContext;
-			viewModel.CategoryViewModel.SelectedCategory = selectedCategory;
-
-			// Close the popup
-			CategoryPopup.IsOpen = false;
-		}
 	}
 
 	private void CategoryChange( object sender, RoutedEventArgs e )
@@ -51,27 +46,77 @@ public partial class ProductManagement : Page
 		CategoryPopup.IsOpen = !CategoryPopup.IsOpen;
 	}
 
+	private void StorageChange( object sender, RoutedEventArgs e )
+	{
+		StoragePopup.IsOpen = !StoragePopup.IsOpen;
+	}
+
 	private void ChangedProduct( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
 			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+
+			#region Select the correct Category
 			if ( selectedProduct != null && selectedProduct.ProductCategoryId > 0 )
 			{
-				var selectedCategory = viewModel.CategoryViewModel.FlatCategory
-				.FirstOrDefault(c => c.CategoryId == selectedProduct.ProductCategoryId);
+				var selectedCategory = viewModel.CategoryViewModel.FlatCategory.FirstOrDefault(c => c.CategoryId == selectedProduct.ProductCategoryId);
 
 				if ( selectedCategory != null )
 				{
 					viewModel.CategoryViewModel.SelectedCategory = selectedCategory;
 
+					ExpandAndSelectCategoryNode( selectedCategory );
 					CategoryTreeView.SelectedItem = selectedCategory;
 					CategoryTreeView.BringIntoView( selectedCategory );
+					CategoryTreeView.Focus();
 				}
+			}
+			#endregion
+
+			#region Select the correct Storage Location
+			if ( selectedProduct != null && selectedProduct.ProductStorageId > 0 )
+			{
+				var selectedStorage = viewModel.StorageViewModel.FlatStorage.FirstOrDefault(c => c.StorageId == selectedProduct.ProductStorageId);
+
+				if ( selectedStorage != null )
+				{
+					viewModel.StorageViewModel.SelectedStorage = selectedStorage;
+
+					ExpandAndSelectStorageNode( selectedStorage );
+					StorageTreeView.SelectedItem = selectedStorage;
+					StorageTreeView.BringIntoView( selectedStorage );
+					StorageTreeView.Focus();
+				}
+			}
+			#endregion
+		}
+	}
+
+	private void CategoryTreeViewLoaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedCategory = viewModel.CategoryViewModel.SelectedCategory;
+			if ( selectedCategory != null )
+			{
+				ExpandAndSelectCategoryNode( selectedCategory );
+			}
+		}
+	}
+	private void StorageTreeViewLoaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedStorage = viewModel.StorageViewModel.SelectedStorage;
+			if ( selectedStorage != null )
+			{
+				ExpandAndSelectStorageNode( selectedStorage );
 			}
 		}
 	}
 
+	#region Open Alternative Popub
 	private void CategoryPopupOpened( object sender, EventArgs e )
 	{
 
@@ -86,15 +131,37 @@ public partial class ProductManagement : Page
 
 				if ( selectedCategory != null )
 				{
-					ExpandAndSelectNode( selectedCategory );
+					ExpandAndSelectCategoryNode( selectedCategory );
 				}
 			}
 		}
 	}
 
-	private void ExpandAndSelectNode( CategoryModel category )
+	private void StoragePopupOpened( object sender, EventArgs e )
 	{
-		var node = FindNode(CategoryTreeView.Nodes, category);
+
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+
+			if ( selectedProduct != null && selectedProduct.ProductStorageId > 0 )
+			{
+				var selectedStorage = viewModel.StorageViewModel.FlatStorage
+			.FirstOrDefault(c => c.StorageId == selectedProduct.ProductStorageId);
+
+				if ( selectedStorage != null )
+				{
+					ExpandAndSelectStorageNode( selectedStorage );
+				}
+			}
+		}
+	}
+	#endregion
+
+	#region Expand and select the node from the selected product
+	private void ExpandAndSelectCategoryNode( CategoryModel category )
+	{
+		var node = FindCategoryNode(CategoryTreeView.Nodes, category);
 
 		if ( node != null )
 		{
@@ -105,19 +172,22 @@ public partial class ProductManagement : Page
 		}
 	}
 
-	// Methode om de parent-nodes van de huidige node uit te klappen
-	private void ExpandParentNodes( TreeViewNode node )
+	private void ExpandAndSelectStorageNode( StorageModel storage )
 	{
-		var parentNode = node.ParentNode;
-		while ( parentNode != null )
+		var node = FindStorageNode(StorageTreeView.Nodes, storage);
+
+		if ( node != null )
 		{
-			parentNode.IsExpanded = true;
-			parentNode = parentNode.ParentNode;
+			ExpandParentNodes( node );
+
+			StorageTreeView.SelectedItem = node.Content;
+			StorageTreeView.Focus();
 		}
 	}
+	#endregion
 
-	// Methode om de juiste node te vinden in de boomstructuur
-	private TreeViewNode FindNode( TreeViewNodeCollection nodes, CategoryModel category )
+	#region TreeViewNode: Method to find the correct node in the tree
+	private TreeViewNode FindCategoryNode( TreeViewNodeCollection nodes, CategoryModel category )
 	{
 		foreach ( var node in nodes )
 		{
@@ -127,7 +197,7 @@ public partial class ProductManagement : Page
 			}
 
 			// Zoek recursief in de subnodes
-			var foundNode = FindNode(node.ChildNodes, category);
+			var foundNode = FindCategoryNode(node.ChildNodes, category);
 			if ( foundNode != null )
 			{
 				return foundNode;
@@ -136,4 +206,37 @@ public partial class ProductManagement : Page
 
 		return null;
 	}
+
+	private TreeViewNode FindStorageNode( TreeViewNodeCollection nodes, StorageModel storage )
+	{
+		foreach ( var node in nodes )
+		{
+			if ( node.Content is StorageModel storageModel && storageModel.StorageId == storage.StorageId )
+			{
+				return node;
+			}
+
+			// Search recursifly in the subnodes
+			var foundNode = FindStorageNode(node.ChildNodes, storage);
+			if ( foundNode != null )
+			{
+				return foundNode;
+			}
+		}
+
+		return null;
+	}
+	#endregion
+
+	#region ExpandParentNode: // Method to open the parrent nodes of the selected node
+	private void ExpandParentNodes( TreeViewNode node )
+	{
+		var parentNode = node.ParentNode;
+		while ( parentNode != null )
+		{
+			parentNode.IsExpanded = true;
+			parentNode = parentNode.ParentNode;
+		}
+	}
+	#endregion
 }

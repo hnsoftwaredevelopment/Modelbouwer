@@ -10,54 +10,57 @@ public partial class StorageViewModel : ObservableObject
 	[ObservableProperty]
 	public int storageParentId;
 
+	[ObservableProperty]
+	private bool _isStoragePopupOpen;
+
 	public ObservableCollection<StorageModel> Storage { get; set; }
+
+	public List<StorageModel> FlatStorage { get; set; }
 
 	[ObservableProperty]
 	private StorageModel? _selectedStorage;
 
-	private readonly ObservableCollection<StorageModel>? _storage;
+	//private readonly ObservableCollection<StorageModel>? _storage;
 
-	[ObservableProperty]
-	public StorageModel? selectedItem;
+	//[ObservableProperty]
+	//public StorageModel? selectedItem;
 
-	private bool _isAddingNew;
+	//private bool _isAddingNew;
 
-	public bool IsAddingNew
-	{
-		get => _isAddingNew;
-		set
-		{
-			if ( _isAddingNew != value )
-			{
-				_isAddingNew = value;
-				OnPropertyChanged( nameof( IsAddingNew ) );
-			}
-		}
-	}
+	//public bool IsAddingNew
+	//{
+	//	get => _isAddingNew;
+	//	set
+	//	{
+	//		if ( _isAddingNew != value )
+	//		{
+	//			_isAddingNew = value;
+	//			OnPropertyChanged( nameof( IsAddingNew ) );
+	//		}
+	//	}
+	//}
 
-	public void AddNewItem()
-	{
-		// Voeg het nieuwe, lege item toe aan de lijst
-		StorageModel newStorage = new()
-		{
-			StorageId = 0,
-			StorageParentId = 0,
-			StorageName = string.Empty
-		};
+	//public void AddNewItem()
+	//{
+	//	// Voeg het nieuwe, lege item toe aan de lijst
+	//	StorageModel newStorage = new()
+	//	{
+	//		StorageId = 0,
+	//		StorageParentId = 0,
+	//		StorageName = string.Empty
+	//	};
 
-		Storage.Add( newStorage );
-		SelectedStorage = newStorage;
-		IsAddingNew = true;
-	}
+	//	Storage.Add( newStorage );
+	//	SelectedStorage = newStorage;
+	//	IsAddingNew = true;
+	//}
 
 	public StorageViewModel()
 	{
 		DBCommands dbCommands = new();
 		Storage = new ObservableCollection<StorageModel>( dbCommands.GetStorageList() );
+		FlatStorage = new List<StorageModel>( dbCommands.GetFlatStorageList() );
 
-		if ( Storage != null && Storage.Any() )
-		{
-			SelectedStorage = Storage.First();
-		}
+		SelectedStorage = Storage.FirstOrDefault( c => c.StorageId == 1 );
 	}
 }

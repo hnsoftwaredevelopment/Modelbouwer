@@ -228,7 +228,7 @@
 	<system:String x:Key="Maintanance.Mail.Salution.Evening">Goedenavond</system:String>
 	<system:String x:Key="Maintanance.Mail.Salution.Night">Goedennacht</system:String>
 	<!--#endregion-->
-	
+
 	<!--#region Image Toolbar buttons-->
 	<system:String x:Key="ToolBar.Button.Image.Add.Label">Afbeelding laden</system:String>
 	<system:String x:Key="ToolBar.Button.Image.Remove.Label">Afbeelding verwijderen</system:String>
@@ -544,8 +544,8 @@
 	<system:String x:Key="Edit.Product.Action.Tooltip.Save">Gewijzigde produkt opslaan</system:String>
 	<system:String x:Key="Edit.Product.DataGrid.Header.Id">Id</system:String>
 	<system:String x:Key="Edit.Product.DataGrid.Header.Name">Produktnaam</system:String>
-    <system:String x:Key="Edit.Product.DataGrid.Header.Category">Categorie</system:String>
-    <system:String x:Key="Edit.Product.DataGrid.Header.Code">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Product.DataGrid.Header.Category">Categorie</system:String>
+	<system:String x:Key="Edit.Product.DataGrid.Header.Code">Zoeknaam</system:String>
 
 	<system:String x:Key="Edit.Product.Tab.General.Label">Produkt gegevens</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Text">Produkt gegevens</system:String>

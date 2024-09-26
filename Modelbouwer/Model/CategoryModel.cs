@@ -5,13 +5,7 @@ public class CategoryModel : INameable
 	public int CategoryId { get; set; }
 	public int? CategoryParentId { get; set; }
 	public string? CategoryName { get; set; }
-
 	public ObservableCollection<CategoryModel> SubCategories { get; set; } = [ ];
-	public List<CategoryModel> ComboSubCategories { get; set; } = [ ];
-
-	public int IndentLevel { get; set; } // New property to handle indentation in ComboBoxes
-
-	// Define the property that you want to use in TLists (for example in the errorList
 	public string Name => CategoryName;
 
 	// Mapping dictionary for mapping Database Header to Property name

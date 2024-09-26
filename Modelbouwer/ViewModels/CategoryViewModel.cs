@@ -10,30 +10,15 @@ public partial class CategoryViewModel : ObservableObject
 	[ObservableProperty]
 	public int categoryParentId;
 
+	[ObservableProperty]
+	private bool _isCategoryPopupOpen;
+
 	public ObservableCollection<CategoryModel> Category { get; set; }
+
 	public List<CategoryModel> FlatCategory { get; set; }
 
 	[ObservableProperty]
 	private CategoryModel? _selectedCategory;
-
-	//public class CategoryComparer : IComparer<CategoryModel>
-	//{
-	//	public int Compare( CategoryModel x, CategoryModel y )
-	//	{
-	//		int result = x.IndentLevel.CompareTo(y.IndentLevel);
-	//		if ( result == 0 )
-	//		{
-	//			return string.Compare( x.Name, y.Name, StringComparison.OrdinalIgnoreCase );
-	//		}
-	//		return result;
-	//	}
-	//}
-
-	//public void SetSelectedCategory( int categoryId )
-	//{
-	//	SelectedCategory = Category.FirstOrDefault( c => c.CategoryId == categoryId )
-	//					   ?? Category.FirstOrDefault( c => c.CategoryId == 1 );
-	//}
 
 	public CategoryViewModel()
 	{

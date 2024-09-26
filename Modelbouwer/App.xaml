@@ -11,6 +11,7 @@
 				<ResourceDictionary Source="Resources/Icons/Icons.xaml" />
 				<ResourceDictionary Source="Resources/Icons/TimeIcons.xaml" />
 				<ResourceDictionary Source="Resources/Languages/Language.xaml" />
+				<ResourceDictionary Source="Resources/Styles/Button.xaml" />
 				<ResourceDictionary Source="Resources/Styles/ComboBox.xaml" />
 				<ResourceDictionary Source="Resources/Styles/DataGrid.xaml" />
 				<ResourceDictionary Source="Resources/Styles/General.xaml" />

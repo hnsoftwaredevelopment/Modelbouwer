@@ -1817,16 +1817,6 @@
 		<Setter Property="Visibility" Value="Hidden" />
 	</Style>
 
-	<Style x:Key="DefaultComboBox" TargetType="ComboBox">
-		<Setter Property="Height" Value="23" />
-		<Setter Property="HorizontalAlignment" Value="Left" />
-		<Setter Property="HorizontalContentAlignment" Value="Left" />
-		<Setter Property="IsTextSearchEnabled" Value="True" />
-		<Setter Property="Padding" Value="2" />
-		<Setter Property="VerticalAlignment" Value="Top" />
-		<Setter Property="VerticalContentAlignment" Value="Center" />
-	</Style>
-
 	<Style x:Key="ProductImage" TargetType="Image">
 		<Setter Property="Height" Value="230" />
 		<Setter Property="HorizontalAlignment" Value="Left" />

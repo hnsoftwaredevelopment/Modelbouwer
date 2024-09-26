@@ -46,9 +46,6 @@ public partial class ProductViewModel : ObservableObject
 	[ObservableProperty]
 	public string? productMemo;
 
-	[ObservableProperty]
-	private ProjectModel? _selectedProject;
-
 	public ObservableCollection<ProductModel> Product { get; set; }
 
 	private ObservableCollection<ProductModel>? _product;
@@ -71,18 +68,6 @@ public partial class ProductViewModel : ObservableObject
 			}
 		}
 	}
-
-	//public ProductModel SelectedProduct
-	//{
-	//	get => _selectedProduct;
-	//	set
-	//	{
-	//		if ( SetProperty( ref _selectedProduct, value ) )
-	//		{
-	//			OnSelectedProductChanged();
-	//		}
-	//	}
-	//}
 
 	public void AddNewItem()
 	{
@@ -113,5 +98,6 @@ public partial class ProductViewModel : ObservableObject
 	public ProductViewModel()
 	{
 		Product = new ObservableCollection<ProductModel>( DBCommands.GetProductList() );
+		SelectedProduct = Product [ 0 ];
 	}
 }

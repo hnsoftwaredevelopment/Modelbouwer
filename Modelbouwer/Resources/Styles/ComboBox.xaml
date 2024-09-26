@@ -14,24 +14,89 @@
 	</Style>
 	<!--#endregion-->
 
-	<Style x:Key="ComboBoxButtonStyle" TargetType="Button">
+	<!--#region Default ComboBox-->
+	<Style x:Key="DefaultComboBox" TargetType="ComboBox">
+		<!--  Afgeronde hoeken en standaard stijlen voor de ComboBox  -->
 		<Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
-		<Setter Property="BorderThickness" Value="1"/>
-		<Setter Property="Padding" Value="5"/>
-		<Setter Property="Cursor" Value="Hand"/>
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Height" Value="23" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="IsTextSearchEnabled" Value="True" />
+		<Setter Property="Padding" Value="2" />
+		<Setter Property="Padding" Value="5" />
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="Button">
-					<Border Background="{TemplateBinding Background}" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
-                            CornerRadius="2">
-						<ContentPresenter HorizontalAlignment="Stretch" 
-                                          VerticalAlignment="Center"/>
-					</Border>
+				<ControlTemplate TargetType="ComboBox">
+					<Grid>
+						<Border
+							x:Name="Border"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="1"
+							CornerRadius="2"
+							>
+							<Grid>
+								<!--  Tekst van de geselecteerde item  -->
+								<ContentPresenter
+									Margin="5,0,0,0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									/>
+								<!--  Pijl in de rechterhoek  -->
+								<Path
+									x:Name="Arrow"
+									Width="10"
+									Height="10"
+									Margin="0,0,5,0"
+									HorizontalAlignment="Right"
+									VerticalAlignment="Center"
+									Data="M 0 3 L 5 8 L 10 3 Z"
+									Fill="DarkBlue"
+									/>
+							</Grid>
+						</Border>
+						<!--  Popup van de ComboBox  -->
+						<Popup
+							x:Name="PART_Popup"
+							AllowsTransparency="True"
+							IsOpen="{TemplateBinding IsDropDownOpen}"
+							Placement="Bottom"
+							>
+							<Grid>
+								<Border
+									x:Name="DropDownBorder"
+									Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+									BorderBrush="{TemplateBinding BorderBrush}"
+									BorderThickness="1"
+									>
+									<ScrollViewer x:Name="DropDownScrollViewer">
+										<StackPanel IsItemsHost="True" />
+									</ScrollViewer>
+								</Border>
+							</Grid>
+						</Popup>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<!--  Verander de pijl wanneer de ComboBox wordt geopend  -->
+						<Trigger Property="IsDropDownOpen" Value="True">
+							<Setter TargetName="Arrow" Property="Data" Value="M 0 3 L 10 8 L 5 3 Z" />
+						</Trigger>
+						<!--  Verander de stijl wanneer de ComboBox niet is ingeschakeld  -->
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="Arrow" Property="Fill" Value="Gray" />
+							<Setter TargetName="Border" Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
+						</Trigger>
+					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Setter Property="VerticalAlignment" Value="Top" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
 	</Style>
+	<!--#endregion-->
+
 </ResourceDictionary>
