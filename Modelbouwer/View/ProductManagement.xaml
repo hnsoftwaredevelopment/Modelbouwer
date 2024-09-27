@@ -20,6 +20,7 @@
 		<converter:IntToBoolConverter x:Key="IntToBoolConverter" />
 		<converter:IndentToPaddingConverter x:Key="IndentToBoolConverter" />
 		<converter:ByteToImageConverter x:Key="ByteToImageConverter" />
+		<converter:ByteToImageConverter x:Key="NullOrEmptyImageConverter" />
 	</Page.Resources>
 
 	<Page.DataContext>
@@ -169,7 +170,7 @@
 										</Button>
 										<Button
 											VerticalAlignment="Bottom"
-											Click="ImageDelete"
+											Click="ImageDelete" Style="{DynamicResource HideButtonOnNoImage}"
 											ToolTip="{StaticResource ToolBar.Button.Image.Remove.Label}"
 											>
 											<Image
@@ -179,10 +180,10 @@
 												Style="{DynamicResource ToolBarDeleteIcon}"
 												/>
 										</Button>
-										<Separator Style="{DynamicResource ImageToolBarSeperator}" />
+										<Separator Margin ="5,0,10,0" Style="{DynamicResource HideSeperatorOnNoImage}"/>
 										<Button
 											VerticalAlignment="Top"
-											Click="ImageRotate"
+											Click="ImageRotate" Style="{DynamicResource HideButtonOnNoImage}"
 											ToolTip="{StaticResource ToolBar.Button.Image.Rotate.Label}"
 											>
 											<Image Style="{DynamicResource ToolBarRotateIcon}" />

@@ -1,8 +1,10 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.Windows.Media;
+
+namespace Modelbouwer.ViewModels;
 public partial class ProductViewModel : ObservableObject
 {
-	[ObservableProperty]
-	public byte [ ] productImage;
+	//[ObservableProperty]
+	//public byte [ ] productImage;
 
 	[ObservableProperty]
 	public int productId;
@@ -49,6 +51,17 @@ public partial class ProductViewModel : ObservableObject
 	public ObservableCollection<ProductModel> Product { get; set; }
 
 	private ObservableCollection<ProductModel>? _product;
+
+	private ImageSource _productImage;
+	public ImageSource ProductImage
+	{
+		get => _productImage;
+		set
+		{
+			_productImage = value ?? System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource;
+			OnPropertyChanged( nameof( ProductImage ) );
+		}
+	}
 
 
 	[ObservableProperty]

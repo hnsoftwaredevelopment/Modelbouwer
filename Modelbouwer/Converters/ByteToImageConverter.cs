@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Modelbouwer.Converters;
 public class ByteToImageConverter : IValueConverter
@@ -17,7 +18,9 @@ public class ByteToImageConverter : IValueConverter
 				return image;
 			}
 		}
-		return null;  // Return null if no image exists
+
+		return System.Windows.Application.Current.TryFindResource( "noimage" ) as DrawingImage;
+		//return null;  // Return null if no image exists
 	}
 
 	public object ConvertBack( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )

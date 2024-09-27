@@ -1,4 +1,8 @@
-﻿using Syncfusion.UI.Xaml.TreeView.Engine;
+﻿using System.Windows.Media;
+
+using Syncfusion.UI.Xaml.TreeView.Engine;
+
+using Image = System.Windows.Controls.Image;
 
 namespace Modelbouwer.View;
 
@@ -25,20 +29,39 @@ public partial class ProductManagement : Page
 
 	private void ImageDelete( object sender, RoutedEventArgs e )
 	{
-		//ProductImage.Source = null;
-		//ImageRotationAngle.Text = "0";
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+
+			if ( selectedProduct != null )
+			{
+				viewModel.ProductViewModel.SelectedProduct.ProductImage = null;
+				viewModel.ProductViewModel.SelectedProduct.ProductImageRotationAngle = "0";
+
+				ProductImage.GetBindingExpression( Image.SourceProperty )?.UpdateTarget();
+			}
+		}
 	}
 
 	private void ImageRotate( object sender, RoutedEventArgs e )
 	{
-		//var _tempValue = (int.Parse(ImageRotationAngle.Text) + 90);
-		//		if ( _tempValue == 360 )
-		//		{
-		//			_tempValue = 0;
-		//		}
-		//		valueImageRotationAngle.Text = _tempValue.ToString();
-		//		ProductImage.LayoutTransform = new RotateTransform( int.Parse( valueImageRotationAngle.Text ) );
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
+			if ( selectedProduct != null )
+			{
+				var _tempValue = int.Parse(viewModel.ProductViewModel.SelectedProduct.ProductImageRotationAngle) + 90;
+				if ( _tempValue == 360 )
+				{
+					_tempValue = 0;
+				}
+
+				viewModel.ProductViewModel.SelectedProduct.ProductImageRotationAngle = _tempValue.ToString();
+
+				ProductImage.LayoutTransform = new RotateTransform( _tempValue );
+			}
+		}
 	}
 
 	private void CategoryChange( object sender, RoutedEventArgs e )

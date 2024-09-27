@@ -1,6 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converter="clr-namespace:Modelbouwer.Converters">
 
-	<!--#region Button that seems the defaultComboBox-->
+	<converter:NullOrEmptyImageConverter x:Key="NullOrEmptyImageConverter" />
+	
 	<Style x:Key="ComboBoxButtonStyle" TargetType="Button">
 		<Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
@@ -47,6 +48,26 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+	</Style>
+	<!--#endregion-->
+	
+	<!--#region Hide TImage toolbar buttons when there is no image available-->
+	<Style x:Key="HideButtonOnNoImage" TargetType="Button">
+		<Setter Property="Visibility" Value="Visible" />
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding SelectedProduct.ProductImage, Converter={StaticResource NullOrEmptyImageConverter}}" Value="True">
+				<Setter Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="HideSeperatorOnNoImage" TargetType="Separator">
+		<Setter Property="Visibility" Value="Visible" />
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding SelectedProduct.ProductImage, Converter={StaticResource NullOrEmptyImageConverter}}" Value="True">
+				<Setter Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+		</Style.Triggers>
 	</Style>
 	<!--#endregion-->
 
