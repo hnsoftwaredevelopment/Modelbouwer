@@ -25,6 +25,17 @@ public class ByteToImageConverter : IValueConverter
 
 	public object ConvertBack( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
 	{
-		throw new NotImplementedException();
+		if ( value is BitmapSource bitmapSource )
+		{
+			using ( var stream = new MemoryStream() )
+			{
+				BitmapEncoder encoder = new PngBitmapEncoder();
+				encoder.Frames.Add( BitmapFrame.Create( bitmapSource ) );
+				encoder.Save( stream );
+				return stream.ToArray();
+			}
+		}
+
+		return null;
 	}
 }

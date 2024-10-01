@@ -499,6 +499,35 @@ public class DBCommands
 		}
 		return supplierList;
 	}
+
+	public static ObservableCollection<ProductSupplierModel> GetProductSupplierList( ObservableCollection<ProductSupplierModel>? supplierList = null )
+	{
+		supplierList ??= [ ];
+		DataTable? _dt = GetData( DBNames.ProductSupplierView, DBNames.ProductSupplierFieldNameProductId );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			var _tempCheck = _dt.Rows [ i ] [ 4 ].ToString() == "*";
+			var parsedPrice =  double.Parse(_dt.Rows [ i ] [ 10 ].ToString(), CultureInfo.InvariantCulture);
+
+			supplierList.Add( new ProductSupplierModel
+			{
+				ProductSupplierId = ( int ) _dt.Rows [ i ] [ 0 ],
+				ProductSupplierProductId = ( int ) _dt.Rows [ i ] [ 1 ],
+				ProductSupplierSupplierId = ( int ) _dt.Rows [ i ] [ 2 ],
+				ProductSupplierCurrencyId = ( int ) _dt.Rows [ i ] [ 3 ],
+				ProductSupplierDefaultSupplier = _dt.Rows [ i ] [ 4 ].ToString(),
+				ProductSupplierProductName = _dt.Rows [ i ] [ 5 ].ToString(),
+				ProductSupplierSupplierName = _dt.Rows [ i ] [ 6 ].ToString(),
+				ProductSupplierProductNumber = _dt.Rows [ i ] [ 7 ].ToString(),
+				ProductSupplierURL = _dt.Rows [ i ] [ 9 ].ToString(),
+				ProductSupplierPrice = parsedPrice,
+				ProductSupplierCurrencySymbol = _dt.Rows [ i ] [ 11 ].ToString(),
+				ProductSupplierDefaultSupplierCheck = _tempCheck
+			} );
+		}
+		return supplierList;
+	}
 	#endregion
 
 	#region ProductList

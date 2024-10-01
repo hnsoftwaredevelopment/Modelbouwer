@@ -1,7 +1,11 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converter="clr-namespace:Modelbouwer.Converters">
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converter="clr-namespace:Modelbouwer.Converters"
+	>
 
 	<converter:NullOrEmptyImageConverter x:Key="NullOrEmptyImageConverter" />
-	
+
 	<Style x:Key="ComboBoxButtonStyle" TargetType="Button">
 		<Setter Property="Background" Value="{DynamicResource ComboBox.Background}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource ComboBox.Border}" />
@@ -50,7 +54,7 @@
 		</Setter>
 	</Style>
 	<!--#endregion-->
-	
+
 	<!--#region Hide TImage toolbar buttons when there is no image available-->
 	<Style x:Key="HideButtonOnNoImage" TargetType="Button">
 		<Setter Property="Visibility" Value="Visible" />

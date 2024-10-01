@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
-public partial class productSupplierViewModel : ObservableObject
+﻿namespace Modelbouwer.ViewModels;
+public partial class ProductSupplierViewModel : ObservableObject
 {
 	[ObservableProperty]
 	public int productSupplierId;
@@ -30,17 +28,92 @@ public partial class productSupplierViewModel : ObservableObject
 	[ObservableProperty]
 	public string? productSupplierDefaultSupplier;
 
-	public ObservableCollection<ProductSupplierModel> ProductSupplier
+	[ObservableProperty]
+	public bool? productSupplierDefaultSupplierCheck;
+
+	[ObservableProperty]
+	private ProductSupplierModel? selectedSupplier;
+
+	public ObservableCollection<ProductSupplierModel> FilteredSuppliers { get; private set; } = [ ];
+	public ObservableCollection<ProductSupplierModel> ProductSupplier { get; set; }
+
+
+	private ProductModel? _selectedProduct;
+
+	private bool _isAddingNew;
+
+	public bool IsAddingNew
 	{
-		get => _productsupplier;
+		get => _isAddingNew;
 		set
 		{
-			if ( _productsupplier != value )
+			if ( _isAddingNew != value )
 			{
-				_productsupplier = value;
-				OnPropertyChanged( nameof( ProductSupplier ) );
+				_isAddingNew = value;
+				OnPropertyChanged( nameof( IsAddingNew ) );
 			}
 		}
 	}
-	private ObservableCollection<ProductSupplierModel>? _productsupplier;
+
+	public void AddNewItem( string productId )
+	{
+		ProductSupplierModel newSupplier = new()
+		{
+			ProductSupplierId = 1,
+			ProductSupplierProductId = int.Parse(productId),
+			ProductSupplierSupplierId = 1,
+			ProductSupplierCurrencyId = 1,
+			ProductSupplierProductNumber = string.Empty,
+			ProductSupplierProductName = string.Empty,
+			ProductSupplierPrice = 0.00,
+			ProductSupplierURL = string.Empty,
+			ProductSupplierDefaultSupplier = string.Empty,
+			ProductSupplierSupplierName = string.Empty,
+			ProductSupplierCurrencySymbol = string.Empty,
+			ProductSupplierDefaultSupplierCheck = false
+		};
+
+		ProductSupplier.Add( newSupplier );
+		SelectedSupplier = newSupplier;
+		IsAddingNew = true;
+
+		// Refresh the list to display
+		OnPropertyChanged( nameof( FilteredSuppliers ) );
+		FilterSuppliersByProductId( int.Parse( productId ) );
+	}
+
+	public ProductModel? SelectedProduct
+	{
+		get => _selectedProduct;
+		set
+		{
+			if ( SetProperty( ref _selectedProduct, value ) )
+			{
+				if ( _selectedProduct != null )
+				{
+					FilterSuppliersByProductId( _selectedProduct.ProductId );
+				}
+			}
+		}
+	}
+
+	public void FilterSuppliersByProductId( int productId )
+	{
+		FilteredSuppliers.Clear();
+		foreach ( ProductSupplierModel supplier in ProductSupplier.Where( c => c.ProductSupplierProductId == productId ) )
+		{
+			FilteredSuppliers.Add( supplier );
+		}
+
+		//Select first cntact in the list if there are Supplers
+		if ( FilteredSuppliers.Any() )
+		{
+			SelectedSupplier = FilteredSuppliers.First();
+		}
+	}
+
+	public ProductSupplierViewModel()
+	{
+		ProductSupplier = new ObservableCollection<ProductSupplierModel>( DBCommands.GetProductSupplierList() );
+	}
 }

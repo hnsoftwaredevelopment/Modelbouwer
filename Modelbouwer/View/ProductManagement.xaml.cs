@@ -1,4 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 using Syncfusion.UI.Xaml.TreeView.Engine;
 
@@ -18,13 +20,13 @@ public partial class ProductManagement : Page
 
 	private void ImageAdd( object sender, RoutedEventArgs e )
 	{
-		//OpenFileDialog ImageDialog = new();
-		//ImageDialog.Title = "Selecteer een afbeelding voor dit product";
-		//ImageDialog.Filter = "Afbeeldingen (*.jpg;*.jpeg;*.png;*.gif;*.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-		//if ( ImageDialog.ShowDialog() == true )
-		//{
-		//	ProductImage.Source = new BitmapImage( new Uri( ImageDialog.FileName ) );
-		//}
+		OpenFileDialog ImageDialog = new();
+		ImageDialog.Title = "Selecteer een afbeelding voor dit product";
+		ImageDialog.Filter = "Afbeeldingen (*.jpg;*.jpeg;*.png;*.gif;*.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+		if ( ImageDialog.ShowDialog() == DialogResult.OK )
+		{
+			ProductImage.Source = new BitmapImage( new Uri( ImageDialog.FileName ) );
+		}
 	}
 
 	private void ImageDelete( object sender, RoutedEventArgs e )
@@ -74,11 +76,27 @@ public partial class ProductManagement : Page
 		StoragePopup.IsOpen = !StoragePopup.IsOpen;
 	}
 
+	private void SetRtfContent( string rtfContent )
+	{
+		using ( var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) ) )
+		{
+			TextRange textRange = new TextRange(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
+			textRange.Load( stream, System.Windows.DataFormats.Rtf );
+		}
+	}
+
 	private void ChangedProduct( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
 			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+
+			if ( selectedProduct != null )
+			{
+				SetRtfContent( selectedProduct.ProductMemo );
+			}
+
+			var Supliers = viewModel.ProductSupplierViewModel.ProductSupplier;
 
 			#region Select the correct Category
 			if ( selectedProduct != null && selectedProduct.ProductCategoryId > 0 )
@@ -262,4 +280,74 @@ public partial class ProductManagement : Page
 		}
 	}
 	#endregion
+
+	#region Create new Product
+	private void ButtonNew( object sender, RoutedEventArgs e )
+	{
+
+	}
+	#endregion
+
+	private void ButtonDelete( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void ButtonSave( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void supplierToolbarButtonNew( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void SupplierToolbarButtonDelete( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void SupplierToolbarButtonSave( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void Supplier_SelectionChanged( object sender, SelectionChangedEventArgs e )
+	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+			if ( selectedSupplier != null )
+			{
+				var selectedSupplierId = selectedSupplier.ProductSupplierSupplierId;
+
+				SupplierComboBox.SelectedValue = selectedSupplierId;
+			}
+			else { SupplierComboBox.SelectedValue = null; }
+		}
+	}
+
+	#region Open Product webpage
+	private void ButtonWeb( object sender, RoutedEventArgs e )
+	{
+		if ( SupplierProductUrl.Text != "" )
+		{
+			ProcessStartInfo? browserwindow = new()
+			{
+				UseShellExecute = true,
+				FileName = SupplierProductUrl.Text
+			};
+			Process.Start( browserwindow );
+		}
+	}
+	#endregion
+
+	private void ProductSupplierChanged( object sender, SelectionChangedEventArgs e )
+	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+		}
+	}
 }

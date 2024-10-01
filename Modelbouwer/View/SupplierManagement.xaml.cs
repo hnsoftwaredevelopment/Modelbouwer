@@ -463,7 +463,6 @@ public partial class SupplierManagement : Page
 			var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 			if ( selectedSupplier != null )
 			{
-				//UpdateRichTextBox( selectedSupplier.SupplierMemo );
 				SetRtfContent( selectedSupplier.SupplierMemo );
 			}
 		}

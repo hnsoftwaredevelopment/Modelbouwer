@@ -48,7 +48,6 @@
 		</StackPanel>
 		<!--#endregion-->
 
-
 		<!--#region Page Content-->
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
@@ -65,49 +64,79 @@
 				</Grid.RowDefinitions>
 
 				<!--#region DataGrid-->
-				<syncfusion:SfDataGrid
-					x:Name="dataGrid"
-					Grid.Row="1"
-					Margin="10,5"
-					AllowDeleting="False"
-					AllowEditing="False"
-					AllowFiltering="True"
-					AllowGrouping="True"
-					AllowResizingColumns="True"
-					AutoGenerateColumns="False"
-					ColumnSizer="Star"
-					FilterRowPosition="Top"
-					ItemsSource="{Binding ProductViewModel.Product, Mode=TwoWay}"
-					SelectedItem="{Binding ProductViewModel.SelectedProduct, Mode=TwoWay}"
-					SelectionChanged="ChangedProduct"
-					SortClickAction="DoubleClick"
-					>
-					<syncfusion:SfDataGrid.Columns>
-						<syncfusion:GridTextColumn
-							HeaderText="{StaticResource Edit.Product.DataGrid.Header.Id}"
-							HorizontalHeaderContentAlignment="Left"
-							IsHidden="True"
-							MappingName="ProductId"
-							/>
-						<syncfusion:GridTextColumn
-							Width="150"
-							AllowFiltering="True"
-							AllowSorting="True"
-							HeaderText="{StaticResource Edit.Product.DataGrid.Header.Code}"
-							HorizontalHeaderContentAlignment="Left"
-							MappingName="ProductCode"
-							/>
-						<syncfusion:GridTextColumn
-							AllowFiltering="True"
-							AllowSorting="True"
-							HeaderText="{StaticResource Edit.Product.DataGrid.Header.Name}"
-							HorizontalHeaderContentAlignment="Left"
-							MappingName="ProductName"
-							/>
-					</syncfusion:SfDataGrid.Columns>
-				</syncfusion:SfDataGrid>
-				<!--#endregion-->
+				<Grid Grid.Row="1">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="38" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
 
+					<!--#region Products ActionBar-->
+					<ToolBarTray
+						Grid.Row="0"
+						Margin="10,7,0,0"
+						Style="{DynamicResource DefaultToolBarTray}"
+						>
+						<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
+							<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Product.Action.Tooltip.Add}">
+								<Image Style="{DynamicResource ToolBarAddIcon}" />
+							</Button>
+							<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Product.Action.Tooltip.Delete}">
+								<Image Style="{DynamicResource ToolBarDeleteIcon}" />
+							</Button>
+							<Button Click="ButtonSave" ToolTip="{StaticResource Edit.Product.Action.Tooltip.Save}">
+								<Image Style="{DynamicResource ToolBarSaveIcon}" />
+							</Button>
+						</ToolBar>
+					</ToolBarTray>
+
+					<!--#endregion-->
+
+					<!--#region Products DataGrid-->
+					<syncfusion:SfDataGrid
+						x:Name="dataGrid"
+						Grid.Row="1"
+						Margin="10,5"
+						d:ItemsSource="{d:SampleData}"
+						AllowDeleting="False"
+						AllowEditing="False"
+						AllowFiltering="True"
+						AllowGrouping="True"
+						AllowResizingColumns="True"
+						AutoGenerateColumns="False"
+						ColumnSizer="Star"
+						FilterRowPosition="Top"
+						ItemsSource="{Binding ProductViewModel.Product, Mode=TwoWay}"
+						SelectedItem="{Binding ProductViewModel.SelectedProduct, Mode=TwoWay}"
+						SelectionChanged="ChangedProduct"
+						SortClickAction="DoubleClick"
+						>
+						<syncfusion:SfDataGrid.Columns>
+							<syncfusion:GridTextColumn
+								HeaderText="{StaticResource Edit.Product.DataGrid.Header.Id}"
+								HorizontalHeaderContentAlignment="Left"
+								IsHidden="True"
+								MappingName="ProductId"
+								/>
+							<syncfusion:GridTextColumn
+								Width="150"
+								AllowFiltering="True"
+								AllowSorting="True"
+								HeaderText="{StaticResource Edit.Product.DataGrid.Header.Code}"
+								HorizontalHeaderContentAlignment="Left"
+								MappingName="ProductCode"
+								/>
+							<syncfusion:GridTextColumn
+								AllowFiltering="True"
+								AllowSorting="True"
+								HeaderText="{StaticResource Edit.Product.DataGrid.Header.Name}"
+								HorizontalHeaderContentAlignment="Left"
+								MappingName="ProductName"
+								/>
+						</syncfusion:SfDataGrid.Columns>
+					</syncfusion:SfDataGrid>
+					<!--#endregion-->
+				</Grid>
+				<!--#endregion-->
 			</Grid>
 			<!--#endregion-->
 
@@ -170,7 +199,8 @@
 										</Button>
 										<Button
 											VerticalAlignment="Bottom"
-											Click="ImageDelete" Style="{DynamicResource HideButtonOnNoImage}"
+											Click="ImageDelete"
+											Style="{DynamicResource HideButtonOnNoImage}"
 											ToolTip="{StaticResource ToolBar.Button.Image.Remove.Label}"
 											>
 											<Image
@@ -180,10 +210,11 @@
 												Style="{DynamicResource ToolBarDeleteIcon}"
 												/>
 										</Button>
-										<Separator Margin ="5,0,10,0" Style="{DynamicResource HideSeperatorOnNoImage}"/>
+										<Separator Margin="5,0,10,0" Style="{DynamicResource HideSeperatorOnNoImage}" />
 										<Button
 											VerticalAlignment="Top"
-											Click="ImageRotate" Style="{DynamicResource HideButtonOnNoImage}"
+											Click="ImageRotate"
+											Style="{DynamicResource HideButtonOnNoImage}"
 											ToolTip="{StaticResource ToolBar.Button.Image.Rotate.Label}"
 											>
 											<Image Style="{DynamicResource ToolBarRotateIcon}" />
@@ -221,7 +252,7 @@
 										<ColumnDefinition Width="200" />
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
-									
+
 									<!--#region ComboBox simulation for the Category-->
 									<Popup
 										x:Name="CategoryPopup"
@@ -237,7 +268,7 @@
 											>
 											<syncfusion:SfTreeView
 												x:Name="CategoryTreeView"
-												Grid.Row="5" Loaded="CategoryTreeViewLoaded"
+												Grid.Row="5"
 												Width="600"
 												Margin="10,0,0,0"
 												HorizontalAlignment="Left"
@@ -249,6 +280,7 @@
 												ItemsSource="{Binding CategoryViewModel.Category}"
 												LineStroke="DarkBlue"
 												LineStrokeThickness=".75"
+												Loaded="CategoryTreeViewLoaded"
 												SelectedItem="{Binding CategoryViewModel.SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 												ShowLines="True"
 												ShowRootLines="True"
@@ -294,7 +326,7 @@
 
 									<ComboBox
 										x:Name="ProductBrand"
-										Grid.Row="1" 
+										Grid.Row="1"
 										Grid.Column="1"
 										Width="250"
 										HorizontalAlignment="Left"
@@ -379,6 +411,47 @@
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
 
+									<!--#region ComboBox simulation for the Storage Location-->
+									<Popup
+										x:Name="StoragePopup"
+										AllowsTransparency="True"
+										IsOpen="{Binding IsStoragePopupOpen, Mode=TwoWay}"
+										Placement="Bottom"
+										StaysOpen="False"
+										>
+										<Border
+											Background="White"
+											BorderBrush="Gray"
+											BorderThickness="1"
+											>
+											<syncfusion:SfTreeView
+												x:Name="StorageTreeView"
+												Grid.Row="3"
+												Width="600"
+												Margin="10,0,0,0"
+												HorizontalAlignment="Left"
+												VerticalAlignment="Center"
+												BorderBrush="DarkBlue"
+												BorderThickness="2"
+												ChildPropertyName="SubStorage"
+												IsAnimationEnabled="false"
+												ItemsSource="{Binding StorageViewModel.Storage}"
+												LineStroke="DarkBlue"
+												LineStrokeThickness=".75"
+												Loaded="StorageTreeViewLoaded"
+												SelectedItem="{Binding StorageViewModel.SelectedStorage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+												ShowLines="True"
+												ShowRootLines="True"
+												>
+												<syncfusion:SfTreeView.ItemTemplate>
+													<HierarchicalDataTemplate ItemsSource="{Binding StorageViewModel.SubStorage}">
+														<TextBlock Text="{Binding StorageName}" />
+													</HierarchicalDataTemplate>
+												</syncfusion:SfTreeView.ItemTemplate>
+											</syncfusion:SfTreeView>
+										</Border>
+									</Popup>
+
 									<!--#region Input lines-->
 									<TextBlock
 										Grid.Row="0"
@@ -452,53 +525,15 @@
 
 
 									<Button
-										Grid.Row="3" Grid.Column="0"
+										Grid.Row="3"
+										Grid.Column="0"
 										Grid.ColumnSpan="4"
 										Width="600"
-										Click="StorageChange" ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Tooltip}"
+										Click="StorageChange"
 										Content="{Binding StorageViewModel.SelectedStorage.StorageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 										Style="{StaticResource ComboBoxButtonStyle}"
+										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Tooltip}"
 										/>
-
-									<!--#region ComboBox simulation for the Storage Location-->
-									<Popup
-										x:Name="StoragePopup"
-										AllowsTransparency="True"
-										IsOpen="{Binding IsStoragePopupOpen, Mode=TwoWay}"
-										Placement="Bottom"
-										StaysOpen="False"
-										>
-										<Border
-											Background="White"
-											BorderBrush="Gray"
-											BorderThickness="1"
-											>
-											<syncfusion:SfTreeView
-												x:Name="StorageTreeView"
-												Grid.Row="3"  Loaded="StorageTreeViewLoaded"
-												Width="600"
-												Margin="10,0,0,0"
-												HorizontalAlignment="Left"
-												VerticalAlignment="Center"
-												BorderBrush="DarkBlue"
-												BorderThickness="2"
-												ChildPropertyName="SubStorage"
-												IsAnimationEnabled="false"
-												ItemsSource="{Binding StorageViewModel.Storage}"
-												LineStroke="DarkBlue"
-												LineStrokeThickness=".75"
-												SelectedItem="{Binding StorageViewModel.SelectedStorage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-												ShowLines="True"
-												ShowRootLines="True"
-												>
-												<syncfusion:SfTreeView.ItemTemplate>
-													<HierarchicalDataTemplate ItemsSource="{Binding StorageViewModel.SubStorage}">
-														<TextBlock Text="{Binding StorageName}" />
-													</HierarchicalDataTemplate>
-												</syncfusion:SfTreeView.ItemTemplate>
-											</syncfusion:SfTreeView>
-										</Border>
-									</Popup>
 									<!--#endregion-->
 
 
@@ -586,7 +621,101 @@
 					<!--#endregion-->
 
 					<!--#region Product memo-->
-					<TabItem Header="{StaticResource Edit.Product.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}" />
+					<TabItem Header="{StaticResource Edit.Product.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}">
+						<Grid Margin="5">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+
+							<!--#region Rtf Toolbar-->
+							<StackPanel Grid.Row="0" Orientation="Horizontal">
+								<ToolBarTray Style="{DynamicResource RtfToolBarTray}">
+									<ToolBar Style="{DynamicResource RtfToolBar}">
+										<Button Command="ApplicationCommands.Cut" ToolTip="{StaticResource rtfToolbar.Action.Cut}">
+											<Image Style="{DynamicResource RtfToolBarCutIcon}" />
+										</Button>
+										<Button Command="ApplicationCommands.Copy" ToolTip="{StaticResource rtfToolbar.Action.Copy}">
+											<Image Style="{DynamicResource RtfToolBarCopyIcon}" />
+										</Button>
+										<Button Command="ApplicationCommands.Paste" ToolTip="{StaticResource rtfToolbar.Action.Paste}">
+											<Image Style="{DynamicResource RtfToolBarPasteIcon}" />
+										</Button>
+										<Button Command="ApplicationCommands.Undo" ToolTip="{StaticResource rtfToolbar.Action.Undo}">
+											<Image Style="{DynamicResource RtfToolBarUndoIcon}" />
+										</Button>
+										<Button Command="ApplicationCommands.Redo" ToolTip="{StaticResource rtfToolbar.Action.Redo}">
+											<Image Style="{DynamicResource RtfToolBarRedoIcon}" />
+										</Button>
+
+										<Separator Margin="6,0" />
+
+										<Button
+											x:Name="ToolStripButtonBold"
+											Command="EditingCommands.ToggleBold"
+											ToolTip="{StaticResource rtfToolbar.Action.Bold}"
+											>
+											<Image Style="{DynamicResource RtfToolBarBoldIcon}" />
+										</Button>
+										<Button
+											x:Name="ToolStripButtonItalic"
+											Command="EditingCommands.ToggleItalic"
+											ToolTip="{StaticResource rtfToolbar.Action.Italic}"
+											>
+											<Image Style="{DynamicResource RtfToolBarItalicIcon}" />
+										</Button>
+										<Button
+											x:Name="ToolStripButtonUnderline"
+											Command="EditingCommands.ToggleUnderline"
+											ToolTip="{StaticResource rtfToolbar.Action.Underline}"
+											>
+											<Image Style="{DynamicResource RtfToolBarUnderlineIcon}" />
+										</Button>
+
+										<Separator Margin="6,0" />
+
+										<Button Command="EditingCommands.ToggleBullets" ToolTip="{StaticResource rtfToolbar.Action.ListBullet}">
+											<Image Style="{DynamicResource RtfToolBarBulletListIcon}" />
+										</Button>
+										<Button Command="EditingCommands.ToggleNumbering" ToolTip="{StaticResource rtfToolbar.Action.ListNumber}">
+											<Image Style="{DynamicResource RtfToolBarNumbersListIcon}" />
+										</Button>
+
+										<Separator Margin="6,0" />
+
+										<Button Command="EditingCommands.IncreaseIndentation" ToolTip="{StaticResource rtfToolbar.Action.Indent}">
+											<Image Style="{DynamicResource RtfToolBarIndentIcon}" />
+										</Button>
+										<Button Command="EditingCommands.DecreaseIndentation" ToolTip="{StaticResource rtfToolbar.Action.Outdent}">
+											<Image Style="{DynamicResource RtfToolBarIndentRemoveIcon}" />
+										</Button>
+									</ToolBar>
+								</ToolBarTray>
+							</StackPanel>
+							<!--#endregion-->
+
+							<!--#region Memo field-->
+							<RichTextBox
+								x:Name="ProductMemo"
+								Grid.Row="1"
+								Width="Auto"
+								MinHeight="200"
+								Margin="5"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Top"
+								HorizontalScrollBarVisibility="Auto"
+								VerticalScrollBarVisibility="Auto"
+								>
+								<FlowDocument Name="ProductMemoFD">
+									<Paragraph>
+										<Run Text="" />
+									</Paragraph>
+								</FlowDocument>
+							</RichTextBox>
+							<!--#endregion-->
+						</Grid>
+
+					</TabItem>
 
 					<!--#endregion-->
 
@@ -595,7 +724,338 @@
 						x:Name="SupplierTab"
 						Header="{StaticResource Edit.Product.Tab.Supplier.Label}"
 						Style="{DynamicResource Default TabItem}"
-						/>
+						>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="430" />
+							</Grid.ColumnDefinitions>
+
+							<!--#region Suppliers per product datagrid section-->
+							<!--#region Datagrid definition-->
+							<Grid Grid.Column="0" Margin="5,2,5,0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="38" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+
+								<!--#region Toolbar for datagrid-->
+								<StackPanel
+									Grid.Row="0"
+									Margin="5"
+									Orientation="Horizontal"
+									>
+									<ToolBarTray Style="{DynamicResource DefaultToolBarTray}">
+										<ToolBar x:Name="supplierToolbar" Style="{DynamicResource DefaultToolBar}">
+											<Button
+												x:Name="btnNewProductSupplier"
+												Click="supplierToolbarButtonNew"
+												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Action.Tooltip.Add}"
+												>
+												<Image IsEnabled="False" Style="{DynamicResource ToolBarAddIcon}" />
+											</Button>
+											<Button
+												x:Name="btnSaveProductSupplier"
+												Click="SupplierToolbarButtonSave"
+												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Action.Tooltip.Save}"
+												>
+												<Image IsEnabled="False" Style="{DynamicResource ToolBarSaveIcon}" />
+											</Button>
+											<Button
+												x:Name="btnDeleteProductSupplier"
+												Click="SupplierToolbarButtonDelete"
+												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Action.Tooltip.Delete}"
+												>
+												<Image IsEnabled="False" Style="{DynamicResource ToolBarDeleteIcon}" />
+											</Button>
+										</ToolBar>
+									</ToolBarTray>
+								</StackPanel>
+								<!--#endregion-->
+
+								<DataGrid
+									x:Name="ProductSupplier_DataGrid"
+									Grid.Row="1"
+									Margin="5,0"
+									Padding="3"
+									d:ItemsSource="{d:SampleData}"
+									AutoGenerateColumns="False"
+									IsReadOnly="True" SelectionChanged="Supplier_SelectionChanged"
+									IsSynchronizedWithCurrentItem="True"
+									ItemsSource="{Binding ProductSupplierViewModel.FilteredSuppliers}"
+									SelectedIndex="1"
+									SelectedItem="{Binding ProductSupplierViewModel.SelectedSupplier}"
+									VerticalScrollBarVisibility="Auto"
+									>
+									<DataGrid.Columns>
+										<!--#region Record Id (Hidden)-->
+										<DataGridTextColumn
+											Width="70"
+											Binding="{Binding ProductSupplierId}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.Id.Header}"
+											Visibility="Hidden"
+											/>
+										<!--#endregion-->
+
+										<!--#region Product Id (Hidden)-->
+										<DataGridTextColumn
+											Width="70"
+											Binding="{Binding ProductSupplierProductId}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.ProductId.Header}"
+											Visibility="Hidden"
+											/>
+										<!--#endregion-->
+
+										<!--#region Supplier Id (Hidden)-->
+										<DataGridTextColumn
+											Width="70"
+											Binding="{Binding ProductSupplierSupplierId}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.SupplierId.Header}"
+											Visibility="Hidden"
+											/>
+										<!--#endregion-->
+
+										<!--#region Currency Id (Hidden)-->
+										<DataGridTextColumn
+											Width="70"
+											Binding="{Binding ProductSupplierCurrencyId}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.CurrencyId.Header}"
+											Visibility="Hidden"
+											/>
+										<!--#endregion-->
+
+										<!--#region Default supplier-->
+										<DataGridTextColumn
+											Width="AUTO"
+											Binding="{Binding ProductSupplierDefaultSupplier}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.DefaultSupplier.Header}"
+											>
+											<DataGridTextColumn.ElementStyle>
+												<Style TargetType="TextBlock">
+													<Setter Property="HorizontalAlignment" Value="Center" />
+													<Setter Property="VerticalAlignment" Value="Center" />
+												</Style>
+											</DataGridTextColumn.ElementStyle>
+										</DataGridTextColumn>
+										<!--#endregion-->
+
+										<!--#region Product Supplier Name-->
+										<DataGridTextColumn
+											Width="*"
+											Binding="{Binding ProductSupplierSupplierName}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.Supplier.Header}"
+											/>
+										<!--#endregion-->
+
+										<!--#region Product Number-->
+										<DataGridTextColumn
+											Width="75"
+											Binding="{Binding ProductSupplierProductNumber}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.ProductNumber.Header}"
+											/>
+										<!--#endregion-->
+
+										<!--#region Price-->
+										<DataGridTextColumn
+											Width="80"
+											Binding="{Binding ProductSupplierPrice, StringFormat={}{0:N2}, ConverterCulture='nl-NL'}"
+											Header="{StaticResource Edit.Product.Tab.Supplier.Price.Header}"
+											>
+											<DataGridTextColumn.ElementStyle>
+												<Style TargetType="TextBlock">
+													<Setter Property="HorizontalAlignment" Value="Right" />
+												</Style>
+											</DataGridTextColumn.ElementStyle>
+										</DataGridTextColumn>
+									</DataGrid.Columns>
+									<!--#endregion-->
+								</DataGrid>
+							</Grid>
+							<!--#endregion-->
+
+							<!--#region Supplier information fields-->
+							<StackPanel Grid.Column="1" Margin="5">
+								<GroupBox>
+									<GroupBox.Header>
+										<StackPanel Orientation="Horizontal">
+											<Image Source="{StaticResource supplier}" Style="{DynamicResource ImageHeaderGroup}" />
+											<TextBlock Style="{DynamicResource Group.Hearder.TextBlock}" Text="{StaticResource Edit.Product.Tab.Supplier.Group.General.Title.Header}" />
+										</StackPanel>
+									</GroupBox.Header>
+
+									<Grid Margin="3,0">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="27" />
+											<RowDefinition Height="*" />
+											<RowDefinition Height="27" />
+											<RowDefinition Height="*" />
+											<RowDefinition Height="27" />
+											<RowDefinition Height="*" />
+											<RowDefinition Height="27" />
+											<RowDefinition Height="*" />
+											<RowDefinition Height="27" />
+											<RowDefinition Height="*" />
+											<RowDefinition Height="27" />
+											<RowDefinition Height="*" />
+										</Grid.RowDefinitions>
+
+										<!--#region Supplier-->
+										<TextBlock
+											Grid.Row="0"
+											Style="{DynamicResource Tab.Panel.Label}"
+											Text="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Label}"
+											/>
+
+										<syncfusion:ComboBoxAdv
+											Grid.Row="1" x:Name="SupplierComboBox"
+											Width="360"
+											HorizontalAlignment="Left"
+											DisplayMemberPath="SupplierName"
+											ItemsSource="{Binding SupplierViewModel.Supplier}"
+											SelectedValue="{Binding SupplierViewModel.SelectedSupplier.SupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+											SelectedValuePath="SupplierId" AutoCompleteMode="Suggest"
+											DefaultText="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tag}"
+											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip}"/>
+										<!--#endregion-->
+
+										<!--#region Supplier part number-->
+										<TextBlock
+											Grid.Row="2"
+											Style="{DynamicResource Tab.Panel.Label}"
+											Text="{StaticResource Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Label}"
+											/>
+										<TextBox
+											x:Name="SupplierProductNumber"
+											Grid.Row="3"
+											Width="360"
+											IsEnabled="True" Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierProductNumber}"
+											Style="{DynamicResource DefaultTextBox}"
+											Tag="{StaticResource Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tag}"
+											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tooltip}"
+											/>
+										<!--#endregion-->
+
+										<!--#region Description-->
+										<TextBlock
+											Grid.Row="4"
+											Style="{DynamicResource Tab.Panel.Label}"
+											Text="{StaticResource Edit.Product.Tab.Supplier.Group.General.Description.Label}"
+											/>
+
+										<TextBox
+											x:Name="SupplierProductName"
+											Grid.Row="5"
+											Width="360"
+											IsEnabled="True" Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierProductName}"
+											Style="{DynamicResource DefaultTextBox}"
+											Tag="{StaticResource Edit.Product.Tab.Supplier.Group.General.Description.Tag}"
+											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Description.Tooltip}"
+											/>
+										<!--#endregion-->
+
+										<!--#region Price-->
+										<TextBlock
+											Grid.Row="6"
+											Style="{DynamicResource Tab.Panel.Label}"
+											Text="{StaticResource Edit.Product.Tab.Supplier.Group.General.Price.Label}"
+											/>
+
+										<StackPanel Grid.Row="7" Orientation="Horizontal">
+
+											<!--  Currency Symbol  -->
+											<TextBox
+												x:Name="ProductSupplierCurrencySymbol"
+												Width="25"
+												HorizontalAlignment="Left"
+												HorizontalContentAlignment="Left"
+												VerticalContentAlignment="Center"
+												Background="#FFE5E5E5"
+												BorderBrush="{x:Null}"
+												IsReadOnly="True" Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencySymbol}"
+												IsTabStop="False"
+												Style="{DynamicResource DefaultTextBox}"
+												TextWrapping="Wrap"
+												/>
+
+											<!--  Price  -->
+											<TextBox
+												x:Name="SupplierProductPrice"
+												Width="70"
+												HorizontalContentAlignment="Right"
+												VerticalContentAlignment="Center"
+												IsEnabled="True"
+												Style="{DynamicResource DefaultTextBox}" Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierPrice, StringFormat={}{0:N2}, ConverterCulture='nl-NL', UpdateSourceTrigger=PropertyChanged}"
+												Tag="{StaticResource Edit.Product.Tab.Supplier.Group.General.Price.Tag}"
+												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Price.Tooltip}"
+												/>
+										</StackPanel>
+										<!--#endregion-->
+
+										<!--#region Website-->
+										<TextBlock
+											Grid.Row="8"
+											Style="{DynamicResource Tab.Panel.Label}"
+											Text="{StaticResource Edit.Product.Tab.Supplier.Group.General.Url.Label}"
+											/>
+
+										<StackPanel
+											Grid.Row="9"
+											Grid.ColumnSpan="2"
+											VerticalAlignment="Center"
+											Orientation="Horizontal"
+											>
+											<!--  URL  -->
+											<TextBox
+												x:Name="SupplierProductUrl"
+												Grid.Row="9"
+												Width="360"
+												IsEnabled="True"
+												Style="{DynamicResource DefaultTextBox}" Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierURL}"
+												Tag="{StaticResource Edit.Product.Tab.Supplier.Group.General.Url.Tag}"
+												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Url.Tooltip}"
+												/>
+
+											<!--  Spacer  -->
+											<TextBlock Width="4" />
+
+											<!--  Browse button  -->
+											<Button
+												x:Name="GotoWeb"
+												Width="AUTO"
+												HorizontalContentAlignment="Center"
+												Click="ButtonWeb"
+												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.UrlButton.Tooltip}"
+												>
+												<Image
+													Width="21"
+													HorizontalAlignment="Center"
+													IsEnabled="False"
+													Style="{DynamicResource GotoWebIcon}"
+													/>
+											</Button>
+										</StackPanel>
+										<!--#endregion-->
+
+										<!--#region Default supplier-->
+										<TextBlock
+											Grid.Row="10"
+											Style="{DynamicResource Tab.Panel.Label}"
+											Text="{StaticResource Edit.Product.Tab.Supplier.Group.General.DefaultSupplier.Label}"
+											/>
+
+										<CheckBox
+											x:Name="SupplierDefault"
+											Grid.Row="11" IsChecked="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierDefaultSupplierCheck}"
+											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.DefaultSupplier.Tooltip}"
+											/>
+										<!--#endregion-->
+									</Grid>
+								</GroupBox>
+							</StackPanel>
+							<!--#endregion-->
+							<!--#endregion-->
+						</Grid>
+					</TabItem>
 
 					<!--#endregion-->
 
@@ -619,7 +1079,6 @@
 					<TextBox x:Name="ProductUnitId" Text="{Binding ProductViewModel.SelectedProduct.ProductUnitId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 				</StackPanel>
 				<!--#endregion-->
-
 			</Grid>
 			<!--#endregion-->
 		</Grid>
@@ -645,6 +1104,5 @@
 			</Grid>
 		</DockPanel>
 		<!--#endregion-->
-
 	</Grid>
 </Page>

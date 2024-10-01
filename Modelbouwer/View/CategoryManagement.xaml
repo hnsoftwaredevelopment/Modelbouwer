@@ -13,122 +13,133 @@
 	d:DataContext="{d:DesignInstance Type=viewmodels:CategoryViewModel}"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
-	mc:Ignorable="d">
+	mc:Ignorable="d"
+	>
 
-    <Page.DataContext>
-        <viewmodels:CategoryViewModel />
-    </Page.DataContext>
+	<Page.DataContext>
+		<viewmodels:CategoryViewModel />
+	</Page.DataContext>
 
-    <Page.Resources>
-        <converter:StringEmptyToVisibilityConverter x:Key="StringEmptyToVisibilityConverter" />
-    </Page.Resources>
+	<Page.Resources>
+		<converter:StringEmptyToVisibilityConverter x:Key="StringEmptyToVisibilityConverter" />
+	</Page.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="95" />
-            <RowDefinition Height="32" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
-        </Grid.RowDefinitions>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="95" />
+			<RowDefinition Height="32" />
+			<RowDefinition Height="20" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="30" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="20" />
+		</Grid.RowDefinitions>
 
-        <!--#region Title of the page-->
-        <StackPanel
+		<!--#region Title of the page-->
+		<StackPanel
 			Grid.Row="0"
 			Margin="10,0,10,0"
-			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
-            <TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Category.Title}" />
-            <Canvas>
-                <Path Style="{DynamicResource DefaultTitleLine}" />
-            </Canvas>
-            <TextBlock Style="{DynamicResource DefaultSubTitle}" Text="{StaticResource Edit.Category.Subtitle}" />
-        </StackPanel>
-        <!--#endregion-->
+			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+			>
+			<TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Category.Title}" />
+			<Canvas>
+				<Path Style="{DynamicResource DefaultTitleLine}" />
+			</Canvas>
+			<TextBlock Style="{DynamicResource DefaultSubTitle}" Text="{StaticResource Edit.Category.Subtitle}" />
+		</StackPanel>
+		<!--#endregion-->
 
-
-        <!--#region Hidden fields-->
-        <StackPanel
-			Grid.Row="2"
-			Orientation="Horizontal"
-			Visibility="Collapsed">
-            <TextBox x:Name="inpCategoryId" Text="{Binding SelectedCategory.CategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox x:Name="inpCategoryParentId" Text="{Binding SelectedCategory.CategoryParentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
-        <!--#endregion-->
-
-        <Grid
+		<Grid
 			Grid.Row="1"
 			Margin="10,0,0,0"
 			HorizontalAlignment="Left"
-			VerticalAlignment="Center">
+			VerticalAlignment="Center"
+			>
 
-            <!--#region Colomn defenition-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="150" />
-            </Grid.ColumnDefinitions>
-            <!--#endregion-->
-            <!--#region Name-->
-            <Label Content="{StaticResource Edit.Category.Name.Label}" Style="{DynamicResource DefaultLabel}" />
+			<!--#region Colomn defenition-->
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="120" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="150" />
+			</Grid.ColumnDefinitions>
+			<!--#endregion-->
+			<!--#region Name-->
+			<Label Content="{StaticResource Edit.Category.Name.Label}" Style="{DynamicResource DefaultLabel}" />
 
-            <TextBox
+			<TextBox
 				x:Name="inpCategoryName"
 				Grid.Column="1"
 				Width="450"
 				Style="{DynamicResource DefaultTextBox}"
-				Text="{Binding SelectedCategory.CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <!--#endregion-->
-        </Grid>
+				Text="{Binding SelectedCategory.CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				/>
+			<!--#endregion-->
+		</Grid>
+		<!--#endregion-->
 
-        <!--#region Action toolbar-->
-        <ToolBarTray
+
+		<!--#region Hidden fields-->
+		<StackPanel
+			Grid.Row="2"
+			Orientation="Horizontal"
+			Visibility="Collapsed"
+			>
+			<TextBox x:Name="inpCategoryId" Text="{Binding SelectedCategory.CategoryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<TextBox x:Name="inpCategoryParentId" Text="{Binding SelectedCategory.CategoryParentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		</StackPanel>
+
+		<!--#region Action toolbar-->
+		<ToolBarTray
 			Grid.Row="3"
 			Margin="10,2,0,2"
-			Style="{DynamicResource DefaultToolBarTray}">
-            <ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
-                <Button Click="ExpandAll" ToolTip="{StaticResource Edit.Category.Action.Tooltip.Expand}">
-                    <Image Source="{DynamicResource expand}" />
-                </Button>
-                <Button Click="CollapseAll" ToolTip="{StaticResource Edit.Category.Action.Tooltip.Collapse}">
-                    <Image Source="{DynamicResource collapse}" />
-                </Button>
-                <Separator Margin="15,0,15,0" />
-                <Button Click="ButtonNewCategory" ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddTask}">
-                    <Image
+			Style="{DynamicResource DefaultToolBarTray}"
+			>
+			<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
+				<Button Click="ExpandAll" ToolTip="{StaticResource Edit.Category.Action.Tooltip.Expand}">
+					<Image Source="{DynamicResource expand}" />
+				</Button>
+				<Button Click="CollapseAll" ToolTip="{StaticResource Edit.Category.Action.Tooltip.Collapse}">
+					<Image Source="{DynamicResource collapse}" />
+				</Button>
+				<Separator Margin="15,0,15,0" />
+				<Button Click="ButtonNewCategory" ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddTask}">
+					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource addtask}" />
-                </Button>
-                <Button Click="ButtonNewSubCategory" ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddSubTask}">
-                    <Image
+						Source="{StaticResource addtask}"
+						/>
+				</Button>
+				<Button Click="ButtonNewSubCategory" ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddSubTask}">
+					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource addsubtask}" />
-                </Button>
-                <Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Category.Action.Tooltip.Delete}">
-                    <Image
+						Source="{StaticResource addsubtask}"
+						/>
+				</Button>
+				<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Category.Action.Tooltip.Delete}">
+					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource deletetask}" />
-                </Button>
-                <Button
+						Source="{StaticResource deletetask}"
+						/>
+				</Button>
+				<Button
 					Click="ButtonSave"
 					ToolTip="{StaticResource Edit.Category.Action.Tooltip.Save}"
-					Visibility="{Binding Text, ElementName=inpCategoryName, Converter={StaticResource StringEmptyToVisibilityConverter}}">
-                    <Image
+					Visibility="{Binding Text, ElementName=inpCategoryName, Converter={StaticResource StringEmptyToVisibilityConverter}}"
+					>
+					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource save}" />
-                </Button>
-            </ToolBar>
-        </ToolBarTray>
-        <!--#endregion-->
+						Source="{StaticResource save}"
+						/>
+				</Button>
+			</ToolBar>
+		</ToolBarTray>
+		<!--#endregion-->
 
-        <!--#region Treeview-->
-        <syncfusion:SfTreeView
+		<!--#region Treeview-->
+		<syncfusion:SfTreeView
 			x:Name="CategoryTreeView"
 			Grid.Row="5"
 			Width="450"
@@ -144,112 +155,127 @@
 			LineStrokeThickness=".75"
 			SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
 			ShowLines="True"
-			ShowRootLines="True">
+			ShowRootLines="True"
+			>
 
-            <!--#region Context menu-->
-            <syncfusion:SfTreeView.ItemContextMenu>
-                <ContextMenu>
-                    <MenuItem
+			<!--#region Context menu-->
+			<syncfusion:SfTreeView.ItemContextMenu>
+				<ContextMenu>
+					<MenuItem
 						Click="ExpandAll"
 						Header="{StaticResource Edit.Category.Action.ContextMenu.Label.Expand}"
-						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Expand}">
-                        <MenuItem.Icon>
-                            <Image
+						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Expand}"
+						>
+						<MenuItem.Icon>
+							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource expand}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
+								Source="{StaticResource expand}"
+								/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem
 						Click="CollapseAll"
 						Header="{StaticResource Edit.Category.Action.ContextMenu.Label.Collapse}"
-						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Collapse}">
-                        <MenuItem.Icon>
-                            <Image
+						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Collapse}"
+						>
+						<MenuItem.Icon>
+							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource collapse}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
+								Source="{StaticResource collapse}"
+								/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<Separator />
+					<MenuItem
 						Click="AddTask"
 						DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
 						Header="{StaticResource Edit.Category.Action.ContextMenu.Label.AddTask}"
-						ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddTask}">
-                        <MenuItem.Icon>
-                            <Image
+						ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddTask}"
+						>
+						<MenuItem.Icon>
+							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource addtask}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
+								Source="{StaticResource addtask}"
+								/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem
 						Click="AddSubTask"
 						DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
 						Header="{StaticResource Edit.Category.Action.ContextMenu.Label.AddSubTask}"
-						ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddSubTask}">
-                        <MenuItem.Icon>
-                            <Image
+						ToolTip="{StaticResource Edit.Category.Action.Tooltip.AddSubTask}"
+						>
+						<MenuItem.Icon>
+							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource addsubtask}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem
+								Source="{StaticResource addsubtask}"
+								/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem
 						Click="ButtonDelete"
 						Header="{StaticResource Edit.Category.Action.ContextMenu.Label.DeleteTask}"
-						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Delete}">
-                        <MenuItem.Icon>
-                            <Image
+						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Delete}"
+						>
+						<MenuItem.Icon>
+							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource deletetask}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator />
-                    <MenuItem
+								Source="{StaticResource deletetask}"
+								/>
+						</MenuItem.Icon>
+					</MenuItem>
+					<Separator />
+					<MenuItem
 						Click="ButtonSave"
 						Header="{StaticResource Edit.Category.Action.ContextMenu.Label.Save}"
-						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Save}">
-                        <MenuItem.Icon>
-                            <Image
+						ToolTip="{StaticResource Edit.Category.Action.Tooltip.Save}"
+						>
+						<MenuItem.Icon>
+							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource save}" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </ContextMenu>
-            </syncfusion:SfTreeView.ItemContextMenu>
-            <!--#endregion-->
+								Source="{StaticResource save}"
+								/>
+						</MenuItem.Icon>
+					</MenuItem>
+				</ContextMenu>
+			</syncfusion:SfTreeView.ItemContextMenu>
+			<!--#endregion-->
 
-            <!--#region Definition of the items to display-->
-            <syncfusion:SfTreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding SubCategories}">
-                    <TextBlock Text="{Binding Name}"/>
-                </HierarchicalDataTemplate>
-            </syncfusion:SfTreeView.ItemTemplate>
-            <!--#endregion-->
-        </syncfusion:SfTreeView>
-        <!--#endregion-->
+			<!--#region Definition of the items to display-->
+			<syncfusion:SfTreeView.ItemTemplate>
+				<HierarchicalDataTemplate ItemsSource="{Binding SubCategories}">
+					<TextBlock Text="{Binding Name}" />
+				</HierarchicalDataTemplate>
+			</syncfusion:SfTreeView.ItemTemplate>
+			<!--#endregion-->
+		</syncfusion:SfTreeView>
+		<!--#endregion-->
 
-        <!--#region Category export Status bar-->
-        <DockPanel
+		<!--#region Category export Status bar-->
+		<DockPanel
 			Grid.Row="6"
 			Height="30"
 			Margin="10,0,10,0"
 			VerticalAlignment="Center"
-			Background="LightGray">
-            <Grid>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
-                    <TextBlock
+			Background="LightGray"
+			>
+			<Grid>
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
+					<TextBlock
 						x:Name="dispStatusLine"
 						Style="{DynamicResource Status.Description}"
-						Text="{DynamicResource Import.Statusline.Description}" />
-                </StackPanel>
-            </Grid>
-        </DockPanel>
-        <!--#endregion-->
-    </Grid>
+						Text="{DynamicResource Import.Statusline.Description}"
+						/>
+				</StackPanel>
+			</Grid>
+		</DockPanel>
+		<!--#endregion-->
+	</Grid>
 </Page>

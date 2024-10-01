@@ -11,6 +11,10 @@ public class ProductSupplierModel
 	public double ProductSupplierPrice { get; set; }
 	public string? ProductSupplierURL { get; set; }
 	public string? ProductSupplierDefaultSupplier { get; set; }
+	public bool? ProductSupplierDefaultSupplierCheck { get; set; }
+	public string? ProductSupplierSupplierName { get; set; }
+	public string? ProductSupplierCurrencySymbol { get; set; }
+
 
 	// Define the property that you want to use in TLists (for example in the errorList
 	public string Name => ProductSupplierProductName;

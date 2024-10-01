@@ -26,6 +26,7 @@ public partial class SupplierContactViewModel : ObservableObject
 	public ObservableCollection<SupplierContactModel> FilteredContacts { get; private set; } = new ObservableCollection<SupplierContactModel>();
 
 	private SupplierModel? _selectedSupplier;
+
 	[ObservableProperty]
 	private SupplierContactModel? _selectedContact;
 

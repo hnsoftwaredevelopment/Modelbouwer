@@ -588,7 +588,41 @@
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.ProjectCosts.Tooltip">Moet dit produkt worden meegerekend bij de project kosten</system:String>
 
 	<system:String x:Key="Edit.Product.Tab.Memo.Label">Aanvullende informatie</system:String>
+
 	<system:String x:Key="Edit.Product.Tab.Supplier.Label">Leveranciers</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Action.Tooltip.Add">Produkt leverancier toevoegen aan de tabel</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Action.Tooltip.Delete">Geselecteerde leverancier verwijderen uit de tabel (voor het geselecteerde product)</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Action.Tooltip.Save">Gewijzigde produkt leverancier opslaan</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Id.Header">Id</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.ProductId.Header">ProductId</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.SupplierId.Header">LeverancierId</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.CurrencyId.Header">ValutaId</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.DefaultSupplier.Header">Std</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Supplier.Header">Leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.ProductNumber.Header">Artikelnummer</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Price.Header">Prijs</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Title.Header">Product informatie per leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Label">Leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Tag">Leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip">Selecteer de leverancier die dit product levert</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Label">Artikelnummer leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tag">Artikelnummer leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tooltip">Selecteer de leverancier die dit product levert</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Description.Label">Omschrijving</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Description.Tag">Omschrijving</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Description.Tooltip">Product omschrijving van de leverancier (Laat leeg voor standaard omschrijving)</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Price.Label">Prijs</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Price.Tag">0,00</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Price.Tooltip">Wat kost dit product bij deze leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Url.Label">Product website</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Url.Tag">Website</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Url.Tooltip">Link naar de website van dit product bij deze leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.UrlButton.Tooltip">Open de website van dit product bij deze leverancier in de browser</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.DefaultSupplier.Label">Standaard leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.DefaultSupplier.Tag">Strandaard</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.DefaultSupplier.Tooltip">Moet dit product standaard bij deze leverancier worden besteld</system:String>
+
+
 	<system:String x:Key="Edit.Product.Tab.Inventory.Label">Voorraad</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
