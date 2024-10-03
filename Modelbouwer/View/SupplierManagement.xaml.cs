@@ -313,8 +313,6 @@ public partial class SupplierManagement : Page
 		if ( SupplierContactName.Text != "" )
 		{
 			var viewModel = DataContext as CombinedSupplierViewModel;
-			//SupplierContactViewModel viewModel = (SupplierContactViewModel)DataContext;
-
 			if ( viewModel != null )
 			{
 				var supplierContactViewModel = viewModel.SupplierContactViewModel;
@@ -324,19 +322,19 @@ public partial class SupplierManagement : Page
 					// Controleer of het item nieuw is of moet worden bijgewerkt
 					if ( SupplierContactId.Text == "0" || SupplierContactId.Text == "" )
 					{
-						// Nieuw item, dus voeg toe aan de database
+						// New item, so add to the table
 						string[,] _whereFields = new string[2, 3]
 						{
 							{ DBNames.SupplierFieldNameId, DBNames.SupplierFieldTypeId, SupplierId.Text.ToLower() },
 							{ DBNames.SupplierContactFieldNameName, DBNames.SupplierContactFieldTypeName, SupplierContactName.Text.ToLower() }
 						};
 
-						// Controleer of de waarde al beschikbaar is in de tabel
+						// Check if item already excists
 						int _checkPresence = DBCommands.CheckForRecords(DBNames.SupplierContactTable, _whereFields);
 
 						if ( _checkPresence == 0 )
 						{
-							// Voeg item toe aan de tabel
+							// Add item to the table
 
 							string[,] _addFields = new string[5, 3]
 							{
@@ -348,9 +346,7 @@ public partial class SupplierManagement : Page
 							};
 							_ = DBCommands.InsertInTable( DBNames.SupplierContactTable, _addFields );
 
-							// Werk de SupplierContact-collectie bij om de nieuwe data weer te geven
-							//viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList );
-							//viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
+							// Reefresh the SupplierContact-collection
 							viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
 							var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 
@@ -364,13 +360,12 @@ public partial class SupplierManagement : Page
 					}
 					else
 					{
-						// Bestaand item dat is gewijzigd
+						// An excisting item has been changed, save changes
 						string[,] _whereFields = new string [ 1, 3 ]
 							{
 								{ DBNames.SupplierContactFieldNameId, DBNames.SupplierContactFieldTypeId, SupplierContactId.Text }
 							};
 
-						// Werk het item in de tabel bij
 						string[,] _updateFields = new string[4, 3]
 							{
 								{ DBNames.SupplierContactFieldNameName, DBNames.SupplierContactFieldTypeName, SupplierContactName.Text },

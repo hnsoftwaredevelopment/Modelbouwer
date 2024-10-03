@@ -18,6 +18,7 @@ public partial class ProductManagement : Page
 		InitializeComponent();
 	}
 
+	#region Add/Replace product image
 	private void ImageAdd( object sender, RoutedEventArgs e )
 	{
 		OpenFileDialog ImageDialog = new();
@@ -28,7 +29,9 @@ public partial class ProductManagement : Page
 			ProductImage.Source = new BitmapImage( new Uri( ImageDialog.FileName ) );
 		}
 	}
+	#endregion
 
+	#region Delete Product Image
 	private void ImageDelete( object sender, RoutedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
@@ -44,7 +47,9 @@ public partial class ProductManagement : Page
 			}
 		}
 	}
+	#endregion
 
+	#region Rotate product image 90degrees
 	private void ImageRotate( object sender, RoutedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
@@ -65,17 +70,23 @@ public partial class ProductManagement : Page
 			}
 		}
 	}
+	#endregion
 
+	#region Open Category treeview popup when Category button is clicked
 	private void CategoryChange( object sender, RoutedEventArgs e )
 	{
 		CategoryPopup.IsOpen = !CategoryPopup.IsOpen;
 	}
+	#endregion
 
+	#region Open Storage treeview popup when Storage button is clicked
 	private void StorageChange( object sender, RoutedEventArgs e )
 	{
 		StoragePopup.IsOpen = !StoragePopup.IsOpen;
 	}
+	#endregion
 
+	#region Load the memo field
 	private void SetRtfContent( string rtfContent )
 	{
 		using ( var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) ) )
@@ -84,7 +95,9 @@ public partial class ProductManagement : Page
 			textRange.Load( stream, System.Windows.DataFormats.Rtf );
 		}
 	}
+	#endregion
 
+	#region Selected product changed
 	private void ChangedProduct( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
@@ -131,9 +144,30 @@ public partial class ProductManagement : Page
 				}
 			}
 			#endregion
+
+			#region Select the Correct (first) Supplier
+			if ( dataGrid.SelectedItem is ProductModel SelectedProduct )
+			{
+				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( SelectedProduct.ProductId );
+			}
+			#endregion
 		}
 	}
+	#endregion
 
+	#region Product DataGrid Loaded
+	private void ProductDataGridLoaded( object sender, RoutedEventArgs e )
+	{
+		var dataSource = dataGrid.ItemsSource as ObservableCollection<ProductModel>;
+		if ( dataGrid.SelectedIndex == 0 && dataSource.Count > 0 )
+		{
+			// Forceer de selectie om de SelectionChanged logica aan te roepen
+			ChangedProduct( dataGrid, null );
+		}
+	}
+	#endregion
+
+	#region Load Category treeview in popup
 	private void CategoryTreeViewLoaded( object sender, RoutedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
@@ -145,6 +179,9 @@ public partial class ProductManagement : Page
 			}
 		}
 	}
+	#endregion
+
+	#region Load Storage treeview in popup
 	private void StorageTreeViewLoaded( object sender, RoutedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
@@ -156,8 +193,9 @@ public partial class ProductManagement : Page
 			}
 		}
 	}
+	#endregion
 
-	#region Open Alternative Popub
+	#region Open Alternative Popup
 	private void CategoryPopupOpened( object sender, EventArgs e )
 	{
 
@@ -298,22 +336,146 @@ public partial class ProductManagement : Page
 
 	}
 
+	#region Add new supplier for this product
 	private void supplierToolbarButtonNew( object sender, RoutedEventArgs e )
 	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			SupplierComboBox.SelectedIndex = 0;
+			SupplierProductNumber.Text = "";
+			SupplierProductName.Text = "";
+			SupplierProductPrice.Text = "0,00";
+			SupplierProductUrl.Text = "";
+			SupplierDefault.IsChecked = false;
 
+			var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
+
+			// Add a new contact
+			viewModel.ProductSupplierViewModel.AddNewItem( selectedProductId.ToString() );
+
+			// Ensure FilteredSupplierss is updated
+			viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( selectedProductId );
+
+
+			// Select the newly added contact if it exists
+			if ( viewModel.ProductSupplierViewModel.FilteredSuppliers.Any() )
+			{
+				viewModel.ProductSupplierViewModel.SelectedSupplier = viewModel.ProductSupplierViewModel.FilteredSuppliers.Last();
+			}
+
+			// Refresh the DataGrid to show the new supplier
+			ProductSupplierDataGrid.Items.Refresh();
+		}
 	}
+	#endregion
 
+	#region Delete the selected Supplier from the ProductSuppiler table
 	private void SupplierToolbarButtonDelete( object sender, RoutedEventArgs e )
 	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
 
+			//Check if there is a supplier selected
+			if ( selectedSupplier != null )
+			{
+				var selectedSupplierId = selectedSupplier.ProductSupplierSupplierId;
+				var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
+
+				string [ , ] _whereFields = new string [ 2, 3 ]
+				{
+					{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId.ToString() },
+					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId.ToString() }
+				};
+
+				string _result = DBCommands.DeleteRecord( DBNames.ProductSupplierTable, _whereFields );
+				viewModel.ProductSupplierViewModel.ProductSupplier.Remove( selectedSupplier );
+
+				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( selectedProductId );
+
+				dispStatusLine.Text = $"{_result}";
+			};
+		}
 	}
+	#endregion
 
 	private void SupplierToolbarButtonSave( object sender, RoutedEventArgs e )
 	{
+		var viewModel = DataContext as CombinedProductViewModel;
+		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
 
+		var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
+		var selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
+		var selectedSupplierId = SupplierComboBox.SelectedValue.ToString();
+
+		if ( selectedId == "0" || selectedId == "" )
+		{
+			// New item, so add to the table
+			// First check if item already excists
+			string[,] _whereFields = new string[2, 3]
+			{
+				{ DBNames.ProductSupplierFieldNameId, DBNames.ProductSupplierFieldTypeId, selectedSupplierId },
+				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId }
+			};
+
+			int _checkPresence = DBCommands.CheckForRecords(DBNames.ProductSupplierTable, _whereFields);
+
+			if ( _checkPresence == 0 )
+			{
+				string[,] _addFields = new string[7, 3]
+				{
+					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId },
+					{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId,selectedProductId },
+					{ DBNames.ProductSupplierFieldNameProductNumber, DBNames.ProductSupplierFieldTypeProductNumber, SupplierProductNumber.Text },
+					{ DBNames.ProductSupplierFieldNameProductName, DBNames.ProductSupplierFieldTypeProductName, SupplierProductName.Text },
+					{ DBNames.ProductSupplierFieldNamePrice, DBNames.ProductSupplierFieldTypePrice, SupplierProductPrice.Text },
+					{ DBNames.ProductSupplierFieldNameProductUrl, DBNames.ProductSupplierFieldTypeProductUrl, SupplierProductUrl.Text },
+					{ DBNames.ProductSupplierFieldNameDefaultSupplier, DBNames.ProductSupplierFieldTypeDefaultSupplier, SupplierDefault.IsChecked == true ? "1" : "0" }
+				};
+				_ = DBCommands.InsertInTable( DBNames.ProductSupplierTable, _addFields );
+
+				// Reefresh the ProductSupplier-collection
+
+				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
+				var SelectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+
+
+				dispStatusLine.Text = $"{SupplierProductNumber.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Added" )}";
+			}
+			else
+			{
+				dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.AlreadyExcists" )}";
+			}
+		}
+		else
+		{
+			// An excisting item has been changed, save changes
+			string[,] _whereFields = new string [ 1, 3 ]
+			{
+				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId }
+			};
+
+			string[,] _updateFields = new string[6, 3]
+			{
+					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId },
+					{ DBNames.ProductSupplierFieldNameProductNumber, DBNames.ProductSupplierFieldTypeProductNumber, SupplierProductNumber.Text },
+					{ DBNames.ProductSupplierFieldNameProductName, DBNames.ProductSupplierFieldTypeProductName, SupplierProductName.Text },
+					{ DBNames.ProductSupplierFieldNamePrice, DBNames.ProductSupplierFieldTypePrice, SupplierProductPrice.Text },
+					{ DBNames.ProductSupplierFieldNameProductUrl, DBNames.ProductSupplierFieldTypeProductUrl, SupplierProductUrl.Text },
+					{ DBNames.ProductSupplierFieldNameDefaultSupplier, DBNames.ProductSupplierFieldTypeDefaultSupplier, SupplierDefault.IsChecked == true ? "1" : "0" }
+			};
+
+			_ = DBCommands.UpdateInTable( DBNames.SupplierContactTable, _updateFields, _whereFields );
+
+			viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
+			var SelectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+
+			dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.DataOf" )} {SupplierProductNumber.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Changed" )}";
+		}
 	}
 
-	private void Supplier_SelectionChanged( object sender, SelectionChangedEventArgs e )
+	#region Selected supplier changed
+	private void SupplierChanged( object sender, SelectionChangedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
@@ -327,6 +489,7 @@ public partial class ProductManagement : Page
 			else { SupplierComboBox.SelectedValue = null; }
 		}
 	}
+	#endregion
 
 	#region Open Product webpage
 	private void ButtonWeb( object sender, RoutedEventArgs e )
@@ -343,11 +506,4 @@ public partial class ProductManagement : Page
 	}
 	#endregion
 
-	private void ProductSupplierChanged( object sender, SelectionChangedEventArgs e )
-	{
-		if ( DataContext is CombinedProductViewModel viewModel )
-		{
-			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
-		}
-	}
 }

@@ -105,7 +105,7 @@ public partial class ProductSupplierViewModel : ObservableObject
 			FilteredSuppliers.Add( supplier );
 		}
 
-		//Select first cntact in the list if there are Supplers
+		//Select first supplier in the list if there are suppliers
 		if ( FilteredSuppliers.Any() )
 		{
 			SelectedSupplier = FilteredSuppliers.First();

@@ -70,7 +70,11 @@
 		<!--#endregion-->
 
 		<!--#region Datafields-->
-		<TabControl x:Name="TabControl" Grid.Row="1" Style="{DynamicResource Default TabControl}">
+		<TabControl
+			x:Name="TabControl"
+			Grid.Row="1"
+			Style="{DynamicResource Default TabControl}"
+			>
 			<!--#region General supplier information tab-->
 			<TabItem Header="{StaticResource Edit.Supplier.Tab.General.Label}" Style="{DynamicResource Default TabItem}">
 				<Grid>
@@ -452,7 +456,11 @@
 			<!--#endregion-->
 
 			<!--#region Contactpersons for selected supplier-->
-			<TabItem x:Name="ContactsTab" Header="{StaticResource Edit.Supplier.Tab.Contacts.Label}" Style="{DynamicResource Default TabItem}">
+			<TabItem
+				x:Name="ContactsTab"
+				Header="{StaticResource Edit.Supplier.Tab.Contacts.Label}"
+				Style="{DynamicResource Default TabItem}"
+				>
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
@@ -558,8 +566,10 @@
 										ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Url.Button.Tooltip}"
 										>
 										<Image
-											Height="21" Width="32" Stretch="Uniform"
+											Width="32"
+											Height="21"
 											IsEnabled="False"
+											Stretch="Uniform"
 											Style="{StaticResource SendMailIcon}"
 											/>
 									</Button>
@@ -843,9 +853,10 @@
 			Margin="10,5,10,5"
 			AutoGenerateColumns="False"
 			CanUserAddRows="False"
-			CanUserDeleteRows="False" SelectionChanged="DataGrid_SelectionChanged"
+			CanUserDeleteRows="False"
 			ItemsSource="{Binding SupplierViewModel.Supplier, Mode=TwoWay}"
 			SelectedItem="{Binding SupplierViewModel.SelectedSupplier, Mode=TwoWay}"
+			SelectionChanged="DataGrid_SelectionChanged"
 			>
 			<DataGrid.Columns>
 				<DataGridTextColumn
