@@ -401,14 +401,22 @@ public partial class ProductManagement : Page
 
 	private void SupplierToolbarButtonSave( object sender, RoutedEventArgs e )
 	{
+		//TODO: Only 1 supplier can be default
+		//TODO: Save price as double with decimals
+		//TODO: DataGrid is not updated correctly
 		var viewModel = DataContext as CombinedProductViewModel;
 		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
 
 		var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
 		var selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
 		var selectedSupplierId = SupplierComboBox.SelectedValue.ToString();
+		var currencyId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencyId.ToString();
 
-		if ( selectedId == "0" || selectedId == "" )
+		var isNew = viewModel.ProductSupplierViewModel.IsAddingNew;
+
+		//var defaultSupplier = ( bool )  viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierDefaultSupplierCheck  ? "*" : "";
+
+		if ( isNew )
 		{
 			// New item, so add to the table
 			// First check if item already excists
@@ -422,19 +430,22 @@ public partial class ProductManagement : Page
 
 			if ( _checkPresence == 0 )
 			{
-				string[,] _addFields = new string[7, 3]
+				string[,] _addFields = new string[8, 3]
 				{
 					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId },
 					{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId,selectedProductId },
+					{ DBNames.ProductSupplierFieldNameCurrencyId, DBNames.ProductSupplierFieldTypeCurrencyId,currencyId },
 					{ DBNames.ProductSupplierFieldNameProductNumber, DBNames.ProductSupplierFieldTypeProductNumber, SupplierProductNumber.Text },
 					{ DBNames.ProductSupplierFieldNameProductName, DBNames.ProductSupplierFieldTypeProductName, SupplierProductName.Text },
-					{ DBNames.ProductSupplierFieldNamePrice, DBNames.ProductSupplierFieldTypePrice, SupplierProductPrice.Text },
+					{ DBNames.ProductSupplierFieldNamePrice, DBNames.ProductSupplierFieldTypePrice, double.Parse(SupplierProductPrice.Text).ToString() },
 					{ DBNames.ProductSupplierFieldNameProductUrl, DBNames.ProductSupplierFieldTypeProductUrl, SupplierProductUrl.Text },
-					{ DBNames.ProductSupplierFieldNameDefaultSupplier, DBNames.ProductSupplierFieldTypeDefaultSupplier, SupplierDefault.IsChecked == true ? "1" : "0" }
+					{ DBNames.ProductSupplierFieldNameDefaultSupplier, DBNames.ProductSupplierFieldTypeDefaultSupplier, SupplierDefault.IsChecked == true ? "*" : "" }
 				};
 				_ = DBCommands.InsertInTable( DBNames.ProductSupplierTable, _addFields );
 
-				// Reefresh the ProductSupplier-collection
+				viewModel.ProductSupplierViewModel.IsAddingNew = false;
+
+				// Refresh the ProductSupplier-collection
 
 				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
 				var SelectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
@@ -455,17 +466,21 @@ public partial class ProductManagement : Page
 				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId }
 			};
 
-			string[,] _updateFields = new string[6, 3]
+			string[,] _updateFields = new string[7, 3]
 			{
 					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId },
+					{ DBNames.ProductSupplierFieldNameCurrencyId, DBNames.ProductSupplierFieldTypeCurrencyId,currencyId },
 					{ DBNames.ProductSupplierFieldNameProductNumber, DBNames.ProductSupplierFieldTypeProductNumber, SupplierProductNumber.Text },
 					{ DBNames.ProductSupplierFieldNameProductName, DBNames.ProductSupplierFieldTypeProductName, SupplierProductName.Text },
-					{ DBNames.ProductSupplierFieldNamePrice, DBNames.ProductSupplierFieldTypePrice, SupplierProductPrice.Text },
+					{ DBNames.ProductSupplierFieldNamePrice, DBNames.ProductSupplierFieldTypePrice, double.Parse(SupplierProductPrice.Text).ToString() },
 					{ DBNames.ProductSupplierFieldNameProductUrl, DBNames.ProductSupplierFieldTypeProductUrl, SupplierProductUrl.Text },
-					{ DBNames.ProductSupplierFieldNameDefaultSupplier, DBNames.ProductSupplierFieldTypeDefaultSupplier, SupplierDefault.IsChecked == true ? "1" : "0" }
+					{ DBNames.ProductSupplierFieldNameDefaultSupplier, DBNames.ProductSupplierFieldTypeDefaultSupplier, SupplierDefault.IsChecked == true ? "*" : "" }
 			};
 
 			_ = DBCommands.UpdateInTable( DBNames.SupplierContactTable, _updateFields, _whereFields );
+
+
+			viewModel.ProductSupplierViewModel.IsAddingNew = false;
 
 			viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
 			var SelectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
