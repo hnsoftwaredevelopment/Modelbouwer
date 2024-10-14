@@ -113,3 +113,10 @@ jobs:
     #  with:
     #    name: MSIX Package
     #    path: ${{ env.Wap_Project_Directory }}\AppPackages
+
+    # Upload the artifactes
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: BuildOutput
+        path: bin/debug/net8.0-windows/  # Bijvoorbeeld: bin/Release
