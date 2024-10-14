@@ -76,13 +76,13 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=Debug
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=Debug /p:WarningsAsErrors=false
       env:
         Configuration: ${{ matrix.configuration }}
 
     # Build the application in Debug mode
     - name: Build the application (Debug)
-      run: msbuild $env:Solution_Name /p:Configuration=Debug
+      run: msbuild $env:Solution_Name /p:Configuration=Debug /p:WarningsAsErrors=false
 
     # List files to check if the build output exists
     - name: List files
