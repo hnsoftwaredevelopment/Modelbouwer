@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class BrandViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -24,13 +22,13 @@ public partial class BrandViewModel : ObservableObject
 			}
 		}
 	}
-	private ObservableCollection<BrandModel> _brand;
+	private ObservableCollection<BrandModel>? _brand;
 
 	[ObservableProperty]
 	private bool isTextChanged;
 
 	[ObservableProperty]
-	private BrandModel _selectedBrand;
+	private BrandModel? _selectedBrand;
 
 	private BrandModel? _temporaryBrand;
 	private string? _originalBrandName;
@@ -133,6 +131,7 @@ public partial class BrandViewModel : ObservableObject
 		// Stel de Save knop in om zichtbaar te zijn
 		IsTextChanged = true;
 	}
+
 
 	public BrandViewModel()
 	{

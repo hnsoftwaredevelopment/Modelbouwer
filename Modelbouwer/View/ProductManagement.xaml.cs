@@ -98,7 +98,7 @@ public partial class ProductManagement : Page
 	#endregion
 
 	#region Selected product changed
-	private void ChangedProduct( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
+	private void ChangedProduct( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs? e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{

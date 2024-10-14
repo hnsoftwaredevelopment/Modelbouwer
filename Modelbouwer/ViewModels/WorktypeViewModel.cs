@@ -10,12 +10,10 @@ public partial class WorktypeViewModel : ObservableObject
 	[ObservableProperty]
 	public int worktypeParentId;
 
-	public ObservableCollection<WorktypeModel> Worktype { get; set; }
+	public ObservableCollection<WorktypeModel>? Worktype { get; set; }
 
 	[ObservableProperty]
 	private WorktypeModel? _selectedWorktype;
-
-	private readonly ObservableCollection<WorktypeModel>? _worktype;
 
 	[ObservableProperty]
 	public WorktypeModel? selectedItem;
@@ -37,7 +35,6 @@ public partial class WorktypeViewModel : ObservableObject
 
 	public void AddNewItem()
 	{
-		// Voeg het nieuwe, lege item toe aan de lijst
 		WorktypeModel newWorktype = new()
 		{
 			WorktypeId = 0,

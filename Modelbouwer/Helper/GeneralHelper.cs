@@ -561,7 +561,7 @@ public class GeneralHelper
 
 	#region Get the Level of an item in a list
 
-	private int GetCategoryLevel( CategoryModel category, ObservableCollection<CategoryModel> allCategories )
+	private int GetCategoryLevel( CategoryModel? category, ObservableCollection<CategoryModel> allCategories )
 	{
 		int level = 0;
 		while ( category.CategoryParentId != null )

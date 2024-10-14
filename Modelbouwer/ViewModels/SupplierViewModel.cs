@@ -97,12 +97,10 @@ public partial class SupplierViewModel : ObservableObject
 		IsAddingNew = true;
 	}
 
-	private SupplierContactViewModel _supplierContactViewModel;
-
 	public SupplierViewModel( SupplierContactViewModel supplierContactViewModel )
 	{
 		Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
-		_supplierContactViewModel = supplierContactViewModel;
+		var _supplierContactViewModel = supplierContactViewModel;
 	}
 
 	public SupplierViewModel()

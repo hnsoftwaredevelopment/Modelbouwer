@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Modelbouwer.ViewModels;
 public partial class ProductViewModel : ObservableObject
@@ -48,9 +49,7 @@ public partial class ProductViewModel : ObservableObject
 	[ObservableProperty]
 	public string? productMemo;
 
-	public ObservableCollection<ProductModel> Product { get; set; }
-
-	private ObservableCollection<ProductModel>? _product;
+	public ObservableCollection<ProductModel>? Product { get; set; }
 
 	private ImageSource _productImage;
 	public ImageSource ProductImage
@@ -58,7 +57,10 @@ public partial class ProductViewModel : ObservableObject
 		get => _productImage;
 		set
 		{
-			_productImage = value ?? System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource;
+			//_productImage = value ?? System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource;
+			_productImage = value ?? ( System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource )
+				?? new BitmapImage( new Uri( "pack://application:,,,/YourAssemblyName;component/Resources/noimage.png" ) );
+
 			OnPropertyChanged( nameof( ProductImage ) );
 		}
 	}
@@ -66,6 +68,8 @@ public partial class ProductViewModel : ObservableObject
 
 	[ObservableProperty]
 	private ProductModel? _selectedProduct;
+
+
 
 	private bool _isAddingNew;
 
