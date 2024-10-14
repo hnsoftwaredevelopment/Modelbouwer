@@ -86,8 +86,8 @@ jobs:
 
     # List files to check if the build output exists
     - name: List files
-      run: dir bin/Debug/net8.0-windows
-
+      run: dir bin/Debug/
+      
     # Upload the artifactes
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
