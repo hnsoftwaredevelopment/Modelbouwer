@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class UnitViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -9,7 +7,7 @@ public partial class UnitViewModel : ObservableObject
 	[ObservableProperty]
 	public string? unitName;
 
-	public ObservableCollection<UnitModel> Unit { get; set; }
+	public ObservableCollection<UnitModel>? Unit { get; set; }
 
 	[ObservableProperty]
 	private UnitModel? _selectedUnit;

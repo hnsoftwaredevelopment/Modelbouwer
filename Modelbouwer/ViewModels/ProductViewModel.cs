@@ -51,8 +51,8 @@ public partial class ProductViewModel : ObservableObject
 
 	public ObservableCollection<ProductModel>? Product { get; set; }
 
-	private ImageSource _productImage;
-	public ImageSource ProductImage
+	private ImageSource? _productImage;
+	public ImageSource? ProductImage
 	{
 		get => _productImage;
 		set
@@ -108,7 +108,7 @@ public partial class ProductViewModel : ObservableObject
 		};
 
 		Product.Add( newProduct );
-		_selectedProduct = newProduct;
+		SelectedProduct = newProduct;
 		IsAddingNew = true;
 	}
 

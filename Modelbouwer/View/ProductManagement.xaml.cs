@@ -409,7 +409,7 @@ public partial class ProductManagement : Page
 
 		var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
 		var selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
-		var selectedSupplierId = SupplierComboBox.SelectedValue.ToString();
+		var selectedSupplierId = ((int)(SupplierComboBox.SelectedValue ?? 0)).ToString();
 		var currencyId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencyId.ToString();
 
 		var isNew = viewModel.ProductSupplierViewModel.IsAddingNew;

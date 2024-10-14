@@ -9,12 +9,12 @@ public partial class SupplierContactTypeViewModel : ObservableObject
 
 	public ObservableCollection<SupplierContactTypeModel>? SupplierContactType { get; set; }
 
-	private readonly ObservableCollection<SupplierContactTypeModel>? _suppliercontacttype;
+	//private readonly ObservableCollection<SupplierContactTypeModel>? _suppliercontacttype;
 
 	[ObservableProperty]
 	private SupplierContactTypeModel? _selectedContactType;
 
-	private readonly ObservableCollection<SupplierContactTypeModel>? _contacttype;
+	//private readonly ObservableCollection<SupplierContactTypeModel>? _contacttype;
 
 	[ObservableProperty]
 	public SupplierContactTypeModel? selectedItem;
