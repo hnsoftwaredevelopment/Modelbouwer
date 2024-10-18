@@ -7,7 +7,7 @@
 	xmlns:local="clr-namespace:Modelbouwer"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-	Title="MainWindow"
+	Title="Modelbouwer toolbox"
 	mc:Ignorable="d"
 	>
 	<Grid>

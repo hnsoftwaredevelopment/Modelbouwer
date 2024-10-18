@@ -6,6 +6,7 @@ public class ProductSupplierModel
 	public int ProductSupplierProductId { get; set; }
 	public int ProductSupplierSupplierId { get; set; }
 	public int ProductSupplierCurrencyId { get; set; }
+	public string? ProductSupplierName { get; set; }
 	public string? ProductSupplierProductNumber { get; set; }
 	public string? ProductSupplierProductName { get; set; }
 	public double ProductSupplierPrice { get; set; }
@@ -28,6 +29,7 @@ public class ProductSupplierModel
 		{ DBNames.ProductSupplierFieldNameCurrencyId, "CurrencyId" },
 		{ DBNames.ProductSupplierFieldNameProductNumber, "ProductSupplierProductNumber" },
 		{ DBNames.ProductSupplierFieldNameProductName, "ProductSupplierProductName" },
+		{ DBNames.ProductSupplierFieldNameSupplierName, "ProductSupplierSupplierName" },
 		{ DBNames.ProductSupplierFieldNamePrice, "ProductSupplierPrice" },
 		{ DBNames.ProductSupplierFieldNameProductUrl, "ProductSupplierURL" },
 		{ DBNames.ProductSupplierFieldNameDefaultSupplier, "ProductSupplierDefaultSupplier" }

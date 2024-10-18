@@ -402,7 +402,6 @@ public partial class ProductManagement : Page
 	private void SupplierToolbarButtonSave( object sender, RoutedEventArgs e )
 	{
 		//TODO: Only 1 supplier can be default
-		//TODO: Save price as double with decimals
 		//TODO: DataGrid is not updated correctly
 		var viewModel = DataContext as CombinedProductViewModel;
 		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
@@ -410,6 +409,7 @@ public partial class ProductManagement : Page
 		var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
 		var selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
 		var selectedSupplierId = ((int)(SupplierComboBox.SelectedValue ?? 0)).ToString();
+		var selectedSupplierName = ((SupplierModel)SupplierComboBox.SelectedItem).Name.ToString();
 		var currencyId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencyId.ToString();
 
 		var isNew = viewModel.ProductSupplierViewModel.IsAddingNew;
@@ -448,7 +448,7 @@ public partial class ProductManagement : Page
 				// Refresh the ProductSupplier-collection
 
 				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
-				var SelectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+				_ = viewModel.SupplierViewModel.SelectedSupplier;
 
 
 				dispStatusLine.Text = $"{SupplierProductNumber.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Added" )}";
@@ -483,26 +483,34 @@ public partial class ProductManagement : Page
 			viewModel.ProductSupplierViewModel.IsAddingNew = false;
 
 			viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
-			var SelectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+			_ = viewModel.SupplierViewModel.SelectedSupplier;
 
 			dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.DataOf" )} {SupplierProductNumber.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Changed" )}";
+
+			// If the DefaultSupplier checkbox is checked, then the DefautltSupplier in the database table should be updated
+			if ( SupplierDefault.IsChecked == true )
+			{
+				DBCommands.SetDefaultSupplier( selectedProductId, selectedSupplierId );
+			}
+			else { DBCommands.ResetDefaultSupplier( selectedProductId, selectedSupplierId ); }
 		}
 	}
 
 	#region Selected supplier changed
 	private void SupplierChanged( object sender, SelectionChangedEventArgs e )
 	{
-		if ( DataContext is CombinedProductViewModel viewModel )
-		{
-			var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
-			if ( selectedSupplier != null )
-			{
-				var selectedSupplierId = selectedSupplier.ProductSupplierSupplierId;
-
-				SupplierComboBox.SelectedValue = selectedSupplierId;
-			}
-			else { SupplierComboBox.SelectedValue = null; }
-		}
+		//if ( DataContext is CombinedProductViewModel viewModel )
+		//{
+		//	var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+		//	if ( selectedSupplier != null )
+		//	{
+		//		SupplierComboBox.SelectedValue = selectedSupplier.ProductSupplierSupplierId;
+		//	}
+		//	else
+		//	{
+		//		//SupplierComboBox.SelectedValue = null;
+		//	}
+		//}
 	}
 	#endregion
 
@@ -520,5 +528,4 @@ public partial class ProductManagement : Page
 		}
 	}
 	#endregion
-
 }

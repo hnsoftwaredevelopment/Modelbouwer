@@ -112,6 +112,7 @@ public partial class ProductViewModel : ObservableObject
 		IsAddingNew = true;
 	}
 
+
 	public ProductViewModel()
 	{
 		Product = new ObservableCollection<ProductModel>( DBCommands.GetProductList() );

@@ -778,7 +778,7 @@
 								<DataGrid
 									x:Name="ProductSupplierDataGrid"
 									Grid.Row="1"
-									Margin="5,0"
+									Margin="5,0" SelectionChanged="SupplierChanged"
 									Padding="3"
 									d:ItemsSource="{d:SampleData}"
 									AutoGenerateColumns="False"
@@ -787,7 +787,6 @@
 									ItemsSource="{Binding ProductSupplierViewModel.FilteredSuppliers}"
 									SelectedIndex="1"
 									SelectedItem="{Binding ProductSupplierViewModel.SelectedSupplier}"
-									SelectionChanged="SupplierChanged"
 									VerticalScrollBarVisibility="Auto"
 									>
 									<DataGrid.Columns>
@@ -805,7 +804,7 @@
 											Width="70"
 											Binding="{Binding ProductSupplierProductId}"
 											Header="{StaticResource Edit.Product.Tab.Supplier.ProductId.Header}"
-											Visibility="Hidden"
+											Visibility="Collapsed"
 											/>
 										<!--#endregion-->
 
@@ -917,8 +916,8 @@
 											AutoCompleteMode="Suggest"
 											DefaultText="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tag}"
 											DisplayMemberPath="SupplierName"
-											ItemsSource="{Binding SupplierViewModel.Supplier}"
-											SelectedValue="{Binding SupplierViewModel.SelectedSupplier.SupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+											ItemsSource="{Binding ProductSupplierViewModel.SupplierList}"
+											SelectedValue="{Binding ProductSupplierViewModel.ProductSupplierSupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 											SelectedValuePath="SupplierId"
 											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip}"
 											/>

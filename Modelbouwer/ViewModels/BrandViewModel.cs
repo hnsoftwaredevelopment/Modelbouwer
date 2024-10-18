@@ -61,7 +61,7 @@ public partial class BrandViewModel : ObservableObject
 		}
 	}
 
-	partial void OnSelectedBrandChanged( BrandModel value )
+	partial void OnSelectedBrandChanged( BrandModel? value )
 	{
 		if ( value != null )
 		{

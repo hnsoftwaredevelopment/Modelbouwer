@@ -1107,6 +1107,39 @@ public class DBCommands
 	}
 	#endregion Check if there is a record in the table based (returns no of records)
 
+	#region Set the  default Supplier for a specific product
+	public static void SetDefaultSupplier( string productId, string supplierId )
+	{
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
+		connection.Open();
+
+		using MySqlCommand cmd = new( "SetDefaultSupplier", connection );
+		cmd.CommandType = CommandType.StoredProcedure;
+
+		cmd.Parameters.AddWithValue( "@p_ProductId", productId );
+		cmd.Parameters.AddWithValue( "@p_SupplierId", supplierId );
+
+		cmd.ExecuteNonQuery();
+	}
+	#endregion
+
+	#region Reset the  default Supplier for a specific product
+	public static void ResetDefaultSupplier( string productId, string supplierId )
+	{
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
+		connection.Open();
+
+		using MySqlCommand cmd = new( "ResetDefaultSupplier", connection );
+		cmd.CommandType = CommandType.StoredProcedure;
+
+		cmd.Parameters.AddWithValue( "@p_ProductId", productId );
+		cmd.Parameters.AddWithValue( "@p_SupplierId", supplierId );
+
+		cmd.ExecuteNonQuery();
+	}
+	#endregion
+
+
 	#region Execute Non Query Handlers
 	#region Execute Non Query
 	private static void ExecuteNonQuery( string _sqlQuery )
@@ -1142,7 +1175,7 @@ public class DBCommands
 					break;
 
 					case "double":
-						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Double ).Value = double.Parse( _fields [ i, 2 ] );
+						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.Double ).Value = Math.Round( double.Parse( _fields [ i, 2 ] ), 2 );
 						break;
 
 					case "float":

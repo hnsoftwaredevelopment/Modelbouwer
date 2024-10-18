@@ -1,0 +1,18 @@
+Product_Id;Supplier_Id;Currency_Id;ProductNumber;ProductName;Price;Url;DefaultSupplier
+1;6;1;16435;Everbuild secondelijm medium viscositeit;4,07;https://www.toolstation.nl/everbuild-secondelijm-medium-viscositeit/p86374?channable=002a91696400383633373490&gclid=CjwKCAjwiuuRBhBvEiwAFXKaNPVd2npt7UgrPaFN8O48usa7l_bTtQIfm75c8CHHWXG11fiYv3wzexoCGvMQAvD_BwE;*
+2;6;1;10893;Everbuild secondelijm hoge viscosoteit;4,07;https://www.toolstation.nl/everbuild-secondelijm-hoge-viscositeit/p78871?channable=002a9169640037383837311e&gclid=CjwKCAjwiuuRBhBvEiwAFXKaNOckRHnltQBvWbSaVg6AoQ1E4xOtL3iBeKXIL4NNTq1Mk8ustRGGfxoCbysQAvD_BwE;*
+10;1;2;AN5423/15;Fairlead 15mm;2,29;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=an5423%2F15&PN=5423%2D15%2DFairlead%2D15mm%2DAN5423_15%2Ehtml#SID=570;*
+11;1;2;C82010N;Rigging Thread 0.10mm Natural (10m);1,98;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82010N%2Ehtml#SID=182;*
+12;1;2;C82025N;Rigging Thread 0.25mm Natural (10m);1,98;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82025N%2Ehtml#SID=182;*
+13;1;2;C82025B;Rigging Thread 0.25mm Black (10m);1,98;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82025B%2Ehtml#SID=182;*
+14;1;2;C82050B;Rigging Thread 0.50mm Black (10m);2,14;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82050B%2Ehtml#SID=182;*
+15;1;2;C82050N;Rigging Thread 0.50mm Natural (10m);2,15;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82050N%2Ehtml#SID=182;*
+16;1;2;C82075N;Rigging Thread 0.75mm Natural (10m);2,33;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82075N%2Ehtml#SID=182;*
+17;1;2;C82100N;Rigging Thread 1.00mm Natural (10m);2,51;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82100N%2Ehtml#SID=182;*
+18;1;2;C82130N;Rigging Thread 1.30mm Natural (10m);3,02;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82130N%2Ehtml#SID=182;*
+19;1;2;C82170N;Rigging Thread 1.70mm Natural (5m);3,72;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82170N%2Ehtml#SID=182;*
+20;1;2;C82225N;Rigging Thread 2.25mm Natural (2.5m);5,16;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82250N%2Ehtml#SID=182;*
+21;1;2;C82075B;Rigging Thread 0.75mm Black (10m);2,33;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82075B%2Ehtml#SID=182;*
+22;1;2;C82100B;Rigging Thread 1.00mm Back (10m);2,51;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82100B%2Ehtml#SID=182;*
+23;1;2;C82130B;Rigging Thread 1.30mm Black (10m);3,02;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82130B%2Ehtml#SID=182;*
+24;1;2;C82180B;Rigging Thread 1.80mm Black (5m);3,72;https://www.cornwallmodelboats.co.uk/cgi-bin/sh000001.pl?WD=thread&PN=caldercraft_C82180B%2Ehtml#SID=182;*

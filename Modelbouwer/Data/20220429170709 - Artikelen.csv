@@ -1,0 +1,19 @@
+Code;Name;Dimensions;Price;MinimalStock;StandardOrderQuantity;ProjectCosts;Unit_Id;Brand_Id;Category_Id;Storage_Id
+SECONDELIJMMED;Everbuild secondelijm medium viscositeit 50gr;50gr;4,07;1;1;1;13;20;9;242
+SECONDELIJMDIK;Everbuild secondelijm hoge viscosoteit 50gr;50gr;4,07;1;1;1;13;20;9;242
+LIJMACCELERATOR;Zip Kicker;57gr;7,95;1;1;0;13;51;7;224
+FAIRLEAD15;Fairlead 15mm;15mm;2,25;4;1;1;13;3;23;85
+GAREN_WIT_0.10;Garen 0.10mm Natural (10m);10 mtr;1,95;2;1;0;11;11;60;24
+GAREN_WIT_0.25;Garen 0.25mm Natural (10m);10 mtr;2,15;2;1;0;11;11;60;24
+GAREN_ZWART_0.25;Garen 0.25mm Zwart (10m);10 mtr;2,15;2;1;0;11;11;60;43
+GAREN_ZWART_0.50;Garen 0.50mm Zwart (10m);10 mtr;2,5;2;1;0;11;11;60;43
+GAREN_WIT_0.50;Garen 0.50mm Natural (10m);10 mtr;2,11;2;1;0;11;11;60;24
+GAREN_WIT_0.75;Garen 0.75mm Natural (10m);10 mtr;2,29;2;1;0;11;11;60;24
+GAREN_WIT_1.00;Garen 1.00mm Natural (10m);10 mtr;2,47;2;1;0;11;11;60;24
+GAREN_WIT_1.30;Garen 1.30mm Natural (10m);10 mtr;2,97;1;1;0;11;11;60;24
+GAREN_WIT_1.75;Garen 1.70mm Natural (5m);5 mtr;3,66;1;1;0;11;11;60;24
+GAREN_WIT_2.25;Garen 2.25mm Natural (2,5m);2,5 mtr;5,07;1;1;0;11;11;60;24
+GAREN_ZWART_0.75;Garen 0.75mm Zwart(10m);10 mtr;229;200;100;0;11;11;60;43
+GAREN_ZWART_1.00;Garen 1.00mm Zwart(10m);10 mtr;247;200;100;0;11;11;60;43
+GAREN_ZWART_1.30;Garen 1.30mm Zwart(10m);10 mtr;297;200;100;0;11;11;60;43
+GAREN_ZWART_1.80;Garen 1.80mm Zwart(5m);5 mtr;366;200;100;0;11;11;60;43

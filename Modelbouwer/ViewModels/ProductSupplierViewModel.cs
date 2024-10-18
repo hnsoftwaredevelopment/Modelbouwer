@@ -11,6 +11,12 @@ public partial class ProductSupplierViewModel : ObservableObject
 	public int productSupplierSupplierId;
 
 	[ObservableProperty]
+	public string? productSupplierSupplierName;
+
+	[ObservableProperty]
+	private ProductSupplierModel? _selectedSupplier;
+
+	[ObservableProperty]
 	public int productSupplierCurrencyId;
 
 	[ObservableProperty]
@@ -31,14 +37,12 @@ public partial class ProductSupplierViewModel : ObservableObject
 	[ObservableProperty]
 	public bool? productSupplierDefaultSupplierCheck;
 
-	[ObservableProperty]
-	private ProductSupplierModel? selectedSupplier;
-
 	public ObservableCollection<ProductSupplierModel> FilteredSuppliers { get; private set; } = [ ];
 	public ObservableCollection<ProductSupplierModel> ProductSupplier { get; set; }
 
-
 	private ProductModel? _selectedProduct;
+
+	public ObservableCollection<SupplierModel> SupplierList { get; set; } = [ ];
 
 	private bool _isAddingNew;
 
@@ -82,6 +86,18 @@ public partial class ProductSupplierViewModel : ObservableObject
 		FilterSuppliersByProductId( int.Parse( productId ) );
 	}
 
+	public void LoadSuppliersForProduct( int productId )
+	{
+		FilterSuppliersByProductId( productId );
+
+		// Zorg ervoor dat de eerste leverancier geselecteerd is als die beschikbaar is
+		if ( FilteredSuppliers.Any() )
+		{
+			SelectedSupplier = FilteredSuppliers.First();
+			ProductSupplierSupplierId = SelectedSupplier.ProductSupplierSupplierId; // Zorg ervoor dat de ID ook wordt ingesteld
+		}
+	}
+
 	public ProductModel? SelectedProduct
 	{
 		get => _selectedProduct;
@@ -112,8 +128,23 @@ public partial class ProductSupplierViewModel : ObservableObject
 		}
 	}
 
+	partial void OnProductSupplierSupplierIdChanged( int value )
+	{
+		var selectedSupplier = SupplierList.FirstOrDefault(s => s.SupplierId == value);
+
+		if ( selectedSupplier != null )
+		{
+			SelectedSupplier.ProductSupplierSupplierName = selectedSupplier.SupplierName;
+			SelectedSupplier.ProductSupplierSupplierId = selectedSupplier.SupplierId;
+			FilterSuppliersByProductId( SelectedProduct?.ProductId ?? 0 );
+			OnPropertyChanged( nameof( FilteredSuppliers ) );
+			OnPropertyChanged( nameof( SelectedSupplier ) );
+		}
+	}
+
 	public ProductSupplierViewModel()
 	{
+		SupplierList = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
 		ProductSupplier = new ObservableCollection<ProductSupplierModel>( DBCommands.GetProductSupplierList() );
 	}
 }

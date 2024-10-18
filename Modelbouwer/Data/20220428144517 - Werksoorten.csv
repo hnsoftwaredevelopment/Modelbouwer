@@ -1,0 +1,29 @@
+0;;Geen;Geen
+1;;Voorbereiding;Voorbereiding
+2;;Opruimen;Opruimen
+3;;Romp;Romp
+4;3;Kiel;Romp\Kiel
+5;3;Spanten;Romp\Spanten
+6;3;Eerste beplanking;Romp\Eerste beplanking
+7;3;Tweede beplanking;Romp\Tweede beplanking
+8;3;Achtersteven;Romp\Achtersteven
+9;3;Afwerking romp;Romp\Afwerking romp
+10;3;Schilderen/Lakken;Romp\Schilderen/Lakken
+11;;Dek;Dek
+12;11;Dek beplanking;Dek\Dek beplanking
+13;11;Dekbalk en reling;Dek\Dekbalk en reling
+14;11;Schilderen/Lakken;Dek\Schilderen/Lakken
+15;11;Afwerking dek;Dek\Afwerking dek
+16;;Opbouw;Opbouw
+17;16;Bijboten;Opbouw\Bijboten
+18;16;Wapens;Opbouw\Wapens
+19;16;Ankers;Opbouw\Ankers
+20;16;Heck;Opbouw\Heck
+21;16;Masten;Opbouw\Masten
+22;;Wand;Wand
+23;22;Staande wand;Wand\Staande wand
+24;22;Lopend wand;Wand\Lopend wand
+25;22;Afwerking;Wand\Afwerking
+26;21;Ra;Opbouw\Masten\Ra
+27;21;Kraaiennest;Opbouw\Masten\Kraaiennest
+28;21;Zeilen;Opbouw\Masten\Zeilen

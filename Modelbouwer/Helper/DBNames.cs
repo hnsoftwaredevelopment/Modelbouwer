@@ -194,6 +194,8 @@ public class DBNames
 	public static readonly string ProductSupplierFieldTypeProductUrl = "string";
 	public static readonly string ProductSupplierFieldNameDefaultSupplier = "DefaultSupplier";
 	public static readonly string ProductSupplierFieldTypeDefaultSupplier = "string";
+	public static readonly string ProductSupplierFieldNameSupplierName = "SupplierName";
+	public static readonly string ProductSupplierFieldTypeSupplierName = "string";
 
 	#endregion ProductSupplier table
 
