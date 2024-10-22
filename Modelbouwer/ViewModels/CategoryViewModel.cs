@@ -11,7 +11,7 @@ public partial class CategoryViewModel : ObservableObject
 	public int categoryParentId;
 
 	[ObservableProperty]
-	private bool _isCategoryPopupOpen;
+	public bool _isCategoryPopupOpen;
 
 	public ObservableCollection<CategoryModel> Category { get; set; }
 

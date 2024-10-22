@@ -553,7 +553,7 @@
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Code.Tag">Zoeknaam</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Code.Tooltip">Geef de zoeknaam voor dit produkt</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Brand.Label">Merk</system:String>
-	<system:String x:Key="Edit.Product.Tab.General.Group.General.Brand.Tag">Merk</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.General.Brand.Tag">Selecteer merk</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Brand.Tooltip">Welk merk</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Name.Label">Produkt naam</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Name.Tag">Produktnaam</system:String>
@@ -603,7 +603,7 @@
 	<system:String x:Key="Edit.Product.Tab.Supplier.Price.Header">Prijs</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Title.Header">Product informatie per leverancier</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Label">Leverancier</system:String>
-	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Tag">Leverancier</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Tag">Selecteer leverancier</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip">Selecteer de leverancier die dit product levert</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Label">Artikelnummer leverancier</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tag">Artikelnummer leverancier</system:String>

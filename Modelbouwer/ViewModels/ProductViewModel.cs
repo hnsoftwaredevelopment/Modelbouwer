@@ -4,9 +4,6 @@ using System.Windows.Media.Imaging;
 namespace Modelbouwer.ViewModels;
 public partial class ProductViewModel : ObservableObject
 {
-	//[ObservableProperty]
-	//public byte [ ] productImage;
-
 	[ObservableProperty]
 	public int productId;
 

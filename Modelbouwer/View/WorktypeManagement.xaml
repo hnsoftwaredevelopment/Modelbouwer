@@ -13,7 +13,8 @@
 	d:DataContext="{d:DesignInstance Type=viewmodels:WorktypeViewModel}"
 	d:DesignHeight="450"
 	d:DesignWidth="800"
-	mc:Ignorable="d">
+	mc:Ignorable="d"
+	>
 
 	<Page.DataContext>
 		<viewmodels:WorktypeViewModel />
@@ -37,7 +38,8 @@
 		<StackPanel
 			Grid.Row="0"
 			Margin="10,0,10,0"
-			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+			>
 			<TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Worktype.Title}" />
 			<Canvas>
 				<Path Style="{DynamicResource DefaultTitleLine}" />
@@ -46,22 +48,12 @@
 		</StackPanel>
 		<!--#endregion-->
 
-
-		<!--#region Hidden fields-->
-		<StackPanel
-			Grid.Row="2"
-			Orientation="Horizontal"
-			Visibility="Collapsed">
-			<TextBox x:Name="inpWorktypeId" Text="{Binding SelectedWorktype.WorktypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-			<TextBox x:Name="inpWorktypeParentId" Text="{Binding SelectedWorktype.WorktypeParentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-		</StackPanel>
-		<!--#endregion-->
-
 		<Grid
 			Grid.Row="1"
 			Margin="10,0,0,0"
 			HorizontalAlignment="Left"
-			VerticalAlignment="Center">
+			VerticalAlignment="Center"
+			>
 
 			<!--#region Colomn defenition-->
 			<Grid.ColumnDefinitions>
@@ -78,15 +70,29 @@
 				Grid.Column="1"
 				Width="450"
 				Style="{DynamicResource DefaultTextBox}"
-				Text="{Binding SelectedWorktype.WorktypeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+				Text="{Binding SelectedWorktype.WorktypeName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+				/>
 			<!--#endregion-->
 		</Grid>
+		<!--#endregion-->
+
+
+		<!--#region Hidden fields-->
+		<StackPanel
+			Grid.Row="2"
+			Orientation="Horizontal"
+			Visibility="Collapsed"
+			>
+			<TextBox x:Name="inpWorktypeId" Text="{Binding SelectedWorktype.WorktypeId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+			<TextBox x:Name="inpWorktypeParentId" Text="{Binding SelectedWorktype.WorktypeParentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+		</StackPanel>
 
 		<!--#region Action toolbar-->
 		<ToolBarTray
 			Grid.Row="3"
 			Margin="10,2,0,2"
-			Style="{DynamicResource DefaultToolBarTray}">
+			Style="{DynamicResource DefaultToolBarTray}"
+			>
 			<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
 				<Button Click="ExpandAll" ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Expand}">
 					<Image Source="{DynamicResource expand}" />
@@ -99,28 +105,33 @@
 					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource addtask}" />
+						Source="{StaticResource addtask}"
+						/>
 				</Button>
 				<Button Click="ButtonNewSubWorktype" ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.AddSubTask}">
 					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource addsubtask}" />
+						Source="{StaticResource addsubtask}"
+						/>
 				</Button>
 				<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Delete}">
 					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource deletetask}" />
+						Source="{StaticResource deletetask}"
+						/>
 				</Button>
 				<Button
 					Click="ButtonSave"
 					ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Save}"
-					Visibility="{Binding Text, ElementName=inpWorktypeName, Converter={StaticResource StringEmptyToVisibilityConverter}}">
+					Visibility="{Binding Text, ElementName=inpWorktypeName, Converter={StaticResource StringEmptyToVisibilityConverter}}"
+					>
 					<Image
 						Width="18"
 						Margin="5,0,0,0"
-						Source="{StaticResource save}" />
+						Source="{StaticResource save}"
+						/>
 				</Button>
 			</ToolBar>
 		</ToolBarTray>
@@ -143,7 +154,8 @@
 			LineStrokeThickness=".75"
 			SelectedItem="{Binding SelectedWorktype, Mode=TwoWay}"
 			ShowLines="True"
-			ShowRootLines="True">
+			ShowRootLines="True"
+			>
 
 			<!--#region Context menu-->
 			<syncfusion:SfTreeView.ItemContextMenu>
@@ -151,23 +163,27 @@
 					<MenuItem
 						Click="ExpandAll"
 						Header="{StaticResource Edit.Worktype.Action.ContextMenu.Label.Expand}"
-						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Expand}">
+						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Expand}"
+						>
 						<MenuItem.Icon>
 							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource expand}" />
+								Source="{StaticResource expand}"
+								/>
 						</MenuItem.Icon>
 					</MenuItem>
 					<MenuItem
 						Click="CollapseAll"
 						Header="{StaticResource Edit.Worktype.Action.ContextMenu.Label.Collapse}"
-						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Collapse}">
+						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Collapse}"
+						>
 						<MenuItem.Icon>
 							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource collapse}" />
+								Source="{StaticResource collapse}"
+								/>
 						</MenuItem.Icon>
 					</MenuItem>
 					<Separator />
@@ -175,47 +191,55 @@
 						Click="AddTask"
 						DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
 						Header="{StaticResource Edit.Worktype.Action.ContextMenu.Label.AddTask}"
-						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.AddTask}">
+						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.AddTask}"
+						>
 						<MenuItem.Icon>
 							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource addtask}" />
+								Source="{StaticResource addtask}"
+								/>
 						</MenuItem.Icon>
 					</MenuItem>
 					<MenuItem
 						Click="AddSubTask"
 						DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
 						Header="{StaticResource Edit.Worktype.Action.ContextMenu.Label.AddSubTask}"
-						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.AddSubTask}">
+						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.AddSubTask}"
+						>
 						<MenuItem.Icon>
 							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource addsubtask}" />
+								Source="{StaticResource addsubtask}"
+								/>
 						</MenuItem.Icon>
 					</MenuItem>
 					<MenuItem
 						Click="ButtonDelete"
 						Header="{StaticResource Edit.Worktype.Action.ContextMenu.Label.DeleteTask}"
-						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Delete}">
+						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Delete}"
+						>
 						<MenuItem.Icon>
 							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource deletetask}" />
+								Source="{StaticResource deletetask}"
+								/>
 						</MenuItem.Icon>
 					</MenuItem>
 					<Separator />
 					<MenuItem
 						Click="ButtonSave"
 						Header="{StaticResource Edit.Worktype.Action.ContextMenu.Label.Save}"
-						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Save}">
+						ToolTip="{StaticResource Edit.Worktype.Action.Tooltip.Save}"
+						>
 						<MenuItem.Icon>
 							<Image
 								Width="16"
 								Height="16"
-								Source="{StaticResource save}" />
+								Source="{StaticResource save}"
+								/>
 						</MenuItem.Icon>
 					</MenuItem>
 				</ContextMenu>
@@ -238,14 +262,16 @@
 			Height="30"
 			Margin="10,0,10,0"
 			VerticalAlignment="Center"
-			Background="LightGray">
+			Background="LightGray"
+			>
 			<Grid>
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
 					<TextBlock
 						x:Name="dispStatusLine"
 						Style="{DynamicResource Status.Description}"
-						Text="{DynamicResource Import.Statusline.Description}" />
+						Text="{DynamicResource Import.Statusline.Description}"
+						/>
 				</StackPanel>
 			</Grid>
 		</DockPanel>

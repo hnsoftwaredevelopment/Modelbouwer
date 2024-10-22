@@ -11,7 +11,7 @@ public partial class StorageViewModel : ObservableObject
 	public int storageParentId;
 
 	[ObservableProperty]
-	private bool _isStoragePopupOpen;
+	public bool _isStoragePopupOpen;
 
 	public ObservableCollection<StorageModel> Storage { get; set; }
 

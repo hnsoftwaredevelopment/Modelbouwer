@@ -16,6 +16,7 @@ public partial class ProductManagement : Page
 	public ProductManagement()
 	{
 		InitializeComponent();
+		DataContext = new CombinedProductViewModel();
 	}
 
 	#region Add/Replace product image
@@ -145,10 +146,23 @@ public partial class ProductManagement : Page
 			}
 			#endregion
 
-			#region Select the Correct (first) Supplier
-			if ( dataGrid.SelectedItem is ProductModel SelectedProduct )
+			#region Select the Barnsd of the selected Product
+			if ( selectedProduct != null && selectedProduct.ProductBrandId > 0 )
 			{
-				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( SelectedProduct.ProductId );
+				var selectedBrand = viewModel.BrandViewModel.Brand.FirstOrDefault(c => c.BrandId == selectedProduct.ProductBrandId);
+
+				if ( selectedBrand != null )
+				{
+					viewModel.BrandViewModel.SelectedBrand = selectedBrand;
+				}
+			}
+			#endregion
+
+			#region Select the Correct (first) Supplier
+			if ( selectedProduct != null )
+			{
+				// Make sure ProductSupplierViewModel uses the selected product
+				viewModel.ProductSupplierViewModel.SelectedProduct = selectedProduct;
 			}
 			#endregion
 		}
@@ -399,10 +413,9 @@ public partial class ProductManagement : Page
 	}
 	#endregion
 
+	#region Save product supplier
 	private void SupplierToolbarButtonSave( object sender, RoutedEventArgs e )
 	{
-		//TODO: Only 1 supplier can be default
-		//TODO: DataGrid is not updated correctly
 		var viewModel = DataContext as CombinedProductViewModel;
 		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
 
@@ -413,8 +426,6 @@ public partial class ProductManagement : Page
 		var currencyId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencyId.ToString();
 
 		var isNew = viewModel.ProductSupplierViewModel.IsAddingNew;
-
-		//var defaultSupplier = ( bool )  viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierDefaultSupplierCheck  ? "*" : "";
 
 		if ( isNew )
 		{
@@ -490,11 +501,12 @@ public partial class ProductManagement : Page
 			// If the DefaultSupplier checkbox is checked, then the DefautltSupplier in the database table should be updated
 			if ( SupplierDefault.IsChecked == true )
 			{
-				DBCommands.SetDefaultSupplier( selectedProductId, selectedSupplierId );
+				DBCommands.SetDefaultSupplier( selectedProductId, selectedSupplierId, "Set" );
 			}
-			else { DBCommands.ResetDefaultSupplier( selectedProductId, selectedSupplierId ); }
+			else { DBCommands.SetDefaultSupplier( selectedProductId, selectedSupplierId, "Reset" ); }
 		}
 	}
+	#endregion
 
 	#region Selected supplier changed
 	private void SupplierChanged( object sender, SelectionChangedEventArgs e )

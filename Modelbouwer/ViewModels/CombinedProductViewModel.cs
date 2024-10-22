@@ -8,7 +8,6 @@ public class CombinedProductViewModel
 	public StorageViewModel StorageViewModel { get; set; }
 	public SupplierViewModel SupplierViewModel { get; set; }
 	public UnitViewModel UnitViewModel { get; set; }
-
 	public CombinedProductViewModel()
 	{
 		BrandViewModel = new();

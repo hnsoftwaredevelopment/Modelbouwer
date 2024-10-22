@@ -78,7 +78,7 @@
 						Style="{DynamicResource DefaultToolBarTray}"
 						>
 						<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
-							<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Product.Action.Tooltip.Add}">
+							<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Product.Action.Tooltip.Add}"> 
 								<Image Style="{DynamicResource ToolBarAddIcon}" />
 							</Button>
 							<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Product.Action.Tooltip.Delete}">
@@ -203,19 +203,26 @@
 										<Button
 											VerticalAlignment="Bottom"
 											Click="ImageDelete"
+											DataContext="{Binding ProductViewModel}"
 											Style="{DynamicResource HideButtonOnNoImage}"
 											ToolTip="{StaticResource ToolBar.Button.Image.Remove.Label}"
 											>
 											<Image
 												Margin="0,6,0,-6"
+												HorizontalAlignment="Center"
 												VerticalAlignment="Center"
-												Style="{DynamicResource ToolBarDeleteIcon}" HorizontalAlignment="Center"
+												Style="{DynamicResource ToolBarDeleteIcon}"
 												/>
 										</Button>
-										<Separator Margin="5,0,10,0" Style="{DynamicResource HideSeperatorOnNoImage}" />
+										<Separator
+											Margin="5,0,10,0"
+											DataContext="{Binding ProductViewModel}"
+											Style="{DynamicResource HideSeperatorOnNoImage}"
+											/>
 										<Button
 											VerticalAlignment="Top"
 											Click="ImageRotate"
+											DataContext="{Binding ProductViewModel}"
 											Style="{DynamicResource HideButtonOnNoImage}"
 											ToolTip="{StaticResource ToolBar.Button.Image.Rotate.Label}"
 											>
@@ -259,7 +266,7 @@
 									<Popup
 										x:Name="CategoryPopup"
 										AllowsTransparency="True"
-										IsOpen="{Binding IsCategoryPopupOpen, Mode=TwoWay}"
+										IsOpen="{Binding CategoryViewModel.IsCategoryPopupOpen, Mode=TwoWay}"
 										Placement="Bottom"
 										StaysOpen="False"
 										>
@@ -326,26 +333,20 @@
 										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Code.Tooltip}"
 										/>
 
-									<ComboBox
+									<syncfusion:ComboBoxAdv
 										x:Name="ProductBrand"
 										Grid.Row="1"
 										Grid.Column="1"
 										Width="250"
 										HorizontalAlignment="Left"
 										Cursor="Arrow"
+										DefaultText="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tag}"
 										DisplayMemberPath="BrandName"
 										ItemsSource="{Binding BrandViewModel.Brand}"
-										SelectedValue="{Binding ProductViewModel.SelectedProduct.ProductBrandId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-										SelectedValuePath="BrandId"
-										Style="{DynamicResource DefaultComboBox}"
-										Tag="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tag}"
+										SelectedItem="{Binding BrandViewModel.SelectedBrand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 										TextSearch.TextPath="BrandName"
 										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tooltip}"
-										>
-										<ComboBox.ItemContainerStyleSelector>
-											<StyleSelector />
-										</ComboBox.ItemContainerStyleSelector>
-									</ComboBox>
+										/>
 
 									<TextBlock
 										Grid.Row="2"
@@ -417,7 +418,7 @@
 									<Popup
 										x:Name="StoragePopup"
 										AllowsTransparency="True"
-										IsOpen="{Binding IsStoragePopupOpen, Mode=TwoWay}"
+										IsOpen="{Binding StorageViewModel.IsStoragePopupOpen, Mode=TwoWay}"
 										Placement="Bottom"
 										StaysOpen="False"
 										>
@@ -748,7 +749,11 @@
 									Orientation="Horizontal"
 									>
 									<ToolBarTray Style="{DynamicResource DefaultToolBarTray}">
-										<ToolBar VerticalContentAlignment="Center" x:Name="supplierToolbar" Style="{DynamicResource DefaultToolBar}">
+										<ToolBar
+											x:Name="supplierToolbar"
+											VerticalContentAlignment="Center"
+											Style="{DynamicResource DefaultToolBar}"
+											>
 											<Button
 												x:Name="btnNewProductSupplier"
 												Click="supplierToolbarButtonNew"
@@ -763,8 +768,10 @@
 												>
 												<Image IsEnabled="False" Style="{DynamicResource ToolBarSaveIcon}" />
 											</Button>
-											<Button VerticalContentAlignment="Center" Margin="0,6,0,-6"
+											<Button
 												x:Name="btnDeleteProductSupplier"
+												Margin="0,6,0,-6"
+												VerticalContentAlignment="Center"
 												Click="SupplierToolbarButtonDelete"
 												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Action.Tooltip.Delete}"
 												>
@@ -778,15 +785,14 @@
 								<DataGrid
 									x:Name="ProductSupplierDataGrid"
 									Grid.Row="1"
-									Margin="5,0" SelectionChanged="SupplierChanged"
+									Margin="5,0"
 									Padding="3"
 									d:ItemsSource="{d:SampleData}"
 									AutoGenerateColumns="False"
 									IsReadOnly="True"
 									IsSynchronizedWithCurrentItem="True"
 									ItemsSource="{Binding ProductSupplierViewModel.FilteredSuppliers}"
-									SelectedIndex="1"
-									SelectedItem="{Binding ProductSupplierViewModel.SelectedSupplier}"
+									SelectedItem="{Binding ProductSupplierViewModel.SelectedSupplier, Mode=TwoWay}"
 									VerticalScrollBarVisibility="Auto"
 									>
 									<DataGrid.Columns>
@@ -917,10 +923,14 @@
 											DefaultText="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tag}"
 											DisplayMemberPath="SupplierName"
 											ItemsSource="{Binding ProductSupplierViewModel.SupplierList}"
-											SelectedValue="{Binding ProductSupplierViewModel.ProductSupplierSupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+											SelectedValue="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierSupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 											SelectedValuePath="SupplierId"
 											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip}"
-											/>
+											>
+											<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+												<StyleSelector />
+											</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+										</syncfusion:ComboBoxAdv>
 										<!--#endregion-->
 
 										<!--#region Supplier part number-->
@@ -1033,8 +1043,9 @@
 												x:Name="GotoWeb"
 												Width="AUTO"
 												HorizontalContentAlignment="Center"
-												Click="ButtonWeb" Visibility="{Binding Text, ElementName=SupplierProductUrl, Converter={StaticResource StringToVisibilityConverter}}"
+												Click="ButtonWeb"
 												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.UrlButton.Tooltip}"
+												Visibility="{Binding Text, ElementName=SupplierProductUrl, Converter={StaticResource StringToVisibilityConverter}}"
 												>
 												<Image
 													Width="21"

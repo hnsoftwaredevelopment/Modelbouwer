@@ -8,6 +8,7 @@ public class DBNames
 	public static readonly string SqlAsc = " ASC ";
 	public static readonly string SqlAs = " AS ";
 	public static readonly string SqlBetween = " BETWEEN ";
+	public static readonly string SqlCall = "CALL ";
 	public static readonly string SqlCast = "CAST( ";
 	public static readonly string SqlConcat = "CONCAT( ";
 	public static readonly string SqlCount = " COUNT( ";

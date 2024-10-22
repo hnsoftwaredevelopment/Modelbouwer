@@ -1108,18 +1108,37 @@ public class DBCommands
 	#endregion Check if there is a record in the table based (returns no of records)
 
 	#region Set the  default Supplier for a specific product
-	public static void SetDefaultSupplier( string productId, string supplierId )
+	public static void SetDefaultSupplier( string productId, string supplierId, string action )
 	{
-		using MySqlConnection connection = new( DBConnect.ConnectionString );
-		connection.Open();
+		string sqlQuery = "";
 
-		using MySqlCommand cmd = new( "SetDefaultSupplier", connection );
-		cmd.CommandType = CommandType.StoredProcedure;
+		switch ( action.ToLower() )
+		{
+			case "set":
+				sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
+				break;
+			case "reset":
+				sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.ResetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
+				break;
+			default:
+				break;
+		}
 
-		cmd.Parameters.AddWithValue( "@p_ProductId", productId );
-		cmd.Parameters.AddWithValue( "@p_SupplierId", supplierId );
+		if ( sqlQuery != "" )
+		{
+			using MySqlConnection connection = new( DBConnect.ConnectionString );
+			connection.Open();
 
-		cmd.ExecuteNonQuery();
+			//var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse(productId)}, {int.Parse(supplierId)};";
+
+			using MySqlCommand cmd = new( sqlQuery, connection );
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			cmd.Parameters.AddWithValue( "@p_ProductId", productId );
+			cmd.Parameters.AddWithValue( "@p_SupplierId", supplierId );
+
+			cmd.ExecuteNonQuery();
+		}
 	}
 	#endregion
 
@@ -1129,7 +1148,9 @@ public class DBCommands
 		using MySqlConnection connection = new( DBConnect.ConnectionString );
 		connection.Open();
 
-		using MySqlCommand cmd = new( "ResetDefaultSupplier", connection );
+		var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.ResetDefaultSupplier( {int.Parse(productId)}, {int.Parse(supplierId)};";
+
+		using MySqlCommand cmd = new( sqlQuery, connection );
 		cmd.CommandType = CommandType.StoredProcedure;
 
 		cmd.Parameters.AddWithValue( "@p_ProductId", productId );
