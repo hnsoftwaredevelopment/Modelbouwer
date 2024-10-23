@@ -1,6 +1,4 @@
 ﻿using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 using Syncfusion.UI.Xaml.TreeView.Engine;
 
@@ -93,7 +91,8 @@ public partial class ProductManagement : Page
 		using ( var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) ) )
 		{
 			TextRange textRange = new TextRange(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
-			textRange.Load( stream, System.Windows.DataFormats.Rtf );
+			if ( !textRange.IsEmpty )
+			{ textRange.Load( stream, System.Windows.DataFormats.Rtf ); }
 		}
 	}
 	#endregion
@@ -337,7 +336,19 @@ public partial class ProductManagement : Page
 	private void ButtonNew( object sender, RoutedEventArgs e )
 	{
 		//Create a new empty supplier, emtpy memo, empty image
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			// When adding a new product, the product per supplier tab should disabled, until the new product is saved and a productId is available
+			SupplierTab.IsEnabled = false;
+			InventoryTab.IsEnabled = false;
 
+			// Add new product
+			viewModel.ProductViewModel.AddNewItem();
+
+			viewModel.ProductViewModel.SelectedProduct = viewModel.ProductViewModel.Product.Last();
+
+			ProductSupplierDataGrid.Items.Refresh();
+		}
 	}
 	#endregion
 
@@ -362,7 +373,28 @@ public partial class ProductManagement : Page
 
 	private void ButtonSave( object sender, RoutedEventArgs e )
 	{
+		//int rowIndex = _currentDataGridIndex;
 
+		//valueBrandId.Text = ( ( Brand ) cboxProductBrand.SelectedItem ).BrandId.ToString();
+		//valueCategoryId.Text = ( ( Category ) cboxProductCategory.SelectedItem ).CategoryId.ToString();
+		//valueStorageId.Text = ( ( Storage ) cboxProductStorage.SelectedItem ).StorageId.ToString();
+		//valueUnitId.Text = ( ( Unit ) cboxProductUnit.SelectedItem ).UnitId.ToString();
+
+		//// When there is an existing Prduct selected the supplier tabpage can be activated
+		//SupplierTab.IsEnabled = inpProductCode.Text != "";
+
+		//if ( valueProductId.Text != "" )
+		//{
+		//	UpdateRowProduct();
+		//}
+
+		//ClearAllFields();
+
+		//GetData();
+
+		//// Make sure the eddited row in the datagrid is selected
+		//ProductCode_DataGrid.SelectedIndex = rowIndex;
+		//ProductCode_DataGrid.Focus();
 	}
 
 	#region Add new supplier for this product
