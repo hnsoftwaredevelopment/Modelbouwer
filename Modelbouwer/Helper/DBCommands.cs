@@ -1,7 +1,8 @@
-﻿using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace Modelbouwer.Helper;
+﻿namespace Modelbouwer.Helper;
+/// <summary>
+/// Te Database commands helper.
+/// This helper contains function and method that perform Database actions
+/// </summary>
 public class DBCommands
 {
 	#region GetData
@@ -534,7 +535,7 @@ public class DBCommands
 	public static ObservableCollection<ProductModel> GetProductList( ObservableCollection<ProductModel>? productList = null )
 	{
 		productList ??= [ ];
-		DataTable? _dt = GetData(DBNames.ProductTable, DBNames.ProductFieldNameCode);
+		DataTable? _dt = GetData(DBNames.ProductTable, DBNames.ProductFieldNameCode, DBNames.ProductFieldNameHide, "0");
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
@@ -1107,6 +1108,38 @@ public class DBCommands
 	}
 	#endregion Check if there is a record in the table based (returns no of records)
 
+	#region Delete or Hide a product from the product table
+	/// <summary>
+	/// Delete or Hide a product from the product table, if it is used in history in is set to Hidden. If deleted all related records in the productsuppliertable will also be deleted
+	/// </summary>
+	/// <param name="productId">The id of the selected product.</param>
+	/// <returns>An int</returns> (1 = hidden, 0 = deleted)
+	public static int DeleteProduct( int productId )
+	{
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand cmd = new MySqlCommand("DeleteProductId", connection);
+		cmd.CommandType = CommandType.StoredProcedure;
+
+		//Provide input parameter to the stored procedure
+		cmd.Parameters.AddWithValue( "p_ProductId", productId );
+
+		//handle result from the stored procedure
+		MySqlParameter resultParam = new ("result", MySqlDbType.Int32);
+		resultParam.Direction = ParameterDirection.Output;
+		cmd.Parameters.Add( resultParam );
+
+		// Execute stored procedure
+		cmd.ExecuteNonQuery();
+
+		// Get the result (1 = hidden, 0 = deleted)
+		int result = Convert.ToInt32(resultParam.Value);
+
+		return result;
+	}
+	#endregion
+
 	#region Set the  default Supplier for a specific product
 	public static void SetDefaultSupplier( string productId, string supplierId, string action )
 	{
@@ -1159,7 +1192,6 @@ public class DBCommands
 		cmd.ExecuteNonQuery();
 	}
 	#endregion
-
 
 	#region Execute Non Query Handlers
 	#region Execute Non Query

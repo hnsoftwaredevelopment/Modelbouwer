@@ -561,6 +561,8 @@
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Category.Label">Categorie</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Category.Tag">Categorie</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.General.Category.Tooltip">Tot welke categorie behoort dit produkt</system:String>
+	<system:String x:Key="Edit.Product.Tab.Statusline.Deleted">is verwijderd</system:String>
+	<system:String x:Key="Edit.Product.Tab.Statusline.Hidden">is verborgen (voor behoud history)</system:String>
 
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Text">Voorraad gegevens</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.MinStock.Label">Minimale voorraad</system:String>

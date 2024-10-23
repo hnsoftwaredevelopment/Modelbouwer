@@ -136,38 +136,40 @@ public class DBNames
 
 	#region Product table
 
+	public static readonly string ProductFieldNameBrandId = "Brand_Id";
+	public static readonly string ProductFieldNameCategoryId = "Category_Id";
+	public static readonly string ProductFieldNameCode = "Code";
+	public static readonly string ProductFieldNameDimensions = "Dimensions";
+	public static readonly string ProductFieldNameHide = "Hide";
+	public static readonly string ProductFieldNameId = "Id";
+	public static readonly string ProductFieldNameImage = "Image";
+	public static readonly string ProductFieldNameImageRotationAngle = "ImageRotationAngle";
+	public static readonly string ProductFieldNameMemo = "Memo";
+	public static readonly string ProductFieldNameMinimalStock = "MinimalStock";
+	public static readonly string ProductFieldNameName = "Name";
+	public static readonly string ProductFieldNamePrice = "Price";
+	public static readonly string ProductFieldNameProjectCosts = "ProjectCosts";
+	public static readonly string ProductFieldNameStandardOrderQuantity = "StandardOrderQuantity";
+	public static readonly string ProductFieldNameStorageId = "Storage_Id";
+	public static readonly string ProductFieldNameUnitId = "Unit_Id";
+	public static readonly string ProductFieldTypeBrandId = "int";
+	public static readonly string ProductFieldTypeCategoryId = "int";
+	public static readonly string ProductFieldTypeCode = "string";
+	public static readonly string ProductFieldTypeDimensions = "string";
+	public static readonly string ProductFieldTypeHide = "int";
+	public static readonly string ProductFieldTypeId = "int";
+	public static readonly string ProductFieldTypeImage = "blob";
+	public static readonly string ProductFieldTypeImageRotationAngle = "string";
+	public static readonly string ProductFieldTypeMemo = "longtext";
+	public static readonly string ProductFieldTypeMinimalStock = "double";
+	public static readonly string ProductFieldTypeName = "string";
+	public static readonly string ProductFieldTypePrice = "double";
+	public static readonly string ProductFieldTypeProjectCosts = "int";
+	public static readonly string ProductFieldTypeStandardOrderQuantity = "double";
+	public static readonly string ProductFieldTypeStorageId = "int";
+	public static readonly string ProductFieldTypeUnitId = "int";
 	public static readonly string ProductTable = "product";
 	public static readonly string ProductView = "view_product";
-	public static readonly string ProductFieldNameId = "Id";
-	public static readonly string ProductFieldTypeId = "int";
-	public static readonly string ProductFieldNameCode = "Code";
-	public static readonly string ProductFieldTypeCode = "string";
-	public static readonly string ProductFieldNameName = "Name";
-	public static readonly string ProductFieldTypeName = "string";
-	public static readonly string ProductFieldNameDimensions = "Dimensions";
-	public static readonly string ProductFieldTypeDimensions = "string";
-	public static readonly string ProductFieldNamePrice = "Price";
-	public static readonly string ProductFieldTypePrice = "double";
-	public static readonly string ProductFieldNameMinimalStock = "MinimalStock";
-	public static readonly string ProductFieldTypeMinimalStock = "double";
-	public static readonly string ProductFieldNameStandardOrderQuantity = "StandardOrderQuantity";
-	public static readonly string ProductFieldTypeStandardOrderQuantity = "double";
-	public static readonly string ProductFieldNameProjectCosts = "ProjectCosts";
-	public static readonly string ProductFieldTypeProjectCosts = "int";
-	public static readonly string ProductFieldNameUnitId = "Unit_Id";
-	public static readonly string ProductFieldTypeUnitId = "int";
-	public static readonly string ProductFieldNameImageRotationAngle = "ImageRotationAngle";
-	public static readonly string ProductFieldTypeImageRotationAngle = "string";
-	public static readonly string ProductFieldNameImage = "Image";
-	public static readonly string ProductFieldTypeImage = "blob";
-	public static readonly string ProductFieldNameBrandId = "Brand_Id";
-	public static readonly string ProductFieldTypeBrandId = "int";
-	public static readonly string ProductFieldNameCategoryId = "Category_Id";
-	public static readonly string ProductFieldTypeCategoryId = "int";
-	public static readonly string ProductFieldNameStorageId = "Storage_Id";
-	public static readonly string ProductFieldTypeStorageId = "int";
-	public static readonly string ProductFieldNameMemo = "Memo";
-	public static readonly string ProductFieldTypeMemo = "longtext";
 
 	#endregion Product table
 

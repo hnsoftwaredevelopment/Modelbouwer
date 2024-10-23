@@ -7,6 +7,8 @@ global using System.Text;
 global using System.Windows.Data;
 global using System.Windows.Forms;
 global using System.Windows.Input;
+global using System.Windows.Media;
+global using System.Windows.Media.Imaging;
 //global using Syncfusion.Windows.PdfViewer;
 global using CommunityToolkit.Mvvm.ComponentModel;
 

@@ -336,14 +336,29 @@ public partial class ProductManagement : Page
 	#region Create new Product
 	private void ButtonNew( object sender, RoutedEventArgs e )
 	{
+		//Create a new empty supplier, emtpy memo, empty image
 
 	}
 	#endregion
 
+	#region Delete Product after checking if it is used in history (if yes, hide product)
 	private void ButtonDelete( object sender, RoutedEventArgs e )
 	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+			var _deleteName = selectedProduct.ProductName;
 
+			var result = DBCommands.DeleteProduct( selectedProduct.ProductId );
+			viewModel.ProductViewModel.Product.Remove( selectedProduct );
+
+			if ( result == 1 )
+			{ dispStatusLine.Text = $"{_deleteName} {( string ) FindResource( "Edit.Product.Tab.Statusline.Hidden" )}"; }
+			else
+			{ dispStatusLine.Text = $"{_deleteName} {( string ) FindResource( "Edit.Product.Tab.Statusline.Deleted" )}"; }
+		}
 	}
+	#endregion
 
 	private void ButtonSave( object sender, RoutedEventArgs e )
 	{
