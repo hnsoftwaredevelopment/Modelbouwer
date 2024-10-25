@@ -101,4 +101,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: BuildOutput
-        path: bin/debug/net8.0-windows7.0/  # Bijvoorbeeld: bin/Release
+        path: D:\a\Modelbouwer\Modelbouwer\Modelbouwer\bin\Debug\net8.0-windows7.0/  # Bijvoorbeeld: bin/Release
