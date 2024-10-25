@@ -808,7 +808,7 @@ public class DBCommands
 	#endregion Insert new record in Table
 
 	#region Insert Fields and Image in table
-	public static string InsertInTable( string _table, string [ , ] _fields, byte [ ] _image, string _imageName )
+	public static string InsertInTable( string _table, string [ , ] _fields, byte [ ] _image, string _imageFieldName )
 	{
 		string sqlQuery = $"{DBNames.SqlInsert}{_table} ";
 
@@ -824,15 +824,15 @@ public class DBCommands
 			sqlValues = string.Concat( sqlValues, prefix, "@", _fields [ i, 0 ] );
 		}
 
-		sqlFields = string.Concat( $"{sqlFields}, {_imageName})" );
-		sqlValues = string.Concat( $"{sqlValues}, @{_imageName})" );
+		sqlFields = string.Concat( $"{sqlFields}, {_imageFieldName})" );
+		sqlValues = string.Concat( $"{sqlValues}, @{_imageFieldName})" );
 
 		sqlQuery = $"{sqlQuery}{sqlFields} {DBNames.SqlValues} {sqlValues};";
 
 		string result;
 		try
 		{
-			int rowsAffected = ExecuteNonQueryTable(sqlQuery, _fields, _image, _imageName);
+			int rowsAffected = ExecuteNonQueryTable(sqlQuery, _fields, _image, _imageFieldName);
 
 			result = rowsAffected > 0 ? "Rij toegevoegd." : "Rij niet toegevoegd.";
 		}
@@ -897,6 +897,43 @@ public class DBCommands
 		return result;
 	}
 	#endregion Update record in database
+
+	#region Update Image in table
+	public static string UpdateImageInTable( string _table, string [ , ] _whereFields, byte [ ] _imageContent, string _imageFieldName )
+	{
+		string result = string.Empty;
+		StringBuilder sqlQuery = new();
+
+		sqlQuery.Append( $"{DBNames.SqlUpdate}{_table.ToLower()}{DBNames.SqlSet}{_imageFieldName} = @{_imageFieldName}{DBNames.SqlWhere}" );
+		string prefix = "";
+
+		for ( int i = 0; i < _whereFields.GetLength( 0 ); i++ )
+		{
+			if ( i != 0 )
+			{ prefix = ", "; }
+			sqlQuery.Append( $"{prefix}{_whereFields [ i, 0 ]} = @{_whereFields [ i, 0 ]}" );
+		}
+
+		try
+		{
+			int rowsAffected = ExecuteNonQueryTable(sqlQuery.ToString(), _whereFields, _imageContent, _imageFieldName);
+
+			result = rowsAffected > 0 ? "Rij toegevoegd." : "Rij niet toegevoegd.";
+		}
+		catch ( MySqlException ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
+			throw;
+		}
+		catch ( Exception ex )
+		{
+			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
+			throw;
+		}
+
+		return result;
+	}
+	#endregion
 
 	#region Update Memo Field in Table
 	public static string UpdateMemoFieldInTable( string _table, string [ , ] _whereFields, string _memoFieldName, string _memoFieldContent )
@@ -1403,7 +1440,7 @@ public class DBCommands
 	#endregion SqlText + Array with WhereFields + Memo
 
 	#region Execute Non Query: SqlText + Array with Fields + Image
-	private static int ExecuteNonQueryTable( string _sqlQuery, string [ , ] _fields, byte [ ] _image, string _imageName )
+	private static int ExecuteNonQueryTable( string _sqlQuery, string [ , ] _fields, byte [ ] _image, string _imageFieldName )
 	{
 		int rowsAffected = 0;
 
@@ -1450,7 +1487,7 @@ public class DBCommands
 				}
 			}
 			// Add _image to the commandstring
-			cmd.Parameters.Add( "@" + _imageName, MySqlDbType.Blob ).Value = _image;
+			cmd.Parameters.Add( "@" + _imageFieldName, MySqlDbType.Blob ).Value = _image;
 			rowsAffected = cmd.ExecuteNonQuery();
 		}
 		return rowsAffected;

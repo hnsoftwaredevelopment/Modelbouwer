@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.10.23.7</AssemblyVersion>
-    <FileVersion>24.10.23.7</FileVersion>
+    <AssemblyVersion>24.10.25.0</AssemblyVersion>
+    <FileVersion>24.10.25.0</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>

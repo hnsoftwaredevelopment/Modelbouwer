@@ -373,28 +373,71 @@ public partial class ProductManagement : Page
 
 	private void ButtonSave( object sender, RoutedEventArgs e )
 	{
-		//int rowIndex = _currentDataGridIndex;
+		var viewModel = DataContext as CombinedProductViewModel;
+		var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
-		//valueBrandId.Text = ( ( Brand ) cboxProductBrand.SelectedItem ).BrandId.ToString();
-		//valueCategoryId.Text = ( ( Category ) cboxProductCategory.SelectedItem ).CategoryId.ToString();
-		//valueStorageId.Text = ( ( Storage ) cboxProductStorage.SelectedItem ).StorageId.ToString();
-		//valueUnitId.Text = ( ( Unit ) cboxProductUnit.SelectedItem ).UnitId.ToString();
+		var productImage = selectedProduct.ProductImage;
+		var productMemo = selectedProduct.ProductMemo;
 
-		//// When there is an existing Prduct selected the supplier tabpage can be activated
-		//SupplierTab.IsEnabled = inpProductCode.Text != "";
+		string[ , ] productFields = new string [12,3]
+			{
+				{DBNames.ProductFieldNameBrandId, DBNames.ProductFieldTypeBrandId, selectedProduct.ProductBrandId.ToString()},
+				{DBNames.ProductFieldNameCategoryId, DBNames.ProductFieldTypeCategoryId, selectedProduct.ProductCategoryId.ToString()},
+				{DBNames.ProductFieldNameCode, DBNames.ProductFieldTypeCode, selectedProduct.ProductCode.ToString()},
+				{DBNames.ProductFieldNameDimensions, DBNames.ProductFieldTypeDimensions, selectedProduct.ProductDimensions.ToString()},
+				{DBNames.ProductFieldNameImageRotationAngle, DBNames.ProductFieldTypeImageRotationAngle, selectedProduct.ProductImageRotationAngle.ToString()},
+				{DBNames.ProductFieldNameMinimalStock, DBNames.ProductFieldTypeMinimalStock, selectedProduct.ProductMinimalStock.ToString()},
+				{DBNames.ProductFieldNameName, DBNames.ProductFieldTypeName, selectedProduct.ProductName.ToString()},
+				{DBNames.ProductFieldNameStandardOrderQuantity, DBNames.ProductFieldTypeStandardOrderQuantity, selectedProduct.ProductStandardQuantity.ToString()},
+				{DBNames.ProductFieldNamePrice, DBNames.ProductFieldTypePrice, selectedProduct.ProductPrice.ToString()},
+				{DBNames.ProductFieldNameProjectCosts, DBNames.ProductFieldTypeProjectCosts, selectedProduct.ProductProjectCosts.ToString()},
+				{DBNames.ProductFieldNameStorageId, DBNames.ProductFieldTypeStorageId, selectedProduct.ProductStorageId.ToString()},
+				{DBNames.ProductFieldNameUnitId, DBNames.ProductFieldTypeUnitId, selectedProduct.ProductUnitId.ToString()}
+			};
 
-		//if ( valueProductId.Text != "" )
-		//{
-		//	UpdateRowProduct();
-		//}
+		if ( selectedProduct.ProductId == 0 )
+		{
+			// Save a new product including the image
+			DBCommands.InsertInTable( DBNames.ProductTable, productFields, selectedProduct.ProductImage, DBNames.ProductFieldNameImage );
 
-		//ClearAllFields();
+			// Get the Id of the just saved product and use it to create the where field for the update memo action
+			var productId = DBCommands.GetLatestIdFromTable( DBNames.ProductTable );
+			string[,] whereFields = new string[1, 3]
+			{
+				{ DBNames.ProductFieldNameId, DBNames.ProductFieldTypeId,  productId},
+			};
 
-		//GetData();
+			//Save the memo in de product table
+			DBCommands.UpdateMemoFieldInTable( DBNames.ProductTable, whereFields, DBNames.ProductFieldNameMemo, productMemo );
 
-		//// Make sure the eddited row in the datagrid is selected
-		//ProductCode_DataGrid.SelectedIndex = rowIndex;
-		//ProductCode_DataGrid.Focus();
+			//Save Image
+			DBCommands.UpdateImageInTable( DBNames.ProductTable, whereFields, productImage, DBNames.ProductFieldNameImage );
+
+			//Set the pnew productId for the selected Product
+			selectedProduct.ProductId = int.Parse( productId );
+
+			// Product is no longer new, so reset the IsNew flag
+			viewModel.ProductViewModel.IsAddingNew = false;
+		}
+		else
+		{
+			// Update an excisting product
+			string[,] whereFields = new string[1, 3]
+			{
+				{ DBNames.ProductFieldNameId, DBNames.ProductFieldTypeId, selectedProduct.ProductId.ToString() },
+			};
+
+			DBCommands.UpdateInTable( DBNames.ProductTable, productFields, whereFields );
+
+			//Update the memo in de product table
+			DBCommands.UpdateMemoFieldInTable( DBNames.ProductTable, whereFields, DBNames.ProductFieldNameMemo, productMemo );
+
+			//Update Image
+			DBCommands.UpdateImageInTable( DBNames.ProductTable, whereFields, productImage, DBNames.ProductFieldNameImage );
+
+		}
+
+		//TODO Update the datgrid and reselect the saved product
 	}
 
 	#region Add new supplier for this product

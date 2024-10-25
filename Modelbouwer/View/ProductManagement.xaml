@@ -12,7 +12,7 @@
 	Title="ProductManagement"
 	d:DataContext="{d:DesignInstance Type=viewmodels:CombinedProductViewModel}"
 	d:DesignHeight="1000"
-	d:DesignWidth="1200"
+	d:DesignWidth="1600"
 	mc:Ignorable="d"
 	>
 
@@ -378,7 +378,7 @@
 										/>
 
 									<Button
-										Grid.Row="5"
+										Grid.Row="5" x:Name="ProductCategory"
 										Grid.ColumnSpan="2"
 										Width="600"
 										Click="CategoryChange"
@@ -530,7 +530,7 @@
 
 
 									<Button
-										Grid.Row="3"
+										Grid.Row="3" x:Name="ProductStorageLocation"
 										Grid.Column="0"
 										Grid.ColumnSpan="4"
 										Width="600"
