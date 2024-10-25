@@ -94,7 +94,7 @@ jobs:
 
     # List files to check if the build output exists
     - name: List files
-      run: dir D:/Modelbouwer/bin/Debug/net8.0-windows7.0/
+      run: dir D:\a\Modelbouwer\Modelbouwer\bin\Debug\net8.0-windows7.0/
       
     # Upload the artifactes
     - name: Upload build artifacts
