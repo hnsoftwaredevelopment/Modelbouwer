@@ -89,12 +89,12 @@ jobs:
     #  run: tree /F /A
 
     # Print the current working directory
-    - name: Print current working directory
-      run: pwd
+    #- name: Print current working directory
+    #  run: pwd
 
     # List files to check if the build output exists
     - name: List files
-      run: dir D:\a\Modelbouwer\Modelbouwer\bin\Debug\net8.0-windows7.0/
+      run: dir D:\a\Modelbouwer\Modelbouwer\Modelbouwer\bin\Debug\net8.0-windows7.0/
       
     # Upload the artifactes
     - name: Upload build artifacts
