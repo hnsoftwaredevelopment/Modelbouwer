@@ -85,8 +85,12 @@ jobs:
       run: msbuild $env:Solution_Name /p:Configuration=Debug /p:WarningsAsErrors=false
 
     # Check output folder structure
-    - name: Check folder structure
-      run: tree /F /A
+    #- name: Check folder structure
+    #  run: tree /F /A
+
+    # Print the current working directory
+    - name: Print current working directory
+      run: pwd
 
     # List files to check if the build output exists
     - name: List files
