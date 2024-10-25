@@ -84,9 +84,13 @@ jobs:
     - name: Build the application (Debug)
       run: msbuild $env:Solution_Name /p:Configuration=Debug /p:WarningsAsErrors=false
 
+    # Check output folder structure
+    - name: Check folder structure
+      run: tree /F /A
+
     # List files to check if the build output exists
     - name: List files
-      run: dir bin/Debug/
+      run: dir bin/Debug/net8.0-windows/
       
     # Upload the artifactes
     - name: Upload build artifacts
