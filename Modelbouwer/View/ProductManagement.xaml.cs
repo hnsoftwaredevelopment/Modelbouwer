@@ -1,14 +1,7 @@
-﻿using System.Windows.Documents;
-
-using Syncfusion.UI.Xaml.TreeView.Engine;
-
-using Image = System.Windows.Controls.Image;
+﻿using Image = System.Windows.Controls.Image;
 
 namespace Modelbouwer.View;
 
-/// <summary>
-/// Interaction logic for ProductManagement.xaml
-/// </summary>
 public partial class ProductManagement : Page
 {
 	public ProductManagement()
@@ -371,6 +364,7 @@ public partial class ProductManagement : Page
 	}
 	#endregion
 
+	#region Product Save
 	private void ButtonSave( object sender, RoutedEventArgs e )
 	{
 		var viewModel = DataContext as CombinedProductViewModel;
@@ -439,6 +433,7 @@ public partial class ProductManagement : Page
 
 		//TODO Update the datgrid and reselect the saved product
 	}
+	#endregion
 
 	#region Add new supplier for this product
 	private void supplierToolbarButtonNew( object sender, RoutedEventArgs e )
