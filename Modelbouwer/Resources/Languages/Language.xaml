@@ -831,8 +831,119 @@
 	<system:String x:Key="Edit.Project.Action.Tooltip.Add">Projekt toevoegen aan de tabel</system:String>
 	<system:String x:Key="Edit.Project.Action.Tooltip.Delete">Geselecteerde projekt verwijderen uit de tabel</system:String>
 	<system:String x:Key="Edit.Project.Action.Tooltip.Save">Gewijzigde projekt opslaan</system:String>
+
+	<!--#region Datagrid-->
 	<system:String x:Key="Edit.Project.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Project.DataGrid.Header.Code">Zoeknaam</system:String>
 	<system:String x:Key="Edit.Project.DataGrid.Header.Name">Projektnaam</system:String>
+	<system:String x:Key="Edit.Project.DataGrid.Header.StartDate">Startdatum</system:String>
+	<system:String x:Key="Edit.Project.DataGrid.Header.EndDate">Einddatum</system:String>
+	<system:String x:Key="Edit.Project.DataGrid.Header.Completed">Gereed</system:String>
+	<!--#endregion-->
+
+	<!--#region Tab pages-->
+	<!--#region Tab: General-->
+	<system:String x:Key="Edit.Project.Tab.General.Label">Projekt gegevens</system:String>
+	<!--#region Region Details-->
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Text">Project details</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Code.Label">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Code.Tag">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Code.Tooltip">Geef de zoeknaam voor dit projekt</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Description.Label">Projectnaam</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Description.Tag">Projectnaam</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Description.Tooltip">Geef dit project een naam</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Startdate.Label">Startdatum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Startdate.Tag">Selecteer datum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Startdate.Tooltip">Startdatum van dit projekt</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Label">Verwachte einddatum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Tag">Selecteer datum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Tooltip">Verwachte datum gereed</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Enddate.Label">Einddatum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Enddate.Tag">Selecteer datum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Enddate.Tooltip">Datum gereed</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Completed.Label">Project status</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Completed.Tag">Gereed</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.Completed.Tooltip">Meld het het project niet gereed</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.NotCompleted.Tag">Mee bezig</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Details.NotCompleted.Tooltip">Meld het project gereed</system:String>
+
+	<!--#endregion-->
+
+	<!--#region Region Build time-->
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Text">Bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Text">Voortgang</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Construction.Label">Bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Construction.Short.Tag">Bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Construction.Short.Tooltip">Bouwtijd in uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Construction.Long.Tag">Bouwtijd (lang)</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Construction.Long.Tooltip">Bouwtijd uitgebreide notatie</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Businessdays.Label">Werkdagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Businessdays.Tag">Werkdagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Businessdays.Tooltip">Bouwtijd in werkdagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Label">Kortste werkdag</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Date.Tag">Datum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Date.Tooltip">Datum dag met de kortste bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Time.Tag">Bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Time.Tooltip">Bestede uren op de kortste bouwdag</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Label">Langste werkdag</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Date.Tag">Datum</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Date.Tooltip">Datum dag met de langste bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Time.Tag">Bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Time.Tooltip">Bestede uren op de langste bouwdag</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Average.Label">Uren per dag</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Average.Tag">Uren per dag</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Progress.Average.Tooltip">Gemiddelde bouwtijd per dag (uren:minuten)</system:String>
+
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expectation.Text">Verwachting</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expecation.Time.Label">Verwachte bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expecation.Time.Tag">Uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expecation.Time.Tooltip">Verwachte bouwtijd in uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expecation.Time.Suffix">(uren)</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Label">Werkdagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Tag">Dagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Tooltip">Verwachte bouwtijd in werkdagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tag">Dagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tooltip">Verwachte bouwtijd</system:String>
+
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Text">Nog te gaan</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Hours.Label">Uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Hours.Tag">Uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Hours.Tooltip">Resterende bouwtijd</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Days.Label">In dagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Days.Tag">Dagen</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Days.Tooltip">Resterende bouwtijd in dagen</system:String>
+
+	<!--#endregion-->
+
+	<!--#region Region Costs-->
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Text">Kosten</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Material.Label">Materiaal kosten</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Material.Tag">Materiaal</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Material.Tooltip">Welke materiaalkosten zijn gemaakt voor dit projekt</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Hours.Label">Doorberekende uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Hours.Tag">Uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Hours.Tooltip">Wat zijn de gedeclareerde bouw kosten voor dit projekt</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Total.Label">Totale kosten</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Total.Tag">Totaal</system:String>
+	<system:String x:Key="Edit.Project.Tab.General.Group.Costs.Total.Tooltip">Totale klosten van dit projekt</system:String>
+	<!--#endregion-->
+	<!--#endregion-->
+
+	<!--#region Tab: Memo-->
+	<system:String x:Key="Edit.Project.Tab.Memo.Label">Aanvullende informatie</system:String>
+	<!--#endregion-->
+
+	<!--#region Tab:Build Time-->
+	<system:String x:Key="Edit.Project.Tab.BuildTime.Label">Bouw tijd</system:String>
+
+	<!--#endregion-->
+
+	<!--#region Tab: Project Expenses-->
+	<system:String x:Key="Edit.Project.Tab.BuildCosts.Label">Project kosten</system:String>
+
+	<!--#endregion-->
+	<!--#endregion-->
+
 	<!--#endregion-->
 
 	<!--#endregion-->

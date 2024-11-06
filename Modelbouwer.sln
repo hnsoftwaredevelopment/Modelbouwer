@@ -26,9 +26,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_RemoveEmptyEntries = False
-		RESX_AutoCreateNewLanguageFiles = True
-		RESX_NeutralResourcesLanguage = en-US
+		RESX_CultureCountyOverrides = en=en-150
 		SolutionGuid = {0DB2ACE5-F8FC-4940-92ED-16E10DA008C5}
+		RESX_NeutralResourcesLanguage = nl-NL
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_RemoveEmptyEntries = False
 	EndGlobalSection
 EndGlobal

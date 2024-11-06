@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.11.4.0</AssemblyVersion>
-    <FileVersion>24.11.4.0</FileVersion>
+    <AssemblyVersion>24.11.6.6</AssemblyVersion>
+    <FileVersion>24.11.6.6</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
@@ -145,6 +145,8 @@
     <None Remove="Resources\Icons\trashbin.png" />
     <None Remove="Resources\Icons\Warning-Message.ico" />
     <None Remove="Resources\Icons\warning.png" />
+    <None Remove="Resources\Images\ToggleGreen.png" />
+    <None Remove="Resources\Images\ToggleRed.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -553,6 +555,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\warning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\ToggleGreen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\ToggleRed.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

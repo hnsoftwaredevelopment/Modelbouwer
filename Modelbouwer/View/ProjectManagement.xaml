@@ -5,13 +5,753 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
 	Title="ProjectManagement"
-	d:DesignHeight="600"
-	d:DesignWidth="1000"
+	d:DesignHeight="1080"
+	d:DesignWidth="1920"
 	mc:Ignorable="d"
 	>
 
-	<Grid>
-		<TextBlock Text="Welcome to ProjectManagement" />
-	</Grid>
+	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
+		<Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50" />
+				<RowDefinition Height="370" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="50" />
+			</Grid.RowDefinitions>
+
+			<!--#region Page title-->
+			<StackPanel Grid.Row="0" Orientation="Vertical">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock
+						Grid.Column="0"
+						Style="{DynamicResource Title}"
+						Text="{StaticResource Edit.Project.Title}"
+						/>
+				</Grid>
+				<Path Style="{DynamicResource TitleLine}" />
+				<TextBlock
+					Grid.Column="0"
+					Style="{DynamicResource SubTitle}"
+					Text="{StaticResource Edit.Project.Subtitle}"
+					/>
+				<CheckBox
+					x:Name="valueShow"
+					IsChecked="True"
+					Style="{DynamicResource HiddenCheckBox}"
+					/>
+			</StackPanel>
+			<!--#endregion-->
+
+			<!--#region Tab pages-->
+			<TabControl
+				Grid.Row="1"
+				Height="350"
+				Margin="0,10"
+				Style="{DynamicResource Default TabControl}"
+				>
+
+				<!--#region TAB: General project information-->
+				<TabItem Header="{StaticResource Edit.Project.Tab.General.Label}" Style="{DynamicResource Default TabItem}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="1170" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
+						<StackPanel Grid.Column="0">
+							<!--#region General project information-->
+							<GroupBox Opacity="1">
+								<GroupBox.Header>
+									<StackPanel Background="Transparent" Orientation="Horizontal">
+										<Image Source="{StaticResource project}" Style="{DynamicResource ImageHeaderGroup}" />
+										<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Project.Tab.General.Label}" />
+									</StackPanel>
+								</GroupBox.Header>
+
+
+								<Grid Margin="5">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="210" />
+										<ColumnDefinition Width="210" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
+									<Grid.RowDefinitions>
+										<RowDefinition Height="20" />
+										<RowDefinition Height="30" />
+										<RowDefinition Height="20" />
+										<RowDefinition Height="30" />
+									</Grid.RowDefinitions>
+
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="0"
+										Style="{DynamicResource DefaultTextBlock}"
+										Text="{StaticResource Edit.Project.Tab.General.Group.Details.Code.Label}"
+										/>
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="1"
+										Style="{DynamicResource DefaultTextBlock}"
+										Text="{StaticResource Edit.Project.Tab.General.Group.Details.Description.Label}"
+										/>
+
+									<TextBox
+										x:Name="ProjectCode"
+										Grid.Row="1"
+										Grid.Column="0"
+										Width="200"
+										CharacterCasing="Upper"
+										Style="{DynamicResource DefaultTextBox}"
+										Tag="{StaticResource Edit.Project.Tab.General.Group.Details.Code.Tag}"
+										ToolTip="{StaticResource Edit.Project.Tab.General.Group.Details.Code.Tooltip}"
+										/>
+									<TextBox
+										x:Name="ProjectName"
+										Grid.Row="1"
+										Grid.Column="1"
+										Grid.ColumnSpan="2"
+										Width="600"
+										CharacterCasing="Upper"
+										Style="{DynamicResource DefaultTextBox}"
+										Tag="{StaticResource Edit.Project.Tab.General.Group.Details.Description.Tag}"
+										ToolTip="{StaticResource Edit.Project.Tab.General.Group.Details.Description.Tooltip}"
+										/>
+
+									<TextBlock
+										Grid.Row="2"
+										Grid.Column="0"
+										Style="{DynamicResource DefaultTextBlock}"
+										Text="{StaticResource Edit.Project.Tab.General.Group.Details.Startdate.Label}"
+										/>
+									<TextBlock
+										Grid.Row="2"
+										Grid.Column="1"
+										Style="{DynamicResource HideOnShowTextBlock}"
+										Text="{StaticResource Edit.Project.Tab.General.Group.Details.Enddate.Label}"
+										/>
+									<TextBlock
+										Grid.Row="2"
+										Grid.Column="1"
+										Style="{DynamicResource HideOnNotShowTextBlock}"
+										Text="{StaticResource Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Label}"
+										/>
+									<TextBlock
+										Grid.Row="2"
+										Grid.Column="2"
+										Style="{DynamicResource DefaultTextBlock}"
+										Text="{StaticResource Edit.Project.Tab.General.Group.Details.Completed.Label}"
+										/>
+
+									<DatePicker
+										x:Name="ProjectStartDate"
+										Grid.Row="3"
+										Grid.Column="0"
+										Width="150"
+										HorizontalAlignment="Left"
+										Style="{DynamicResource DefaultDataPicker}"
+										Tag="{StaticResource Edit.Project.Tab.General.Group.Details.Startdate.Tag}"
+										ToolTip="{StaticResource Edit.Project.Tab.General.Group.Details.Startdate.Tooltip}"
+										/>
+
+									<DatePicker
+										x:Name="ProjectEnddate"
+										Grid.Row="3"
+										Grid.Column="1"
+										Width="150"
+										HorizontalAlignment="Left"
+										Style="{DynamicResource HideOnShowDataPicker}"
+										/>
+									<TextBox
+										x:Name="ProjectExpEnddate"
+										Grid.Row="3"
+										Grid.Column="1"
+										Width="150"
+										HorizontalAlignment="Left"
+										Style="{DynamicResource HideOnNotShowTextBox}"
+										Tag="{StaticResource Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Tag}"
+										ToolTip="{StaticResource Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Tooltip}"
+										/>
+									<ToggleButton
+										x:Name="ProjectClosed"
+										Grid.Row="3"
+										Grid.Column="2"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										BorderBrush="White"
+										Click="ProjectStatus"
+										Style="{StaticResource SwitchButton}"
+										/>
+								</Grid>
+							</GroupBox>
+							<!--#endregion-->
+							<StackPanel Orientation="Horizontal">
+								<!--#region Spend time on project-->
+								<GroupBox Width="922" Opacity="1">
+									<GroupBox.Header>
+										<StackPanel Background="Transparent" Orientation="Horizontal">
+											<Image Source="{StaticResource Time}" Style="{DynamicResource ImageHeaderGroup}" />
+											<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Project.Tab.General.Group.Time.Text}" />
+										</StackPanel>
+									</GroupBox.Header>
+
+									<StackPanel Orientation="Horizontal">
+										<GroupBox Width="480" Opacity="1">
+											<GroupBox.Header>
+												<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Text}" />
+											</GroupBox.Header>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="110" />
+													<ColumnDefinition Width="125" />
+													<ColumnDefinition Width="230" />
+												</Grid.ColumnDefinitions>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="26" />
+													<RowDefinition Height="26" />
+													<RowDefinition Height="26" />
+													<RowDefinition Height="26" />
+													<RowDefinition Height="26" />
+												</Grid.RowDefinitions>
+
+												<!--#region Construction time-->
+												<TextBlock
+													Grid.Row="0"
+													Grid.Column="0"
+													Style="{DynamicResource DefaultTextBlock}"
+													Text="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Construction.Label}"
+													/>
+
+												<TextBox
+													x:Name="ProjectBuildTimeShort"
+													Grid.Row="0"
+													Grid.Column="1"
+													Width="120"
+													Margin="0,2,4,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Right"
+													IsEnabled="False"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Construction.Short.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Construction.Short.Tooltip}"
+													/>
+
+												<TextBox
+													x:Name="ProjectBuildTimeLong"
+													Grid.Row="0"
+													Grid.Column="2"
+													Width="225"
+													Margin="4,2,0,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Left"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Construction.Long.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Construction.Long.Tooltip}"
+													/>
+												<!--#endregion-->
+
+												<!--#region Business days-->
+												<TextBlock
+													Grid.Row="1"
+													Grid.Column="0"
+													Style="{DynamicResource DefaultTextBlock}"
+													Text="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Businessdays.Label}"
+													/>
+
+												<TextBox
+													x:Name="ProjectBuildDays"
+													Grid.Row="1"
+													Grid.Column="1"
+													Width="80"
+													Margin="0,2,4,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Right"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Businessdays.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Businessdays.Tooltip}"
+													/>
+												<!--#endregion-->
+
+												<!--#region Shortest working day-->
+												<TextBlock
+													Grid.Row="2"
+													Grid.Column="0"
+													Style="{DynamicResource DefaultTextBlock}"
+													Text="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Label}"
+													/>
+
+												<TextBox
+													x:Name="ProjectShortestBuildDayDate"
+													Grid.Row="2"
+													Grid.Column="1"
+													Width="120"
+													Margin="0,2,4,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Right"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Date.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Date.Tooltip}"
+													/>
+
+												<TextBox
+													x:Name="ProjectShortestBuildDayTime"
+													Grid.Row="2"
+													Grid.Column="2"
+													Width="225"
+													Margin="4,2,0,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Left"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Time.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.ShortestDay.Time.Tooltip}"
+													/>
+												<!--#endregion-->
+
+												<!--#region Longest working day-->
+												<TextBlock
+													Grid.Row="3"
+													Grid.Column="0"
+													Style="{DynamicResource DefaultTextBlock}"
+													Text="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Label}"
+													/>
+
+												<TextBox
+													x:Name="ProjectLongestBuildDayDate"
+													Grid.Row="3"
+													Grid.Column="1"
+													Width="120"
+													Margin="0,2,4,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Right"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Date.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Date.Tooltip}"
+													/>
+
+												<TextBox
+													x:Name="ProjectLongestBuildDayTime"
+													Grid.Row="3"
+													Grid.Column="2"
+													Width="225"
+													Margin="4,2,0,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Left"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Time.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.LongestDay.Time.Tooltip}"
+													/>
+												<!--#endregion-->
+
+												<!--#region Average workinghours per day-->
+												<TextBlock
+													Grid.Row="4"
+													Grid.Column="0"
+													Style="{DynamicResource DefaultTextBlock}"
+													Text="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Average.Label}"
+													/>
+
+												<TextBox
+													x:Name="ProjectAverageBuildDayTime"
+													Grid.Row="4"
+													Grid.Column="1"
+													Width="120"
+													Margin="0,2,4,2"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													HorizontalContentAlignment="Right"
+													Style="{StaticResource DisabledTextBox}"
+													Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Average.Tag}"
+													ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Progress.Average.Tooltip}"
+													/>
+												<!--#endregion-->
+											</Grid>
+										</GroupBox>
+
+										<!--#region The Future-->
+										<StackPanel Orientation="Vertical">
+											<!--#region Expectations-->
+											<GroupBox Width="430" Opacity="1">
+												<GroupBox.Header>
+													<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Text}" />
+												</GroupBox.Header>
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="140" />
+														<ColumnDefinition Width="60" />
+														<ColumnDefinition Width="230" />
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="26" />
+														<RowDefinition Height="26" />
+													</Grid.RowDefinitions>
+
+													<!--#region Expected build time-->
+													<TextBlock
+														Grid.Row="0"
+														Grid.Column="0"
+														Style="{DynamicResource DefaultTextBlock}"
+														Text="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Label}"
+														/>
+
+													<TextBox
+														x:Name="ProjectExpectedBuildTime"
+														Grid.Row="0"
+														Grid.Column="1"
+														Width="55"
+														Margin="0,2,4,2"
+														HorizontalAlignment="Right"
+														VerticalAlignment="Center"
+														HorizontalContentAlignment="Right"
+														Style="{StaticResource DefaultTextBox}"
+														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Tag}"
+														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Tooltip}"
+														/>
+
+													<TextBlock
+														Grid.Row="0"
+														Grid.Column="2"
+														Style="{DynamicResource DefaultTextBlock}"
+														Text="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Suffix}"
+														/>
+													<!--#endregion-->
+
+													<!--#region Expected build time in business days-->
+													<TextBlock
+														Grid.Row="1"
+														Grid.Column="0"
+														Style="{DynamicResource DefaultTextBlock}"
+														Text="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Label}"
+														/>
+
+													<TextBox
+														x:Name="ProjectExpectedBuildTimeBusinessDaysShort"
+														Grid.Row="1"
+														Grid.Column="1"
+														Width="55"
+														Margin="0,2,4,2"
+														HorizontalAlignment="Right"
+														VerticalAlignment="Center"
+														HorizontalContentAlignment="Right"
+														Style="{StaticResource DisabledTextBox}"
+														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Tag}"
+														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Tooltip}"
+														/>
+
+													<TextBox
+														x:Name="ProjectExpectedBuildTimeBusinessDaysLong"
+														Grid.Row="3"
+														Grid.Column="2"
+														Width="225"
+														Margin="4,2,0,2"
+														HorizontalAlignment="Right"
+														VerticalAlignment="Center"
+														HorizontalContentAlignment="Left"
+														Style="{StaticResource DisabledTextBox}"
+														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tag}"
+														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tooltip}"
+														/>
+													<!--#endregion-->
+												</Grid>
+
+											</GroupBox>
+											<!--#endregion-->
+
+											<!--#region Time To Go-->
+											<GroupBox Width="430" Opacity="1">
+												<GroupBox.Header>
+													<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Project.Tab.General.Group.Time.Togo.Text}" />
+												</GroupBox.Header>
+
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="22.333" />
+														<ColumnDefinition Width="117.667" />
+														<ColumnDefinition Width="60" />
+														<ColumnDefinition Width="230" />
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="26" />
+														<RowDefinition Height="26" />
+													</Grid.RowDefinitions>
+
+													<!--#region Left over build time-->
+													<TextBlock
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{DynamicResource DefaultTextBlock}"
+														Text="{StaticResource Edit.Project.Tab.General.Group.Time.Togo.Hours.Label}"
+														/>
+
+													<TextBox
+														x:Name="ProjectTogoTime"
+														Grid.Column="2"
+														Width="55"
+														Margin="4,0,0,0"
+														VerticalAlignment="Center"
+														HorizontalContentAlignment="Right"
+														Style="{StaticResource DefaultTextBox}"
+														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Togo.Hours.Tag}"
+														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Togo.Hours.Tooltip}"
+														/>
+													<!--#endregion-->
+
+													<!--#region left over build time in business days-->
+													<TextBlock
+														Grid.Row="1"
+														Grid.Column="0"
+														Grid.ColumnSpan="2"
+														Style="{DynamicResource DefaultTextBlock}"
+														Text="{StaticResource Edit.Project.Tab.General.Group.Time.Togo.Days.Label}"
+														/>
+
+													<TextBox
+														x:Name="ProjectTogoDays"
+														Grid.Row="1"
+														Grid.Column="2"
+														Grid.ColumnSpan="2"
+														Width="225"
+														Margin="4,0,0,0"
+														VerticalAlignment="Center"
+														HorizontalContentAlignment="Left"
+														Style="{StaticResource DisabledTextBox}"
+														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tag}"
+														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tooltip}"
+														/>
+													<!--#endregion-->
+												</Grid>
+											</GroupBox>
+											<!--#endregion-->
+										</StackPanel>
+										<!--#endregion-->
+									</StackPanel>
+								</GroupBox>
+
+								<!--#endregion-->
+
+								<!--#region Project costs-->
+								<GroupBox Width="248" Opacity="1">
+									<GroupBox.Header>
+										<StackPanel Background="Transparent" Orientation="Horizontal">
+											<Image Source="{StaticResource costs}" Style="{DynamicResource ImageHeaderGroup}" />
+											<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Edit.Project.Tab.General.Group.Costs.Text}" />
+										</StackPanel>
+									</GroupBox.Header>
+
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="129" />
+											<ColumnDefinition Width="12" />
+											<ColumnDefinition Width="93" />
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="26" />
+											<RowDefinition Height="26" />
+											<RowDefinition Height="26" />
+											<RowDefinition Height="*" />
+										</Grid.RowDefinitions>
+
+										<!--#region Material costs-->
+										<TextBlock
+											Grid.Row="0"
+											Grid.Column="0"
+											VerticalAlignment="Center"
+											Style="{DynamicResource DefaultTextBlock}"
+											Text="{StaticResource Edit.Project.Tab.General.Group.Costs.Material.Label}"
+											/>
+										<TextBlock
+											Grid.Row="0"
+											Grid.Column="1"
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											Style="{DynamicResource DefaultTextBlock}"
+											Text="€"
+											/>
+										<syncfusion:DoubleTextBox
+											x:Name="ProjectMaterialCosts"
+											Grid.Row="0"
+											Grid.Column="2"
+											Width="90"
+											Height="22"
+											HorizontalAlignment="Right"
+											Style="{StaticResource DisabledTextBox}"
+											Text=""
+											TextAlignment="Right"
+											/>
+										<!--#endregion-->
+
+										<!--#region Time costs-->
+										<TextBlock
+											Grid.Row="1"
+											Grid.Column="0"
+											VerticalAlignment="Center"
+											Style="{DynamicResource DefaultTextBlock}"
+											Text="{StaticResource Edit.Project.Tab.General.Group.Costs.Hours.Label}"
+											/>
+
+										<Border
+											Grid.Row="1"
+											Grid.Column="1"
+											BorderBrush="Black"
+											BorderThickness="0,0,0,1"
+											>
+											<TextBlock
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												Style="{DynamicResource DefaultTextBlock}"
+												Text="€"
+												/>
+										</Border>
+
+										<Border
+											Grid.Row="1"
+											Grid.Column="2"
+											BorderBrush="Black"
+											BorderThickness="0,0,0,1"
+											>
+											<syncfusion:DoubleTextBox
+												x:Name="ProjectTimeCosts"
+												Width="90"
+												Height="22"
+												HorizontalAlignment="Right"
+												Style="{StaticResource DisabledTextBox}"
+												Text=""
+												TextAlignment="Right"
+												/>
+										</Border>
+										<!--#endregion-->
+
+										<!--#region Total Costs-->
+										<TextBlock
+											Grid.Row="2"
+											Grid.Column="0"
+											VerticalAlignment="Center"
+											Style="{DynamicResource DefaultTextBlock}"
+											Text="{StaticResource Edit.Project.Tab.General.Group.Costs.Total.Label}"
+											/>
+
+										<Border
+											Grid.Row="2"
+											Grid.Column="1"
+											BorderBrush="Black"
+											BorderThickness="0,0,0,1"
+											>
+											<Border
+												Grid.Row="2"
+												Grid.Column="1"
+												Margin="0,1"
+												BorderBrush="Black"
+												BorderThickness="0,0,0,1"
+												>
+												<TextBlock
+													HorizontalAlignment="Center"
+													Style="{DynamicResource DefaultTextBlock}"
+													Text="€"
+													/>
+											</Border>
+										</Border>
+
+										<Border
+											Grid.Row="2"
+											Grid.Column="2"
+											BorderBrush="Black"
+											BorderThickness="0,0,0,1"
+											>
+											<Border
+												Grid.Row="2"
+												Grid.Column="2"
+												Margin="0,0,0,1"
+												BorderBrush="Black"
+												BorderThickness="0,0,0,1"
+												>
+												<syncfusion:DoubleTextBox
+													x:Name="ProjectTotalCosts"
+													Width="90"
+													Height="22"
+													HorizontalAlignment="Right"
+													Style="{StaticResource DisabledTextBox}"
+													Text=""
+													TextAlignment="Right"
+													/>
+											</Border>
+
+										</Border>
+
+										<!--#endregion-->
+									</Grid>
+								</GroupBox>
+								<!--#endregion-->
+							</StackPanel>
+						</StackPanel>
+
+						<StackPanel
+							Grid.Column="1"
+							Margin="8,5"
+							HorizontalAlignment="Left"
+							Orientation="Vertical"
+							>
+
+							<Border Width="240"
+                                    Height="240"
+                                    Margin="3"
+                                    Style="{DynamicResource ImageBorder}">
+								<Image x:Name="ProjectImage"
+                                       Source="{StaticResource noimage}"
+                                       Style="{DynamicResource ProductImage}" />
+							</Border>
+
+							<ToolBarTray Style="{DynamicResource ImageToolBarTray}">
+								<ToolBar Style="{DynamicResource ImageToolBar}">
+									<Button VerticalAlignment="Top"
+                                            Click="ImageAdd"
+                                            ToolTip="{StaticResource ToolBar.Button.Image.Add.Label}">
+										<Image Style="{DynamicResource ToolBarAddIcon}" />
+									</Button>
+									<Button VerticalAlignment="Top"
+                                            Click="ImageDelete"
+                                            ToolTip="{StaticResource ToolBar.Button.Image.Remove.Label}">
+										<Image Style="{DynamicResource ToolBarDeleteIcon}" />
+									</Button>
+									<Separator Style="{DynamicResource ImageToolBarSeperator}" />
+									<Button VerticalAlignment="Top"
+                                            Click="ImageRotate"
+                                            ToolTip="{StaticResource ToolBar.Button.Image.Rotate.Label}">
+										<Image Style="{DynamicResource ToolBarRotateIcon}" />
+									</Button>
+								</ToolBar>
+							</ToolBarTray>
+						</StackPanel>
+					</Grid>
+				</TabItem>
+				<!--#endregion-->
+
+				<!--#region TAB: Memo field-->
+				<TabItem Header="{StaticResource Edit.Project.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}" />
+				<!--#endregion-->
+
+				<!--#region TAB: Build time registrations-->
+				<TabItem Header="{StaticResource Edit.Project.Tab.BuildTime.Label}" Style="{DynamicResource Default TabItem}" />
+				<!--#endregion-->
+
+				<!--#region TAB: Project costs registration-->
+				<TabItem Header="{StaticResource Edit.Project.Tab.BuildCosts.Label}" Style="{DynamicResource Default TabItem}" />
+				<!--#endregion-->
+			</TabControl>
+			<!--#endregion-->
+
+		</Grid>
+	</Border>
 </Page>
