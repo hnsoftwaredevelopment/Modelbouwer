@@ -560,7 +560,49 @@ public class DBCommands
 		}
 		return productList;
 	}
+	#endregion
 
+	#region ProjectList
+	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )
+	{
+		projectList ??= [ ];
+		DataTable? _dt = GetData(DBNames.ProjectTotalsView, DBNames.ProjectFieldNameCode);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			bool _projectClosed = false;
+			if ( _dt.Rows [ i ] [ 15 ].ToString().Equals( "true", StringComparison.CurrentCultureIgnoreCase ) ) { _projectClosed = true; }
+			var workdaysToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) / (40 * 8);
+			var timeToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) - double.Parse( _dt.Rows [ i ] [ 9 ].ToString() );
+
+			projectList.Add( new ProjectModel
+			{
+				ProjectId = ( int ) _dt.Rows [ i ] [ 0 ],
+				ProjectCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				ProjectName = _dt.Rows [ i ] [ 2 ].ToString(),
+				ProjectStartDate = _dt.Rows [ i ] [ 3 ].ToString(),
+				ProjectEndDate = _dt.Rows [ i ] [ 4 ].ToString(),
+				ProjectExpectedTime = _dt.Rows [ i ] [ 5 ].ToString(),
+				ProjectImage = _dt.Rows [ i ] [ 6 ] != DBNull.Value ? ( byte [ ] ) _dt.Rows [ i ] [ 6 ] : GetDefaultImage(),
+				ProjectImageRotationAngle = _dt.Rows [ i ] [ 7 ].ToString(),
+				ProjectMemo = _dt.Rows [ i ] [ 8 ].ToString(),
+				ProjectTotalTimeInHours = _dt.Rows [ i ] [ 9 ].ToString(),
+				ProjectShortestWorkday = _dt.Rows [ i ] [ 10 ].ToString(),
+				ProjectShortestWorkdayHours = _dt.Rows [ i ] [ 11 ].ToString(),
+				ProjectLongestWorkday = _dt.Rows [ i ] [ 12 ].ToString(),
+				ProjectLongestWorkdayHours = _dt.Rows [ i ] [ 13 ].ToString(),
+				ProjectBuildDays = _dt.Rows [ i ] [ 14 ].ToString(),
+				ProjectClosed = _projectClosed,
+				ProjectAverageHoursPerDay = _dt.Rows [ i ] [ 16 ].ToString(),
+				ProjectTodoTime = timeToGo.ToString(),
+				ProjectExpectedWorkdays = workdaysToGo.ToString(),
+			} );
+		}
+		return projectList;
+	}
+	#endregion
+
+	#region Get default image
 	private static byte [ ] GetDefaultImage()
 	{
 		// Retrieve your 'NoImage' DrawingImage from the resource dictionary

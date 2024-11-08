@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
-public partial class projectViewModel : ObservableObject
+﻿namespace Modelbouwer.ViewModels;
+public partial class ProjectViewModel : ObservableObject
 {
 	[ObservableProperty]
 	public int projectId;
@@ -27,7 +25,7 @@ public partial class projectViewModel : ObservableObject
 	[ObservableProperty]
 	public string? projectExpectedTime;
 
-	[ObservableProperty]
+	//[ObservableProperty]
 	public byte[]? projectImage;
 
 	[ObservableProperty]
@@ -90,6 +88,37 @@ public partial class projectViewModel : ObservableObject
 	[ObservableProperty]
 	public string? projectBuildDays;
 
+	public ImageSource? _projectImage;
+	public ImageSource? ProjectImage
+	{
+		get => _projectImage;
+		set
+		{
+			_projectImage = value ?? ( System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource )
+				?? new BitmapImage( new Uri( "pack://application:,,,/YourAssemblyName;component/Resources/noimage.png" ) );
+
+			OnPropertyChanged( nameof( ProjectImage ) );
+		}
+	}
+
+	[ObservableProperty]
+	private ProjectModel? _selectedProject;
+
+	private bool _isAddingNew;
+
+	public bool IsAddingNew
+	{
+		get => _isAddingNew;
+		set
+		{
+			if ( _isAddingNew != value )
+			{
+				_isAddingNew = value;
+				OnPropertyChanged( nameof( IsAddingNew ) );
+			}
+		}
+	}
+
 	public ObservableCollection<ProjectModel> Project
 	{
 		get => _project;
@@ -103,4 +132,10 @@ public partial class projectViewModel : ObservableObject
 		}
 	}
 	private ObservableCollection<ProjectModel>? _project;
+
+	public ProjectViewModel()
+	{
+		Project = new ObservableCollection<ProjectModel>( DBCommands.GetProjectList() );
+		SelectedProject = Project [ 0 ];
+	}
 }

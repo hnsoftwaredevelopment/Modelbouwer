@@ -2004,31 +2004,36 @@
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="0,0,5,0" />
 		<Setter Property="Source" Value="{StaticResource add}" />
+		<Setter Property="Width" Value="14" />
 	</Style>
 
 	<Style x:Key="ToolBarCancelIcon" TargetType="Image">
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="5,0,0,0" />
 		<Setter Property="Source" Value="\Resources\Icons\toolbarCancel.png" />
+		<Setter Property="Width" Value="14" />
 	</Style>
 
 	<Style x:Key="ToolBarDeleteIcon" TargetType="Image">
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="5,0,0,0" />
 		<Setter Property="Source" Value="{StaticResource remove}" />
-		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Width" Value="14" />
+
 	</Style>
 
 	<Style x:Key="ToolBarResetIcon" TargetType="Image">
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="5,0,0,0" />
 		<Setter Property="Source" Value="\Resources\Icons\toolbarReset.png" />
+		<Setter Property="Width" Value="14" />
 	</Style>
 
 	<Style x:Key="ToolBarSaveIcon" TargetType="Image">
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="5,0,5,0" />
 		<Setter Property="Source" Value="\Resources\Icons\toolbarSave.png" />
+		<Setter Property="Width" Value="14" />
 	</Style>
 
 	<Style x:Key="ToolBarRotateIcon" TargetType="Image">

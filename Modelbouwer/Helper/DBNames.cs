@@ -242,6 +242,24 @@ public class DBNames
 
 	public static readonly string ProjectExportView = "view_projectexport";
 
+	public static readonly string ProjectTotalsView = "view_projecttotals";
+	public static readonly string ProjectTotalssViewFieldNameId = "Id";
+	public static readonly string ProjectTotalssViewFieldNameCode = "Code";
+	public static readonly string ProjectTotalssViewFieldNameName = "Name";
+	public static readonly string ProjectTotalssViewFieldNameStartDate = "StartDate";
+	public static readonly string ProjectTotalssViewFieldNameEndDate = "EndDate";
+	public static readonly string ProjectTotalssViewFieldNameExpectedTime = "ExpectedTime";
+	public static readonly string ProjectTotalssViewFieldNameImage = "Image";
+	public static readonly string ProjectTotalssViewFieldNameImageRotationAngle = "ImageRotationAngle";
+	public static readonly string ProjectTotalssViewFieldNameMemo = "Memo";
+	public static readonly string ProjectTotalssViewFieldNameTotalTimeInHours = "TotalTimeInHours";
+	public static readonly string ProjectTotalssViewFieldNameShortestWorkday = "ShortestWorkday";
+	public static readonly string ProjectTotalssViewFieldNameAverageHoursPerDay = "AverageHoursPerDay";
+	public static readonly string ProjectTotalssViewFieldNameHoursShortestWorkday = "HoursShortestWorkday";
+	public static readonly string ProjectTotalssViewFieldNameLongestWorkday = "LongestWorkday";
+	public static readonly string ProjectTotalssViewFieldNameHoursLongestWorkday = "HoursLongestWorkday";
+	public static readonly string ProjectTotalssViewFieldNameWorkingDays = "WorkingDays";
+	public static readonly string ProjectTotalssViewFieldNameIsClosed = "IsClosed";
 	#endregion Project table
 
 	#region Stock table

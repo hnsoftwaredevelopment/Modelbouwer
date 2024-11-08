@@ -11,7 +11,7 @@ public class ProjectModel : ObservableObject
 	public string? ProjectEndDateStr { get; set; }
 	public string? ProjectExpectedTime { get; set; }
 	public byte [ ]? ProjectImage { get; set; }
-	public int ProjectImageRotationAngle { get; set; }
+	public string? ProjectImageRotationAngle { get; set; }
 	public bool ProjectClosed { get; set; }
 	public string? ProjectMemo { get; set; }
 	public string? ProjectExpectedWorkdays { get; set; }
@@ -44,6 +44,7 @@ public class ProjectModel : ObservableObject
 		{ DBNames.ProjectFieldNameStartDate, "ProjectStartDate"},
 		{ DBNames.ProjectFieldNameEndDate, "ProjectEndDate"},
 		{ DBNames.ProjectFieldNameExpectedTime, "ProjectExpectedTime"},
-		{ DBNames.ProjectFieldNameClosed, "ProjectClosed"}
+		{ DBNames.ProjectFieldNameClosed, "ProjectClosed"},
+		{DBNames.ProjectTotalssViewFieldNameAverageHoursPerDay, "ProjectAverageHoursPerDay" }
 	};
 }

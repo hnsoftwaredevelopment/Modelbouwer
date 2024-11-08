@@ -669,7 +669,7 @@
 	<!--#endregion-->
 
 	<!--#region Remove (-) Icon-->
-	<Geometry x:Key="removeGeometry">F1 M48,48z M0,0z M0,0L32,0 32,5.3 0,5.3z</Geometry>
+	<Geometry x:Key="removeGeometry">F1 M 19.872009,12.128 H 32 v 7.744999 H 19.872009 12.126984 0 V 12.128 h 12.126984 z</Geometry>
 	<DrawingGroup x:Key="removeDrawingGroup" ClipGeometry="M0,0 V48 H48 V0 H0 Z">
 		<DrawingGroup Opacity="1" Transform="0.8125,0,0,0.8125,11,21.846874922514">
 			<GeometryDrawing Brush="#FFFF0000" Geometry="{StaticResource removeGeometry}" />

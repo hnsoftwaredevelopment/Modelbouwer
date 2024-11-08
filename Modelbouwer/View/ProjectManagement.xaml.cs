@@ -38,4 +38,19 @@ public partial class ProjectManagement : Page
 	{
 
 	}
+
+	private void ChangedProduct( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
+	{
+
+	}
+
+	private void ProjectDataGridLoaded( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	private void ChangedProject( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
+	{
+
+	}
 }
