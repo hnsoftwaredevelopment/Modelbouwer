@@ -378,7 +378,8 @@
 										/>
 
 									<Button
-										Grid.Row="5" x:Name="ProductCategory"
+										x:Name="ProductCategory"
+										Grid.Row="5"
 										Grid.ColumnSpan="2"
 										Width="600"
 										Click="CategoryChange"
@@ -530,7 +531,8 @@
 
 
 									<Button
-										Grid.Row="3" x:Name="ProductStorageLocation"
+										x:Name="ProductStorageLocation"
+										Grid.Row="3"
 										Grid.Column="0"
 										Grid.ColumnSpan="4"
 										Width="600"

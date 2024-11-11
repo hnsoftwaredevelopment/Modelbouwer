@@ -51,6 +51,14 @@ public partial class ProjectManagement : Page
 
 	private void ChangedProject( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
 	{
+		if ( DataContext is CombinedProjectViewModel viewModel )
+		{
+			//var selectedProject = viewModel.ProjectViewModel.SelectedProject;
 
+			if ( ProjectClosed.IsChecked == false && double.Parse( viewModel.ProjectViewModel.SelectedProject.ProjectExpectedTime ) > 0 )
+			{
+				ProjectExpEnddate.Text = DBCommands.GetProjectEndDate( viewModel.ProjectViewModel.SelectedProject.ProjectId ).ToString();
+			}
+		}
 	}
 }

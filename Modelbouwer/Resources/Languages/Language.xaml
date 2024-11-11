@@ -1239,4 +1239,22 @@
 	<system:String x:Key="mainRibbon.Manage.Settings.Button.Label">Instellingen</system:String>
 	<system:String x:Key="mainRibbon.Manage.Settings.Group.Header">Instellingen</system:String>
 	<!--#endregion-->
+	
+	<!--#region Regional settings-->
+	<system:String x:Key="Region.Month.Name.01">Januari</system:String>
+	<system:String x:Key="Region.Month.Name.02">Febuari</system:String>
+	<system:String x:Key="Region.Month.Name.03">Maart</system:String>
+	<system:String x:Key="Region.Month.Name.04">April</system:String>
+	<system:String x:Key="Region.Month.Name.05">Mei</system:String>
+	<system:String x:Key="Region.Month.Name.06">Juni</system:String>
+	<system:String x:Key="Region.Month.Name.07">Juli</system:String>
+	<system:String x:Key="Region.Month.Name.08">Augustus</system:String>
+	<system:String x:Key="Region.Month.Name.09">September</system:String>
+	<system:String x:Key="Region.Month.Name.10">Oktober</system:String>
+	<system:String x:Key="Region.Month.Name.11">November</system:String>
+	<system:String x:Key="Region.Month.Name.12">December</system:String>
+
+	<system:String x:Key="Region.Month.Error">Niet bestaande maand</system:String>
+	<system:String x:Key="Region.Day.Error">Niet bestaande dag</system:String>
+	<!--#endregion-->
 </ResourceDictionary>

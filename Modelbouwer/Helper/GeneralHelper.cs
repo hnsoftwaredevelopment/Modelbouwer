@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Windows.Documents;
 
 using Modelbouwer.View.Dialog;
 
@@ -682,6 +681,28 @@ public class GeneralHelper
 			result = System.Text.Encoding.UTF8.GetString( ms.ToArray() );
 		}
 		return result;
+	}
+	#endregion
+
+	#region MothNames
+	public static string MonthName( int _month )
+	{
+		var months = new Dictionary<int, string>
+		{
+			{ 1, (string)Application.Current.Resources[ "Region.Month.Name.01" ] },
+			{ 2, (string)Application.Current.Resources[ "Region.Month.Name.02" ] },
+			{ 3, (string)Application.Current.Resources[ "Region.Month.Name.03" ] },
+			{ 4, (string)Application.Current.Resources[ "Region.Month.Name.04" ] },
+			{ 5, (string)Application.Current.Resources[ "Region.Month.Name.05" ] },
+			{ 6, (string)Application.Current.Resources[ "Region.Month.Name.06" ] },
+			{ 7, (string)Application.Current.Resources[ "Region.Month.Name.07" ] },
+			{ 8, (string)Application.Current.Resources[ "Region.Month.Name.08" ] },
+			{ 9, (string)Application.Current.Resources[ "Region.Month.Name.09" ] },
+			{ 10, (string)Application.Current.Resources[ "Region.Month.Name.10" ] },
+			{ 11, (string)Application.Current.Resources[ "Region.Month.Name.11" ] },
+			{ 12, (string)Application.Current.Resources[ "Region.Month.Name.12" ] }
+		};
+		return months.ContainsKey( _month ) ? months [ _month ] : ( string ) Application.Current.Resources [ "Region.Month.Error" ];
 	}
 	#endregion
 }

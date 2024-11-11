@@ -693,6 +693,45 @@ public class DBCommands
 		return lookup [ null ].ToObservableCollection();
 	}
 	#endregion
+
+	#region Get the prognosed end date of the selected project
+	public static string GetProjectEndDate( int projectId )
+	{
+		var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.SPGeProjectEndDate}({projectId})";
+		string result = "Onbekend";
+
+		using ( var connection = new MySqlConnection( DBConnect.ConnectionString ) )
+		{
+			connection.Open();
+
+			using var command = new MySqlCommand( DBNames.SPGeProjectEndDate, connection );
+			command.CommandType = CommandType.StoredProcedure;
+			command.Parameters.AddWithValue( DBNames.SPProjectEndDateInputParameter, projectId );
+
+			var sqlResult = command.ExecuteScalar().ToString();
+			if ( sqlResult != null && sqlResult != "" )
+			{
+				var _date = sqlResult.Split(" ");
+				var _temp = _date[0].Split("-");
+				result = $"{_temp [ 0 ]} {GeneralHelper.MonthName( int.Parse( _temp [ 1 ] ) )} {_temp [ 2 ]}";
+			}
+
+			return result;
+			//var _temp = result.Split(" ");
+
+
+			//if ( result != DBNull.Value && result is DateTime endDate )
+			//{
+			//	return endDate;
+			//}
+			//else
+			//{
+			//	return DateTime.Now; // No enddate available
+			//}
+			//return DateTime.Now;
+		}
+	}
+	#endregion
 	#endregion Fill lists
 
 	#region Export data to CSV file
@@ -1198,14 +1237,14 @@ public class DBCommands
 		using MySqlConnection connection = new(DBConnect.ConnectionString);
 		connection.Open();
 
-		using MySqlCommand cmd = new MySqlCommand("DeleteProductId", connection);
+		using MySqlCommand cmd = new MySqlCommand(DBNames.SPDeleteProductId, connection);
 		cmd.CommandType = CommandType.StoredProcedure;
 
 		//Provide input parameter to the stored procedure
-		cmd.Parameters.AddWithValue( "p_ProductId", productId );
+		cmd.Parameters.AddWithValue( DBNames.SPDeleteProductIdInputParameter, productId );
 
 		//handle result from the stored procedure
-		MySqlParameter resultParam = new ("result", MySqlDbType.Int32);
+		MySqlParameter resultParam = new (DBNames.SPDeleteProductIdOutputParameter, MySqlDbType.Int32);
 		resultParam.Direction = ParameterDirection.Output;
 		cmd.Parameters.Add( resultParam );
 
@@ -1241,7 +1280,7 @@ public class DBCommands
 			using MySqlConnection connection = new( DBConnect.ConnectionString );
 			connection.Open();
 
-			//var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse(productId)}, {int.Parse(supplierId)};";
+			sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
 
 			using MySqlCommand cmd = new( sqlQuery, connection );
 			cmd.CommandType = CommandType.StoredProcedure;

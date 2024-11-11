@@ -47,6 +47,27 @@ public class DBNames
 
 	#endregion Sql commands
 
+	#region Stored Procedures
+	public static readonly string SPDeleteProductId = "DeleteProductId";
+	public static readonly string SPDeleteProductIdInputParameter = "p_ProductId";
+	public static readonly string SPDeleteProductIdOutputParameter = "result";
+
+	public static readonly string SPGetLatestAddedRecord = "GetlatestAddedRecord";
+	public static readonly string SPGetLatestAddedRecordInputParameterTable = "p_TableName";
+	public static readonly string SPGetLatestAddedRecordInputParameterId = "p_IdColumn";
+
+	public static readonly string SPGeProjectEndDate = "GetProjectEndDate";
+	public static readonly string SPProjectEndDateInputParameter = "p_ProductId";
+
+	public static readonly string SPResetDefaultSupplier = "ResetDefaultSupplier";
+	public static readonly string SPResetDefaultSupplierInputParameterProductId = "p_ProductId";
+	public static readonly string SPResetDefaultSupplierInputParameterSupplierId = "p_SupplierId";
+
+	public static readonly string SPSetDefaultSupplier = "SetDefaultSupplier";
+	public static readonly string SPSetDefaultSupplierInputParameterProductId = "p_ProductId";
+	public static readonly string SPSetDefaultSupplierInputParameterSupplierId = "p_SupplierId";
+	#endregion
+
 	#region Database
 
 	public static readonly string Database = "modelbuilder";
@@ -390,7 +411,7 @@ public class DBNames
 	public static readonly string TimeFieldTypeProjectId = "int";
 	public static readonly string TimeFieldNameWorktypeId = "Worktype_Id";
 	public static readonly string TimeFieldTypeWorktypeId = "int";
-	public static readonly string TimeFieldNameWorkDate = "WorkDate";
+	public static readonly string TimeFieldNameWorkDate = "workDate";
 	public static readonly string TimeFieldTypeWorkDate = "date";
 	public static readonly string TimeFieldNameStartTime = "StartTime";
 	public static readonly string TimeFieldTypeStartTime = "time";
@@ -412,7 +433,7 @@ public class DBNames
 	public static readonly string TimeViewFieldTypeWorktypeName = "string";
 	public static readonly string TimeViewFieldNameDate = "`Date`";
 	public static readonly string TimeViewFieldTypeDate = "date";
-	public static readonly string TimeViewFieldNameWorkDate = "WorkDate";
+	public static readonly string TimeViewFieldNameWorkDate = "workDate";
 	public static readonly string TimeViewFieldTypeWorkDate = "date";
 	public static readonly string TimeViewFieldNameWorkTime = "WorkTime";
 	public static readonly string TimeViewFieldTypeWorkTime = "string";

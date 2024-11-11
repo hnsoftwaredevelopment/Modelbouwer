@@ -201,7 +201,7 @@
 										HorizontalAlignment="Left"
 										Style="{DynamicResource HideOnNotShowTextBox}"
 										Tag="{StaticResource Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Tag}"
-										Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedWorkdays}"
+										Text=""
 										ToolTip="{StaticResource Edit.Project.Tab.General.Group.Details.ExpectedEnddate.Tooltip}"
 										/>
 									<ToggleButton
