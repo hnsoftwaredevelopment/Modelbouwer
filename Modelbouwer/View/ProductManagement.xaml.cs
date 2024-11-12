@@ -1,6 +1,4 @@
-﻿using Image = System.Windows.Controls.Image;
-
-namespace Modelbouwer.View;
+﻿namespace Modelbouwer.View;
 
 public partial class ProductManagement : Page
 {
@@ -81,12 +79,10 @@ public partial class ProductManagement : Page
 	#region Load the memo field
 	private void SetRtfContent( string rtfContent )
 	{
-		using ( var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) ) )
-		{
-			TextRange textRange = new TextRange(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
-			if ( !textRange.IsEmpty )
-			{ textRange.Load( stream, System.Windows.DataFormats.Rtf ); }
-		}
+		using var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) );
+		TextRange textRange = new TextRange(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
+		if ( !textRange.IsEmpty )
+		{ textRange.Load( stream, System.Windows.DataFormats.Rtf ); }
 	}
 	#endregion
 

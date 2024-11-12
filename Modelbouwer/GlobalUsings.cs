@@ -25,3 +25,5 @@ global using MySql.Data.MySqlClient;
 
 global using Syncfusion.Data.Extensions;
 global using Syncfusion.UI.Xaml.TreeView.Engine;
+
+global using Image = System.Windows.Controls.Image;

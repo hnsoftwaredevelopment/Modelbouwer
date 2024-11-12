@@ -31,6 +31,9 @@ public class ProjectModel : ObservableObject
 	public string? ProjectAverageHoursPerDay { get; set; }
 	public string? ProjectAverageHoursPerDayLong { get; set; }
 	public string? ProjectBuildDays { get; set; }
+	public string? ProjectMaterialCosts { get; set; }
+	public string? ProjectTimeCosts { get; set; }
+	public string? ProjectTotalCosts { get; set; }
 
 	// Define the property that you want to use in TLists (for example in the errorList
 	public string Name => ProjectName;

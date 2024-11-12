@@ -66,6 +66,10 @@ public class DBNames
 	public static readonly string SPSetDefaultSupplier = "SetDefaultSupplier";
 	public static readonly string SPSetDefaultSupplierInputParameterProductId = "p_ProductId";
 	public static readonly string SPSetDefaultSupplierInputParameterSupplierId = "p_SupplierId";
+
+	public static readonly string SPGeProjectMaterialCosts = "GetTotalCostByProjectId";
+	public static readonly string SPProjectMaterialCostsInputParameter = "p_ProjectId";
+
 	#endregion
 
 	#region Database

@@ -565,15 +565,20 @@ public class DBCommands
 	#region ProjectList
 	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )
 	{
+		var HourRate = GetHourRate();
 		projectList ??= [ ];
 		DataTable? _dt = GetData(DBNames.ProjectTotalsView, DBNames.ProjectFieldNameCode);
+
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			bool _projectClosed = false;
 			if ( _dt.Rows [ i ] [ 15 ].ToString().Equals( "true", StringComparison.CurrentCultureIgnoreCase ) ) { _projectClosed = true; }
-			var workdaysToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) / (40 * 8);
+			var workdaysToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) / 8;
 			var timeToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) - double.Parse( _dt.Rows [ i ] [ 9 ].ToString() );
+			var materialCosts = GetProjectMaterialCosts(( int ) _dt.Rows [ i ] [ 0 ]);
+			var timeCosts = double.Parse(_dt.Rows [ i ] [ 9 ].ToString()) * HourRate;
+			var totalCosts = materialCosts + timeCosts;
 
 			projectList.Add( new ProjectModel
 			{
@@ -596,6 +601,9 @@ public class DBCommands
 				ProjectAverageHoursPerDay = _dt.Rows [ i ] [ 16 ].ToString(),
 				ProjectTodoTime = timeToGo.ToString(),
 				ProjectExpectedWorkdays = workdaysToGo.ToString(),
+				ProjectMaterialCosts = materialCosts.ToString(),
+				ProjectTimeCosts = timeCosts.ToString(),
+				ProjectTotalCosts = totalCosts.ToString(),
 			} );
 		}
 		return projectList;
@@ -693,46 +701,70 @@ public class DBCommands
 		return lookup [ null ].ToObservableCollection();
 	}
 	#endregion
+	#endregion
 
 	#region Get the prognosed end date of the selected project
 	public static string GetProjectEndDate( int projectId )
 	{
-		var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.SPGeProjectEndDate}({projectId})";
 		string result = "Onbekend";
 
-		using ( var connection = new MySqlConnection( DBConnect.ConnectionString ) )
+		using var connection = new MySqlConnection( DBConnect.ConnectionString );
+		connection.Open();
+
+		using var command = new MySqlCommand( DBNames.SPGeProjectEndDate, connection );
+		command.CommandType = CommandType.StoredProcedure;
+		command.Parameters.AddWithValue( DBNames.SPProjectEndDateInputParameter, projectId );
+
+		var sqlResult = command.ExecuteScalar().ToString();
+		if ( sqlResult != null && sqlResult != "" )
 		{
-			connection.Open();
-
-			using var command = new MySqlCommand( DBNames.SPGeProjectEndDate, connection );
-			command.CommandType = CommandType.StoredProcedure;
-			command.Parameters.AddWithValue( DBNames.SPProjectEndDateInputParameter, projectId );
-
-			var sqlResult = command.ExecuteScalar().ToString();
-			if ( sqlResult != null && sqlResult != "" )
-			{
-				var _date = sqlResult.Split(" ");
-				var _temp = _date[0].Split("-");
-				result = $"{_temp [ 0 ]} {GeneralHelper.MonthName( int.Parse( _temp [ 1 ] ) )} {_temp [ 2 ]}";
-			}
-
-			return result;
-			//var _temp = result.Split(" ");
-
-
-			//if ( result != DBNull.Value && result is DateTime endDate )
-			//{
-			//	return endDate;
-			//}
-			//else
-			//{
-			//	return DateTime.Now; // No enddate available
-			//}
-			//return DateTime.Now;
+			var _date = sqlResult.Split(" ");
+			var _temp = _date[0].Split("-");
+			result = $"{_temp [ 0 ]} {GeneralHelper.MonthName( int.Parse( _temp [ 1 ] ) )} {_temp [ 2 ]}";
 		}
+
+		return result;
 	}
 	#endregion
-	#endregion Fill lists
+
+	#region Get the totalmaterial costs for a project
+	public static double GetProjectMaterialCosts( int projectId )
+	{
+		using var connection = new MySqlConnection( DBConnect.ConnectionString );
+		connection.Open();
+
+		using var command = new MySqlCommand( DBNames.SPGeProjectMaterialCosts, connection );
+		command.CommandType = CommandType.StoredProcedure;
+		command.Parameters.AddWithValue( DBNames.SPProjectMaterialCostsInputParameter, projectId );
+
+		var sqlResult = command.ExecuteScalar().ToString();
+
+		if ( sqlResult == "" )
+		{
+			return 0.00;
+		}
+		else
+		{ return double.Parse( sqlResult ); }
+	}
+	#endregion
+
+	#region Get the HourRate
+	public static double GetHourRate()
+	{
+		var result = 0.00;
+
+		var sqlQuery = $"{DBNames.SqlSelect}{DBNames.SettingsFieldNameHourRate}{DBNames.SqlFrom}{DBNames.Database}.{DBNames.SettingsTable}";
+
+		using var connection = new MySqlConnection( DBConnect.ConnectionString );
+		connection.Open();
+
+		using var command = new MySqlCommand( sqlQuery, connection );
+
+		result = ( double ) command.ExecuteScalar();
+
+		return result;
+	}
+	#endregion
 
 	#region Export data to CSV file
 	/// <summary>

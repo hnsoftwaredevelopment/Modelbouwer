@@ -88,6 +88,15 @@ public partial class ProjectViewModel : ObservableObject
 	[ObservableProperty]
 	public string? projectBuildDays;
 
+	[ObservableProperty]
+	public string? projectMaterialCosts;
+
+	[ObservableProperty]
+	public string? projectTimeCosts;
+
+	[ObservableProperty]
+	public string? projectTotalCosts;
+
 	public ImageSource? _projectImage;
 	public ImageSource? ProjectImage
 	{
@@ -132,6 +141,38 @@ public partial class ProjectViewModel : ObservableObject
 		}
 	}
 	private ObservableCollection<ProjectModel>? _project;
+
+	public void AddNewItem()
+	{
+		ProjectModel newProject = new()
+		{
+			ProjectCode = string.Empty,
+			ProjectName = string.Empty,
+			ProjectStartDate = string.Empty,
+			ProjectEndDate = string.Empty,
+			ProjectExpectedTime = "0",
+			ProjectImage = null,
+			ProjectImageRotationAngle = "0",
+			ProjectMemo = string.Empty,
+			ProjectTotalTimeInHours = "0",
+			ProjectShortestWorkday = string.Empty,
+			ProjectShortestWorkdayHours = "0",
+			ProjectLongestWorkday = string.Empty,
+			ProjectLongestWorkdayHours = "0",
+			ProjectBuildDays = "0",
+			ProjectClosed = false,
+			ProjectAverageHoursPerDay = "0",
+			ProjectTodoTime = "0",
+			ProjectExpectedWorkdays = "0",
+			ProjectMaterialCosts = "0",
+			ProjectTimeCosts = "0",
+			ProjectTotalCosts = "0"
+		};
+
+		Project.Add( newProject );
+		SelectedProject = newProject;
+		IsAddingNew = true;
+	}
 
 	public ProjectViewModel()
 	{

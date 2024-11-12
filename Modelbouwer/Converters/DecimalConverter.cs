@@ -6,7 +6,7 @@ public class DecimalConverter : IValueConverter
 		if ( value is string stringValue && double.TryParse( stringValue, out double doubleValue ) )
 		{
 			var nlCulture = new CultureInfo("nl-NL");
-			return doubleValue.ToString( "F2", nlCulture );
+			return doubleValue.ToString( "N2", nlCulture );
 		}
 		return value;
 	}

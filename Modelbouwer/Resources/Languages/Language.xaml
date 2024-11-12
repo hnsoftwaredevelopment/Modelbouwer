@@ -913,6 +913,10 @@
 	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Days.Tag">Dagen</system:String>
 	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Days.Tooltip">Resterende bouwtijd in dagen</system:String>
 
+
+	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Error.InvalidTime">Nog geen werktijden ingevoerd</system:String>
+
+
 	<!--#endregion-->
 
 	<!--#region Region Costs-->
@@ -1239,7 +1243,7 @@
 	<system:String x:Key="mainRibbon.Manage.Settings.Button.Label">Instellingen</system:String>
 	<system:String x:Key="mainRibbon.Manage.Settings.Group.Header">Instellingen</system:String>
 	<!--#endregion-->
-	
+
 	<!--#region Regional settings-->
 	<system:String x:Key="Region.Month.Name.01">Januari</system:String>
 	<system:String x:Key="Region.Month.Name.02">Febuari</system:String>

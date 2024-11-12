@@ -36,6 +36,7 @@
 			<Grid.RowDefinitions>
 				<RowDefinition Height="50" />
 				<RowDefinition Height="370" />
+				<RowDefinition Height="38"/>
 				<RowDefinition Height="*" />
 				<RowDefinition Height="50" />
 			</Grid.RowDefinitions>
@@ -420,19 +421,19 @@
 										<!--#endregion-->
 
 										<!--#region The Future-->
-										<StackPanel Orientation="Vertical" >
+										<StackPanel Orientation="Vertical">
 											<!--#region Hide StackPanel when project is completed-->
 											<StackPanel.Style>
 												<Style TargetType="StackPanel">
 													<Style.Triggers>
 														<DataTrigger Binding="{Binding ProjectViewModel.SelectedProject.ProjectClosed}" Value="True">
-															<Setter Property="Visibility" Value="Collapsed"/>
+															<Setter Property="Visibility" Value="Collapsed" />
 														</DataTrigger>
 													</Style.Triggers>
 												</Style>
 											</StackPanel.Style>
 											<!--#endregion-->
-											
+
 											<!--#region Expectations-->
 											<GroupBox Width="430" Opacity="1">
 												<GroupBox.Header>
@@ -466,8 +467,9 @@
 														HorizontalAlignment="Right"
 														VerticalAlignment="Center"
 														HorizontalContentAlignment="Right"
-														Style="{StaticResource DefaultTextBox}" Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedTime, Converter={StaticResource TotalTimeConverter}}"
+														Style="{StaticResource DefaultTextBox}"
 														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Tag}"
+														Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedTime, Converter={StaticResource DecimalConverter}}"
 														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Tooltip}"
 														/>
 
@@ -498,7 +500,7 @@
 														HorizontalContentAlignment="Right"
 														Style="{StaticResource DisabledTextBox}"
 														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Tag}"
-														Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedWorkdays}"
+														Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedWorkdays, Converter={StaticResource DecimalConverter}}"
 														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Tooltip}"
 														/>
 
@@ -513,7 +515,7 @@
 														HorizontalContentAlignment="Left"
 														Style="{StaticResource DisabledTextBox}"
 														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tag}"
-														Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedWorkdays, Converter={StaticResource TotalTimeConverter}}"
+														Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedTime, Converter={StaticResource TotalTimeConverter}}"
 														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expectation.Businessdays.Long.Tooltip}"
 														/>
 													<!--#endregion-->
@@ -557,7 +559,7 @@
 														HorizontalContentAlignment="Right"
 														Style="{StaticResource DefaultTextBox}"
 														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Togo.Hours.Tag}"
-														Text="{Binding ProjectViewModel.SelectedProject.ProjectTodoTime, Converter={StaticResource TotalTimeConverter}}"
+														Text="{Binding ProjectViewModel.SelectedProject.ProjectTodoTime, Converter={StaticResource DecimalConverter}}"
 														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Togo.Hours.Tooltip}"
 														/>
 													<!--#endregion-->
@@ -634,7 +636,7 @@
 											Style="{DynamicResource DefaultTextBlock}"
 											Text="€"
 											/>
-										<syncfusion:DoubleTextBox
+										<TextBox
 											x:Name="ProjectMaterialCosts"
 											Grid.Row="0"
 											Grid.Column="2"
@@ -642,7 +644,7 @@
 											Height="22"
 											HorizontalAlignment="Right"
 											Style="{StaticResource DisabledTextBox}"
-											Text=""
+											Text="{Binding ProjectViewModel.SelectedProject.ProjectMaterialCosts, Converter={StaticResource DecimalConverter}}"
 											TextAlignment="Right"
 											/>
 										<!--#endregion-->
@@ -676,13 +678,13 @@
 											BorderBrush="Black"
 											BorderThickness="0,0,0,1"
 											>
-											<syncfusion:DoubleTextBox
+											<TextBox
 												x:Name="ProjectTimeCosts"
 												Width="90"
 												Height="22"
 												HorizontalAlignment="Right"
 												Style="{StaticResource DisabledTextBox}"
-												Text=""
+												Text="{Binding ProjectViewModel.SelectedProject.ProjectTimeCosts, Converter={StaticResource DecimalConverter}}"
 												TextAlignment="Right"
 												/>
 										</Border>
@@ -731,13 +733,13 @@
 												BorderBrush="Black"
 												BorderThickness="0,0,0,1"
 												>
-												<syncfusion:DoubleTextBox
+												<TextBox
 													x:Name="ProjectTotalCosts"
 													Width="90"
 													Height="22"
 													HorizontalAlignment="Right"
 													Style="{StaticResource DisabledTextBox}"
-													Text=""
+													Text="{Binding ProjectViewModel.SelectedProject.ProjectTotalCosts, Converter={StaticResource DecimalConverter}}"
 													TextAlignment="Right"
 													/>
 											</Border>
@@ -777,7 +779,7 @@
 									x:Name="ProjectImage"
 									HorizontalAlignment="Center"
 									VerticalAlignment="Center"
-									Source="{StaticResource noimage}"
+									Source="{Binding ProjectViewModel.SelectedProject.ProjectImage, Converter={StaticResource ByteToImageConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 									Stretch="Uniform"
 									Style="{DynamicResource ProductImage}"
 									/>
@@ -815,23 +817,139 @@
 				<!--#endregion-->
 
 				<!--#region TAB: Memo field-->
-				<TabItem Header="{StaticResource Edit.Project.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}" />
+				<TabItem Header="{StaticResource Edit.Project.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}" >
+					<Grid Margin="5">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="40" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<!--#region Rtf Toolbar-->
+						<StackPanel Grid.Row="0" Orientation="Horizontal">
+							<ToolBarTray Style="{DynamicResource RtfToolBarTray}">
+								<ToolBar Style="{DynamicResource RtfToolBar}">
+									<Button Command="ApplicationCommands.Cut" ToolTip="{StaticResource rtfToolbar.Action.Cut}">
+										<Image Style="{DynamicResource RtfToolBarCutIcon}" />
+									</Button>
+									<Button Command="ApplicationCommands.Copy" ToolTip="{StaticResource rtfToolbar.Action.Copy}">
+										<Image Style="{DynamicResource RtfToolBarCopyIcon}" />
+									</Button>
+									<Button Command="ApplicationCommands.Paste" ToolTip="{StaticResource rtfToolbar.Action.Paste}">
+										<Image Style="{DynamicResource RtfToolBarPasteIcon}" />
+									</Button>
+									<Button Command="ApplicationCommands.Undo" ToolTip="{StaticResource rtfToolbar.Action.Undo}">
+										<Image Style="{DynamicResource RtfToolBarUndoIcon}" />
+									</Button>
+									<Button Command="ApplicationCommands.Redo" ToolTip="{StaticResource rtfToolbar.Action.Redo}">
+										<Image Style="{DynamicResource RtfToolBarRedoIcon}" />
+									</Button>
+
+									<Separator Margin="6,0" />
+
+									<Button
+					x:Name="ToolStripButtonBold"
+					Command="EditingCommands.ToggleBold"
+					ToolTip="{StaticResource rtfToolbar.Action.Bold}"
+					>
+										<Image Style="{DynamicResource RtfToolBarBoldIcon}" />
+									</Button>
+									<Button
+					x:Name="ToolStripButtonItalic"
+					Command="EditingCommands.ToggleItalic"
+					ToolTip="{StaticResource rtfToolbar.Action.Italic}"
+					>
+										<Image Style="{DynamicResource RtfToolBarItalicIcon}" />
+									</Button>
+									<Button
+					x:Name="ToolStripButtonUnderline"
+					Command="EditingCommands.ToggleUnderline"
+					ToolTip="{StaticResource rtfToolbar.Action.Underline}"
+					>
+										<Image Style="{DynamicResource RtfToolBarUnderlineIcon}" />
+									</Button>
+
+									<Separator Margin="6,0" />
+
+									<Button Command="EditingCommands.ToggleBullets" ToolTip="{StaticResource rtfToolbar.Action.ListBullet}">
+										<Image Style="{DynamicResource RtfToolBarBulletListIcon}" />
+									</Button>
+									<Button Command="EditingCommands.ToggleNumbering" ToolTip="{StaticResource rtfToolbar.Action.ListNumber}">
+										<Image Style="{DynamicResource RtfToolBarNumbersListIcon}" />
+									</Button>
+
+									<Separator Margin="6,0" />
+
+									<Button Command="EditingCommands.IncreaseIndentation" ToolTip="{StaticResource rtfToolbar.Action.Indent}">
+										<Image Style="{DynamicResource RtfToolBarIndentIcon}" />
+									</Button>
+									<Button Command="EditingCommands.DecreaseIndentation" ToolTip="{StaticResource rtfToolbar.Action.Outdent}">
+										<Image Style="{DynamicResource RtfToolBarIndentRemoveIcon}" />
+									</Button>
+								</ToolBar>
+							</ToolBarTray>
+						</StackPanel>
+						<!--#endregion-->
+
+						<!--#region Memo field-->
+						<RichTextBox
+								x:Name="ProjectMemo"
+								Grid.Row="1" IsEnabled="True"
+								Width="Auto"
+								MinHeight="250"
+								Margin="5"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Top"
+								HorizontalScrollBarVisibility="Auto"
+								VerticalScrollBarVisibility="Auto"
+								>
+							<FlowDocument Name="ProjectMemoFD">
+								<Paragraph>
+									<Run Text="" />
+								</Paragraph>
+							</FlowDocument>
+						</RichTextBox>
+						<!--#endregion-->
+
+					</Grid>
+				</TabItem>
 				<!--#endregion-->
 
 				<!--#region TAB: Build time registrations-->
-				<TabItem Header="{StaticResource Edit.Project.Tab.BuildTime.Label}" Style="{DynamicResource Default TabItem}" />
+				<TabItem x:Name="ProjectTimeTab" Header="{StaticResource Edit.Project.Tab.BuildTime.Label}" Style="{DynamicResource Default TabItem}" />
 				<!--#endregion-->
 
 				<!--#region TAB: Project costs registration-->
-				<TabItem Header="{StaticResource Edit.Project.Tab.BuildCosts.Label}" Style="{DynamicResource Default TabItem}" />
+				<TabItem x:Name="ProjectMaterialTab" Header="{StaticResource Edit.Project.Tab.BuildCosts.Label}" Style="{DynamicResource Default TabItem}" />
 				<!--#endregion-->
 			</TabControl>
 			<!--#endregion-->
 
 			<!--#region DataGrid-->
-			<syncfusion:SfDataGrid
+				<!--#region Products ActionBar-->
+				<ToolBarTray
+						Grid.Row="2"
+						Margin="10,7,0,0"
+						Style="{DynamicResource DefaultToolBarTray}"
+						>
+					<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
+						<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Add}">
+							<Image Style="{DynamicResource ToolBarAddIcon}" />
+						</Button>
+						<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Delete}">
+							<Image Style="{DynamicResource ToolBarDeleteIcon}" />
+						</Button>
+						<Button Click="ButtonSave" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Save}">
+							<Image Style="{DynamicResource ToolBarSaveIcon}" />
+						</Button>
+					</ToolBar>
+				</ToolBarTray>
+
+				<!--#endregion-->
+
+
+				<syncfusion:SfDataGrid
 				x:Name="dataGrid"
-				Grid.Row="2"
+				Grid.Row="3"
 				Margin="10,5"
 				d:ItemsSource="{d:SampleData}"
 				AllowDeleting="False"
@@ -849,14 +967,14 @@
 				SelectionChanged="ChangedProject"
 				SortClickAction="DoubleClick"
 				>
-				<syncfusion:SfDataGrid.Columns>
-					<syncfusion:GridTextColumn
+					<syncfusion:SfDataGrid.Columns>
+						<syncfusion:GridTextColumn
 						HeaderText="{StaticResource Edit.Project.DataGrid.Header.Id}"
 						HorizontalHeaderContentAlignment="Left"
 						IsHidden="True"
 						MappingName="ProjectId"
 						/>
-					<syncfusion:GridTextColumn
+						<syncfusion:GridTextColumn
 						Width="150"
 						AllowFiltering="True"
 						AllowSorting="True"
@@ -864,14 +982,14 @@
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProjectCode"
 						/>
-					<syncfusion:GridTextColumn
+						<syncfusion:GridTextColumn
 						AllowFiltering="True"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Project.DataGrid.Header.Name}"
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProjectName"
 						/>
-					<syncfusion:GridTextColumn
+						<syncfusion:GridTextColumn
 						Width="120"
 						AllowFiltering="True"
 						AllowSorting="True"
@@ -879,7 +997,7 @@
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProjectStartDate"
 						/>
-					<syncfusion:GridCheckBoxColumn
+						<syncfusion:GridCheckBoxColumn
 						Width="100"
 						AllowFiltering="True"
 						AllowSorting="True"
@@ -887,14 +1005,14 @@
 						HorizontalHeaderContentAlignment="Center"
 						MappingName="ProjectClosed"
 						/>
-				</syncfusion:SfDataGrid.Columns>
-			</syncfusion:SfDataGrid>
+					</syncfusion:SfDataGrid.Columns>
+				</syncfusion:SfDataGrid>
+			</Grid>
 			<!--#endregion-->
 
 			<!--#region Status bar-->
 
 			<!--#endregion-->
 
-		</Grid>
 	</Border>
 </Page>

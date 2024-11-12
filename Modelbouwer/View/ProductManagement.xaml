@@ -187,8 +187,9 @@
 									>
 									<Image
 										x:Name="ProductImage"
+										Margin="0,0,0,117"
 										HorizontalAlignment="Center"
-										VerticalAlignment="Center"
+										VerticalAlignment="Bottom"
 										Source="{Binding ProductViewModel.SelectedProduct.ProductImage, Converter={StaticResource ByteToImageConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 										/>
 								</Border>

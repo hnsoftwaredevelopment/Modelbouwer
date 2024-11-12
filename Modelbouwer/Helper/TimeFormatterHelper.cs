@@ -5,7 +5,7 @@ public static class TimeFormatterHelper
 	{
 		if ( !double.TryParse( totalHoursStr, out double totalHours ) )
 		{
-			return "Incorrecte uren in tabel";
+			return ( string ) System.Windows.Application.Current.Resources [ "Edit.Project.Tab.General.Group.Time.Error.InvalidTime" ];
 		}
 		double totalMinutes = totalHours * 60;
 
