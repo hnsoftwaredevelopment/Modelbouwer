@@ -25,6 +25,8 @@
 		<converter:ByteToImageConverter x:Key="NullOrEmptyImageConverter" />
 		<converter:TotalTimeConverter x:Key="TotalTimeConverter" />
 		<converter:DecimalConverter x:Key="DecimalConverter" />
+		<converter:IntegerValidationRule x:Key="IntegerValidationRule"/>
+		<converter:TooltipValidationConverter x:Key="TooltipValidationConverter" />
 	</Page.Resources>
 
 	<Page.DataContext>
@@ -36,7 +38,7 @@
 			<Grid.RowDefinitions>
 				<RowDefinition Height="50" />
 				<RowDefinition Height="370" />
-				<RowDefinition Height="38"/>
+				<RowDefinition Height="38" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="50" />
 			</Grid.RowDefinitions>
@@ -468,10 +470,21 @@
 														VerticalAlignment="Center"
 														HorizontalContentAlignment="Right"
 														Style="{StaticResource DefaultTextBox}"
-														Tag="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Tag}"
-														Text="{Binding ProjectViewModel.SelectedProject.ProjectExpectedTime, Converter={StaticResource DecimalConverter}}"
 														ToolTip="{StaticResource Edit.Project.Tab.General.Group.Time.Expecation.Time.Tooltip}"
-														/>
+														>
+														<TextBox.Text>
+															<Binding
+																NotifyOnValidationError="True"
+																Path="ProjectViewModel.SelectedProject.ProjectExpectedTime"
+																UpdateSourceTrigger="PropertyChanged"
+																ValidatesOnDataErrors="True"
+																>
+																<Binding.ValidationRules>
+																	<converter:IntegerValidationRule />
+																</Binding.ValidationRules>
+															</Binding>
+														</TextBox.Text>
+													</TextBox>
 
 													<TextBlock
 														Grid.Row="0"
@@ -817,7 +830,7 @@
 				<!--#endregion-->
 
 				<!--#region TAB: Memo field-->
-				<TabItem Header="{StaticResource Edit.Project.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}" >
+				<TabItem Header="{StaticResource Edit.Project.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}">
 					<Grid Margin="5">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="40" />
@@ -847,24 +860,24 @@
 									<Separator Margin="6,0" />
 
 									<Button
-					x:Name="ToolStripButtonBold"
-					Command="EditingCommands.ToggleBold"
-					ToolTip="{StaticResource rtfToolbar.Action.Bold}"
-					>
+										x:Name="ToolStripButtonBold"
+										Command="EditingCommands.ToggleBold"
+										ToolTip="{StaticResource rtfToolbar.Action.Bold}"
+										>
 										<Image Style="{DynamicResource RtfToolBarBoldIcon}" />
 									</Button>
 									<Button
-					x:Name="ToolStripButtonItalic"
-					Command="EditingCommands.ToggleItalic"
-					ToolTip="{StaticResource rtfToolbar.Action.Italic}"
-					>
+										x:Name="ToolStripButtonItalic"
+										Command="EditingCommands.ToggleItalic"
+										ToolTip="{StaticResource rtfToolbar.Action.Italic}"
+										>
 										<Image Style="{DynamicResource RtfToolBarItalicIcon}" />
 									</Button>
 									<Button
-					x:Name="ToolStripButtonUnderline"
-					Command="EditingCommands.ToggleUnderline"
-					ToolTip="{StaticResource rtfToolbar.Action.Underline}"
-					>
+										x:Name="ToolStripButtonUnderline"
+										Command="EditingCommands.ToggleUnderline"
+										ToolTip="{StaticResource rtfToolbar.Action.Underline}"
+										>
 										<Image Style="{DynamicResource RtfToolBarUnderlineIcon}" />
 									</Button>
 
@@ -892,16 +905,17 @@
 
 						<!--#region Memo field-->
 						<RichTextBox
-								x:Name="ProjectMemo"
-								Grid.Row="1" IsEnabled="True"
-								Width="Auto"
-								MinHeight="250"
-								Margin="5"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Top"
-								HorizontalScrollBarVisibility="Auto"
-								VerticalScrollBarVisibility="Auto"
-								>
+							x:Name="ProjectMemo"
+							Grid.Row="1"
+							Width="Auto"
+							MinHeight="250"
+							Margin="5"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Top"
+							HorizontalScrollBarVisibility="Auto"
+							IsEnabled="True"
+							VerticalScrollBarVisibility="Auto"
+							>
 							<FlowDocument Name="ProjectMemoFD">
 								<Paragraph>
 									<Run Text="" />
@@ -915,39 +929,47 @@
 				<!--#endregion-->
 
 				<!--#region TAB: Build time registrations-->
-				<TabItem x:Name="ProjectTimeTab" Header="{StaticResource Edit.Project.Tab.BuildTime.Label}" Style="{DynamicResource Default TabItem}" />
+				<TabItem
+					x:Name="ProjectTimeTab"
+					Header="{StaticResource Edit.Project.Tab.BuildTime.Label}"
+					Style="{DynamicResource Default TabItem}"
+					/>
 				<!--#endregion-->
 
 				<!--#region TAB: Project costs registration-->
-				<TabItem x:Name="ProjectMaterialTab" Header="{StaticResource Edit.Project.Tab.BuildCosts.Label}" Style="{DynamicResource Default TabItem}" />
+				<TabItem
+					x:Name="ProjectMaterialTab"
+					Header="{StaticResource Edit.Project.Tab.BuildCosts.Label}"
+					Style="{DynamicResource Default TabItem}"
+					/>
 				<!--#endregion-->
 			</TabControl>
 			<!--#endregion-->
 
 			<!--#region DataGrid-->
-				<!--#region Products ActionBar-->
-				<ToolBarTray
-						Grid.Row="2"
-						Margin="10,7,0,0"
-						Style="{DynamicResource DefaultToolBarTray}"
-						>
-					<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
-						<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Add}">
-							<Image Style="{DynamicResource ToolBarAddIcon}" />
-						</Button>
-						<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Delete}">
-							<Image Style="{DynamicResource ToolBarDeleteIcon}" />
-						</Button>
-						<Button Click="ButtonSave" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Save}">
-							<Image Style="{DynamicResource ToolBarSaveIcon}" />
-						</Button>
-					</ToolBar>
-				</ToolBarTray>
+			<!--#region Products ActionBar-->
+			<ToolBarTray
+				Grid.Row="2"
+				Margin="10,7,0,0"
+				Style="{DynamicResource DefaultToolBarTray}"
+				>
+				<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
+					<Button Click="ButtonNew" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Add}">
+						<Image Style="{DynamicResource ToolBarAddIcon}" />
+					</Button>
+					<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Delete}">
+						<Image Style="{DynamicResource ToolBarDeleteIcon}" />
+					</Button>
+					<Button Click="ButtonSave" ToolTip="{StaticResource Edit.Project.Action.Tooltip.Save}">
+						<Image Style="{DynamicResource ToolBarSaveIcon}" />
+					</Button>
+				</ToolBar>
+			</ToolBarTray>
 
-				<!--#endregion-->
+			<!--#endregion-->
 
 
-				<syncfusion:SfDataGrid
+			<syncfusion:SfDataGrid
 				x:Name="dataGrid"
 				Grid.Row="3"
 				Margin="10,5"
@@ -967,14 +989,14 @@
 				SelectionChanged="ChangedProject"
 				SortClickAction="DoubleClick"
 				>
-					<syncfusion:SfDataGrid.Columns>
-						<syncfusion:GridTextColumn
+				<syncfusion:SfDataGrid.Columns>
+					<syncfusion:GridTextColumn
 						HeaderText="{StaticResource Edit.Project.DataGrid.Header.Id}"
 						HorizontalHeaderContentAlignment="Left"
 						IsHidden="True"
 						MappingName="ProjectId"
 						/>
-						<syncfusion:GridTextColumn
+					<syncfusion:GridTextColumn
 						Width="150"
 						AllowFiltering="True"
 						AllowSorting="True"
@@ -982,14 +1004,14 @@
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProjectCode"
 						/>
-						<syncfusion:GridTextColumn
+					<syncfusion:GridTextColumn
 						AllowFiltering="True"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Project.DataGrid.Header.Name}"
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProjectName"
 						/>
-						<syncfusion:GridTextColumn
+					<syncfusion:GridTextColumn
 						Width="120"
 						AllowFiltering="True"
 						AllowSorting="True"
@@ -997,7 +1019,7 @@
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProjectStartDate"
 						/>
-						<syncfusion:GridCheckBoxColumn
+					<syncfusion:GridCheckBoxColumn
 						Width="100"
 						AllowFiltering="True"
 						AllowSorting="True"
@@ -1005,14 +1027,14 @@
 						HorizontalHeaderContentAlignment="Center"
 						MappingName="ProjectClosed"
 						/>
-					</syncfusion:SfDataGrid.Columns>
-				</syncfusion:SfDataGrid>
-			</Grid>
-			<!--#endregion-->
+				</syncfusion:SfDataGrid.Columns>
+			</syncfusion:SfDataGrid>
+		</Grid>
+		<!--#endregion-->
 
-			<!--#region Status bar-->
+		<!--#region Status bar-->
 
-			<!--#endregion-->
+		<!--#endregion-->
 
 	</Border>
 </Page>

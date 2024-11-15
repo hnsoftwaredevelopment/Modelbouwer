@@ -94,6 +94,7 @@ public partial class ProjectManagement : Page
 
 	}
 
+	#region Changed Project in dataGrid
 	private void ChangedProject( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
 	{
 		if ( DataContext is CombinedProjectViewModel viewModel )
@@ -111,6 +112,7 @@ public partial class ProjectManagement : Page
 			}
 		}
 	}
+	#endregion
 
 	#region Add a new project
 	private void ButtonNew( object sender, RoutedEventArgs e )
@@ -166,7 +168,7 @@ public partial class ProjectManagement : Page
 				{ DBNames.ProjectFieldNameCode, DBNames.ProjectFieldTypeCode, ProjectCode.Text },
 				{ DBNames.ProjectFieldNameStartDate, DBNames.ProjectFieldTypeStartDate, ProjectStartDate.Text },
 				{ DBNames.ProjectFieldNameEndDate, DBNames.ProjectFieldTypeEndDate, ProjectEnddate.Text },
-				{ DBNames.ProjectFieldNameClosed, DBNames.ProjectFieldTypeClosed, ProjectClosed.IsChecked.ToString() },
+				{ DBNames.ProjectFieldNameClosed, DBNames.ProjectFieldTypeClosed, (ProjectClosed.IsChecked == true ? "1" : "0") },
 				{ DBNames.ProjectFieldNameExpectedTime, DBNames.ProjectFieldTypeExpectedTime, ProjectExpectedBuildTime.Text },
 				{ DBNames.ProjectFieldNameImageRotationAngle, DBNames.ProjectFieldTypeImageRotationAngle, selectedProject.ProjectImageRotationAngle.ToString() }
 			};

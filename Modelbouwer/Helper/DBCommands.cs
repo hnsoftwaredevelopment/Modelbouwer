@@ -1481,12 +1481,17 @@ public class DBCommands
 						break;
 
 					case "date":
-						string[] _tempDates = _fields[i, 2].Split("-");
+						if ( _fields [ i, 2 ] != "" )
+						{
+							string[] _tempDates = _fields[i, 2].Split("-");
 
-						// Add leading zero's to date and month
-						GeneralHelper helper = new();
-						string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
-						cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
+							// Add leading zero's to date and month
+							GeneralHelper helper = new();
+							string _tempDate = _tempDates[2] + "-" + GeneralHelper.AddZeros(_tempDates[1], 2) + "-" + GeneralHelper.AddZeros(_tempDates[0], 2);
+							cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = _tempDate;
+						}
+						else
+						{ cmd.Parameters.Add( "@" + _fields [ i, 0 ], MySqlDbType.String ).Value = null; }
 						break;
 
 					case "time":

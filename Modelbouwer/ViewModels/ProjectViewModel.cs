@@ -176,7 +176,7 @@ public partial class ProjectViewModel : ObservableObject
 
 	public ProjectViewModel()
 	{
-		Project = new ObservableCollection<ProjectModel>( DBCommands.GetProjectList() );
+		Project = [ .. DBCommands.GetProjectList() ];
 		SelectedProject = Project [ 0 ];
 	}
 }
