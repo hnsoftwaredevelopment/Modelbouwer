@@ -1,5 +1,4 @@
-﻿
-namespace Modelbouwer.View;
+﻿namespace Modelbouwer.View;
 
 /// <summary>
 /// Interaction logic for ProjectManagement.xaml
@@ -82,10 +81,13 @@ public partial class ProjectManagement : Page
 	#region Load the memo field
 	private void SetRtfContent( string rtfContent )
 	{
-		using var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) );
-		TextRange textRange = new(ProjectMemo.Document.ContentStart, ProjectMemo.Document.ContentEnd);
-		if ( !textRange.IsEmpty )
-		{ textRange.Load( stream, System.Windows.DataFormats.Rtf ); }
+		if ( rtfContent != null && rtfContent != "" )
+		{
+			using var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) );
+			TextRange textRange = new(ProjectMemo.Document.ContentStart, ProjectMemo.Document.ContentEnd);
+			textRange.Load( stream, System.Windows.DataFormats.Rtf );
+		}
+		else { ProjectMemo.Document.Blocks.Clear(); }
 	}
 	#endregion
 
@@ -160,7 +162,7 @@ public partial class ProjectManagement : Page
 		var selectedProject = viewModel.ProjectViewModel.SelectedProject;
 
 		var ProjectImage = selectedProject.ProjectImage;
-		var ProjectMemo = selectedProject.ProjectMemo;
+		//var ProjectMemo = selectedProject.ProjectMemo;
 
 		string[ , ] ProjectFields = new string [7,3]
 			{
@@ -186,7 +188,7 @@ public partial class ProjectManagement : Page
 			};
 
 			//Save the memo in de Project table
-			DBCommands.UpdateMemoFieldInTable( DBNames.ProjectTable, whereFields, DBNames.ProjectFieldNameMemo, ProjectMemo );
+			DBCommands.UpdateMemoFieldInTable( DBNames.ProjectTable, whereFields, DBNames.ProjectFieldNameMemo, GeneralHelper.GetRichTextFromFlowDocument( ProjectMemo.Document ) );
 
 			//Save Image
 			DBCommands.UpdateImageInTable( DBNames.ProjectTable, whereFields, ProjectImage, DBNames.ProjectFieldNameImage );
@@ -208,14 +210,25 @@ public partial class ProjectManagement : Page
 			DBCommands.UpdateInTable( DBNames.ProjectTable, ProjectFields, whereFields );
 
 			//Update the memo in de Project table
-			DBCommands.UpdateMemoFieldInTable( DBNames.ProjectTable, whereFields, DBNames.ProjectFieldNameMemo, ProjectMemo );
+			DBCommands.UpdateMemoFieldInTable( DBNames.ProjectTable, whereFields, DBNames.ProjectFieldNameMemo, GeneralHelper.GetRichTextFromFlowDocument( ProjectMemo.Document ) );
 
 			//Update Image
 			DBCommands.UpdateImageInTable( DBNames.ProjectTable, whereFields, ProjectImage, DBNames.ProjectFieldNameImage );
 
 		}
 
-		//TODO Update the datgrid and reselect the saved Project
+		// Update the ObservableCollection
+		viewModel.ProjectViewModel.Project.Clear();
+
+		var updatedProjects = DBCommands.GetProjectList();
+		foreach ( var project in updatedProjects )
+		{
+			viewModel.ProjectViewModel.Project.Add( project );
+		}
+
+		// Reselect the saved project in the DataGrid
+		viewModel.ProjectViewModel.SelectedProject = viewModel.ProjectViewModel.Project
+			.FirstOrDefault( p => p.ProjectId == selectedProject.ProjectId );
 	}
 	#endregion
 }

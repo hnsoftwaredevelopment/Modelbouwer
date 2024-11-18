@@ -913,8 +913,27 @@
 	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Days.Tag">Dagen</system:String>
 	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Togo.Days.Tooltip">Resterende bouwtijd in dagen</system:String>
 
-
 	<system:String x:Key="Edit.Project.Tab.General.Group.Time.Error.InvalidTime">Nog geen werktijden ingevoerd</system:String>
+
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.Year">Jaar</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.YearDay">Jaar/dag</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.YearMonth">Jaar/maand</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorkedMinutes">Gewerkte minuten</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorktypeName">Werksoort</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.Day">Dag</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorkDate">Werkdag</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.Month">Maand</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorkTime">Gewerkte uren</system:String>
+
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.None">Geen groepering</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.Year">Jaar</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.YearDay">Jaar/dag</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.YearMonth">Jaar/maand</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.WorktypeName">Werksoort</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.Day">Dag</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.Month">Maand</system:String>
+
 
 
 	<!--#endregion-->

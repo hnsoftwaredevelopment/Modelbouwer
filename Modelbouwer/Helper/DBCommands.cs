@@ -562,6 +562,46 @@ public class DBCommands
 	}
 	#endregion
 
+	#region Time
+	public static ObservableCollection<TimeModel> GetTimeList( ObservableCollection<TimeModel>? timeList = null )
+	{
+		timeList ??= [ ];
+		DataTable? _dt = GetData(DBNames.TimeView, DBNames.TimeViewFieldNameSortIndex);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			//var t4 = int.Parse(_dt.Rows [ i ] [ 11 ].ToString());
+			//var t5 = int.Parse(_dt.Rows [ i ] [ 12 ].ToString());
+			//var t6 = int.Parse(_dt.Rows [ i ] [ 13 ].ToString());
+
+			//double t7 = ( double ) _dt.Rows [ i ] [ 8 ];
+
+			timeList.Add( new TimeModel
+			{
+				TimeId = ( int ) _dt.Rows [ i ] [ 0 ],
+				TimeProjectId = ( int ) _dt.Rows [ i ] [ 1 ],
+				TimeProjectName = _dt.Rows [ i ] [ 2 ].ToString(),
+				TimeWorktypeId = ( int ) _dt.Rows [ i ] [ 3 ],
+				TimeWorktypeName = _dt.Rows [ i ] [ 4 ].ToString(),
+				TimeWorkDate = _dt.Rows [ i ] [ 5 ].ToString(),
+				TimeStartTime = _dt.Rows [ i ] [ 6 ].ToString(),
+				TimeEndTime = _dt.Rows [ i ] [ 7 ].ToString(),
+				TimeElapsedMinutes = ( double ) _dt.Rows [ i ] [ 8 ],
+				TimeElapsedTime = _dt.Rows [ i ] [ 9 ].ToString(),
+				TimeComment = _dt.Rows [ i ] [ 10 ].ToString(),
+				TimeYear = int.Parse( _dt.Rows [ i ] [ 11 ].ToString() ),
+				TimeMonth = int.Parse( _dt.Rows [ i ] [ 12 ].ToString() ),
+				TimeWorkday = int.Parse( _dt.Rows [ i ] [ 13 ].ToString() ),
+				TimeYearMonth = _dt.Rows [ i ] [ 14 ].ToString(),
+				TimeYearWorkday = _dt.Rows [ i ] [ 15 ].ToString(),
+				TimeSortIndex = _dt.Rows [ i ] [ 16 ].ToString()
+			} );
+		}
+		return timeList;
+	}
+	#endregion
+
+
 	#region ProjectList
 	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )
 	{
@@ -579,6 +619,7 @@ public class DBCommands
 			var materialCosts = GetProjectMaterialCosts(( int ) _dt.Rows [ i ] [ 0 ]);
 			var timeCosts = double.Parse(_dt.Rows [ i ] [ 9 ].ToString()) * HourRate;
 			var totalCosts = materialCosts + timeCosts;
+			var expectedTime = int.Parse(_dt.Rows [ i ] [ 5 ].ToString());
 
 			projectList.Add( new ProjectModel
 			{
@@ -587,7 +628,7 @@ public class DBCommands
 				ProjectName = _dt.Rows [ i ] [ 2 ].ToString(),
 				ProjectStartDate = _dt.Rows [ i ] [ 3 ].ToString(),
 				ProjectEndDate = _dt.Rows [ i ] [ 4 ].ToString(),
-				ProjectExpectedTime = _dt.Rows [ i ] [ 5 ].ToString(),
+				ProjectExpectedTime = expectedTime.ToString(),
 				ProjectImage = _dt.Rows [ i ] [ 6 ] != DBNull.Value ? ( byte [ ] ) _dt.Rows [ i ] [ 6 ] : GetDefaultImage(),
 				ProjectImageRotationAngle = _dt.Rows [ i ] [ 7 ].ToString(),
 				ProjectMemo = _dt.Rows [ i ] [ 8 ].ToString(),
