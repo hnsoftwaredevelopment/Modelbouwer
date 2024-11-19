@@ -932,7 +932,7 @@
 				<TabItem
 					x:Name="ProjectTimeTab"
 					Header="{StaticResource Edit.Project.Tab.BuildTime.Label}"
-					Style="{DynamicResource Default TabItem}"
+					Style="{DynamicResource Default TabItem}" IsEnabled="{Binding TimeViewModel.HasFilteredTimeEntries}"
 					>
 
 					<Grid>

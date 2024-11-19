@@ -570,12 +570,6 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			//var t4 = int.Parse(_dt.Rows [ i ] [ 11 ].ToString());
-			//var t5 = int.Parse(_dt.Rows [ i ] [ 12 ].ToString());
-			//var t6 = int.Parse(_dt.Rows [ i ] [ 13 ].ToString());
-
-			//double t7 = ( double ) _dt.Rows [ i ] [ 8 ];
-
 			timeList.Add( new TimeModel
 			{
 				TimeId = ( int ) _dt.Rows [ i ] [ 0 ],

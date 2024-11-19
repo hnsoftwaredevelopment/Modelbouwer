@@ -55,10 +55,19 @@ public partial class TimeViewModel : ObservableObject
 	[ObservableProperty]
 	private TimeModel? _selectedTimeEntry;
 
+	private ProjectModel? _selectedProject;
+
 	public ObservableCollection<TimeModel> ProjectTime { get; set; }
 
 	public ObservableCollection<TimeModel> FilteredTimeEntries { get; private set; } = [ ];
 
+	public bool HasFilteredTimeEntries => FilteredTimeEntries != null && FilteredTimeEntries.Any();
+
+	// Notify UI when list changes
+	private void NotifyHasFilteredTimeEntries()
+	{
+		OnPropertyChanged( nameof( HasFilteredTimeEntries ) );
+	}
 
 	public ObservableCollection<TimeModel> Time
 	{
@@ -74,12 +83,25 @@ public partial class TimeViewModel : ObservableObject
 	}
 	private ObservableCollection<TimeModel>? _time;
 
+	public ProjectModel? SelectedProject
+	{
+		get => _selectedProject;
+		set
+		{
+			if ( SetProperty( ref _selectedProject, value ) )
+			{
+				if ( _selectedProject != null )
+				{ FilterTimeEntriesByProjectId( _selectedProject.ProjectId ); }
+			}
+		}
+	}
+
 	public void FilterTimeEntriesByProjectId( int projectId )
 	{
 		FilteredTimeEntries.Clear();
-		foreach ( TimeModel contact in Time.Where( c => c.TimeProjectId == projectId ) )
+		foreach ( TimeModel timeEntry in ProjectTime.Where( c => c.TimeProjectId == projectId ) )
 		{
-			FilteredTimeEntries.Add( contact );
+			FilteredTimeEntries.Add( timeEntry );
 		}
 
 		//Select first time entry in the list if there are time entries
@@ -87,6 +109,10 @@ public partial class TimeViewModel : ObservableObject
 		{
 			SelectedTimeEntry = FilteredTimeEntries.First();
 		}
+
+		// Force DataGrid to recognize changes
+		OnPropertyChanged( nameof( FilteredTimeEntries ) );
+		NotifyHasFilteredTimeEntries();
 	}
 
 	public TimeViewModel()

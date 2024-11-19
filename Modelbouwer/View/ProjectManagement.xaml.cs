@@ -93,7 +93,10 @@ public partial class ProjectManagement : Page
 
 	private void ProjectDataGridLoaded( object sender, RoutedEventArgs e )
 	{
-
+		if ( dataGrid.ItemsSource is IEnumerable<ProjectModel> projects && projects.Any() )
+		{
+			dataGrid.SelectedIndex = 0;
+		}
 	}
 
 	#region Changed Project in dataGrid
