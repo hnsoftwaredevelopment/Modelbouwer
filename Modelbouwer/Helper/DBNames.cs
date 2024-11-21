@@ -508,6 +508,12 @@ public class DBNames
 	public static readonly string ProductUsageViewFieldTypeAmountUsed = "double";
 	public static readonly string ProductUsageViewFieldNameUsageDate = "UsageDate";
 	public static readonly string ProductUsageViewFieldTypeUsageDate = "date";
+	public static readonly string ProductUsageViewFieldNamePrice = "Price";
+	public static readonly string ProductUsageViewFieldTypePrice = "double";
+	public static readonly string ProductUsageViewFieldNameTotalCosts = "TotalCost";
+	public static readonly string ProductUsageViewFieldTypeTotalCosts = "double";
+	public static readonly string ProductUsageViewFieldNameComment = "Comment";
+	public static readonly string ProductUsageViewFieldTypeComment = "string";
 
 	#endregion ProductUsage
 

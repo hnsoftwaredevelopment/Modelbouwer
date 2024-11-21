@@ -61,29 +61,18 @@ public partial class TimeViewModel : ObservableObject
 	[ObservableProperty]
 	private TimeModel? _selectedTimeEntry;
 
-	[ObservableProperty]
-	private TimeModel? _selectedCostEntry;
-
 	private ProjectModel? _selectedProject;
 
 	public ObservableCollection<TimeModel> ProjectTime { get; set; }
-	public ObservableCollection<TimeModel> ProjectCost { get; set; }
 
 	public ObservableCollection<TimeModel> FilteredTimeEntries { get; private set; } = [ ];
-	public ObservableCollection<TimeModel> FilteredCostEntries { get; private set; } = [ ];
 
 	public bool HasFilteredTimeEntries => FilteredTimeEntries != null && FilteredTimeEntries.Any();
-	public bool HasFilteredCostEntries => FilteredCostEntries != null && FilteredCostEntries.Any();
 
 	#region Notify UI when list changes
 	private void NotifyHasFilteredTimeEntries()
 	{
 		OnPropertyChanged( nameof( HasFilteredTimeEntries ) );
-	}
-
-	private void NotifyHasFilteredCostEntries()
-	{
-		OnPropertyChanged( nameof( HasFilteredCostEntries ) );
 	}
 	#endregion
 
@@ -104,25 +93,6 @@ public partial class TimeViewModel : ObservableObject
 		// Force DataGrid to recognize changes
 		OnPropertyChanged( nameof( FilteredTimeEntries ) );
 		NotifyHasFilteredTimeEntries();
-	}
-
-	public void FilterCostEntriesByProjectId( int projectId )
-	{
-		FilteredCostEntries.Clear();
-		foreach ( TimeModel costEntry in ProjectTime.Where( c => c.TimeProjectId == projectId ) )
-		{
-			FilteredCostEntries.Add( costEntry );
-		}
-
-		//Select first cost entry in the list if there are cost entries
-		if ( FilteredCostEntries.Any() )
-		{
-			SelectedCostEntry = FilteredCostEntries.First();
-		}
-
-		// Force DataGrid to recognize changes
-		OnPropertyChanged( nameof( FilteredCostEntries ) );
-		NotifyHasFilteredCostEntries();
 	}
 
 	public TimeViewModel()

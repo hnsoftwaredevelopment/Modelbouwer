@@ -6,12 +6,14 @@ public class CombinedProjectViewModel
 	public ProjectViewModel ProjectViewModel { get; set; }
 	public TimeViewModel TimeViewModel { get; set; }
 	public ProductViewModel ProductViewModel { get; set; }
+	public ProductUsageViewModel ProductUsageViewModel { get; set; }
 
 	public CombinedProjectViewModel()
 	{
 		ProjectViewModel = new();
 		TimeViewModel = new();
 		ProductViewModel = new();
+		ProductUsageViewModel = new();
 
 		// Subscribe to changes in the TimeViewModel
 		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
@@ -26,6 +28,7 @@ public class CombinedProjectViewModel
 			if ( selectedProject != null )
 			{
 				TimeViewModel.FilterTimeEntriesByProjectId( selectedProject.ProjectId );
+				ProductUsageViewModel.FilterCostEntriesByProjectId( selectedProject.ProjectId );
 			}
 		}
 	}

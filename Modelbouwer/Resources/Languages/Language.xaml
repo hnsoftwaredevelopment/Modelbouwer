@@ -931,13 +931,14 @@
 	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.Month">Maand</system:String>
 	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorkTime">Besteed</system:String>
 
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.None">Geen groepering</system:String>
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.Year">Jaar</system:String>
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.YearDay">Jaar/dag</system:String>
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.YearMonth">Jaar/maand</system:String>
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.WorktypeName">Werksoort</system:String>
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.Day">Dag</system:String>
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.Month">Maand</system:String>
+	<system:String x:Key="Edit.Project.Tab.Costs.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Project.Tab.Costs.DataGrid.Header.Category">Categorie</system:String>
+	<system:String x:Key="Edit.Project.Tab.Costs.DataGrid.Header.Product">Artikel</system:String>
+	<system:String x:Key="Edit.Project.Tab.Costs.DataGrid.Header.Amount">Aantal</system:String>
+	<system:String x:Key="Edit.Project.Tab.Costs.DataGrid.Header.Price">Stukprijs</system:String>
+	<system:String x:Key="Edit.Project.Tab.Costs.DataGrid.Header.Cost">Toraal</system:String>
+	<system:String x:Key="Edit.Project.Tab.Costs.DataGrid.Header.Comment">Opmerkingen</system:String>
+
 
 
 

@@ -130,7 +130,7 @@ public partial class ProjectManagement : Page
 		if ( DataContext is CombinedProjectViewModel viewModel )
 		{
 			// When adding a new Project, the used Material and registered Time registration should disabled, until the new Project is saved and a ProjectId is available
-			ProjectMaterialTab.IsEnabled = false;
+			ProjectCostsTab.IsEnabled = false;
 			ProjectTimeTab.IsEnabled = false;
 
 			// Add new Project
@@ -242,5 +242,10 @@ public partial class ProjectManagement : Page
 
 	private void ProjectTimeEntriesDataGridLoaded( object sender, RoutedEventArgs e )
 	{
+	}
+
+	private void ProjectCostsEntriesDataGridLoaded( object sender, RoutedEventArgs e )
+	{
+
 	}
 }

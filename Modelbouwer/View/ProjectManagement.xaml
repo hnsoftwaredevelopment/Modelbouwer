@@ -44,7 +44,7 @@
 				<RowDefinition Height="450" />
 				<RowDefinition Height="38" />
 				<RowDefinition Height="*" />
-				<RowDefinition Height="50" />
+				<RowDefinition Height="0" />
 			</Grid.RowDefinitions>
 
 			<!--#region Page title-->
@@ -961,7 +961,6 @@
 							GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
 							IsGroupDropAreaExpanded="True"
 							ItemsSource="{Binding TimeViewModel.FilteredTimeEntries}"
-							Loaded="ProjectTimeEntriesDataGridLoaded"
 							SelectedIndex="0"
 							ShowGroupDropArea="True"
 							SortClickAction="SingleClick"
@@ -984,10 +983,7 @@
 									</syncfusion:GridSummaryRow.SummaryColumns>
 									<syncfusion:GridSummaryRow.TitleTemplate>
 										<DataTemplate>
-											<TextBlock
-												Style="{DynamicResource DataGrid.Group.Total}"
-												Text="{Binding Converter={StaticResource summaryConverter}, ConverterParameter={x:Reference Name=ProjectTimeEntriesDataGrid}}"
-												/>
+											<TextBlock Style="{DynamicResource DataGrid.Group.Total}" Text="{Binding Converter={StaticResource summaryConverter}, ConverterParameter={x:Reference Name=ProjectTimeEntriesDataGrid}}" />
 										</DataTemplate>
 									</syncfusion:GridSummaryRow.TitleTemplate>
 								</syncfusion:GridTableSummaryRow>
@@ -1011,10 +1007,7 @@
 									</syncfusion:GridSummaryRow.SummaryColumns>
 									<syncfusion:GridSummaryRow.TitleTemplate>
 										<DataTemplate>
-											<TextBlock
-												Style="{DynamicResource DataGrid.Group.Total}"
-												Text="{Binding Converter={StaticResource summaryConverter}, ConverterParameter={x:Reference Name=ProjectTimeEntriesDataGrid}}"
-												/>
+											<TextBlock Style="{DynamicResource DataGrid.Group.Total}" Text="{Binding Converter={StaticResource summaryConverter}, ConverterParameter={x:Reference Name=ProjectTimeEntriesDataGrid}}" />
 										</DataTemplate>
 									</syncfusion:GridSummaryRow.TitleTemplate>
 								</syncfusion:GridSummaryRow>
@@ -1093,7 +1086,7 @@
 									Width="80"
 									HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorkedMinutes}"
 									HorizontalHeaderContentAlignment="Left"
-									IsHidden="False"
+									IsHidden="True"
 									MappingName="TimeElapsedMinutes"
 									/>
 
@@ -1102,20 +1095,6 @@
 									Format="hh:mm"
 									HeaderText="hh:mm"
 									MappingName="TimeWorkedHours"
-									TextAlignment="Right"
-									/>
-								<syncfusion:GridTextColumn
-									Width="90"
-									AllowFiltering="True"
-									AllowGrouping="True"
-									AllowResizing="True"
-									AllowSorting="True"
-									ColumnFilter="DisplayText"
-									ColumnSizer="Star"
-									HeaderText="Total time (hh:mm)"
-									HorizontalHeaderContentAlignment="Right"
-									IsHidden="False"
-									MappingName="TimeElapsedTime"
 									TextAlignment="Right"
 									/>
 							</syncfusion:SfDataGrid.Columns>
@@ -1127,10 +1106,127 @@
 
 				<!--#region TAB: Project costs registration-->
 				<TabItem
-					x:Name="ProjectMaterialTab"
+					x:Name="ProjectCostsTab"
 					Header="{StaticResource Edit.Project.Tab.BuildCosts.Label}"
+					IsEnabled="{Binding ProductUsageViewModel.HasFilteredCostEntries}"
 					Style="{DynamicResource Default TabItem}"
-					/>
+					>
+
+					<Grid>
+						<syncfusion:SfDataGrid
+							x:Name="ProjectCostsDataGrid"
+							Height="380"
+							Padding="4"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Top"
+							d:ItemsSource="{d:SampleData}"
+							AllowDeleting="False"
+							AllowEditing="False"
+							AllowFiltering="True"
+							AllowGrouping="True"
+							AllowResizingColumns="True"
+							AllowTriStateSorting="True"
+							AutoGenerateColumns="False"
+							ColumnSizer="Star"
+							FilterRowPosition="Top"
+							GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
+							IsGroupDropAreaExpanded="True"
+							ItemsSource="{Binding ProductUsageViewModel.FilteredCostEntries}"
+							SelectedIndex="0"
+							ShowGroupDropArea="True"
+							SortClickAction="SingleClick"
+							>
+
+							<syncfusion:SfDataGrid.Columns>
+								<syncfusion:GridTextColumn
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Costs.DataGrid.Header.Product}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="ProductUsageProductName"
+									MinimumWidth="300"
+									/>
+
+								<syncfusion:GridTextColumn
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Costs.DataGrid.Header.Category}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="ProductUsageCategoryName"
+									MinimumWidth="250"
+									/>
+
+								<syncfusion:GridNumericColumn
+									Width="80"
+									AllowFiltering="False"
+									AllowGrouping="False"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Costs.DataGrid.Header.Amount}"
+									HorizontalHeaderContentAlignment="Right"
+									IsHidden="False"
+									MappingName="ProductUsageAmount"
+									/>
+
+								<syncfusion:GridNumericColumn
+									Width="90"
+									AllowFiltering="False"
+									AllowGrouping="False"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Costs.DataGrid.Header.Price}"
+									HorizontalHeaderContentAlignment="Right"
+									IsHidden="False"
+									MappingName="ProductUsageProductPrice"
+									/>
+
+								<syncfusion:GridNumericColumn
+									Width="100"
+									AllowFiltering="False"
+									AllowGrouping="False"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Costs.DataGrid.Header.Cost}"
+									HorizontalHeaderContentAlignment="Right"
+									IsHidden="False"
+									MappingName="ProductUsageCosts"
+									/>
+
+								<syncfusion:GridTextColumn
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Costs.DataGrid.Header.Comment}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="ProductUsageComment"
+									MinimumWidth="120"
+									/>
+							</syncfusion:SfDataGrid.Columns>
+						</syncfusion:SfDataGrid>
+					</Grid>
+
+
+				</TabItem>
 				<!--#endregion-->
 			</TabControl>
 			<!--#endregion-->

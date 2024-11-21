@@ -564,6 +564,33 @@ public class DBCommands
 	}
 	#endregion
 
+	#region Costs
+	public static ObservableCollection<ProductUsageModel> GetCostList( ObservableCollection<ProductUsageModel>? costList = null )
+	{
+		costList ??= [ ];
+		DataTable? _dt = GetData(DBNames.ProductUsageView, DBNames.ProductUsageFieldNameUsageDate);
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			costList.Add( new ProductUsageModel
+			{
+				ProductUsageId = ( int ) _dt.Rows [ i ] [ 0 ],
+				ProductUsageProjectId = ( int ) _dt.Rows [ i ] [ 1 ],
+				ProductUsageProductId = ( int ) _dt.Rows [ i ] [ 2 ],
+				ProductUsageUsageDate = _dt.Rows [ i ] [ 3 ].ToString(),
+				ProductUsageProjectName = _dt.Rows [ i ] [ 4 ].ToString(),
+				ProductUsageProductName = _dt.Rows [ i ] [ 5 ].ToString(),
+				ProductUsageCategoryName = _dt.Rows [ i ] [ 6 ].ToString(),
+				ProductUsageCategoryId = ( int ) _dt.Rows [ i ] [ 7 ],
+				ProductUsageAmount = ( double ) _dt.Rows [ i ] [ 8 ],
+				ProductUsageProductPrice = ( double ) _dt.Rows [ i ] [ 9 ],
+				ProductUsageCosts = ( double ) _dt.Rows [ i ] [ 10 ],
+				ProductUsageComment = _dt.Rows [ i ] [ 11 ].ToString()
+			} );
+		}
+		return costList;
+	}
+	#endregion
+
 	#region Time
 	public static ObservableCollection<TimeModel> GetTimeList( ObservableCollection<TimeModel>? timeList = null )
 	{
