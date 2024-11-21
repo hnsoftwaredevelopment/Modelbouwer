@@ -234,6 +234,11 @@
 	<system:String x:Key="ToolBar.Button.Image.Remove.Label">Afbeelding verwijderen</system:String>
 	<system:String x:Key="ToolBar.Button.Image.Rotate.Label">Afbeelding 45° draaien</system:String>
 	<!--#endregion-->
+	
+	<!--#region Syncfusion SfDataGrid Group Box Area-->
+	<system:String x:Key="SfDataGrid.GroupBox.Tooltip">Sleep de kolomkop hier naartoe om op te groeperen, meerdere kolommen zijn mogelijk</system:String>
+	<system:String x:Key="SfDataGrid.GroupBox.Text">Sleep kolomkoppen hier naartoe om op te groeperen</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Brand-->
@@ -924,7 +929,7 @@
 	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.Day">Dag</system:String>
 	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorkDate">Werkdag</system:String>
 	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.Month">Maand</system:String>
-	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorkTime">Gewerkte uren</system:String>
+	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.Header.WorkTime">Besteed</system:String>
 
 	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.None">Geen groepering</system:String>
 	<system:String x:Key="Edit.Project.Tab.Time.DataGrid.GroupButton.Content.Year">Jaar</system:String>
@@ -1279,5 +1284,13 @@
 
 	<system:String x:Key="Region.Month.Error">Niet bestaande maand</system:String>
 	<system:String x:Key="Region.Day.Error">Niet bestaande dag</system:String>
+
+	<system:String x:Key="Region.Day.Name.01">Zondag</system:String>
+	<system:String x:Key="Region.Day.Name.02">Maandag</system:String>
+	<system:String x:Key="Region.Day.Name.03">Dinsdag</system:String>
+	<system:String x:Key="Region.Day.Name.04">Woensdag</system:String>
+	<system:String x:Key="Region.Day.Name.05">Donderdag</system:String>
+	<system:String x:Key="Region.Day.Name.06">Vrijdag</system:String>
+	<system:String x:Key="Region.Day.Name.07">Vrijdag</system:String>
 	<!--#endregion-->
 </ResourceDictionary>

@@ -228,7 +228,6 @@ public class DBNames
 	#endregion ProductSupplier table
 
 	#region Project table
-
 	public static readonly string ProjectTable = "project";
 	public static readonly string ProjectFieldNameId = "Id";
 	public static readonly string ProjectFieldTypeId = "int";

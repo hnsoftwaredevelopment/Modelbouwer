@@ -5,6 +5,7 @@
 	xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
 	xmlns:converter="clr-namespace:Modelbouwer.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helper="clr-namespace:Modelbouwer.Helper"
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
@@ -27,6 +28,9 @@
 		<converter:DecimalConverter x:Key="DecimalConverter" />
 		<converter:IntegerValidationRule x:Key="IntegerValidationRule" />
 		<converter:TooltipValidationConverter x:Key="TooltipValidationConverter" />
+		<converter:TableSummaryRowConverter x:Key="summaryConverter" />
+		<converter:MinutesToTimeConverter x:Key="MinutesToTimeConverter" />
+		<helper:TimeSpanSumAggregate x:Key="TimeSpanSumAggregate" />
 	</Page.Resources>
 
 	<Page.DataContext>
@@ -37,7 +41,7 @@
 		<Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="50" />
-				<RowDefinition Height="370" />
+				<RowDefinition Height="450" />
 				<RowDefinition Height="38" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="50" />
@@ -74,8 +78,9 @@
 			<!--#region Tab pages-->
 			<TabControl
 				Grid.Row="1"
-				Height="350"
+				Height="425"
 				Margin="0,10"
+				VerticalAlignment="Top"
 				Style="{DynamicResource Default TabControl}"
 				>
 
@@ -932,138 +937,189 @@
 				<TabItem
 					x:Name="ProjectTimeTab"
 					Header="{StaticResource Edit.Project.Tab.BuildTime.Label}"
-					Style="{DynamicResource Default TabItem}" IsEnabled="{Binding TimeViewModel.HasFilteredTimeEntries}"
+					IsEnabled="{Binding TimeViewModel.HasFilteredTimeEntries}"
+					Style="{DynamicResource Default TabItem}"
 					>
 
 					<Grid>
-						<StackPanel>
-							<syncfusion:SfDataGrid
-								x:Name="ProjectTimeEntriesDataGrid"
-								Height="240"
-								Padding="4"
-								HorizontalAlignment="Stretch"
-								VerticalAlignment="Top"
-								d:ItemsSource="{d:SampleData}"
-								AllowDeleting="False"
-								AllowEditing="False"
-								AllowFiltering="True"
-								AllowGrouping="True"
-								AllowResizingColumns="True"
-								AutoGenerateColumns="False"
-								ColumnSizer="Star"
-								FilterRowPosition="Top"
-								ItemsSource="{Binding TimeViewModel.FilteredTimeEntries}"
-								SelectedIndex="0"
-								SortClickAction="DoubleClick"
-								>
-								<syncfusion:SfDataGrid.Columns>
-									<syncfusion:GridTextColumn
-										Width="0"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.Id}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="True"
-										MappingName="TimeId"
-										/>
-									<syncfusion:GridTextColumn
-										Width="0"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.Year}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="True"
-										MappingName="TimeYear"
-										/>
-									<syncfusion:GridTextColumn
-										Width="0"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.YearDay}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="True"
-										MappingName="TimeYarDay"
-										/>
-									<syncfusion:GridTextColumn
-										Width="0"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.YearMonth}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="True"
-										MappingName="TimeYearMonth"
-										/>
-									<syncfusion:GridTextColumn
-										Width="0"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorkedMinutes}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="True"
-										MappingName="TimeWorkedMinutes"
-										/>
+						<syncfusion:SfDataGrid
+							x:Name="ProjectTimeEntriesDataGrid"
+							Height="380"
+							Padding="4"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Top"
+							d:ItemsSource="{d:SampleData}"
+							AllowDeleting="False"
+							AllowEditing="False"
+							AllowFiltering="True"
+							AllowGrouping="True"
+							AllowResizingColumns="True"
+							AllowTriStateSorting="True"
+							AutoGenerateColumns="False"
+							ColumnSizer="Star"
+							FilterRowPosition="Top"
+							GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
+							IsGroupDropAreaExpanded="True"
+							ItemsSource="{Binding TimeViewModel.FilteredTimeEntries}"
+							Loaded="ProjectTimeEntriesDataGridLoaded"
+							SelectedIndex="0"
+							ShowGroupDropArea="True"
+							SortClickAction="SingleClick"
+							>
+							<syncfusion:SfDataGrid.TableSummaryRows>
+								<syncfusion:GridTableSummaryRow ShowSummaryInRow="True">
+									<syncfusion:GridSummaryRow.SummaryColumns>
+										<syncfusion:GridSummaryColumn
+											Name="WorkedHours"
+											Format="'{Sum:n}'"
+											MappingName="TimeElapsedMinutes"
+											SummaryType="DoubleAggregate"
+											/>
+										<syncfusion:GridSummaryColumn
+											Name="RowCount"
+											Format="'{Count:d}'"
+											MappingName="TimeId"
+											SummaryType="CountAggregate"
+											/>
+									</syncfusion:GridSummaryRow.SummaryColumns>
+									<syncfusion:GridSummaryRow.TitleTemplate>
+										<DataTemplate>
+											<TextBlock
+												Style="{DynamicResource DataGrid.Group.Total}"
+												Text="{Binding Converter={StaticResource summaryConverter}, ConverterParameter={x:Reference Name=ProjectTimeEntriesDataGrid}}"
+												/>
+										</DataTemplate>
+									</syncfusion:GridSummaryRow.TitleTemplate>
+								</syncfusion:GridTableSummaryRow>
+							</syncfusion:SfDataGrid.TableSummaryRows>
 
-									<syncfusion:GridTextColumn Width="90"
-										AllowFiltering="True"
-										AllowGrouping="True"
-										AllowResizing="True"
-										AllowSorting="True"
-										ColumnFilter="DisplayText"
-										ColumnSizer="Star"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.Month}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="True"
-										MappingName="TimeMonth"
-										/>
+							<syncfusion:SfDataGrid.GroupSummaryRows>
+								<syncfusion:GridSummaryRow ShowSummaryInRow="True">
+									<syncfusion:GridSummaryRow.SummaryColumns>
+										<syncfusion:GridSummaryColumn
+											Name="WorkedHours"
+											Format="'{Sum:n}'"
+											MappingName="TimeElapsedMinutes"
+											SummaryType="DoubleAggregate"
+											/>
+										<syncfusion:GridSummaryColumn
+											Name="RowCount"
+											Format="'{Count:d}'"
+											MappingName="TimeId"
+											SummaryType="CountAggregate"
+											/>
+									</syncfusion:GridSummaryRow.SummaryColumns>
+									<syncfusion:GridSummaryRow.TitleTemplate>
+										<DataTemplate>
+											<TextBlock
+												Style="{DynamicResource DataGrid.Group.Total}"
+												Text="{Binding Converter={StaticResource summaryConverter}, ConverterParameter={x:Reference Name=ProjectTimeEntriesDataGrid}}"
+												/>
+										</DataTemplate>
+									</syncfusion:GridSummaryRow.TitleTemplate>
+								</syncfusion:GridSummaryRow>
+							</syncfusion:SfDataGrid.GroupSummaryRows>
 
-									<syncfusion:GridTextColumn
-										AllowFiltering="True"
-										AllowGrouping="True"
-										AllowResizing="True"
-										AllowSorting="True"
-										ColumnFilter="DisplayText"
-										ColumnSizer="Star"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorktypeName}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="False"
-										MappingName="TimeWorkTypeName"
-										MinimumWidth="500"
-										/>
+							<syncfusion:SfDataGrid.Columns>
+								<syncfusion:GridTextColumn
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorktypeName}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="TimeWorktypeName"
+									MinimumWidth="500"
+									/>
 
-									<syncfusion:GridTextColumn Width="90"
-										AllowFiltering="True"
-										AllowGrouping="True"
-										AllowResizing="True"
-										AllowSorting="True"
-										ColumnFilter="DisplayText"
-										ColumnSizer="Star"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.Day}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="False"
-										MappingName="TimeDay"
-										/>
+								<syncfusion:GridTextColumn
+									Width="90"
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.Day}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="TimeWorkdayName"
+									/>
 
-									<syncfusion:GridTextColumn Width="90"
-										AllowFiltering="True"
-										AllowGrouping="True"
-										AllowResizing="True"
-										AllowSorting="True"
-										ColumnFilter="DisplayText"
-										ColumnSizer="Star"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorkDate}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="False"
-										MappingName="TimeWorkDate"
-										/>
+								<syncfusion:GridTextColumn
+									Width="100"
+									AllowFiltering="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorkDate}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="TimeWorkDate"
+									/>
+								<syncfusion:GridTextColumn
+									Width="90"
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.Year}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="TimeYear"
+									/>
 
-									<syncfusion:GridTextColumn Width="90"
-										AllowFiltering="True"
-										AllowGrouping="True"
-										AllowResizing="True"
-										AllowSorting="True"
-										ColumnFilter="DisplayText"
-										ColumnSizer="Star"
-										HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorkTime}"
-										HorizontalHeaderContentAlignment="Left"
-										IsHidden="False"
-										MappingName="TimeWorkTime"
-										/>								</syncfusion:SfDataGrid.Columns>
-							</syncfusion:SfDataGrid>
+								<syncfusion:GridTextColumn
+									Width="90"
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.Month}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="TimeMonth"
+									/>
 
-							<StackPanel Height="30" Margin="5,8" Orientation="Horizontal">
-								<Button x:Name="NoGroup" Width="120" Margin="0,0,7,0" Command="{Binding RemoveGroupCommand}" Content="{StaticResource Edit.Project.Tab.Time.DataGrid.GroupButton.Content.None}"/>
-							</StackPanel>
-						</StackPanel>
+								<syncfusion:GridNumericColumn
+									Width="80"
+									HeaderText="{StaticResource Edit.Project.Tab.Time.DataGrid.Header.WorkedMinutes}"
+									HorizontalHeaderContentAlignment="Left"
+									IsHidden="False"
+									MappingName="TimeElapsedMinutes"
+									/>
+
+								<syncfusion:GridTimeSpanColumn
+									Width="90"
+									Format="hh:mm"
+									HeaderText="hh:mm"
+									MappingName="TimeWorkedHours"
+									TextAlignment="Right"
+									/>
+								<syncfusion:GridTextColumn
+									Width="90"
+									AllowFiltering="True"
+									AllowGrouping="True"
+									AllowResizing="True"
+									AllowSorting="True"
+									ColumnFilter="DisplayText"
+									ColumnSizer="Star"
+									HeaderText="Total time (hh:mm)"
+									HorizontalHeaderContentAlignment="Right"
+									IsHidden="False"
+									MappingName="TimeElapsedTime"
+									TextAlignment="Right"
+									/>
+							</syncfusion:SfDataGrid.Columns>
+						</syncfusion:SfDataGrid>
 					</Grid>
 
 				</TabItem>

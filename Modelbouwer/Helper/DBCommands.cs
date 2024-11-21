@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.Helper;
+﻿using Application = System.Windows.Application;
+
+namespace Modelbouwer.Helper;
 /// <summary>
 /// Te Database commands helper.
 /// This helper contains function and method that perform Database actions
@@ -567,9 +569,44 @@ public class DBCommands
 	{
 		timeList ??= [ ];
 		DataTable? _dt = GetData(DBNames.TimeView, DBNames.TimeViewFieldNameSortIndex);
+		var _workdayName = "";
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
+			#region Deterrmine the day of the week
+			switch ( ( int.Parse( _dt.Rows [ i ] [ 13 ].ToString() ) ) )
+			{
+				case 0:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.01" ];
+					break;
+				case 1:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.02" ];
+					break;
+				case 2:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.03" ];
+					break;
+				case 3:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.04" ];
+					break;
+				case 4:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.05" ];
+					break;
+				case 5:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.06" ];
+					break;
+				case 6:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.07" ];
+					break;
+				default:
+					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Error" ];
+					break;
+			}
+			#endregion
+
+			#region Determin the ElepsedHours
+			var _workedHours = TimeSpan.FromMinutes(( double ) _dt.Rows [ i ] [ 8 ]);
+			#endregion
+
 			timeList.Add( new TimeModel
 			{
 				TimeId = ( int ) _dt.Rows [ i ] [ 0 ],
@@ -582,10 +619,12 @@ public class DBCommands
 				TimeEndTime = _dt.Rows [ i ] [ 7 ].ToString(),
 				TimeElapsedMinutes = ( double ) _dt.Rows [ i ] [ 8 ],
 				TimeElapsedTime = _dt.Rows [ i ] [ 9 ].ToString(),
+				TimeWorkedHours = _workedHours,
 				TimeComment = _dt.Rows [ i ] [ 10 ].ToString(),
 				TimeYear = int.Parse( _dt.Rows [ i ] [ 11 ].ToString() ),
 				TimeMonth = int.Parse( _dt.Rows [ i ] [ 12 ].ToString() ),
 				TimeWorkday = int.Parse( _dt.Rows [ i ] [ 13 ].ToString() ),
+				TimeWorkdayName = _workdayName,
 				TimeYearMonth = _dt.Rows [ i ] [ 14 ].ToString(),
 				TimeYearWorkday = _dt.Rows [ i ] [ 15 ].ToString(),
 				TimeSortIndex = _dt.Rows [ i ] [ 16 ].ToString()
@@ -594,7 +633,6 @@ public class DBCommands
 		return timeList;
 	}
 	#endregion
-
 
 	#region ProjectList
 	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )

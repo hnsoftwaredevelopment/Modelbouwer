@@ -116,6 +116,10 @@ public partial class ProjectManagement : Page
 				ProjectExpEnddate.Text = DBCommands.GetProjectEndDate( viewModel.ProjectViewModel.SelectedProject.ProjectId ).ToString();
 			}
 		}
+
+		var originalSource = ProjectTimeEntriesDataGrid.ItemsSource;
+		ProjectTimeEntriesDataGrid.ItemsSource = null;
+		ProjectTimeEntriesDataGrid.ItemsSource = originalSource;
 	}
 	#endregion
 
@@ -233,5 +237,10 @@ public partial class ProjectManagement : Page
 		viewModel.ProjectViewModel.SelectedProject = viewModel.ProjectViewModel.Project
 			.FirstOrDefault( p => p.ProjectId == selectedProject.ProjectId );
 	}
+
 	#endregion
+
+	private void ProjectTimeEntriesDataGridLoaded( object sender, RoutedEventArgs e )
+	{
+	}
 }

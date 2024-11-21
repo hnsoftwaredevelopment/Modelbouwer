@@ -4,10 +4,19 @@
 	xmlns:local="clr-namespace:Syncfusion.Windows.Tools.Controls;assembly=Syncfusion.Shared.WPF"
 	xmlns:skin="clr-namespace:Syncfusion.Windows.Shared;assembly=Syncfusion.Shared.WPF"
 	xmlns:t="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
-	>
+	
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf">
 	
 	<!--#region Default-->
 	<!--#endregion-->
+
+	<Style x:Key="SfDataGridGroupDropAreaStyle1" TargetType="{x:Type syncfusion:GroupDropArea}">
+		<Setter Property="Height" Value="80"/>
+		<Setter Property="Foreground" Value="DarkSlateBlue"/>
+		<Setter Property="Background" Value="#FFF5F2CC"/>
+		<Setter Property="ToolTip" Value="{StaticResource SfDataGrid.GroupBox.Tooltip}"/>
+		<Setter Property="GroupDropAreaText" Value="{StaticResource SfDataGrid.GroupBox.Text}"/>
+	</Style>
 
 </ResourceDictionary>
 

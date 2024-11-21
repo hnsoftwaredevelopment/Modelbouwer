@@ -482,7 +482,7 @@ public class GeneralHelper
 							}
 							catch ( Exception ex )
 							{
-								Console.WriteLine( $"Error converting value '{value}' for property '{property.Name}': {ex.Message}" );
+								Debug.WriteLine( $"Error converting value '{value}' for property '{property.Name}': {ex.Message}" );
 							}
 						}
 					}
