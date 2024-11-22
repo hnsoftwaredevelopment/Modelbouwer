@@ -636,6 +636,28 @@
 	<system:String x:Key="Edit.Product.Tab.Inventory.Label">Voorraad</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
+	
+	<!--#region Inventory-->
+	<!--#region  Inventory management-->
+	<system:String x:Key="Edit.Inventory.Title">Voorraadbeheer</system:String>
+	<system:String x:Key="Edit.Inventory.Subtitle">Voorraadoverzicht van alle artikelen</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Code">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Name">Produkt</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Price">Prijs</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.MinStock">Minimaal</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Category">Categorie</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Location">Lokatie</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Inventory">Voorraad</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Value">Waarde</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.InOrder">Besteld</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.VirtualInventory">Virtuele voorraad</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.VirtualValue">Virtuele waarde</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.Short">Tekort</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Header.TempShort">Tijdelijk tekort</system:String>
+
+	<!--#endregion-->
+	<!--#endregion-->
 
 	<!--#region Product Supplier-->
 	<!--#region Export page-->
@@ -974,7 +996,6 @@
 	<!--#endregion-->
 
 	<!--#endregion-->
-
 	<!--#endregion-->
 
 	<!--#region Unit>-->
@@ -1158,9 +1179,6 @@
 	<!--#endregion-->
 
 	<!--#endregion-->
-
-	<!--#region Maintenance page-->
-	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Supplier Contact Function-->
@@ -1193,14 +1211,7 @@
 	<!--#endregion-->
 
 	<!--#endregion-->
-
-	<!--#region Maintenance page-->
 	<!--#endregion-->
-	<!--#endregion-->
-
-	<!--#region Maintenance page-->
-	<!--#endregion-->
-
 	<!--#endregion-->
 
 	<!--#region Time registration-->
@@ -1261,7 +1272,6 @@
 	<system:String x:Key="rtfToolbar.Action.ListNumber">Genummerde lijst</system:String>
 	<system:String x:Key="rtfToolbar.Action.Outdent">Terugspringen</system:String>
 	<!--#endregion-->
-
 	<!--#endregion-->
 
 	<!--#region Settings-->

@@ -378,14 +378,14 @@ public class DBCommands
 	#endregion CountryList
 
 	#region CurrencyList
-	public ObservableCollection<CurrencyModel> GetCurrencyList( ObservableCollection<CurrencyModel>? currencyList = null )
+	public ObservableCollection<CurrencyModel> GetCurrencyList( ObservableCollection<CurrencyModel>? _list = null )
 	{
-		currencyList ??= [ ];
+		_list ??= [ ];
 		DataTable? _dt = GetData( DBNames.CurrencyTable, DBNames.CurrencyFieldNameName );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			currencyList.Add( new CurrencyModel
+			_list.Add( new CurrencyModel
 			{
 				CurrencyId = ( int ) _dt.Rows [ i ] [ 0 ],
 				CurrencyCode = _dt.Rows [ i ] [ 1 ].ToString(),
@@ -394,9 +394,42 @@ public class DBCommands
 				CurrencyConversionRate = ( double ) _dt.Rows [ i ] [ 4 ]
 			} );
 		}
-		return currencyList;
+		return _list;
 	}
 	#endregion CurrencyList
+
+	#region Inventory
+	public static ObservableCollection<InventoryModel> GetInventory( ObservableCollection<InventoryModel>? _list = null )
+	{
+		_list ??= [ ];
+		DataTable? _dt = GetData( DBNames.ProductInventoryView, DBNames.ProductInventoryViewFieldNameProductCode );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			var _price = double.Parse(_dt.Rows [ i ] [ 3 ].ToString());
+			var _value = double.Parse(_dt.Rows [ i ] [ 8 ].ToString());
+			var _virtualValue = double.Parse(_dt.Rows [ i ] [ 11 ].ToString());
+			_list.Add( new InventoryModel
+			{
+				ProductId = ( int ) _dt.Rows [ i ] [ 0 ],
+				ProductCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				ProductName = _dt.Rows [ i ] [ 2 ].ToString(),
+				ProductPrice = _price,
+				ProductMinimalStock = ( double ) _dt.Rows [ i ] [ 4 ],
+				ProductCategory = _dt.Rows [ i ] [ 5 ].ToString(),
+				ProductStorageLocation = _dt.Rows [ i ] [ 6 ].ToString(),
+				ProductInventory = ( double ) _dt.Rows [ i ] [ 7 ],
+				ProductInventoryValue = _value,
+				ProductInOrder = ( double ) _dt.Rows [ i ] [ 9 ],
+				ProductVirtualInventory = ( double ) _dt.Rows [ i ] [ 10 ],
+				ProductVirtualInventoryValue = _virtualValue,
+				ProductShortInventory = ( double ) _dt.Rows [ i ] [ 12 ],
+				ProductTempShortInventory = ( double ) _dt.Rows [ i ] [ 13 ]
+			} );
+		}
+		return _list;
+	}
+	#endregion
 
 	#region StorageLocationList
 	public ObservableCollection<StorageModel> GetStorageList( ObservableCollection<StorageModel>? storageList = null )

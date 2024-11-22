@@ -2153,4 +2153,29 @@
 	</DrawingGroup>
 	<DrawingImage x:Key="costs" Drawing="{StaticResource costsDrawingGroup}" />
 	<!--#endregion-->
+	
+	<!--#region Icons for Inventorylist-->
+	<!--#region Temporary Inventory shortage-->
+	<Geometry x:Key="tempshortGeometry1">F1 M15,15z M0,0z M6.9375,3.09375L6.703125,8.203125 8.296875,8.203125 8.0625,3.09375z M6.703125,10.03125L6.703125,11.4375 8.296875,11.4375 8.296875,10.03125z</Geometry>
+	<Geometry x:Key="tempshortGeometry2">F1 M15,15z M0,0z M7.5,0C3.374999,0 0,3.374991 0,7.5 0,11.624994 3.374999,15 7.5,15 11.624998,15 15,11.624994 15,7.5 15,3.374991 11.624998,0 7.5,0z M6.9375,3.09375L8.0625,3.09375 8.296875,8.203125 6.703125,8.203125z M6.703125,10.03125L8.296875,10.03125 8.296875,11.4375 6.703125,11.4375z</Geometry>
+	<DrawingGroup x:Key="tempshortDrawingGroup" ClipGeometry="M0,0 V15 H15 V0 H0 Z">
+		<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource tempshortGeometry1}" />
+		<GeometryDrawing Brush="#FF2213D0" Geometry="{StaticResource tempshortGeometry2}" />
+	</DrawingGroup>
+	<DrawingImage x:Key="tempshort" Drawing="{StaticResource tempshortDrawingGroup}" />
+	<!--#endregion-->
+
+	<!--#region Inventory shortage-->
+	<Geometry x:Key="shortGeometry1">F1 M15,15z M0,0z M23.214844,19.490234L22.839844,27.976562 25.21875,27.976562 24.785156,19.490234z M22.839844,29.546875L22.839844,31.759766 25.21875,31.767566 25.21875,29.556629z</Geometry>
+	<Geometry x:Key="shortGeometry2">F1 M15,15z M0,0z M23.927734,12.957031C23.408031,12.958431,22.887857,13.213697,22.583984,13.720703L11.226563,32.664062C10.599327,33.710557,11.351864,35.042969,12.572266,35.042969L35.427734,35.042969C36.652203,35.042969,37.404899,33.702745,36.769531,32.65625L25.273437,13.712891C24.966714,13.207521,24.447437,12.955612,23.927734,12.957031z M23.214844,19.490234L24.785156,19.490234 25.21875,27.976562 22.839844,27.976562z M22.839844,29.546875L25.21875,29.556675 25.21875,31.767612 22.839844,31.759812z</Geometry>
+	<DrawingGroup x:Key="shortDrawingGroup" ClipGeometry="M0,0 V15 H15 V0 H0 Z">
+		<DrawingGroup Opacity="1" Transform="0.5769333,0,0,0.67916499,-6.3465975,-8.7999578">
+			<GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource shortGeometry1}" />
+			<GeometryDrawing Brush="#FFFF0000" Geometry="{StaticResource shortGeometry2}" />
+		</DrawingGroup>
+	</DrawingGroup>
+	<DrawingImage x:Key="short" Drawing="{StaticResource shortDrawingGroup}" />
+	<!--#endregion-->
+	<!--#endregion-->
 </ResourceDictionary>
+	

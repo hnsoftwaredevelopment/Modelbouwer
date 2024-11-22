@@ -160,7 +160,6 @@ public class DBNames
 	#endregion Country table
 
 	#region Product table
-
 	public static readonly string ProductFieldNameBrandId = "Brand_Id";
 	public static readonly string ProductFieldNameCategoryId = "Category_Id";
 	public static readonly string ProductFieldNameCode = "Code";
@@ -197,6 +196,47 @@ public class DBNames
 	public static readonly string ProductView = "view_product";
 
 	#endregion Product table
+
+	#region Product Inventory table and view
+	public static readonly string ProductInventoryTable = "productinventory";
+	public static readonly string ProductInventoryFieldNameId = "Id";
+	public static readonly string ProductInventoryFieldTypeId = "int";
+	public static readonly string ProductInventoryFieldNameProduct_Id = "Product_Id";
+	public static readonly string ProductInventoryFieldTypeProduct_Id = "int";
+	public static readonly string ProductInventoryFieldNameAmount = "Amount";
+	public static readonly string ProductInventoryFieldTypeAmount = "double";
+
+	public static readonly string ProductInventoryView = "view_productinventory";
+	public static readonly string ProductInventoryViewFieldNameProductId = "Product_Id";
+	public static readonly string ProductInventoryViewFieldTypeProductId = "int";
+	public static readonly string ProductInventoryViewFieldNameProductCode = "Code";
+	public static readonly string ProductInventoryViewFieldTypeProductCode = "string";
+	public static readonly string ProductInventoryViewFieldNameProductName = "Name";
+	public static readonly string ProductInventoryViewFieldTypeProductName = "string";
+	public static readonly string ProductInventoryViewFieldNameProductPrice = "Price";
+	public static readonly string ProductInventoryViewFieldTypeProductPrice = "string";
+	public static readonly string ProductInventoryViewFieldNameProductMinimalStock = "MinimalStock";
+	public static readonly string ProductInventoryViewFieldTypeProductMinimalStock = "double";
+	public static readonly string ProductInventoryViewFieldNameProductCategory = "Category";
+	public static readonly string ProductInventoryViewFieldTypeProductCategory = "string";
+	public static readonly string ProductInventoryViewFieldNameProductStorage = "Location";
+	public static readonly string ProductInventoryViewFieldTypeProductStorage = "string";
+	public static readonly string ProductInventoryViewFieldNameProductMinimalInventory = "Inventory";
+	public static readonly string ProductInventoryViewFieldTypeProductMinimalInventory = "double";
+	public static readonly string ProductInventoryViewFieldNameProductMinimalValue = "Value";
+	public static readonly string ProductInventoryViewFieldTypeProductMinimalValue = "string";
+	public static readonly string ProductInventoryViewFieldNameProductMinimalOrder = "InOrder";
+	public static readonly string ProductInventoryViewFieldTypeProductMinimalOrder = "double";
+	public static readonly string ProductInventoryViewFieldNameProductMinimalVirtualInventory = "VirtualInventory";
+	public static readonly string ProductInventoryViewFieldTypeProductMinimalVirtualInventory = "double";
+	public static readonly string ProductInventoryViewFieldNameProductMinimalVirtualValue = "VirtualValue";
+	public static readonly string ProductInventoryViewFieldTypeProductMinimalVirtualValue = "string";
+	public static readonly string ProductInventoryViewFieldNameProductShort = "Short";
+	public static readonly string ProductInventoryViewFieldTypeProductShort = "double";
+	public static readonly string ProductInventoryViewFieldNameProductTempShort = "TempShort";
+	public static readonly string ProductInventoryViewFieldTypeProductTempShort = "double";
+
+	#endregion
 
 	#region ProductSupplier table
 
