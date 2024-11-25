@@ -70,6 +70,8 @@
 				AllowTriStateSorting="True"
 				AutoGenerateColumns="False"
 				ColumnSizer="Star"
+				CurrentCellBeginEdit="OriginalInventory"
+				CurrentCellEndEdit="ChangedInventory"
 				FilterRowPosition="Top"
 				ItemsSource="{Binding InventoryViewModel.Inventory, Mode=TwoWay}"
 				SelectedIndex="0"
@@ -154,28 +156,34 @@
 						MappingName="ProductStorageLocation"
 						/>
 					<syncfusion:GridNumericColumn
+						AllowEditing="True"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.MinStock}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductMinimalStock"
+						MinValue="0"
 						/>
 					<syncfusion:GridNumericColumn
+						AllowEditing="True"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Price}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductPrice"
+						MinValue="0"
 						/>
 					<syncfusion:GridNumericColumn
+						AllowEditing="True"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Inventory}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductInventory"
+						MinValue="0"
 						/>
 					<syncfusion:GridNumericColumn
 						AllowFiltering="False"
