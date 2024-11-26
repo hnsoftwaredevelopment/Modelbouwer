@@ -2153,7 +2153,7 @@
 	</DrawingGroup>
 	<DrawingImage x:Key="costs" Drawing="{StaticResource costsDrawingGroup}" />
 	<!--#endregion-->
-	
+
 	<!--#region Icons for Inventorylist-->
 	<!--#region Temporary Inventory shortage-->
 	<Geometry x:Key="tempshortGeometry1">F1 M15,15z M0,0z M6.9375,3.09375L6.703125,8.203125 8.296875,8.203125 8.0625,3.09375z M6.703125,10.03125L6.703125,11.4375 8.296875,11.4375 8.296875,10.03125z</Geometry>
@@ -2177,5 +2177,279 @@
 	<DrawingImage x:Key="short" Drawing="{StaticResource shortDrawingGroup}" />
 	<!--#endregion-->
 	<!--#endregion-->
+
+	<!--#region Search icon-->
+	<Geometry x:Key="searchGeometry1">F1 M25.000005,24.579118z M0,0z M10.210685,12.845916L8.909335,14.070874 10.379305,15.632149 11.680565,14.407191z</Geometry>
+	<Geometry x:Key="searchGeometry2">F1 M25.000005,24.579118z M0,0z M2.736405,24.396871C2.464245,24.65179,2.036995,24.637503,1.782545,24.365201L0.182015,22.654266C-0.0725750000000002,22.382016 -0.0584250000000002,21.95495 0.214015,21.700453 0.486315,21.445393 0.913335,21.459727 1.167885,21.731983L2.768545,23.442917C3.023375,23.714606,3.009315,24.141812,2.736745,24.396637z</Geometry>
+	<Geometry x:Key="searchGeometry3">F1 M25.000005,24.579118z M0,0z M8.721505,13.560269L0.690345000000001,21.515591 2.904575,23.821136 10.935745,15.866364z</Geometry>
+	<Geometry x:Key="searchGeometry4">F1 M25.000005,24.579118z M0,0z M12.083425,15.040953C11.810795,15.295871,11.383685,15.281584,11.129325,15.009293L9.528565,13.298358C9.273975,13.026108 9.288215,12.599089 9.560565,12.344545 9.832725,12.089532 10.259985,12.104054 10.514575,12.376115L12.115195,14.087143C12.369545,14.359768,12.355495,14.786975,12.083395,15.041331z</Geometry>
+	<Geometry x:Key="searchGeometry5">F1 M25.000005,24.579118z M0,0z M17.831035,6.254643C15.690275,9.141192 12.347615,8.136975 9.728635,6.093223 9.615795,6.618705 9.554985,7.163956 9.554985,7.7234 9.554985,11.988814 13.012505,15.44544 17.277495,15.44544 21.542495,15.44544 25.000005,11.988861 25.000005,7.7234 25.000005,5.820316 24.310805,4.079824 23.170185,2.73417 21.309115,3.225082 19.376385,4.172244 17.831035,6.254877z</Geometry>
+	<Geometry x:Key="searchGeometry6">F1 M25.000005,24.579118z M0,0z M17.277825,0.000422C13.572045,0.000422 10.477185,2.610973 9.728635,6.093269 12.347665,8.137022 15.690325,9.141192 17.831035,6.25469 19.376475,4.172057 21.308885,3.224895 23.170185,2.734263 21.753655,1.062162 19.640105,0 17.277825,0z</Geometry>
+	<Geometry x:Key="searchGeometry7">F1 M25.000005,24.579118z M0,0z M17.277825,0.000422C13.572045,0.000422 10.477185,2.610973 9.728635,6.093269 12.347665,8.137022 15.690325,9.141192 17.831035,6.25469 19.376475,4.172057 21.308885,3.224895 23.170185,2.734263 21.753655,1.062162 19.640105,0 17.277825,0z</Geometry>
+	<Geometry x:Key="searchGeometry8">F1 M25.000005,24.579118z M0,0z M17.277825,0.596638C19.374695,0.596638 21.356715,1.516209 22.715345,3.119592 23.804205,4.404023 24.403835,6.038979 24.403835,7.723259 24.403835,11.652389 21.206955,14.848991 17.277635,14.848991 13.348135,14.848991 10.151435,11.652389 10.151435,7.723259 10.151435,7.220074 10.205335,6.71375 10.311735,6.218387 10.648865,4.650229 11.522485,3.224052 12.771775,2.202503 14.037945,1.167277 15.638095,0.596919 17.277595,0.596919 M17.277595,0.000703000000000231C13.571805,0.000703000000000231 10.476945,2.611254 9.728405,6.09355 9.615555,6.619033 9.554755,7.164284 9.554755,7.723728 9.554755,11.989142 13.012275,15.445768 17.277265,15.445768 21.542255,15.445768 24.999775,11.989189 24.999775,7.723728 24.999775,5.820644 24.310575,4.080151 23.169955,2.734497 21.753425,1.062677 19.639875,0.000516000000001071 17.277595,0.000516000000001071z</Geometry>
+	<DrawingGroup x:Key="searchDrawingGroup" ClipGeometry="M0,0 V24.579118 H25.000005 V0 H0 Z">
+		<DrawingGroup.Transform>
+			<TranslateTransform X="1.7176455813228131E-09" Y="0" />
+		</DrawingGroup.Transform>
+		<GeometryDrawing Geometry="{StaticResource searchGeometry1}">
+			<GeometryDrawing.Brush>
+				<LinearGradientBrush MappingMode="Absolute" Opacity="1" SpreadMethod="Pad" Transform="0.03211076,0.03410627,-0.03410627,0.03211076,18.404395,-31.058483" StartPoint="608.83002,788.20001" EndPoint="561.94,789.60999">
+					<GradientStop Offset="0" Color="#FF647698" />
+					<GradientStop Offset="0.0292" Color="#FF6D7D9B" />
+					<GradientStop Offset="0.1099" Color="#FF828CA1" />
+					<GradientStop Offset="0.1858" Color="#FF8E96A4" />
+					<GradientStop Offset="0.25120000000000003" Color="#FF9299A6" />
+					<GradientStop Offset="0.7537" Color="#FFFAFAFC" />
+					<GradientStop Offset="0.80019999999999991" Color="#FEF5F5F9" />
+					<GradientStop Offset="0.8604" Color="#FCE7E8F0" />
+					<GradientStop Offset="0.92799999999999994" Color="#FAD0D4E2" />
+					<GradientStop Offset="1" Color="#F7B0B8CF" />
+				</LinearGradientBrush>
+			</GeometryDrawing.Brush>
+		</GeometryDrawing>
+		<GeometryDrawing Geometry="{StaticResource searchGeometry2}">
+			<GeometryDrawing.Brush>
+				<LinearGradientBrush MappingMode="Absolute" Opacity="1" SpreadMethod="Pad" Transform="0.04684283,0,0,0.04684283,-7.021895,-1.940042" StartPoint="209.25999,561.31" EndPoint="153.53999,505.60001">
+					<GradientStop Offset="0" Color="#FF647698" />
+					<GradientStop Offset="0.0292" Color="#FF6D7D9B" />
+					<GradientStop Offset="0.1099" Color="#FF828CA1" />
+					<GradientStop Offset="0.1858" Color="#FF8E96A4" />
+					<GradientStop Offset="0.25120000000000003" Color="#FF9299A6" />
+					<GradientStop Offset="0.7537" Color="#FFFAFAFC" />
+					<GradientStop Offset="0.80019999999999991" Color="#FEF5F5F9" />
+					<GradientStop Offset="0.8604" Color="#FCE7E8F0" />
+					<GradientStop Offset="0.92799999999999994" Color="#FAD0D4E2" />
+					<GradientStop Offset="1" Color="#F7B0B8CF" />
+				</LinearGradientBrush>
+			</GeometryDrawing.Brush>
+		</GeometryDrawing>
+		<GeometryDrawing Geometry="{StaticResource searchGeometry3}">
+			<GeometryDrawing.Brush>
+				<LinearGradientBrush MappingMode="Absolute" Opacity="1" SpreadMethod="Pad" Transform="0.03211076,0.03410627,-0.03410627,0.03211076,18.404395,-31.058483" StartPoint="623.66998,922.65997" EndPoint="554.32001,924.76001">
+					<GradientStop Offset="0" Color="#FF3C3C3B" />
+					<GradientStop Offset="0.026099999999999998" Color="#FF464645" />
+					<GradientStop Offset="0.1079" Color="#FF5E5E5D" />
+					<GradientStop Offset="0.18489999999999998" Color="#FF6B6B6A" />
+					<GradientStop Offset="0.25120000000000003" Color="#FF706F6F" />
+					<GradientStop Offset="0.7537" Color="#FFB2B2B2" />
+					<GradientStop Offset="0.79519999999999991" Color="#FEAEAEAD" />
+					<GradientStop Offset="0.84900000000000009" Color="#FCA0A0A0" />
+					<GradientStop Offset="0.9094" Color="#FA8A8989" />
+					<GradientStop Offset="0.9743" Color="#F8676766" />
+					<GradientStop Offset="1" Color="#F7575756" />
+				</LinearGradientBrush>
+			</GeometryDrawing.Brush>
+		</GeometryDrawing>
+		<GeometryDrawing Geometry="{StaticResource searchGeometry4}">
+			<GeometryDrawing.Brush>
+				<LinearGradientBrush MappingMode="Absolute" Opacity="1" SpreadMethod="Pad" Transform="0.04684283,0,0,0.04684283,-7.021895,-1.940042" StartPoint="408.79001,361.59" EndPoint="353.07001,305.87">
+					<GradientStop Offset="0" Color="#FF647698" />
+					<GradientStop Offset="0.0292" Color="#FF6D7D9B" />
+					<GradientStop Offset="0.1099" Color="#FF828CA1" />
+					<GradientStop Offset="0.1858" Color="#FF8E96A4" />
+					<GradientStop Offset="0.25120000000000003" Color="#FF9299A6" />
+					<GradientStop Offset="0.7537" Color="#FFFAFAFC" />
+					<GradientStop Offset="0.80019999999999991" Color="#FEF5F5F9" />
+					<GradientStop Offset="0.8604" Color="#FCE7E8F0" />
+					<GradientStop Offset="0.92799999999999994" Color="#FAD0D4E2" />
+					<GradientStop Offset="1" Color="#F7B0B8CF" />
+				</LinearGradientBrush>
+			</GeometryDrawing.Brush>
+		</GeometryDrawing>
+		<GeometryDrawing Geometry="{StaticResource searchGeometry5}">
+			<GeometryDrawing.Brush>
+				<LinearGradientBrush MappingMode="Absolute" Opacity="0.5" SpreadMethod="Pad" Transform="0.04684283,0,0,0.04684283,-7.021895,-1.940042" StartPoint="353.88,235.46001" EndPoint="683.60999,235.46001">
+					<GradientStop Offset="0" Color="#FF2581C4" />
+					<GradientStop Offset="1" Color="#002581C4" />
+				</LinearGradientBrush>
+			</GeometryDrawing.Brush>
+		</GeometryDrawing>
+		<GeometryDrawing Geometry="{StaticResource searchGeometry6}">
+			<GeometryDrawing.Brush>
+				<LinearGradientBrush MappingMode="Absolute" Opacity="0.2" SpreadMethod="Pad" Transform="0.04684283,0,0,0.04684283,-7.021895,-1.940042" StartPoint="353.88,127.32" EndPoint="683.59998,127.32">
+					<GradientStop Offset="0" Color="#FF2581C4" />
+					<GradientStop Offset="1" Color="#002581C4" />
+				</LinearGradientBrush>
+			</GeometryDrawing.Brush>
+		</GeometryDrawing>
+		<GeometryDrawing Geometry="{StaticResource searchGeometry7}">
+			<GeometryDrawing.Brush>
+				<RadialGradientBrush Center="488.32999,189.52" GradientOrigin="411.66,140.89999" MappingMode="Absolute" Opacity="0.4" RadiusX="90.780998" RadiusY="90.780998" SpreadMethod="Pad" Transform="0.03312257,0.03312257,-0.04849638,0.04849638,8.868605,-18.427782">
+					<GradientStop Offset="0.4138" Color="#FFFFFFFF" />
+					<GradientStop Offset="0.75859999999999994" Color="#00FFFFFF" />
+				</RadialGradientBrush>
+			</GeometryDrawing.Brush>
+		</GeometryDrawing>
+		<GeometryDrawing Brush="#FF647698" Geometry="{StaticResource searchGeometry8}" />
+	</DrawingGroup>
+	<DrawingImage x:Key="search" Drawing="{StaticResource searchDrawingGroup}" />
+	<!--#endregion-->
+
+	<!--#region Filter icon-->
+	<Geometry x:Key="filterGeometry1">F1 M24.066778,24.999998z M0,0z M360.48,2.5938L218.89,2.2367 205.268,185.9867 360.478,2.5967z</Geometry>
+	<Geometry x:Key="filterGeometry2">F1 M24.066778,24.999998z M0,0z M1.0068,-1.0095L161.4468,188.8705 161.2593,381.0005 170.7593,371.5005 170.7593,186.2105 14.1993,-1.0095 1.0113,-1.0095z M355.5368,-1.0095L199.0068,186.2105 199.0068,343.2505 208.5068,333.7505 208.3193,188.8705 368.7593,-1.0095 355.5403,-1.0095z</Geometry>
+	<Geometry x:Key="filterGeometry3">F1 M24.066778,24.999998z M0,0z M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z</Geometry>
+	<Geometry x:Key="filterGeometry4">F1 M24.066778,24.999998z M0,0z M161.75,188.69L192.769,188.69 192.3902,349.86 161.2602,380.99z</Geometry>
+	<Geometry x:Key="filterGeometry5">F1 M24.066778,24.999998z M0,0z M1,-1L153.94,-1.3348 330.36,186.2052 165.72,418.1552 1,-1.0048z</Geometry>
+	<DrawingGroup x:Key="filterDrawingGroup" ClipGeometry="M0,0 V24.999998 H24.066778 V0 H0 Z">
+		<DrawingGroup.Transform>
+			<TranslateTransform X="0" Y="1.3348000049591064" />
+		</DrawingGroup.Transform>
+		<DrawingGroup Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774">
+			<DrawingGroup.ClipGeometry>
+				<PathGeometry
+					Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+					FillRule="Nonzero"
+					Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+					/>
+			</DrawingGroup.ClipGeometry>
+			<DrawingGroup>
+				<DrawingGroup.ClipGeometry>
+					<PathGeometry
+						Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+						FillRule="Nonzero"
+						Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+						/>
+				</DrawingGroup.ClipGeometry>
+				<GeometryDrawing Geometry="{StaticResource filterGeometry1}">
+					<GeometryDrawing.Brush>
+						<LinearGradientBrush MappingMode="Absolute" Opacity="0.5" SpreadMethod="Pad" Transform="0.94050019,0,0,1.063264,0,0" StartPoint="200.50957,94.83242" EndPoint="809.74432,94.83242">
+							<GradientStop Offset="0" Color="#8CE5FFFF" />
+							<GradientStop Offset="0.23532" Color="#FF00609E" />
+							<GradientStop Offset="1" Color="#FF00609E" />
+						</LinearGradientBrush>
+					</GeometryDrawing.Brush>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingGroup>
+		<DrawingGroup Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774">
+			<DrawingGroup.ClipGeometry>
+				<PathGeometry
+					Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+					FillRule="Nonzero"
+					Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+					/>
+			</DrawingGroup.ClipGeometry>
+			<DrawingGroup>
+				<DrawingGroup.ClipGeometry>
+					<PathGeometry
+						Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+						FillRule="Nonzero"
+						Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+						/>
+				</DrawingGroup.ClipGeometry>
+				<GeometryDrawing Geometry="{StaticResource filterGeometry2}">
+					<GeometryDrawing.Brush>
+						<SolidColorBrush Opacity="0.75" Color="#FFE5D5FF" />
+					</GeometryDrawing.Brush>
+					<GeometryDrawing.Pen>
+						<Pen
+							EndLineCap="Flat"
+							LineJoin="Miter"
+							StartLineCap="Flat"
+							Thickness="15.2804"
+							>
+							<Pen.Brush>
+								<SolidColorBrush Opacity="0.75" Color="#FF666666" />
+							</Pen.Brush>
+						</Pen>
+					</GeometryDrawing.Pen>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingGroup>
+		<DrawingGroup Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774">
+			<DrawingGroup.ClipGeometry>
+				<PathGeometry
+					Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+					FillRule="Nonzero"
+					Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+					/>
+			</DrawingGroup.ClipGeometry>
+			<DrawingGroup>
+				<DrawingGroup.ClipGeometry>
+					<PathGeometry
+						Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+						FillRule="Nonzero"
+						Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+						/>
+				</DrawingGroup.ClipGeometry>
+				<GeometryDrawing Geometry="{StaticResource filterGeometry3}">
+					<GeometryDrawing.Brush>
+						<LinearGradientBrush MappingMode="Absolute" Opacity="0.75" SpreadMethod="Pad" Transform="0.98115806,0,0,1.0192038,0,0" StartPoint="0.50803566,154.08383" EndPoint="376.35358,154.08383">
+							<GradientStop Offset="0" Color="#FFE5FFFF" />
+							<GradientStop Offset="0.30189" Color="#FF00609E" />
+							<GradientStop Offset="1" Color="#FF00609E" />
+						</LinearGradientBrush>
+					</GeometryDrawing.Brush>
+					<GeometryDrawing.Pen>
+						<Pen
+							EndLineCap="Flat"
+							LineJoin="Miter"
+							StartLineCap="Flat"
+							Thickness="15.2804"
+							>
+							<Pen.Brush>
+								<SolidColorBrush Opacity="0.75" Color="#FF00002B" />
+							</Pen.Brush>
+						</Pen>
+					</GeometryDrawing.Pen>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingGroup>
+		<DrawingGroup Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774">
+			<DrawingGroup.ClipGeometry>
+				<PathGeometry
+					Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+					FillRule="Nonzero"
+					Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+					/>
+			</DrawingGroup.ClipGeometry>
+			<DrawingGroup>
+				<DrawingGroup.ClipGeometry>
+					<PathGeometry
+						Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+						FillRule="Nonzero"
+						Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+						/>
+				</DrawingGroup.ClipGeometry>
+				<GeometryDrawing Geometry="{StaticResource filterGeometry4}">
+					<GeometryDrawing.Brush>
+						<LinearGradientBrush MappingMode="Absolute" Opacity="1" SpreadMethod="Pad" Transform="0.40478675,0,0,2.4704366,0,0" StartPoint="410.82358,113.87965" EndPoint="457.87424,113.87965">
+							<GradientStop Offset="0" Color="#FFFFFFFF" />
+							<GradientStop Offset="1" Color="#00FFFFFF" />
+						</LinearGradientBrush>
+					</GeometryDrawing.Brush>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingGroup>
+		<DrawingGroup Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774">
+			<DrawingGroup.ClipGeometry>
+				<PathGeometry
+					Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+					FillRule="Nonzero"
+					Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+					/>
+			</DrawingGroup.ClipGeometry>
+			<DrawingGroup>
+				<DrawingGroup.ClipGeometry>
+					<PathGeometry
+						Figures="M208.5,333.75L161.25,381 161.4375,188.87 0.9975,-1.01 368.7475,-1.01 208.3075,188.87 208.495,333.75z"
+						FillRule="Nonzero"
+						Transform="0.06544331,0,0,0.06544331,-0.0652797,0.06609774"
+						/>
+				</DrawingGroup.ClipGeometry>
+				<GeometryDrawing Geometry="{StaticResource filterGeometry5}">
+					<GeometryDrawing.Brush>
+						<RadialGradientBrush Center="182.77,570.15002" GradientOrigin="182.77,570.15002" MappingMode="Absolute" Opacity="0.5" RadiusX="149.02" RadiusY="149.02" SpreadMethod="Pad" Transform="0.71974,-0.30603,0.95033,2.2351,-630.62,-1092.7">
+							<GradientStop Offset="0" Color="#FFFFFFFF" />
+							<GradientStop Offset="0.71271" Color="#FFFFFFFF" />
+							<GradientStop Offset="1" Color="#00FFFFFF" />
+						</RadialGradientBrush>
+					</GeometryDrawing.Brush>
+				</GeometryDrawing>
+			</DrawingGroup>
+		</DrawingGroup>
+	</DrawingGroup>
+	<DrawingImage x:Key="filter" Drawing="{StaticResource filterDrawingGroup}" />
+	<!--#endregion-->
 </ResourceDictionary>
-	

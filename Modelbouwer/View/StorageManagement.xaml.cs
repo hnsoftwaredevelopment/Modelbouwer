@@ -18,7 +18,6 @@ public partial class StorageManagement : Page
 		dataGrid.CurrentCellEndEdit += ChangedInventory;
 
 	}
-
 	private void RefreshDataGrid()
 	{
 		// Haal de bijgewerkte data op vanuit de database
@@ -37,7 +36,7 @@ public partial class StorageManagement : Page
 		var columnIndex = e.RowColumnIndex.ColumnIndex;
 		var rowIndex = e.RowColumnIndex.RowIndex;
 		var gridColumn = dataGrid.Columns[columnIndex];
-		var columnName = gridColumn.MappingName;
+		var columnName = gridColumn.MappingName.ToString().ToLower();
 
 		var editedRow = (InventoryModel)((SfDataGrid)sender).GetRecordAtRowIndex(e.RowColumnIndex.RowIndex);
 		string _whereFieldName = "", _whereFieldType = "", _changeFieldName = "", _changeFieldType = "", _changeTable = "";
@@ -49,7 +48,7 @@ public partial class StorageManagement : Page
 			if ( _originalValue.ToString() != editedRow.ProductInventory.ToString() )
 			{
 				Debug.WriteLine( $"Updated Inventory: {editedRow.ProductId}, {columnName},Old Value={_originalValue} New Value: {editedRow.ProductInventory}" );
-				switch ( columnName.ToLower() )
+				switch ( columnName )
 				{
 					case "productinventory":
 						_changeFieldName = DBNames.ProductInventoryFieldNameAmount;
@@ -61,32 +60,34 @@ public partial class StorageManagement : Page
 						// Check here if the Selected Product_Id already excists in the productinventory table, if excists do nothing otherwise add ProductId, with value 0 
 						var _excists = DBCommands.CheckForRecords( _changeTable, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
 						if ( _excists == 0 )
-						{ //Add new record}
-							break;
-					case "productminimalstock":
-								_changeFieldName = DBNames.ProductFieldNameMinimalStock;
-								_changeFieldType = DBNames.ProductFieldTypeMinimalStock;
-								_changeTable = DBNames.ProductTable;
-								_whereFieldName = DBNames.ProductFieldNameId;
-								_whereFieldType = DBNames.ProductFieldTypeId;
-								break;
-							case "productprice":
-								_changeFieldName = DBNames.ProductFieldNamePrice;
-								_changeFieldType = DBNames.ProductFieldTypePrice;
-								_changeTable = DBNames.ProductTable;
-								_whereFieldName = DBNames.ProductFieldNameId;
-								_whereFieldType = DBNames.ProductFieldTypeId;
-								break;
-							}
-
-							DBCommands.UpdateInTable( _changeTable, new string [ 1, 3 ] { { _changeFieldName, _changeFieldType, editedRow.ProductInventory.ToString() } }, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
-							RefreshDataGrid();
-
-							//UpdateDatabase( editedRow );
+						{
+							//There is no record available in table, add first with minimal data to be able to find the record to save changes
+							DBCommands.InsertInTable( _changeTable, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
 						}
+						break;
+					case "productminimalstock":
+						_changeFieldName = DBNames.ProductFieldNameMinimalStock;
+						_changeFieldType = DBNames.ProductFieldTypeMinimalStock;
+						_changeTable = DBNames.ProductTable;
+						_whereFieldName = DBNames.ProductFieldNameId;
+						_whereFieldType = DBNames.ProductFieldTypeId;
+						break;
+					case "productprice":
+						_changeFieldName = DBNames.ProductFieldNamePrice;
+						_changeFieldType = DBNames.ProductFieldTypePrice;
+						_changeTable = DBNames.ProductTable;
+						_whereFieldName = DBNames.ProductFieldNameId;
+						_whereFieldType = DBNames.ProductFieldTypeId;
+						break;
 				}
-			}
 
+				DBCommands.UpdateInTable( _changeTable, new string [ 1, 3 ] { { _changeFieldName, _changeFieldType, editedRow.ProductInventory.ToString() } }, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
+				RefreshDataGrid();
+
+				//UpdateDatabase( editedRow );
+			}
+		}
+	}
 	private void OriginalInventory( object sender, CurrentCellBeginEditEventArgs e )
 	{
 		var dataGrid = (SfDataGrid)sender;
@@ -104,4 +105,26 @@ public partial class StorageManagement : Page
 			}
 		}
 	}
+
+	#region Switch between search and filter button
+	private void ToggleButton( object sender, RoutedEventArgs e )
+	{
+		var viewModel = (InventoryVisibilityViewModel)DataContext;
+
+		// Controleer welke knop is gebruikt
+		if ( sender is System.Windows.Controls.Button button )
+		{
+			if ( button.Name == "FilterButton" )
+			{
+				// Logica als FilterButton is gebruikt
+				viewModel.ToggleButtons();
+			}
+			else if ( button.Name == "SearchButton" )
+			{
+				// Logica als SearchButton is gebruikt
+				viewModel.ToggleButtons();
+			}
+		}
+	}
+	#endregion
 }
