@@ -2,11 +2,9 @@
 public class CombinedInventoryViewModel
 {
 	public InventoryViewModel InventoryViewModel { get; set; }
-	public InventoryVisibilityViewModel InventoryVisibilityViewModel { get; set; }
 
 	public CombinedInventoryViewModel()
 	{
 		InventoryViewModel = new();
-		InventoryVisibilityViewModel = new();
 	}
 }

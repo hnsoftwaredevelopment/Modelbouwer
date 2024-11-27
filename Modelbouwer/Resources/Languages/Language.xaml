@@ -656,6 +656,13 @@
 	<system:String x:Key="Edit.Inventory.DataGrid.Header.Short">Tekort</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.Header.TempShort">Tijdelijk tekort</system:String>
 
+	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Search.Tag">Zoek in de lijst naar...</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Search.Tooltip">Zoek en markeer de hier ingevoerde tekst in onderstaande lijst en markeer</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Filter.Tag">Filter de lijst op...</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Filter.Tooltip">Filter onderstaande lijstZoek met de hier ingevoerde tekst toon en markeer alleen regels met dit criterium</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
+
 	<!--#endregion-->
 	<!--#endregion-->
 

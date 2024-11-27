@@ -62,5 +62,4 @@ public partial class InventoryViewModel : ObservableObject
 	{
 		Inventory = [ .. DBCommands.GetInventory() ];
 	}
-
 }
