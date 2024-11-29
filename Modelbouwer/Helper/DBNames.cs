@@ -221,7 +221,7 @@ public class DBNames
 	public static readonly string ProductInventoryViewFieldTypeProductCategory = "string";
 	public static readonly string ProductInventoryViewFieldNameProductStorage = "Location";
 	public static readonly string ProductInventoryViewFieldTypeProductStorage = "string";
-	public static readonly string ProductInventoryViewFieldNameProductMinimalInventory = "Inventory";
+	public static readonly string ProductInventoryViewFieldNameProductMinimalInventory = "InventoryOrder";
 	public static readonly string ProductInventoryViewFieldTypeProductMinimalInventory = "double";
 	public static readonly string ProductInventoryViewFieldNameProductMinimalValue = "Value";
 	public static readonly string ProductInventoryViewFieldTypeProductMinimalValue = "string";
@@ -236,6 +236,37 @@ public class DBNames
 	public static readonly string ProductInventoryViewFieldNameProductTempShort = "TempShort";
 	public static readonly string ProductInventoryViewFieldTypeProductTempShort = "double";
 
+	public static readonly string ProductInventoryOrderProcedure = "GetProductsBySupplier";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductId = "Product_Id";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductId = "int";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductCode = "Code";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductCode = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductName = "Name";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductName = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductPrice = "Price";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductPrice = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductMinimalStock = "MinimalStock";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductMinimalStock = "double";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductCategory = "Category";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductCategory = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductMinimalInventory = "InventoryOrder";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductMinimalInventory = "double";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductMinimalValue = "Value";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductMinimalValue = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductMinimalOrder = "InOrder";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductMinimalOrder = "double";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductShort = "Short";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductShort = "double";
+	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierProductNumber = "SupplierProductNumber";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierProductNumber = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierPrice = "SupplierPrice";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierPrice = "double";
+	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierCurrencyId = "SupplierCurrencyId";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierCurrencyId = "int";
+	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierCurrencySymbol = "SupplierCurrencySymbol";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierCurrencySymbol = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductFromSupplier = "ProductFromSupplier";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductFromSupplier = "string";
 	#endregion
 
 	#region ProductSupplier table

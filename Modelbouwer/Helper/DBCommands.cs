@@ -399,6 +399,7 @@ public class DBCommands
 	#endregion CurrencyList
 
 	#region Inventory
+	#region Get inventory list
 	public static ObservableCollection<InventoryModel> GetInventory( ObservableCollection<InventoryModel>? _list = null )
 	{
 		_list ??= [ ];
@@ -429,6 +430,41 @@ public class DBCommands
 		}
 		return _list;
 	}
+	#endregion
+
+	#region get Inventory list for orders
+	public static ObservableCollection<InventoryOrderModel> GetInventoryOrder( int _supplierId = 0, ObservableCollection<InventoryOrderModel>? _list = null )
+	{
+		_list ??= [ ];
+		var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.ProductInventoryOrderProcedure} ({_supplierId})";
+		DataTable? _dt = GetTable( sqlQuery );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			var _price = double.Parse(_dt.Rows [ i ] [ 3 ].ToString());
+			var _supplierPrice = double.Parse(_dt.Rows [ i ] [ 10 ].ToString());
+
+			_list.Add( new InventoryOrderModel
+			{
+				ProductId = ( int ) _dt.Rows [ i ] [ 0 ],
+				ProductCode = _dt.Rows [ i ] [ 1 ].ToString(),
+				ProductName = _dt.Rows [ i ] [ 2 ].ToString(),
+				ProductPrice = _price,
+				ProductMinimalStock = ( double ) _dt.Rows [ i ] [ 4 ],
+				ProductCategory = _dt.Rows [ i ] [ 5 ].ToString(),
+				ProductInventory = ( double ) _dt.Rows [ i ] [ 6 ],
+				ProductInOrder = ( double ) _dt.Rows [ i ] [ 7 ],
+				ProductShortInventory = ( double ) _dt.Rows [ i ] [ 8 ],
+				SupplierProductNumber = _dt.Rows [ i ] [ 9 ].ToString(),
+				SupplierPrice = _supplierPrice,
+				SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 11 ] ),
+				SupplierCurrencySymbol = _dt.Rows [ i ] [ 12 ].ToString(),
+				ProductFromSupplier = _dt.Rows [ i ] [ 13 ].ToString()
+			} );
+		}
+		return _list;
+	}
+	#endregion
 	#endregion
 
 	#region StorageLocationList

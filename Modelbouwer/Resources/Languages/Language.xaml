@@ -658,11 +658,41 @@
 
 	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Search.Tag">Zoek in de lijst naar...</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Search.Tooltip">Zoek en markeer de hier ingevoerde tekst in onderstaande lijst en markeer</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Search.Clear.Tooltip">Verwijder het zoek criterium</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Filter.Tag">Filter de lijst op...</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Filter.Tooltip">Filter onderstaande lijstZoek met de hier ingevoerde tekst toon en markeer alleen regels met dit criterium</system:String>
+	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Filter.Clear.Tooltip">Verwijder het filter criterium en toon de volledige lijst</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
 
+	<!--#endregion-->
+	
+	<!--#region Order products-->
+	<system:String x:Key="Edit.Order.Title">Bestelling</system:String>
+	<system:String x:Key="Edit.Order.Subtitle">Registreer bestelling bij een leverancier</system:String>
+	<system:String x:Key="Edit.Order.SelectOrderRows.Text">Selecteer, in de lijst hieronder, de productregels die besteld moeten worden</system:String>
+	<system:String x:Key="Edit.Order.OrderRows.Text">Geef de bestelde aantallen en prijzen</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Code">Zoeknaam</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.SupplierCode">Bestelnummer</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Name">Produkt</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Price">Prijs</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.SupplierPrice">Inkoopprijs</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.MinStock">Minimaal</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Category">Categorie</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Inventory">Voorraad</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.InOrder">Besteld</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Short">Tekort</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Order">Besteld</system:String>
+
+	<system:String x:Key="Edit.Order.DataGrid.FilterSearch.Search.Tag">Zoek in de lijst naar...</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.FilterSearch.Search.Tooltip">Zoek en markeer de hier ingevoerde tekst in onderstaande lijst en markeer</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.FilterSearch.Search.Clear.Tooltip">Verwijder het zoek criterium</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.FilterSearch.Filter.Tag">Filter de lijst op...</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.FilterSearch.Filter.Tooltip">Filter onderstaande lijstZoek met de hier ingevoerde tekst toon en markeer alleen regels met dit criterium</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.FilterSearch.Filter.Clear.Tooltip">Verwijder het filter criterium en toon de volledige lijst</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

@@ -47,7 +47,7 @@ public partial class StorageManagement : Page
 			// Update the MySQL table
 			if ( _originalValue.ToString() != editedRow.ProductInventory.ToString() )
 			{
-				Debug.WriteLine( $"Updated Inventory: {editedRow.ProductId}, {columnName},Old Value={_originalValue} New Value: {editedRow.ProductInventory}" );
+				Debug.WriteLine( $"Updated InventoryOrder: {editedRow.ProductId}, {columnName},Old Value={_originalValue} New Value: {editedRow.ProductInventory}" );
 				switch ( columnName )
 				{
 					case "productinventory":
@@ -120,8 +120,9 @@ public partial class StorageManagement : Page
 					//Current button is FilterButton, toggle to SearchButton
 					FilterButton.Visibility = Visibility.Collapsed;
 					SearchButton.Visibility = Visibility.Visible;
-					FilterSearchText.Tag = ( string ) FindResource( "Edit.Inventory.DataGrid.FilterSearch.Search.Tag" );
-					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.Inventory.DataGrid.FilterSearch.Search.Tooltip" );
+					FilterSearchText.Tag = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Search.Tag" );
+					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Search.Tooltip" );
+					ClearFilterSearch.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Search.Clear.Tooltip" );
 					//Toggle filtering to show result of toggle directly in datagrid
 					dataGrid.SearchHelper.AllowFiltering = false;
 					break;
@@ -129,8 +130,9 @@ public partial class StorageManagement : Page
 					//Current button is SearchButton, toggle to FilterButton
 					SearchButton.Visibility = Visibility.Collapsed;
 					FilterButton.Visibility = Visibility.Visible;
-					FilterSearchText.Tag = ( string ) FindResource( "Edit.Inventory.DataGrid.FilterSearch.Filter.Tag" );
-					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.Inventory.DataGrid.FilterSearch.Filter.Tooltip" );
+					FilterSearchText.Tag = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Filter.Tag" );
+					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Filter.Tooltip" );
+					ClearFilterSearch.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Filter.Clear.Tooltip" );
 					//Toggle filtering to show result of toggle directly in datagrid
 					dataGrid.SearchHelper.AllowFiltering = true;
 					break;
@@ -143,8 +145,15 @@ public partial class StorageManagement : Page
 
 	private void FilterSearch( object sender, TextChangedEventArgs e )
 	{
-		var action = "";
-		if ( SearchButton.Visibility == Visibility.Visible ) { action = "search"; } else { action = "filter"; }
+		#region when text is entered in the search/filter box it should be possible to clear it, threfore the clear icon has to becom visible
+		ClearFilterSearch.Visibility = FilterSearchText.Text.Length > 0
+			? Visibility.Visible
+			: Visibility.Collapsed;
+		#endregion
+
+		var action = SearchButton.Visibility == Visibility.Visible
+			? "search"
+			: "filter";
 
 		switch ( action )
 		{
@@ -156,5 +165,10 @@ public partial class StorageManagement : Page
 				break;
 		}
 		dataGrid.SearchHelper.Search( FilterSearchText.Text );
+	}
+
+	private void ClearText( object sender, RoutedEventArgs e )
+	{
+		FilterSearchText.Clear();
 	}
 }

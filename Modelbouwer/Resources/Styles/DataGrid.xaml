@@ -11,7 +11,7 @@
 	<!--#endregion-->
 
 	<Style x:Key="SfDataGridGroupDropAreaStyle1" TargetType="{x:Type syncfusion:GroupDropArea}">
-		<Setter Property="Height" Value="80"/>
+		<Setter Property="Height" Value="65"/>
 		<Setter Property="Foreground" Value="DarkSlateBlue"/>
 		<Setter Property="Background" Value="#FFF5F2CC"/>
 		<Setter Property="ToolTip" Value="{StaticResource SfDataGrid.GroupBox.Tooltip}"/>

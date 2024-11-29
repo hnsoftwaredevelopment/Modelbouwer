@@ -17,13 +17,26 @@
 
 	<!--#region TextBlock DataGrid (Sub)Total summary block-->
 	<Style x:Key="DataGrid.Group.Total" TargetType="TextBlock">
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="FontStyle" Value="Italic" />
 		<Setter Property="FontWeight" Value="DemiBold" />
+		<Setter Property="Foreground" Value="DarkSlateBlue" />
 		<Setter Property="HorizontalAlignment" Value="Left" />
-		<Setter Property="FontStyle" Value="Italic"/>
-		<Setter Property="FontSize" Value="14"/>
-		<Setter Property="Foreground" Value="DarkSlateBlue"/>
 		<Setter Property="VerticalAlignment" Value="Center" />
 	</Style>
+	<!--#endregion-->
+
+	<!--#region TextBlock shown above a datagrid with info about the datagrid-->
+	<Style x:Key="DataGrid.SelectionTitle" TargetType="TextBlock">
+		<Setter Property="FontSize" Value="15" />
+		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="Foreground" Value="DarkBlue" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="Margin" Value="10,0" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+	</Style>
+
+
 	<!--#endregion-->
 
 	<!--#region Textlock that is vissible if valueShow is checked-->

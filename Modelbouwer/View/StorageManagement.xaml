@@ -79,13 +79,14 @@
 					<Grid VerticalAlignment="Center">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="15" />
 							<ColumnDefinition Width="35" />
 						</Grid.ColumnDefinitions>
 
 						<TextBox
 							x:Name="FilterSearchText"
 							Grid.Column="0"
-							Width="320"
+							Width="306"
 							Height="27"
 							MinWidth="220"
 							Margin="3"
@@ -99,8 +100,23 @@
 							UseLayoutRounding="True"
 							/>
 
+						<Button
+							x:Name="ClearFilterSearch"
+							Grid.Column="1"
+							Margin="0,0,0,4"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Bottom"
+							Background="Transparent"
+							BorderThickness="0"
+							Click="ClearText"
+							ToolTip="{StaticResource Edit.Inventory.DataGrid.FilterSearch.Search.Clear.Tooltip}"
+							Visibility="Collapsed"
+							>
+							<Image Source="{StaticResource clear}" />
+						</Button>
+
 						<GridSplitter
-							Grid.Column="0"
+							Grid.Column="1"
 							Width="1"
 							VerticalAlignment="Stretch"
 							Background="LightGray"
@@ -108,7 +124,7 @@
 
 						<Button
 							x:Name="FilterButton"
-							Grid.Column="1"
+							Grid.Column="2"
 							Width="20"
 							Height="20"
 							Background="Transparent"
@@ -125,7 +141,7 @@
 						</Button>
 						<Button
 							x:Name="SearchButton"
-							Grid.Column="1"
+							Grid.Column="2"
 							Width="20"
 							Height="20"
 							Background="Transparent"
@@ -155,52 +171,56 @@
 				AllowDeleting="False"
 				AllowEditing="False"
 				AllowFiltering="False"
-				AllowGrouping="True" IsGroupDropAreaExpanded="True" 
+				AllowGrouping="True"
 				AllowResizingColumns="True"
-				AllowTriStateSorting="True" ShowColumnWhenGrouped="True"
+				AllowTriStateSorting="True"
 				AutoGenerateColumns="False"
 				ColumnSizer="Star"
 				CurrentCellBeginEdit="OriginalInventory"
-				CurrentCellEndEdit="ChangedInventory" ShowGroupDropArea="True"
+				CurrentCellEndEdit="ChangedInventory"
 				GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
+				IsGroupDropAreaExpanded="True"
 				ItemsSource="{Binding Inventory, Mode=TwoWay}"
 				SelectedIndex="0"
+				ShowColumnWhenGrouped="True"
+				ShowGroupDropArea="True"
 				SortClickAction="SingleClick"
 				>
 				<syncfusion:SfDataGrid.Resources>
 					<Style TargetType="syncfusion:GridTableSummaryCell">
+						<Setter Property="FontSize" Value="13" />
+						<Setter Property="FontStyle" Value="Italic" />
+						<Setter Property="FontWeight" Value="Bold" />
+						<Setter Property="Foreground" Value="DarkBlue" />
 						<Setter Property="HorizontalContentAlignment" Value="Right" />
-						<Setter Property="Foreground" Value="DarkBlue"/>
-						<Setter Property="FontSize" Value="13"/>
-						<Setter Property="FontWeight" Value="Bold"/>
-						<Setter Property="FontStyle" Value="Italic"/>
 					</Style>
 
 					<Style TargetType="syncfusion:GridGroupSummaryCell">
+						<Setter Property="FontSize" Value="12" />
+						<Setter Property="FontStyle" Value="Italic" />
+						<Setter Property="FontWeight" Value="Bold" />
+						<Setter Property="Foreground" Value="Blue" />
 						<Setter Property="HorizontalContentAlignment" Value="Right" />
-						<Setter Property="Foreground" Value="Blue"/>
-						<Setter Property="FontSize" Value="12"/>
-						<Setter Property="FontWeight" Value="Bold"/>
-						<Setter Property="FontStyle" Value="Italic"/>
 					</Style>
 
-					
+
 				</syncfusion:SfDataGrid.Resources>
 
 				<syncfusion:SfDataGrid.TableSummaryRows>
 					<syncfusion:GridTableSummaryRow Position="Top" ShowSummaryInRow="False">
 						<syncfusion:GridSummaryRow.SummaryColumns>
 							<syncfusion:GridSummaryColumn
-											Name="Value"
-											Format="'{Sum:c}'"
-											MappingName="ProductInventoryValue"
-											SummaryType="DoubleAggregate"/>
+								Name="Value"
+								Format="'{Sum:c}'"
+								MappingName="ProductInventoryValue"
+								SummaryType="DoubleAggregate"
+								/>
 							<syncfusion:GridSummaryColumn
-											Name="VirtualValue"
-											Format="'{Sum:c}'"
-											MappingName="ProductVirtualInventoryValue"
-											SummaryType="DoubleAggregate"
-											/>
+								Name="VirtualValue"
+								Format="'{Sum:c}'"
+								MappingName="ProductVirtualInventoryValue"
+								SummaryType="DoubleAggregate"
+								/>
 						</syncfusion:GridSummaryRow.SummaryColumns>
 					</syncfusion:GridTableSummaryRow>
 				</syncfusion:SfDataGrid.TableSummaryRows>
@@ -208,15 +228,19 @@
 				<syncfusion:SfDataGrid.GroupSummaryRows>
 					<syncfusion:GridSummaryRow ShowSummaryInRow="False">
 						<syncfusion:GridSummaryRow.SummaryColumns>
-							<syncfusion:GridSummaryColumn Name="RowValue"
-											Format="'{Sum:c}'"
-											MappingName="ProductInventoryValue"
-											SummaryType="DoubleAggregate"/>
+							<syncfusion:GridSummaryColumn
+								Name="RowValue"
+								Format="'{Sum:c}'"
+								MappingName="ProductInventoryValue"
+								SummaryType="DoubleAggregate"
+								/>
 
-							<syncfusion:GridSummaryColumn Name="RowVirtualValue"
-											Format="'{Sum:c}'"
-											MappingName="ProductVirtualInventoryValue"
-											SummaryType="DoubleAggregate"/>
+							<syncfusion:GridSummaryColumn
+								Name="RowVirtualValue"
+								Format="'{Sum:c}'"
+								MappingName="ProductVirtualInventoryValue"
+								SummaryType="DoubleAggregate"
+								/>
 						</syncfusion:GridSummaryRow.SummaryColumns>
 					</syncfusion:GridSummaryRow>
 				</syncfusion:SfDataGrid.GroupSummaryRows>
@@ -273,21 +297,23 @@
 							</DataTemplate>
 						</syncfusion:GridTextColumn.CellTemplate>
 					</syncfusion:GridTextColumn>
-					
+
 					<syncfusion:GridTextColumn
-						AllowSorting="True" AllowGrouping="False"
+						AllowGrouping="False"
+						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Code}"
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProductCode"
 						/>
-					
+
 					<syncfusion:GridTextColumn
-						AllowSorting="True" AllowGrouping="False"
+						AllowGrouping="False"
+						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Name}"
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProductName"
 						/>
-					
+
 					<syncfusion:GridTextColumn
 						AllowGrouping="True"
 						AllowSorting="True"
@@ -295,7 +321,7 @@
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProductCategory"
 						/>
-					
+
 					<syncfusion:GridTextColumn
 						AllowGrouping="True"
 						AllowSorting="True"
@@ -303,7 +329,7 @@
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProductStorageLocation"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowEditing="True"
 						AllowFiltering="False"
@@ -314,7 +340,7 @@
 						MappingName="ProductMinimalStock"
 						MinValue="0"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowEditing="True"
 						AllowFiltering="False"
@@ -325,7 +351,7 @@
 						MappingName="ProductPrice"
 						MinValue="0"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowEditing="True"
 						AllowFiltering="False"
@@ -336,7 +362,7 @@
 						MappingName="ProductInventory"
 						MinValue="0"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowFiltering="False"
 						AllowGrouping="False"
@@ -345,7 +371,7 @@
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductInventoryValue"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowFiltering="False"
 						AllowGrouping="False"
@@ -354,7 +380,7 @@
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductInOrder"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowFiltering="False"
 						AllowGrouping="False"
@@ -371,7 +397,7 @@
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductVirtualInventoryValue"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowFiltering="False"
 						AllowGrouping="False"
@@ -380,7 +406,7 @@
 						IsHidden="True"
 						MappingName="ProductShortInventory"
 						/>
-					
+
 					<syncfusion:GridNumericColumn
 						AllowFiltering="False"
 						AllowGrouping="False"
@@ -389,10 +415,6 @@
 						IsHidden="True"
 						MappingName="ProductTempShortInventory"
 						/>
-
-
-
-
 				</syncfusion:SfDataGrid.Columns>
 			</syncfusion:SfDataGrid>
 			<!--#endregion-->

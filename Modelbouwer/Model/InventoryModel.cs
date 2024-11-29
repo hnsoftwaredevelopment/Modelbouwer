@@ -29,7 +29,7 @@ public class InventoryModel
 		{ DBNames.ProductInventoryViewFieldNameProductMinimalStock, "MinimalStock" },
 		{ DBNames.ProductInventoryViewFieldNameProductCategory, "Category" },
 		{ DBNames.ProductInventoryViewFieldNameProductStorage, "Location" },
-		{ DBNames.ProductInventoryViewFieldNameProductMinimalInventory, "Inventory" },
+		{ DBNames.ProductInventoryViewFieldNameProductMinimalInventory, "InventoryOrder" },
 		{ DBNames.ProductInventoryViewFieldNameProductMinimalValue, "Value" },
 		{ DBNames.ProductInventoryViewFieldNameProductMinimalOrder, "InOrder" },
 		{ DBNames.ProductInventoryViewFieldNameProductMinimalVirtualInventory, "VirtualInventory" },
