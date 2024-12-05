@@ -8,12 +8,15 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
 	Title="Modelbouwer toolbox"
-	mc:Ignorable="d" WindowState="Maximized"
+	Icon="pack://application:,,,/Resources/Icons/appicon.ico"
+	WindowState="Maximized"
+	mc:Ignorable="d"
 	>
+
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="AUTO" />
-			<RowDefinition Height="*" />
+			<RowDefinition />
 		</Grid.RowDefinitions>
 
 		<syncfusion:Ribbon
@@ -21,6 +24,9 @@
 			syncfusion:Ribbon.IsAutoSizeFormEnabled="True"
 			BackStageCornerImageVisibility="Collapsed"
 			EnableMoreCommands="False"
+			IsBackStageVisible="False"
+			ScrollViewer.HorizontalScrollBarVisibility="Auto"
+			ScrollViewer.VerticalScrollBarVisibility="Auto"
 			>
 
 			<!--#region Workbench Tabpage-->

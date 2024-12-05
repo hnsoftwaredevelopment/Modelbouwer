@@ -17,7 +17,7 @@
 	>
 
 	<Page.DataContext>
-		<viewmodels:InventoryOrderViewModel />
+		<viewmodels:CombinedInventoryOrderViewModel />
 	</Page.DataContext>
 
 	<Page.Resources>
@@ -68,6 +68,46 @@
 			</StackPanel>
 			<!--#endregion-->
 
+			<!--#region Order details-->
+			<Grid Grid.Row="1">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition />
+						<RowDefinition />
+						<RowDefinition />
+					</Grid.RowDefinitions>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="80" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock
+						Grid.Row="0"
+						Grid.Column="0"
+						Text="Leverancier"
+						/>
+					<syncfusion:ComboBoxAdv
+						x:Name="SupplierComboBox"
+						Grid.Row="0"
+						Grid.Column="1"
+						HorizontalAlignment="Left"
+						AutoCompleteMode="Suggest"
+						DefaultText="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tag}"
+						DisplayMemberPath="SupplierName"
+						ItemsSource="{Binding InventoryOrderSupplierViewModel.SupplierList}"
+						SelectedValue="{Binding InventoryOrderSupplierViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+						SelectedValuePath="SupplierId"
+						ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip}"
+						>
+						<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+							<StyleSelector />
+						</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+					</syncfusion:ComboBoxAdv>
+				</Grid>
+			</Grid>
+			<!--#endregion-->
+
 			<!--#region Selected lines to order-->
 			<!--#region Order row block-->
 			<Grid Grid.Row="2">
@@ -76,7 +116,6 @@
 					<ColumnDefinition Width="380" />
 				</Grid.ColumnDefinitions>
 				<TextBlock Style="{DynamicResource DataGrid.SelectionTitle}" Text="{StaticResource Edit.Order.OrderRows.Text}" />
-
 			</Grid>
 			<!--#endregion-->
 
@@ -91,12 +130,12 @@
 				AllowTriStateSorting="True"
 				AutoGenerateColumns="False"
 				ColumnSizer="Star"
-				ItemsSource="{Binding SelectedProducts, Mode=TwoWay}"
+				ItemsSource="{Binding InventoryOrderSupplierViewModel.SelectedProducts, Mode=TwoWay}"
 				SelectedIndex="0"
 				ShowGroupDropArea="False"
 				SortClickAction="SingleClick"
 				>
-
+				
 				<syncfusion:SfDataGrid.Columns>
 					<syncfusion:GridTextColumn
 						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Id}"
@@ -105,7 +144,8 @@
 						/>
 
 					<syncfusion:GridTextColumn
-						AllowGrouping="False" Width="150"
+						Width="150"
+						AllowGrouping="False"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Code}"
 						HorizontalHeaderContentAlignment="Left"
@@ -113,23 +153,36 @@
 						/>
 
 					<syncfusion:GridTextColumn
-						AllowGrouping="False" Width="190"
-						AllowSorting="True"
+						Width="190"
 						AllowEditing="True"
+						AllowGrouping="False"
+						AllowSorting="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.SupplierCode}"
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="SupplierProductNumber"
-						/>
+						>
+						<syncfusion:GridTextColumn.CellTemplate>
+							<DataTemplate>
+								<TextBox Background="Yellow" BorderThickness="0" Text="{Binding SupplierProductNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+							</DataTemplate>
+						</syncfusion:GridTextColumn.CellTemplate>
+					</syncfusion:GridTextColumn>
+
+
 					<syncfusion:GridTextColumn
+						AllowEditing="True"
 						AllowGrouping="False"
 						AllowSorting="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Name}"
 						HorizontalHeaderContentAlignment="Left"
-						MappingName="ProductName"
+						MappingName="SupplierProductName"
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowEditing="False" Width="90"
+						Width="90"
+						AllowEditing="False"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
@@ -140,18 +193,33 @@
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowSorting="True" Width="90"
+						Width="90"
+						AllowEditing="False"
+						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Inventory}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductInventory"
 						MinValue="0"
 						/>
 
+					<syncfusion:GridTextColumn
+						Width="20"
+						AllowEditing="False"
+						AllowGrouping="False"
+						AllowSorting="False"
+						HeaderText=""
+						HorizontalHeaderContentAlignment="Center"
+						MappingName="SupplierCurrencySymbol"
+						TextAlignment="Center"
+						/>
+
 					<syncfusion:GridNumericColumn
-						AllowEditing="True" Width="90"
+						Width="90"
+						AllowEditing="True"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.SupplierPrice}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="SupplierPrice"
@@ -159,10 +227,13 @@
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowEditing="True" Width="90"
+						Width="90"
+						AllowEditing="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Order}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductShortInventory"
+						MinValue="0"
 						/>
 
 				</syncfusion:SfDataGrid.Columns>
@@ -291,7 +362,7 @@
 				ColumnSizer="Star"
 				GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
 				IsGroupDropAreaExpanded="True"
-				ItemsSource="{Binding InventoryOrder, Mode=TwoWay}"
+				ItemsSource="{Binding InventoryOrderSupplierViewModel.ProductList, Mode=TwoWay}"
 				SelectedIndex="0"
 				ShowColumnWhenGrouped="True"
 				ShowGroupDropArea="False"
@@ -382,7 +453,8 @@
 					</syncfusion:GridTextColumn>
 
 					<syncfusion:GridTextColumn
-						AllowGrouping="False" Width="150"
+						Width="150"
+						AllowGrouping="False"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Code}"
 						HorizontalHeaderContentAlignment="Left"
@@ -398,7 +470,8 @@
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowEditing="True" Width="90"
+						Width="90"
+						AllowEditing="True"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
@@ -409,7 +482,8 @@
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowEditing="True" Width="90"
+						Width="90"
+						AllowEditing="True"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
@@ -420,7 +494,8 @@
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowEditing="True" Width="90"
+						Width="90"
+						AllowEditing="True"
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
@@ -431,7 +506,8 @@
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowFiltering="False" Width="90"
+						Width="90"
+						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.InOrder}"
@@ -440,7 +516,8 @@
 						/>
 
 					<syncfusion:GridNumericColumn
-						AllowFiltering="False" Width="90"
+						Width="90"
+						AllowFiltering="False"
 						AllowGrouping="False"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Short}"
 						HorizontalHeaderContentAlignment="Right"

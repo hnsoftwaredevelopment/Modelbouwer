@@ -22,6 +22,7 @@ public class InventoryOrderModel : INotifyPropertyChanged
 	public double SupplierPrice { get; set; }
 	public int SupplierCurrencyId { get; set; }
 	public string? SupplierCurrencySymbol { get; set; }
+	public string? SupplierProductName { get; set; }
 	public string? ProductFromSupplier { get; set; }
 	private bool isSelected;
 	public bool IsSelected
@@ -54,6 +55,7 @@ public class InventoryOrderModel : INotifyPropertyChanged
 		{ DBNames.ProductInventoryOrderProcedureFieldNameProductMinimalOrder, "InOrder" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameProductShort, "Short" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameSupplierProductNumber, "SupplierProductNumber" },
+		{ DBNames.ProductInventoryOrderProcedureFieldNameSupplierProductName, "SupplierProductName" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameSupplierPrice, "SupplierPrice" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameSupplierCurrencyId, "SupplierCurrencyId" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameSupplierCurrencySymbol, "SupplierCurrencySymbol" },

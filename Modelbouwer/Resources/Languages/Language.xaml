@@ -234,7 +234,7 @@
 	<system:String x:Key="ToolBar.Button.Image.Remove.Label">Afbeelding verwijderen</system:String>
 	<system:String x:Key="ToolBar.Button.Image.Rotate.Label">Afbeelding 45° draaien</system:String>
 	<!--#endregion-->
-	
+
 	<!--#region Syncfusion SfDataGrid Group Box Area-->
 	<system:String x:Key="SfDataGrid.GroupBox.Tooltip">Sleep de kolomkop hier naartoe om op te groeperen, meerdere kolommen zijn mogelijk</system:String>
 	<system:String x:Key="SfDataGrid.GroupBox.Text">Sleep kolomkoppen hier naartoe om op te groeperen</system:String>
@@ -636,7 +636,7 @@
 	<system:String x:Key="Edit.Product.Tab.Inventory.Label">Voorraad</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
-	
+
 	<!--#region Inventory-->
 	<!--#region  Inventory management-->
 	<system:String x:Key="Edit.Inventory.Title">Voorraadbeheer</system:String>
@@ -666,7 +666,7 @@
 	<system:String x:Key="Edit.Inventory.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
 
 	<!--#endregion-->
-	
+
 	<!--#region Order products-->
 	<system:String x:Key="Edit.Order.Title">Bestelling</system:String>
 	<system:String x:Key="Edit.Order.Subtitle">Registreer bestelling bij een leverancier</system:String>

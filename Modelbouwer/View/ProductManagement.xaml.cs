@@ -594,10 +594,10 @@ public partial class ProductManagement : Page
 	{
 		//if ( DataContext is CombinedProductViewModel viewModel )
 		//{
-		//	var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
-		//	if ( selectedSupplier != null )
+		//	var selectedSupplierId = viewModel.ProductSupplierViewModel.SelectedSupplier;
+		//	if ( selectedSupplierId != null )
 		//	{
-		//		SupplierComboBox.SelectedValue = selectedSupplier.ProductSupplierSupplierId;
+		//		SupplierComboBox.SelectedValue = selectedSupplierId.ProductSupplierSupplierId;
 		//	}
 		//	else
 		//	{

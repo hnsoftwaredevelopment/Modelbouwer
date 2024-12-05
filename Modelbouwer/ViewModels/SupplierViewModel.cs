@@ -72,6 +72,30 @@ public partial class SupplierViewModel : ObservableObject
 		}
 	}
 
+	private int selectedSupplierId;
+	public int SelectedSupplierId
+	{
+		get => selectedSupplierId;
+		set
+		{
+			if ( selectedSupplierId != value )
+			{
+				selectedSupplierId = value;
+				OnPropertyChanged( nameof( SelectedSupplierId ) );
+				SelectedSupplierChanged?.Invoke( this, selectedSupplierId );
+			}
+		}
+	}
+
+
+	public event EventHandler<int>? SelectedSupplierChanged;
+
+	partial void OnSelectedSupplierChanged( SupplierModel? value )
+	{
+		if ( value != null )
+			SelectedSupplierChanged?.Invoke( this, value.SupplierId );
+	}
+
 	public void AddNewItem()
 	{
 		SupplierModel newSupplier = new()

@@ -259,6 +259,8 @@ public class DBNames
 	public static readonly string ProductInventoryOrderProcedureFieldTypeProductShort = "double";
 	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierProductNumber = "SupplierProductNumber";
 	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierProductNumber = "string";
+	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierProductName = "SupplierProductName";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierProductName = "string";
 	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierPrice = "SupplierPrice";
 	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierPrice = "double";
 	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierCurrencyId = "SupplierCurrencyId";

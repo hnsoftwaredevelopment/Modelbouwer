@@ -265,7 +265,7 @@ public partial class SupplierManagement : Page
 			ContactsDataGrid.Items.Refresh();
 
 			//viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
-			//var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+			//var selectedSupplierId = viewModel.SupplierViewModel.SelectedSupplier;
 		}
 		SupplierContactTypeId.Text = string.IsNullOrEmpty( SupplierContactTypeId.Text ) ? "1" : SupplierContactTypeId.Text;
 	}

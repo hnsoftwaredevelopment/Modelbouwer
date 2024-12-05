@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>24.11.29.24</AssemblyVersion>
-    <FileVersion>24.11.29.24</FileVersion>
+    <AssemblyVersion>24.12.5.40</AssemblyVersion>
+    <FileVersion>24.12.5.40</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
@@ -21,6 +21,8 @@
     <None Remove="Resources\Icons\app.png" />
     <None Remove="Resources\Icons\appExit.png" />
     <None Remove="Resources\Icons\appHelp.png" />
+    <None Remove="Resources\Icons\appicon.ico" />
+    <None Remove="Resources\Icons\appiconfull.ico" />
     <None Remove="Resources\Icons\appInfo.png" />
     <None Remove="Resources\Icons\appPrint.png" />
     <None Remove="Resources\Icons\appRedo.png" />
@@ -74,6 +76,9 @@
     <None Remove="Resources\Icons\metadataWorktypeExport.png" />
     <None Remove="Resources\Icons\metadataWorktypeImport.png" />
     <None Remove="Resources\Icons\metadataWorktypeReport.png" />
+    <None Remove="Resources\Icons\modelbuilder-text.png" />
+    <None Remove="Resources\Icons\modelbuilder.png" />
+    <None Remove="Resources\Icons\modelbuilder.svg" />
     <None Remove="Resources\Icons\noImage.png" />
     <None Remove="Resources\Icons\options.png" />
     <None Remove="Resources\Icons\orderCart.png" />
@@ -181,6 +186,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\appHelp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\appiconfull.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\appInfo.png">
@@ -343,6 +354,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\metadataWorktypeReport.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\modelbuilder-text.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\modelbuilder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\modelbuilder.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\noImage.png">
