@@ -118,6 +118,56 @@ public partial class SupplyOrderViewModel : ObservableObject
 	}
 	#endregion
 
+	#region selected products
+	public ObservableCollection<SupplyOrderModel> SelectedProducts { get; set; } = new ObservableCollection<SupplyOrderModel>();
+
+	private ObservableCollection<SupplyOrderModel> _productList;
+	public ObservableCollection<SupplyOrderModel> ProductList
+	{
+		get => _productList;
+		set
+		{
+			if ( _productList != value )
+			{
+				if ( _productList != null )
+				{
+					foreach ( var product in _productList )
+					{
+						product.PropertyChanged -= SelectedProduct_PropertyChanged;
+					}
+				}
+
+				_productList = value;
+
+				if ( _productList != null )
+				{
+					foreach ( var product in _productList )
+					{
+						product.PropertyChanged += SelectedProduct_PropertyChanged;
+					}
+				}
+
+				OnPropertyChanged( nameof( ProductList ) );
+			}
+		}
+	}
+
+	private void SelectedProduct_PropertyChanged( object sender, PropertyChangedEventArgs e )
+	{
+		if ( e.PropertyName == nameof( SupplyOrderModel.IsSelected ) )
+		{
+			var selectedProduct = sender as SupplyOrderModel;
+			if ( selectedProduct != null )
+			{
+				if ( selectedProduct.IsSelected && !SelectedProducts.Contains( selectedProduct ) )
+					SelectedProducts.Add( selectedProduct );
+				else if ( !selectedProduct.IsSelected && SelectedProducts.Contains( selectedProduct ) )
+					SelectedProducts.Remove( selectedProduct );
+			}
+		}
+	}
+	#endregion
+
 	public event EventHandler<int>? SelectedSupplierChanged;
 
 	private int selectedSupplierId;
@@ -131,6 +181,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 				selectedSupplierId = value;
 				OnPropertyChanged( nameof( SelectedSupplier ) );
 
+				//LoadProductsForSelectedSupplier( selectedSupplierId );
 				UpdateFilteredOrders();
 
 				SelectedSupplierChanged?.Invoke( this, selectedSupplierId );

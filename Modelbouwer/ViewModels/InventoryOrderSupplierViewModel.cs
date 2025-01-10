@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class InventoryOrderSupplierViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -39,58 +37,68 @@ public partial class InventoryOrderSupplierViewModel : ObservableObject
 	[ObservableProperty]
 	public bool? productSupplierDefaultSupplierCheck;
 
-	public ObservableCollection<InventoryOrderModel> SelectedProducts { get; set; } = new ObservableCollection<InventoryOrderModel>();
+	//public ObservableCollection<InventoryOrderModel> SelectedProducts { get; set; } = new ObservableCollection<InventoryOrderModel>();
 
-	private ObservableCollection<InventoryOrderModel> _productList;
-	public ObservableCollection<InventoryOrderModel> ProductList
-	{
-		get => _productList;
-		set
-		{
-			if ( _productList != value )
-			{
-				if ( _productList != null )
-				{
-					foreach ( var product in _productList )
-					{
-						product.PropertyChanged -= SelectedProduct_PropertyChanged;
-					}
-				}
+	//private ObservableCollection<InventoryOrderModel> _productList;
+	//public ObservableCollection<InventoryOrderModel> ProductList
+	//{
+	//	get => _productList;
+	//	set
+	//	{
+	//		if ( _productList != value )
+	//		{
+	//			if ( _productList != null )
+	//			{
+	//				foreach ( var product in _productList )
+	//				{
+	//					product.PropertyChanged -= SelectedProduct_PropertyChanged;
+	//				}
+	//			}
 
-				_productList = value;
+	//			_productList = value;
 
-				if ( _productList != null )
-				{
-					foreach ( var product in _productList )
-					{
-						product.PropertyChanged += SelectedProduct_PropertyChanged;
-					}
-				}
+	//			if ( _productList != null )
+	//			{
+	//				foreach ( var product in _productList )
+	//				{
+	//					product.PropertyChanged += SelectedProduct_PropertyChanged;
+	//				}
+	//			}
 
-				OnPropertyChanged( nameof( ProductList ) );
-			}
-		}
-	}
+	//			OnPropertyChanged( nameof( ProductList ) );
+	//		}
+	//	}
+	//}
 
-	private void SelectedProduct_PropertyChanged( object sender, PropertyChangedEventArgs e )
-	{
-		if ( e.PropertyName == nameof( InventoryOrderModel.IsSelected ) )
-		{
-			var selectedProduct = sender as InventoryOrderModel;
-			if ( selectedProduct != null )
-			{
-				if ( selectedProduct.IsSelected && !SelectedProducts.Contains( selectedProduct ) )
-					SelectedProducts.Add( selectedProduct );
-				else if ( !selectedProduct.IsSelected && SelectedProducts.Contains( selectedProduct ) )
-					SelectedProducts.Remove( selectedProduct );
-			}
-		}
-	}
+	//private void SelectedProduct_PropertyChanged( object sender, PropertyChangedEventArgs e )
+	//{
+	//	if ( e.PropertyName == nameof( InventoryOrderModel.IsSelected ) )
+	//	{
+	//		var selectedProduct = sender as InventoryOrderModel;
+	//		if ( selectedProduct != null )
+	//		{
+	//			if ( selectedProduct.IsSelected && !SelectedProducts.Contains( selectedProduct ) )
+	//				SelectedProducts.Add( selectedProduct );
+	//			else if ( !selectedProduct.IsSelected && SelectedProducts.Contains( selectedProduct ) )
+	//				SelectedProducts.Remove( selectedProduct );
+	//		}
+	//	}
+	//}
 
 	public ObservableCollection<SupplierModel> SupplierList { get; set; } = [ ];
 	public ObservableCollection<SupplyOrderModel> SupplierOrderList { get; set; } = [ ];
 
 	public event EventHandler<int>? SelectedSupplierChanged;
+
+	public ObservableCollection<InventoryOrderModel> ProductList { get; set; } = new();
+
+	private void LoadProductsForSelectedSupplier( int supplierId )
+	{
+		// Stel hier je DB-oproep in om de productenlijst te halen op basis van supplierId
+		ProductList = [ .. DBCommands.GetInventoryOrder( supplierId ) ];
+		// Zorg ervoor dat de UI wordt geïnformeerd over de wijziging
+		OnPropertyChanged( nameof( ProductList ) );
+	}
 
 	private int selectedSupplierId;
 	public int SelectedSupplier
@@ -103,7 +111,7 @@ public partial class InventoryOrderSupplierViewModel : ObservableObject
 				selectedSupplierId = value;
 				OnPropertyChanged( nameof( SelectedSupplier ) );
 
-				//LoadProductsForSelectedSupplier( selectedSupplierId );
+				LoadProductsForSelectedSupplier( selectedSupplierId );
 
 				SelectedSupplierChanged?.Invoke( this, selectedSupplierId );
 				//SupplierOrderList = new ObservableCollection<SupplyOrderModel>( DBCommands.GetSupplierOrderList( selectedSupplierId.ToString() ) );
