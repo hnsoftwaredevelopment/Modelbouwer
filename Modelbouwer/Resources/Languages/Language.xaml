@@ -615,6 +615,8 @@
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Label">Leverancier</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Tag">Selecteer leverancier</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip">Selecteer de leverancier die dit product levert</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.SupplierOrder.Tag">Selecteer bestelling</system:String>
+	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.SupplierOrder.Tooltip">Selecteer eventueel een bestaande bestelling</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Label">Artikelnummer leverancier</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tag">Artikelnummer leverancier</system:String>
 	<system:String x:Key="Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tooltip">Selecteer de leverancier die dit product levert</system:String>
@@ -664,6 +666,19 @@
 	<system:String x:Key="Edit.Inventory.DataGrid.FilterSearch.Filter.Clear.Tooltip">Verwijder het filter criterium en toon de volledige lijst</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
 	<system:String x:Key="Edit.Inventory.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
+
+	<system:String x:Key="Edit.Inventory.Orders.Supplier.Text">Leverancier</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.Supplier.Tag">Selecteer leverancier</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.Supplier.Tooltip">Selecteer de leverancier die dit product levert</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrder.Text">Bestelling</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrder.Tag">Selecteer bestelling</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrder.Tooltip">Selecteer eventueel een bestaande bestelling</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrderCosts.Text">Ordergrootte</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrderNumber.Text">Bestelnummer</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrderDate.Text">Besteldatum</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrderSendCosts.Text">Verzendkosten</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrderOrderCosts.Text">Orderkosten</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.SupplierOrderTotalCosts.Text">Totaal</system:String>
 
 	<!--#endregion-->
 

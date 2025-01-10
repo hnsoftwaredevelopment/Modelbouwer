@@ -11,7 +11,7 @@
 	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
 	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
 	Title="StorageOrder"
-	d:DesignHeight="600"
+	d:DesignHeight="950"
 	d:DesignWidth="1000"
 	mc:Ignorable="d"
 	>
@@ -22,13 +22,15 @@
 
 	<Page.Resources>
 		<converter:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
+		<converter:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+		<converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
 		<Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="60" />
-				<RowDefinition Height=".5*" />
+				<RowDefinition Height=".6*" />
 				<RowDefinition Height="45" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="45" />
@@ -72,38 +74,157 @@
 			<Grid Grid.Row="1">
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
+						<RowDefinition Height="30" />
+						<RowDefinition Height="30" />
+						<RowDefinition Height="30" />
+						<RowDefinition Height="30" />
 					</Grid.RowDefinitions>
 
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="80" />
+						<ColumnDefinition Width="100" />
+						<ColumnDefinition />
+						<ColumnDefinition Width="100" />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 
 					<TextBlock
 						Grid.Row="0"
 						Grid.Column="0"
-						Text="Leverancier"
+						VerticalAlignment="Center"
+						Text="{StaticResource Edit.Inventory.Orders.Supplier.Text}"
 						/>
-					<syncfusion:ComboBoxAdv
-						x:Name="SupplierComboBox"
+
+					<Grid Grid.Row="0" Grid.Column="1">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="AUTO" />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<syncfusion:ComboBoxAdv
+							x:Name="SupplierComboBox"
+							Grid.Column="0"
+							Margin="0,0,10,0"
+							HorizontalAlignment="Left"
+							AutoCompleteMode="Suggest"
+							DefaultText="{StaticResource Edit.Inventory.Orders.Supplier.Tag}"
+							DisplayMemberPath="SupplierName"
+							ItemsSource="{Binding SupplyOrderViewModel.SupplierList}"
+							SelectedValue="{Binding SupplyOrderViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							SelectedValuePath="SupplierId"
+							ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Tooltip}"
+							>
+							<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+								<StyleSelector />
+							</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+						</syncfusion:ComboBoxAdv>
+
+
+						<syncfusion:ComboBoxAdv
+							x:Name="SupplierOrderComboBox"
+							Grid.Column="1"
+							HorizontalAlignment="Left"
+							AutoCompleteMode="Suggest"
+							DefaultText="{StaticResource Edit.Inventory.Orders.SupplierOrder.Tag}"
+							DisplayMemberPath="SupplyOrderNumber"
+							ItemsSource="{Binding SupplyOrderViewModel.FilteredOrders}"
+							SelectedItem="{Binding SupplyOrderViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							SelectedValuePath="SupplyOrderId"
+							ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Tooltip}"
+							Visibility="{Binding SupplyOrderViewModel.FilteredOrders.Count, Converter={StaticResource CountToVisibilityConverter}}"
+							>
+							<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+								<StyleSelector />
+							</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+						</syncfusion:ComboBoxAdv>
+					</Grid>
+
+					<TextBlock
 						Grid.Row="0"
+						Grid.Column="2"
+						VerticalAlignment="Center"
+						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderCosts.Text}"
+						/>
+					<TextBox
+						Grid.Row="0"
+						Grid.Column="3"
+						Width="120"
+						HorizontalContentAlignment="Right"
+						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderOrderCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0,00'}"
+						/>
+
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="0"
+						VerticalAlignment="Center"
+						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderNumber.Text}"
+						/>
+					<TextBox
+						Grid.Row="1"
 						Grid.Column="1"
-						HorizontalAlignment="Left"
-						AutoCompleteMode="Suggest"
-						DefaultText="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tag}"
-						DisplayMemberPath="SupplierName"
-						ItemsSource="{Binding InventoryOrderSupplierViewModel.SupplierList}"
-						SelectedValue="{Binding InventoryOrderSupplierViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-						SelectedValuePath="SupplierId"
-						ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip}"
-						>
-						<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
-							<StyleSelector />
-						</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
-					</syncfusion:ComboBoxAdv>
+						Width="120"
+						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+						/>
+
+					<TextBlock
+						Grid.Row="1"
+						Grid.Column="2"
+						VerticalAlignment="Center"
+						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderSendCosts.Text}"
+						/>
+					<TextBox
+						Grid.Row="1"
+						Grid.Column="3"
+						Width="120"
+						HorizontalContentAlignment="Right"
+						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderShippingCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0,00'}"
+						/>
+
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="0"
+						VerticalAlignment="Center"
+						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Text}"
+						/>
+					<TextBox
+						Grid.Row="2"
+						Grid.Column="1"
+						Width="120"
+						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+						/>
+
+					<TextBlock
+						Grid.Row="2"
+						Grid.Column="2"
+						VerticalAlignment="Center"
+						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderOrderCosts.Text}"
+						/>
+					<TextBox
+						Grid.Row="2"
+						Grid.Column="3"
+						Width="120"
+						HorizontalContentAlignment="Right"
+						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderOrderCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0,00'}"
+						/>
+
+					<TextBlock
+						Grid.Row="3"
+						Grid.Column="2"
+						VerticalAlignment="Center"
+						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderTotalCosts.Text}"
+						/>
+					<TextBox
+						Grid.Row="3"
+						Grid.Column="3"
+						Width="120"
+						HorizontalContentAlignment="Right"
+						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+						Text="Moet nog worden gevuld"
+						/>
+
 				</Grid>
 			</Grid>
 			<!--#endregion-->
@@ -135,7 +256,7 @@
 				ShowGroupDropArea="False"
 				SortClickAction="SingleClick"
 				>
-				
+
 				<syncfusion:SfDataGrid.Columns>
 					<syncfusion:GridTextColumn
 						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Id}"
@@ -164,7 +285,11 @@
 						>
 						<syncfusion:GridTextColumn.CellTemplate>
 							<DataTemplate>
-								<TextBox Background="Yellow" BorderThickness="0" Text="{Binding SupplierProductNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+								<TextBox
+									Background="Yellow"
+									BorderThickness="0"
+									Text="{Binding SupplierProductNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									/>
 							</DataTemplate>
 						</syncfusion:GridTextColumn.CellTemplate>
 					</syncfusion:GridTextColumn>

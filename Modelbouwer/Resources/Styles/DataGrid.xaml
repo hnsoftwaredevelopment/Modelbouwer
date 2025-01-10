@@ -21,10 +21,10 @@
 
 	<Style x:Key="EditableCellStyle" TargetType="syncfusion:GridCell">
 		<Setter Property="Background" Value="#3efefe" />
-		<Setter Property="BorderBrush" Value="Blue"/>
-		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="BorderBrush" Value="Blue" />
+		<Setter Property="BorderThickness" Value="1" />
 	</Style>
-	
+
 
 </ResourceDictionary>
 

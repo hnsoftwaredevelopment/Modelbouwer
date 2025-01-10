@@ -37,25 +37,7 @@ public partial class ProductSupplierViewModel : ObservableObject
 	[ObservableProperty]
 	public bool? productSupplierDefaultSupplierCheck;
 
-	//private ObservableCollection<ProductSupplierModel> _filteredSuppliers;
 	public ObservableCollection<ProductSupplierModel> FilteredSuppliers { get; private set; } = [ ];
-	//public ObservableCollection<ProductSupplierModel> FilteredSuppliers
-	//{
-	//	get => _filteredSuppliers;
-	//	set
-	//	{
-	//		_filteredSuppliers = value;
-	//		OnPropertyChanged( nameof( FilteredSuppliers ) );
-
-	//		// Controleer of er leveranciers zijn, selecteer de eerste
-	//		if ( _filteredSuppliers != null && _filteredSuppliers.Any() )
-	//		{
-	//			// Zet de selectie handmatig
-	//			SelectedSupplier = _filteredSuppliers.First();
-	//			OnPropertyChanged( nameof( SelectedSupplier ) ); // Dit zorgt ervoor dat de ComboBox wordt bijgewerkt
-	//		}
-	//	}
-	//}
 
 	public ObservableCollection<ProductSupplierModel> ProductSupplier { get; set; }
 

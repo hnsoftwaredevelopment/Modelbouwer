@@ -603,6 +603,34 @@ public class DBCommands
 	}
 	#endregion
 
+	#region SupplierOrderList
+	public static ObservableCollection<SupplyOrderModel> GetSupplierOrderList( ObservableCollection<SupplyOrderModel>? orderList = null )
+	{
+		orderList ??= [ ];
+		DataTable _dt = GetData(DBNames.OrderTable, DBNames.OrderFieldNameOrderNumber);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			orderList.Add( new SupplyOrderModel
+			{
+				SupplyOrderId = ( int ) _dt.Rows [ i ] [ 0 ],
+				SupplyOrderSupplierId = ( int ) _dt.Rows [ i ] [ 1 ],
+				SupplyOrderCurrencyId = ( int ) _dt.Rows [ i ] [ 2 ],
+				SupplyOrderNumber = _dt.Rows [ i ] [ 3 ].ToString(),
+				SupplyOrderDate = _dt.Rows [ i ] [ 4 ].ToString(),
+				SupplyOrderCurrencySymbol = _dt.Rows [ i ] [ 5 ].ToString(),
+				SupplyOrderCurrencyRate = ( double ) _dt.Rows [ i ] [ 6 ],
+				SupplyOrderShippingCosts = ( double ) _dt.Rows [ i ] [ 7 ],
+				SupplyOrderOrderCosts = ( double ) _dt.Rows [ i ] [ 8 ],
+				SupplyOrderMemo = _dt.Rows [ i ] [ 9 ].ToString(),
+				SupplyOrderClosed = ( sbyte ) _dt.Rows [ i ] [ 10 ],
+				SupplyOrderClosedDate = _dt.Rows [ i ] [ 11 ].ToString(),
+			} );
+		}
+		return orderList;
+	}
+	#endregion
+
 	#region ProductList
 	public static ObservableCollection<ProductModel> GetProductList( ObservableCollection<ProductModel>? productList = null )
 	{
