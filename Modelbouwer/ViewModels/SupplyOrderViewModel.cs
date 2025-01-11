@@ -119,10 +119,10 @@ public partial class SupplyOrderViewModel : ObservableObject
 	#endregion
 
 	#region selected products
-	public ObservableCollection<SupplyOrderModel> SelectedProducts { get; set; } = new ObservableCollection<SupplyOrderModel>();
+	public ObservableCollection<InventoryOrderModel> SelectedProducts { get; set; } = [ ];
 
-	private ObservableCollection<SupplyOrderModel> _productList;
-	public ObservableCollection<SupplyOrderModel> ProductList
+	private ObservableCollection<InventoryOrderModel> _productList;
+	public ObservableCollection<InventoryOrderModel> ProductList
 	{
 		get => _productList;
 		set
@@ -156,7 +156,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 	{
 		if ( e.PropertyName == nameof( SupplyOrderModel.IsSelected ) )
 		{
-			var selectedProduct = sender as SupplyOrderModel;
+			var selectedProduct = sender as InventoryOrderModel;
 			if ( selectedProduct != null )
 			{
 				if ( selectedProduct.IsSelected && !SelectedProducts.Contains( selectedProduct ) )
@@ -181,12 +181,20 @@ public partial class SupplyOrderViewModel : ObservableObject
 				selectedSupplierId = value;
 				OnPropertyChanged( nameof( SelectedSupplier ) );
 
-				//LoadProductsForSelectedSupplier( selectedSupplierId );
+				LoadProductsForSelectedSupplier( selectedSupplierId );
 				UpdateFilteredOrders();
 
 				SelectedSupplierChanged?.Invoke( this, selectedSupplierId );
 			}
 		}
+	}
+
+	private void LoadProductsForSelectedSupplier( int supplierId )
+	{
+		// Stel hier je DB-oproep in om de productenlijst te halen op basis van supplierId
+		ProductList = [ .. DBCommands.GetInventoryOrder( supplierId ) ];
+		// Zorg ervoor dat de UI wordt geïnformeerd over de wijziging
+		OnPropertyChanged( nameof( ProductList ) );
 	}
 
 	private void UpdateFilteredOrders()
@@ -224,5 +232,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 	{
 		SupplierList = [ .. DBCommands.GetSupplierList() ];
 		SupplierOrderList = [ .. DBCommands.GetSupplierOrderList() ];
+		SelectedProducts = [ ];
 	}
 }

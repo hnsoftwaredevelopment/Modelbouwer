@@ -30,7 +30,7 @@
 		<Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="60" />
-				<RowDefinition Height=".6*" />
+				<RowDefinition Height=".75*" />
 				<RowDefinition Height="45" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="45" />

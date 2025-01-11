@@ -53,8 +53,6 @@ public partial class InventoryOrderViewModel : ObservableObject
 
 	private ObservableCollection<InventoryOrderModel>? _inventoryOrder;
 
-	//private ObservableCollection<InventoryOrderModel>? _selectedProducts;
-
 	public ObservableCollection<InventoryOrderModel> SelectedProducts { get; set; }
 
 	public ObservableCollection<InventoryOrderModel> InventoryOrder
@@ -81,16 +79,16 @@ public partial class InventoryOrderViewModel : ObservableObject
 		}
 	}
 
-	public void FilterInventoryBySupplier( int supplierId )
-	{
-		InventoryOrder = new ObservableCollection<InventoryOrderModel>(
-			DBCommands.GetInventoryOrder( supplierId )
-		);
-	}
-	public void UpdateInventoryOrder( int supplierId )
-	{
-		InventoryOrder = new ObservableCollection<InventoryOrderModel>( DBCommands.GetInventoryOrder( supplierId ) );
-	}
+	//public void FilterInventoryBySupplier( int supplierId )
+	//{
+	//	InventoryOrder = new ObservableCollection<InventoryOrderModel>(
+	//		DBCommands.GetInventoryOrder( supplierId )
+	//	);
+	//}
+	//public void UpdateInventoryOrder( int supplierId )
+	//{
+	//	InventoryOrder = new ObservableCollection<InventoryOrderModel>( DBCommands.GetInventoryOrder( supplierId ) );
+	//}
 
 	private void SelectedProduct_PropertyChanged( object sender, PropertyChangedEventArgs e )
 	{

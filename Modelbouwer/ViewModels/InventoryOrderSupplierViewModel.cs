@@ -92,32 +92,32 @@ public partial class InventoryOrderSupplierViewModel : ObservableObject
 
 	public ObservableCollection<InventoryOrderModel> ProductList { get; set; } = new();
 
-	private void LoadProductsForSelectedSupplier( int supplierId )
-	{
-		// Stel hier je DB-oproep in om de productenlijst te halen op basis van supplierId
-		ProductList = [ .. DBCommands.GetInventoryOrder( supplierId ) ];
-		// Zorg ervoor dat de UI wordt geïnformeerd over de wijziging
-		OnPropertyChanged( nameof( ProductList ) );
-	}
+	//private void LoadProductsForSelectedSupplier( int supplierId )
+	//{
+	//	// Stel hier je DB-oproep in om de productenlijst te halen op basis van supplierId
+	//	ProductList = [ .. DBCommands.GetInventoryOrder( supplierId ) ];
+	//	// Zorg ervoor dat de UI wordt geïnformeerd over de wijziging
+	//	OnPropertyChanged( nameof( ProductList ) );
+	//}
 
-	private int selectedSupplierId;
-	public int SelectedSupplier
-	{
-		get => selectedSupplierId;
-		set
-		{
-			if ( selectedSupplierId != value )
-			{
-				selectedSupplierId = value;
-				OnPropertyChanged( nameof( SelectedSupplier ) );
+	//private int selectedSupplierId;
+	//public int SelectedSupplier
+	//{
+	//	get => selectedSupplierId;
+	//	set
+	//	{
+	//		if ( selectedSupplierId != value )
+	//		{
+	//			selectedSupplierId = value;
+	//			OnPropertyChanged( nameof( SelectedSupplier ) );
 
-				LoadProductsForSelectedSupplier( selectedSupplierId );
+	//			LoadProductsForSelectedSupplier( selectedSupplierId );
 
-				SelectedSupplierChanged?.Invoke( this, selectedSupplierId );
-				//SupplierOrderList = new ObservableCollection<SupplyOrderModel>( DBCommands.GetSupplierOrderList( selectedSupplierId.ToString() ) );
-			}
-		}
-	}
+	//			SelectedSupplierChanged?.Invoke( this, selectedSupplierId );
+	//			//SupplierOrderList = new ObservableCollection<SupplyOrderModel>( DBCommands.GetSupplierOrderList( selectedSupplierId.ToString() ) );
+	//		}
+	//	}
+	//}
 
 	public InventoryOrderSupplierViewModel()
 	{
