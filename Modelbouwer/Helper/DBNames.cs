@@ -653,7 +653,18 @@ public class DBNames
 	public static readonly string OpenOrderLineFieldNameSupplyOrderId = "Supplyorder_Id";
 	public static readonly string OpenOrderLineFieldTypeSupplyOrderId = "int";
 
-	#endregion Order table and view
+	public static readonly string OrderLineShortView = "view_supplyorderlineshort";
+	public static readonly string OrderLineShortFieldNameId = "Id";
+	public static readonly string OrderLineShortFieldTypeId = "int";
+	public static readonly string OrderLineShortFieldNameProductId = "Product_Id";
+	public static readonly string OrderLineShortFieldTypeProductId = "int";
+	public static readonly string OrderLineShortFieldNameOrderId = "supplyorder_Id";
+	public static readonly string OrderLineShortFieldTypeOrderId = "int";
+	public static readonly string OrderLineShortFieldNameAmount = "Amount";
+	public static readonly string OrderLineShortFieldTypeAmount = "double";
+	public static readonly string OrderLineShortFieldNamePrice = "Price";
+	public static readonly string OrderLineShortFieldTypePrice = "double";
+	#endregion Order table and 
 
 	#region Unit Table
 

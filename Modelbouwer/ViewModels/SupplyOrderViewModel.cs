@@ -51,10 +51,13 @@ public partial class SupplyOrderViewModel : ObservableObject
 				selectedOrder = value;
 				IsNewOrder = selectedOrder == null;
 				OnPropertyChanged( nameof( SelectedOrder ) );
+				Console.WriteLine( "Hello Fresh" );
+				UpdateFilteredOrderLines();
 			}
 		}
 	}
 	public ObservableCollection<SupplierModel> SupplierList { get; set; } = [ ];
+	public ObservableCollection<SupplyOrderLineModel> SupplierOrderLineShortList { get; set; } = [ ];
 	public ObservableCollection<SupplyOrderModel> SupplierOrderList { get; set; } = [ ];
 
 	#region Filtered Orders   
@@ -228,10 +231,70 @@ public partial class SupplyOrderViewModel : ObservableObject
 		}
 	}
 
+	#region Filter the orderlnes based on the selected OrderId
+	private ObservableCollection<SupplyOrderLineModel> _filteredOrderLines = new();
+	public ObservableCollection<SupplyOrderLineModel> FilteredOrderLines
+	{
+		get => _filteredOrderLines;
+		set
+		{
+			if ( _filteredOrderLines != value )
+			{
+				_filteredOrderLines = value;
+				OnPropertyChanged( nameof( FilteredOrderLines ) );
+			}
+		}
+	}
+
+	private void UpdateFilteredOrderLines()
+	{
+		if ( SelectedOrder != null )
+		{
+			// Filter de regels op basis van het geselecteerde OrderId
+			FilteredOrderLines = new ObservableCollection<SupplyOrderLineModel>(
+				SupplierOrderLineShortList.Where( line => line.SupplyOrderlineShortOrderId == SelectedOrder.SupplyOrderId )
+			);
+			Console.WriteLine( "Hello" );
+		}
+		else
+		{
+			// Leeg de lijst als er geen order is geselecteerd
+			FilteredOrderLines = new ObservableCollection<SupplyOrderLineModel>();
+		}
+	}
+
 	public SupplyOrderViewModel()
 	{
 		SupplierList = [ .. DBCommands.GetSupplierList() ];
 		SupplierOrderList = [ .. DBCommands.GetSupplierOrderList() ];
+		SupplierOrderLineShortList = [ .. DBCommands.GetSupplierOrderLineShortList() ];
 		SelectedProducts = [ ];
+
+		UpdateFilteredOrderLines();
 	}
 }
+
+//Select the productlines in the datagrid
+public class SupplyOrderLineViewModel : ObservableObject
+{
+	public SupplyOrderLineModel Model { get; }
+
+	public SupplyOrderLineViewModel( SupplyOrderLineModel model )
+	{
+		Model = model;
+	}
+
+	public bool IsSelected
+	{
+		get => Model.IsSelected;
+		set
+		{
+			if ( Model.IsSelected != value )
+			{
+				Model.IsSelected = value;
+				OnPropertyChanged();
+			}
+		}
+	}
+}
+#endregion

@@ -5,7 +5,11 @@ public class InverseBooleanConverter : IValueConverter
 	{
 		if ( value is bool boolValue )
 		{
-			return !boolValue;  // Omkeer van de Boolean
+			if ( parameter is string param && param == "Invert" )
+			{
+				return boolValue;
+			}
+			return !boolValue;
 		}
 		return value;
 	}

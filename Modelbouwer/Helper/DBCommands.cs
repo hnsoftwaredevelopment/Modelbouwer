@@ -631,6 +631,27 @@ public class DBCommands
 	}
 	#endregion
 
+	#region SupplierOrderLineShortList
+	public static ObservableCollection<SupplyOrderLineModel> GetSupplierOrderLineShortList( ObservableCollection<SupplyOrderLineModel>? orderLineList = null )
+	{
+		orderLineList ??= [ ];
+		DataTable _dt = GetData(DBNames.OrderLineShortView, DBNames.OrderLineShortFieldNameOrderId);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			orderLineList.Add( new SupplyOrderLineModel
+			{
+				SupplyOrderlineShortId = ( int ) _dt.Rows [ i ] [ 0 ],
+				SupplyOrderlineShortOrderId = ( int ) _dt.Rows [ i ] [ 1 ],
+				SupplyOrderlineShortProductId = ( int ) _dt.Rows [ i ] [ 2 ],
+				SupplyOrderlineShortAmount = ( double ) _dt.Rows [ i ] [ 3 ],
+				SupplyOrderlineShortPrice = ( double ) _dt.Rows [ i ] [ 4 ]
+			} );
+		}
+		return orderLineList;
+	}
+	#endregion
+
 	#region ProductList
 	public static ObservableCollection<ProductModel> GetProductList( ObservableCollection<ProductModel>? productList = null )
 	{

@@ -80,4 +80,26 @@ public partial class StorageOrder : Page
 		FilterSearchText.Clear();
 	}
 	#endregion
+
+	private void OrderSelected( object sender, SelectionChangedEventArgs e )
+	{
+		var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
+
+		foreach ( var line in viewModel.SupplyOrderViewModel.SupplierOrderLineShortList )
+		{
+			var _productId = line.SupplyOrderlineShortProductId;
+
+			var records = dataGrid.View.Records;
+
+			foreach ( var record in records )
+			{
+				var dataRow = record.Data as SupplyOrderLineModel;
+				if ( line.SupplyOrderlineShortProductId == ( ( Modelbouwer.Model.InventoryOrderModel ) record.Data ).ProductId )
+				{
+					( ( Modelbouwer.Model.InventoryOrderModel ) record.Data ).IsSelected = true;
+					( ( Modelbouwer.Model.InventoryOrderModel ) record.Data ).ProductShortInventory = line.SupplyOrderlineShortAmount;
+				}
+			}
+		}
+	}
 }

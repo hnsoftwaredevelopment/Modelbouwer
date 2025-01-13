@@ -1,6 +1,6 @@
 ﻿namespace Modelbouwer.Model;
 
-public class SupplyOrderLineModel
+public partial class SupplyOrderLineModel : ObservableObject
 {
 	public int SupplyOrderLineId { get; set; }
 	public int SupplyOrderLineSupplierId { get; set; }
@@ -14,4 +14,15 @@ public class SupplyOrderLineModel
 	public double SupplyOrderLineRowTotal { get; set; }
 	public int SupplyOrderLineClosed { get; set; }
 	public DateOnly SupplyOrderLineClosedDate { get; set; }
+
+	// For short view
+	public int SupplyOrderlineShortId { get; set; }
+	public int SupplyOrderlineShortProductId { get; set; }
+	public int SupplyOrderlineShortOrderId { get; set; }
+	public double SupplyOrderlineShortAmount { get; set; }
+	public double SupplyOrderlineShortPrice { get; set; }
+
+	// IsSelected property
+	[ObservableProperty]
+	private bool isSelected;
 }
