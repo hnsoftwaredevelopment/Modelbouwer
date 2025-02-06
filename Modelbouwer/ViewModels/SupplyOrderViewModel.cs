@@ -29,9 +29,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 	public double supplyOrderShippingCosts;
 
 	[ObservableProperty]
-	public double supplyOrderOrderCosts;
-
-	[ObservableProperty]
 	public string? supplyOrderMemo;
 
 	[ObservableProperty]
@@ -51,7 +48,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 				selectedOrder = value;
 				IsNewOrder = selectedOrder == null;
 				OnPropertyChanged( nameof( SelectedOrder ) );
-				Console.WriteLine( "Hello Fresh" );
 				UpdateFilteredOrderLines();
 			}
 		}
@@ -254,7 +250,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 			FilteredOrderLines = new ObservableCollection<SupplyOrderLineModel>(
 				SupplierOrderLineShortList.Where( line => line.SupplyOrderlineShortOrderId == SelectedOrder.SupplyOrderId )
 			);
-			Console.WriteLine( "Hello" );
 		}
 		else
 		{
@@ -268,6 +263,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 		SupplierList = [ .. DBCommands.GetSupplierList() ];
 		SupplierOrderList = [ .. DBCommands.GetSupplierOrderList() ];
 		SupplierOrderLineShortList = [ .. DBCommands.GetSupplierOrderLineShortList() ];
+
 		SelectedProducts = [ ];
 
 		UpdateFilteredOrderLines();

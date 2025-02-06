@@ -110,6 +110,7 @@
 							ItemsSource="{Binding SupplyOrderViewModel.SupplierList}"
 							SelectedValue="{Binding SupplyOrderViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							SelectedValuePath="SupplierId"
+							SelectionChanged="SupplierSelectionChanged"
 							ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Tooltip}"
 							>
 							<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
@@ -145,12 +146,13 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderCosts.Text}"
 						/>
 					<TextBox
+						x:Name="TotalOrder"
 						Grid.Row="0"
 						Grid.Column="3"
 						Width="120"
 						HorizontalContentAlignment="Right"
 						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderOrderCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0,00'}"
+						Text="0,00"
 						/>
 
 					<TextBlock
@@ -174,12 +176,13 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderSendCosts.Text}"
 						/>
 					<TextBox
+						Name="SupplierShippingCosts"
 						Grid.Row="1"
 						Grid.Column="3"
 						Width="120"
 						HorizontalContentAlignment="Right"
 						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderShippingCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0,00'}"
+						Text="0,00"
 						/>
 
 					<TextBlock
@@ -203,12 +206,13 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderOrderCosts.Text}"
 						/>
 					<TextBox
+						Name="SupplierOrderCosts"
 						Grid.Row="2"
 						Grid.Column="3"
 						Width="120"
 						HorizontalContentAlignment="Right"
 						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderOrderCosts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0,00'}"
+						Text="0,00"
 						/>
 
 					<TextBlock
@@ -218,12 +222,13 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderTotalCosts.Text}"
 						/>
 					<TextBox
+						Name="GrandTotal"
 						Grid.Row="3"
 						Grid.Column="3"
 						Width="120"
 						HorizontalContentAlignment="Right"
 						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="Moet nog worden gevuld"
+						Text="0,00"
 						/>
 
 				</Grid>
@@ -246,14 +251,16 @@
 				x:Name="selectedProductsDataGrid"
 				Grid.Row="3"
 				Margin="10,5"
-				AllowDeleting="True"
+				AllowDeleting="False"
 				AllowEditing="False"
 				AllowResizingColumns="True"
 				AllowTriStateSorting="True"
 				AutoGenerateColumns="False"
 				ColumnSizer="Star"
+				CurrentCellEndEdit="SelectedProductsDataGrid_CellEditEnd"
 				ItemsSource="{Binding SupplyOrderViewModel.SelectedProducts, Mode=TwoWay}"
 				SelectedIndex="0"
+				SelectionChanged="SelectedProductsDataGrid_SelectionChanged"
 				ShowGroupDropArea="False"
 				SortClickAction="SingleClick"
 				>
@@ -269,6 +276,7 @@
 						Width="150"
 						AllowGrouping="False"
 						AllowSorting="True"
+						CellStyle="{DynamicResource NonEditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Code}"
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProductCode"
@@ -283,18 +291,7 @@
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.SupplierCode}"
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="SupplierProductNumber"
-						>
-						<syncfusion:GridTextColumn.CellTemplate>
-							<DataTemplate>
-								<TextBox
-									Background="Yellow"
-									BorderThickness="0"
-									Text="{Binding SupplierProductNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-									/>
-							</DataTemplate>
-						</syncfusion:GridTextColumn.CellTemplate>
-					</syncfusion:GridTextColumn>
-
+						/>
 
 					<syncfusion:GridTextColumn
 						AllowEditing="True"
@@ -312,6 +309,7 @@
 						AllowFiltering="False"
 						AllowGrouping="False"
 						AllowSorting="True"
+						CellStyle="{DynamicResource NonEditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.MinStock}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductMinimalStock"
@@ -322,6 +320,7 @@
 						Width="90"
 						AllowEditing="False"
 						AllowSorting="True"
+						CellStyle="{DynamicResource NonEditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Inventory}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductInventory"
@@ -333,6 +332,7 @@
 						AllowEditing="False"
 						AllowGrouping="False"
 						AllowSorting="False"
+						CellStyle="{DynamicResource NonEditableCellStyle}"
 						HeaderText=""
 						HorizontalHeaderContentAlignment="Center"
 						MappingName="SupplierCurrencySymbol"
@@ -342,9 +342,6 @@
 					<syncfusion:GridNumericColumn
 						Width="90"
 						AllowEditing="True"
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
 						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.SupplierPrice}"
 						HorizontalHeaderContentAlignment="Right"
@@ -361,7 +358,6 @@
 						MappingName="ProductShortInventory"
 						MinValue="0"
 						/>
-
 				</syncfusion:SfDataGrid.Columns>
 			</syncfusion:SfDataGrid>
 			<!--#endregion-->
@@ -483,7 +479,7 @@
 				AllowGrouping="True"
 				AllowResizingColumns="True"
 				AllowTriStateSorting="True"
-				AutoExpandGroups="True" 
+				AutoExpandGroups="True"
 				AutoGenerateColumns="False"
 				ColumnSizer="Star"
 				GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"

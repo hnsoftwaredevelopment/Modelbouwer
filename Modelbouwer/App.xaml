@@ -3,6 +3,7 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="clr-namespace:Modelbouwer"
+	xmlns:converter="clr-namespace:Modelbouwer.Converters"
 	StartupUri="MainWindow.xaml"
 	>
 	<Application.Resources>
@@ -23,6 +24,8 @@
 				<ResourceDictionary Source="Resources/Styles/XMLValues.xaml" />
 				<ResourceDictionary Source="Resources/Themes/DefaultColors.xaml" />
 			</ResourceDictionary.MergedDictionaries>
+
+			<converter:CurrencyConverter x:Key="CurrencyConverter"/>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>
