@@ -441,8 +441,8 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			var _price = double.Parse(_dt.Rows [ i ] [ 4 ].ToString());
-			var _supplierPrice = double.Parse(_dt.Rows [ i ] [ 11 ].ToString());
+			var _price = double.Parse(_dt.Rows [ i ] [ 4 ].ToString(), CultureInfo.InvariantCulture);
+			var _supplierPrice = double.Parse(_dt.Rows [ i ] [ 13 ].ToString(), CultureInfo.InvariantCulture);
 
 			_list.Add( new InventoryOrderModel
 			{
@@ -452,15 +452,17 @@ public class DBCommands
 				SupplierProductName = _dt.Rows [ i ] [ 3 ].ToString(),
 				ProductPrice = _price,
 				ProductMinimalStock = ( double ) _dt.Rows [ i ] [ 5 ],
-				ProductCategory = _dt.Rows [ i ] [ 6 ].ToString(),
-				ProductInventory = ( double ) _dt.Rows [ i ] [ 7 ],
-				ProductInOrder = ( double ) _dt.Rows [ i ] [ 8 ],
-				ProductShortInventory = ( double ) _dt.Rows [ i ] [ 9 ],
-				SupplierProductNumber = _dt.Rows [ i ] [ 10 ].ToString(),
+				ProductOrderPer = ( double ) _dt.Rows [ i ] [ 6 ],
+				ProductCategory = _dt.Rows [ i ] [ 7 ].ToString(),
+				ProductInventory = ( double ) _dt.Rows [ i ] [ 8 ],
+				ProductInOrder = ( double ) _dt.Rows [ i ] [ 9 ],
+				ProductShortInventory = ( double ) _dt.Rows [ i ] [ 10 ],
+				ProductToOrder = ( double ) _dt.Rows [ i ] [ 11 ],
+				SupplierProductNumber = _dt.Rows [ i ] [ 12 ].ToString(),
 				SupplierPrice = _supplierPrice,
-				SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 12 ] ),
-				SupplierCurrencySymbol = _dt.Rows [ i ] [ 13 ].ToString(),
-				ProductFromSupplier = _dt.Rows [ i ] [ 14 ].ToString()
+				SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 14 ] ),
+				SupplierCurrencySymbol = _dt.Rows [ i ] [ 15 ].ToString(),
+				ProductFromSupplier = _dt.Rows [ i ] [ 16 ].ToString()
 			} );
 		}
 		return _list;

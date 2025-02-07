@@ -255,6 +255,10 @@ public class DBNames
 	public static readonly string ProductInventoryOrderProcedureFieldTypeProductMinimalValue = "string";
 	public static readonly string ProductInventoryOrderProcedureFieldNameProductMinimalOrder = "InOrder";
 	public static readonly string ProductInventoryOrderProcedureFieldTypeProductMinimalOrder = "double";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductOrderPer = "OrderPer";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductOrderPer = "double";
+	public static readonly string ProductInventoryOrderProcedureFieldNameProductToOrder = "ToOrder";
+	public static readonly string ProductInventoryOrderProcedureFieldTypeProductToOrder = "double";
 	public static readonly string ProductInventoryOrderProcedureFieldNameProductShort = "Short";
 	public static readonly string ProductInventoryOrderProcedureFieldTypeProductShort = "double";
 	public static readonly string ProductInventoryOrderProcedureFieldNameSupplierProductNumber = "SupplierProductNumber";

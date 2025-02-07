@@ -228,7 +228,7 @@
 						<!--#endregion-->
 
 						<!--#region Grand total section, Hide when Order Total = 0-->
-						<Grid Visibility="{Binding SupplyOrderViewModel.HasSubTotal, Converter={StaticResource BooleanToVisibilityConverter}}">
+						<Grid Visibility="{Binding SupplyOrderViewModel.HasGrandTotal, Converter={StaticResource BooleanToVisibilityConverter}}">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="30" />
@@ -402,6 +402,19 @@
 					<syncfusion:GridNumericColumn
 						Width="90"
 						AllowEditing="False"
+						AllowFiltering="False"
+						AllowGrouping="False"
+						AllowSorting="True"
+						CellStyle="{DynamicResource NonEditableCellStyle}"
+						HeaderText="{StaticResource Edit.Order.DataGrid.Header.OrderPer}"
+						HorizontalHeaderContentAlignment="Right"
+						MappingName="ProductOrderPer"
+						MinValue="0"
+						/>
+
+					<syncfusion:GridNumericColumn
+						Width="90"
+						AllowEditing="False"
 						AllowSorting="True"
 						CellStyle="{DynamicResource NonEditableCellStyle}"
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Inventory}"
@@ -436,9 +449,9 @@
 						Width="90"
 						AllowEditing="True"
 						CellStyle="{DynamicResource EditableCellStyle}"
-						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Order}"
+						HeaderText="{StaticResource Edit.Order.DataGrid.Header.ToOrder}"
 						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductShortInventory"
+						MappingName="ProductToOrder"
 						MinValue="0"
 						/>
 				</syncfusion:SfDataGrid.Columns>
@@ -674,6 +687,32 @@
 						HorizontalHeaderContentAlignment="Left"
 						MappingName="ProductName"
 						/>
+
+					<syncfusion:GridNumericColumn
+						Width="90"
+						AllowEditing="False"
+						AllowFiltering="False"
+						AllowGrouping="False"
+						AllowSorting="False"
+						HeaderText="{StaticResource Edit.Order.DataGrid.Header.OrderPer}"
+						HorizontalHeaderContentAlignment="Right"
+						IsHidden="False"
+						MappingName="ProductOrderPer"
+						MinValue="0"
+						/>
+
+					<syncfusion:GridNumericColumn
+						AllowEditing="False"
+						AllowFiltering="False"
+						AllowGrouping="False"
+						AllowSorting="False"
+						HeaderText="{StaticResource Edit.Order.DataGrid.Header.ToOrder}"
+						HorizontalHeaderContentAlignment="Right"
+						IsHidden="True"
+						MappingName="ProductToOrder"
+						MinValue="0"
+						/>
+
 
 					<syncfusion:GridNumericColumn
 						Width="90"

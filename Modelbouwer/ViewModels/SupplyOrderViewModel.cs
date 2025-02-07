@@ -3,6 +3,8 @@
 namespace Modelbouwer.ViewModels;
 public partial class SupplyOrderViewModel : ObservableObject
 {
+	[ObservableProperty]
+	private double minShippingCosts;
 
 	[ObservableProperty]
 	public int supplyOrderId;
@@ -52,6 +54,10 @@ public partial class SupplyOrderViewModel : ObservableObject
 	public bool HasSubTotal => SubTotal > 0;
 	public bool HasShippingCosts => ShippingCosts > 0;
 	public bool HasOrderCosts => OrderCosts > 0;
+	public bool HasGrandTotal =>
+		SubTotal > 0 &&
+		GrandTotalOrder != SubTotal &&
+		( ShippingCosts > 0 || OrderCosts > 0 );
 
 	// Since we want to update the HasXXX properties when values change we can overwrite the OnPropertyChanged handlers
 	partial void OnSubTotalChanged( double value )
@@ -69,6 +75,11 @@ public partial class SupplyOrderViewModel : ObservableObject
 		OnPropertyChanged( nameof( HasOrderCosts ) );
 	}
 
+	partial void OnGrandTotalOrderChanged( double value )
+	{
+		OnPropertyChanged( nameof( HasGrandTotal ) );
+	}
+
 	public void UpdateOrderTotals( double totalOrderCost, double shippingCosts, double orderCosts )
 	{
 		SubTotal = totalOrderCost;
@@ -77,6 +88,35 @@ public partial class SupplyOrderViewModel : ObservableObject
 		GrandTotalOrder = totalOrderCost + shippingCosts + orderCosts;
 	}
 
+	public void CalculateTotalOrderCost()
+	{
+		double subTotalOrder = 0.00;
+		double shippingCosts = 0.00;
+		double orderCosts = 0.00;
+
+		// Get Selected supplier
+		var selectedSupplier = SupplierList.FirstOrDefault(s => s.SupplierId == SelectedSupplier);
+
+		if ( selectedSupplier != null )
+		{
+			orderCosts = selectedSupplier.SupplierOrderCosts;
+		}
+
+		// calculate subtotal for the selected products
+		foreach ( var product in SelectedProducts )
+		{
+			subTotalOrder += product.ProductToOrder * product.SupplierPrice;
+		}
+
+		// Calculate send costs
+		if ( subTotalOrder < MinShippingCosts && selectedSupplier != null )
+		{
+			shippingCosts = selectedSupplier.SupplierShippingCosts;
+		}
+
+		// Update Totals
+		UpdateOrderTotals( subTotalOrder, shippingCosts, orderCosts );
+	}
 	private SupplyOrderModel? selectedOrder;
 	public SupplyOrderModel? SelectedOrder
 	{
@@ -203,6 +243,8 @@ public partial class SupplyOrderViewModel : ObservableObject
 				else if ( !selectedProduct.IsSelected && SelectedProducts.Contains( selectedProduct ) )
 					SelectedProducts.Remove( selectedProduct );
 			}
+
+			CalculateTotalOrderCost();
 		}
 	}
 	#endregion

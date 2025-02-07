@@ -14,6 +14,8 @@ public class InventoryOrderModel : INotifyPropertyChanged
 	public string? ProductName { get; set; }
 	public double ProductPrice { get; set; }
 	public double ProductMinimalStock { get; set; }
+	public double ProductOrderPer { get; set; }
+	public double ProductToOrder { get; set; }
 	public string? ProductCategory { get; set; }
 	public double ProductInventory { get; set; }
 	public double ProductInOrder { get; set; }
@@ -53,6 +55,8 @@ public class InventoryOrderModel : INotifyPropertyChanged
 		{ DBNames.ProductInventoryOrderProcedureFieldNameProductMinimalInventory, "InventoryOrder" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameProductMinimalValue, "Value" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameProductMinimalOrder, "InOrder" },
+		{ DBNames.ProductInventoryOrderProcedureFieldNameProductOrderPer, "OrderPer" },
+		{ DBNames.ProductInventoryOrderProcedureFieldNameProductToOrder, "ToOrder" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameProductShort, "Short" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameSupplierProductNumber, "SupplierProductNumber" },
 		{ DBNames.ProductInventoryOrderProcedureFieldNameSupplierProductName, "SupplierProductName" },

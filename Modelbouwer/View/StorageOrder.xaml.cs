@@ -85,21 +85,44 @@ public partial class StorageOrder : Page
 
 		foreach ( var line in viewModel.SupplyOrderViewModel.SupplierOrderLineShortList )
 		{
-			var _productId = line.SupplyOrderlineShortProductId;
-
-			var records = dataGrid.View.Records;
-
-			foreach ( var record in records )
+			foreach ( var record in dataGrid.View.Records )
 			{
-				var dataRow = record.Data as SupplyOrderLineModel;
-				if ( line.SupplyOrderlineShortProductId == ( ( Modelbouwer.Model.InventoryOrderModel ) record.Data ).ProductId )
+				var inventoryOrderModel = record.Data as Modelbouwer.Model.InventoryOrderModel;
+
+				// Zoek het bijbehorende product in de ProductViewModel
+				var correspondingProduct = viewModel.ProductViewModel.Product
+				.FirstOrDefault(p => p.ProductId == line.SupplyOrderlineShortProductId);
+
+				if ( inventoryOrderModel != null &&
+					line.SupplyOrderlineShortProductId == inventoryOrderModel.ProductId )
 				{
-					( ( Modelbouwer.Model.InventoryOrderModel ) record.Data ).IsSelected = true;
-					( ( Modelbouwer.Model.InventoryOrderModel ) record.Data ).ProductShortInventory = line.SupplyOrderlineShortAmount;
+					inventoryOrderModel.IsSelected = true;
+
+					// Bereken de bestelhoeveelheid op basis van ProductStandardQuantity
+					double standardQuantity = correspondingProduct?.ProductStandardQuantity ?? 1;
+					double orderAmount = line.SupplyOrderlineShortAmount;
+
+					// Bereken de juiste bestelhoeveelheid
+					double calculatedOrderQuantity = CalculateOrderQuantity(orderAmount, standardQuantity);
+
+					inventoryOrderModel.ProductShortInventory = calculatedOrderQuantity;
 				}
 			}
 		}
 		CalculateTotalOrderCost();
+	}
+
+	private double CalculateOrderQuantity( double requestedAmount, double standardQuantity )
+	{
+		// Als de standaard bestel hoeveelheid 0 of 1 is, gebruik dan de oorspronkelijke hoeveelheid
+		if ( standardQuantity <= 1 )
+			return requestedAmount;
+
+		// Bereken hoeveel volledige standaard hoeveelheden nodig zijn
+		double fullQuantities = Math.Ceiling(requestedAmount / standardQuantity);
+
+		// Bereken de finale bestelhoeveelheid
+		return fullQuantities * standardQuantity;
 	}
 
 	private void SelectedProductsDataGrid_SelectionChanged( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
@@ -112,37 +135,15 @@ public partial class StorageOrder : Page
 		CalculateTotalOrderCost();
 	}
 
+	#region calculate subtotal, shipping costs, order costs and grand total for each order and update the view
 	private void CalculateTotalOrderCost()
 	{
 		var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
-		var selectedSupplier = viewModel.SupplyOrderViewModel.SupplierList.FirstOrDefault(s => s.SupplierId == viewModel.SupplyOrderViewModel.SelectedSupplier);
-
-		double subTotalOrder = 0.00;
-		double shippingCosts = 0.00;
-		double orderCosts = 0.00;
-
-		if ( selectedSupplier != null )
-		{
-			orderCosts = selectedSupplier.SupplierOrderCosts;
-		}
-
-		if ( selectedProductsDataGrid.View?.Records != null )
-		{
-			foreach ( var record in selectedProductsDataGrid.View.Records )
-			{
-				var inventoryOrder = (Modelbouwer.Model.InventoryOrderModel)record.Data;
-				subTotalOrder += inventoryOrder.ProductShortInventory * inventoryOrder.SupplierPrice;
-			}
-
-			if ( subTotalOrder < _minShippingCosts )
-			{
-				shippingCosts = selectedSupplier.SupplierShippingCosts;
-			}
-		}
-
-		viewModel.SupplyOrderViewModel.UpdateOrderTotals( subTotalOrder, shippingCosts, orderCosts );
+		viewModel?.SupplyOrderViewModel.CalculateTotalOrderCost();
 	}
+	#endregion
 
+	#region The selected supplier is changed
 	private void SupplierSelectionChanged( object sender, SelectionChangedEventArgs e )
 	{
 		var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
@@ -158,4 +159,6 @@ public partial class StorageOrder : Page
 			viewModel.SupplyOrderViewModel.UpdateOrderTotals( 0, shippingCosts, orderCosts );
 		}
 	}
+	#endregion
+
 }

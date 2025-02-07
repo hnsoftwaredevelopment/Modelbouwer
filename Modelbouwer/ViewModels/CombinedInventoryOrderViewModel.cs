@@ -2,9 +2,11 @@
 public class CombinedInventoryOrderViewModel
 {
 	public SupplyOrderViewModel SupplyOrderViewModel { get; set; }
+	public ProductViewModel ProductViewModel { get; set; }
 
 	public CombinedInventoryOrderViewModel()
 	{
 		SupplyOrderViewModel = new();
+		ProductViewModel = new();
 	}
 }

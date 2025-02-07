@@ -694,6 +694,8 @@
 	<system:String x:Key="Edit.Order.DataGrid.Header.Price">Prijs</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.SupplierPrice">Inkoopprijs</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.MinStock">Minimaal</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.OrderPer">Bestel per</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.ToOrder">Bestellen</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.Category">Categorie</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.Inventory">Voorraad</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.InOrder">Besteld</system:String>
