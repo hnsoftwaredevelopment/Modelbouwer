@@ -24,6 +24,7 @@
 		<converter:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
 		<converter:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
 		<converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+		<converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
@@ -77,13 +78,12 @@
 						<RowDefinition Height="30" />
 						<RowDefinition Height="30" />
 						<RowDefinition Height="30" />
-						<RowDefinition Height="30" />
+						<RowDefinition Height="44" />
 					</Grid.RowDefinitions>
 
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="100" />
 						<ColumnDefinition />
-						<ColumnDefinition Width="100" />
 						<ColumnDefinition />
 					</Grid.ColumnDefinitions>
 
@@ -99,6 +99,7 @@
 							<ColumnDefinition Width="AUTO" />
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
+
 						<syncfusion:ComboBoxAdv
 							x:Name="SupplierComboBox"
 							Grid.Column="0"
@@ -139,21 +140,150 @@
 						</syncfusion:ComboBoxAdv>
 					</Grid>
 
-					<TextBlock
+					<!--#region Costs section, Shipping costs, Order Costs and Grand Total will be hidden if costs are 0-->
+					<StackPanel
 						Grid.Row="0"
+						Grid.RowSpan="4"
 						Grid.Column="2"
-						VerticalAlignment="Center"
-						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderCosts.Text}"
-						/>
-					<TextBox
-						x:Name="TotalOrder"
-						Grid.Row="0"
-						Grid.Column="3"
-						Width="120"
-						HorizontalContentAlignment="Right"
-						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="0,00"
-						/>
+						Orientation="Vertical"
+						>
+						<!--#region Order Total section, always visible-->
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="100" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30" />
+							</Grid.RowDefinitions>
+
+							<TextBlock
+								Grid.Column="0"
+								VerticalAlignment="Center"
+								Text="{StaticResource Edit.Inventory.Orders.SupplierOrderCosts.Text}"
+								/>
+							<TextBox
+								x:Name="SubTotalOrder"
+								Grid.Column="1"
+								Width="100"
+								HorizontalContentAlignment="Right"
+								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+								Text="{Binding SupplyOrderViewModel.SubTotal, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
+								/>
+						</Grid>
+						<!--#endregion-->
+
+						<!--#region Shipping costs section, Hide when 0-->
+						<Grid Visibility="{Binding SupplyOrderViewModel.HasShippingCosts, Converter={StaticResource BooleanToVisibilityConverter}}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="100" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30" />
+							</Grid.RowDefinitions>
+
+							<TextBlock
+								Grid.Column="0"
+								VerticalAlignment="Center"
+								Text="{StaticResource Edit.Inventory.Orders.SupplierOrderSendCosts.Text}"
+								/>
+							<TextBox
+								x:Name="SupplierShippingCosts"
+								Grid.Column="1"
+								Width="100"
+								HorizontalContentAlignment="Right"
+								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+								Text="{Binding SupplyOrderViewModel.ShippingCosts, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
+								/>
+						</Grid>
+						<!--#endregion-->
+
+						<!--#region Order costs section, Hide when 0-->
+						<Grid Visibility="{Binding SupplyOrderViewModel.HasOrderCosts, Converter={StaticResource BooleanToVisibilityConverter}}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="100" />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="30" />
+							</Grid.RowDefinitions>
+
+							<TextBlock
+								Grid.Column="0"
+								VerticalAlignment="Center"
+								Text="{StaticResource Edit.Inventory.Orders.SupplierOrderOrderCosts.Text}"
+								/>
+							<TextBox
+								x:Name="SupplierOrderCosts"
+								Grid.Column="1"
+								Width="100"
+								HorizontalContentAlignment="Right"
+								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+								Text="{Binding SupplyOrderViewModel.OrderCosts, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
+								/>
+						</Grid>
+						<!--#endregion-->
+
+						<!--#region Grand total section, Hide when Order Total = 0-->
+						<Grid Visibility="{Binding SupplyOrderViewModel.HasSubTotal, Converter={StaticResource BooleanToVisibilityConverter}}">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="30" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<Border
+								Grid.Row="0"
+								Width="200"
+								Margin="0,2,0,2"
+								HorizontalAlignment="Left"
+								BorderBrush="Black"
+								BorderThickness="0,.5,0,0"
+								/>
+
+							<Grid Grid.Row="1">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="100" />
+									<ColumnDefinition Width="100" />
+								</Grid.ColumnDefinitions>
+
+								<TextBlock
+									Grid.Column="0"
+									VerticalAlignment="Center"
+									Text="{StaticResource Edit.Inventory.Orders.SupplierOrderTotalCosts.Text}"
+									/>
+								<TextBox
+									x:Name="GrandTotal"
+									Grid.Column="1"
+									Width="100"
+									HorizontalContentAlignment="Right"
+									IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+									Text="{Binding SupplyOrderViewModel.GrandTotalOrder, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
+									/>
+							</Grid>
+							<Border
+								Grid.Row="2"
+								Width="200"
+								Margin="0,2,0,2"
+								HorizontalAlignment="Left"
+								BorderBrush="Black"
+								BorderThickness="0,.75,0,0"
+								/>
+							<Border
+								Grid.Row="3"
+								Width="200"
+								HorizontalAlignment="Left"
+								BorderBrush="Black"
+								BorderThickness="0,.75,0,0"
+								/>
+						</Grid>
+						<!--#endregion-->
+					</StackPanel>
+					<!--#endregion-->
 
 					<TextBlock
 						Grid.Row="1"
@@ -161,6 +291,7 @@
 						VerticalAlignment="Center"
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderNumber.Text}"
 						/>
+
 					<TextBox
 						Grid.Row="1"
 						Grid.Column="1"
@@ -170,27 +301,12 @@
 						/>
 
 					<TextBlock
-						Grid.Row="1"
-						Grid.Column="2"
-						VerticalAlignment="Center"
-						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderSendCosts.Text}"
-						/>
-					<TextBox
-						Name="SupplierShippingCosts"
-						Grid.Row="1"
-						Grid.Column="3"
-						Width="120"
-						HorizontalContentAlignment="Right"
-						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="0,00"
-						/>
-
-					<TextBlock
 						Grid.Row="2"
 						Grid.Column="0"
 						VerticalAlignment="Center"
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Text}"
 						/>
+
 					<TextBox
 						Grid.Row="2"
 						Grid.Column="1"
@@ -198,39 +314,6 @@
 						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
 						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
 						/>
-
-					<TextBlock
-						Grid.Row="2"
-						Grid.Column="2"
-						VerticalAlignment="Center"
-						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderOrderCosts.Text}"
-						/>
-					<TextBox
-						Name="SupplierOrderCosts"
-						Grid.Row="2"
-						Grid.Column="3"
-						Width="120"
-						HorizontalContentAlignment="Right"
-						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="0,00"
-						/>
-
-					<TextBlock
-						Grid.Row="3"
-						Grid.Column="2"
-						VerticalAlignment="Center"
-						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderTotalCosts.Text}"
-						/>
-					<TextBox
-						Name="GrandTotal"
-						Grid.Row="3"
-						Grid.Column="3"
-						Width="120"
-						HorizontalContentAlignment="Right"
-						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="0,00"
-						/>
-
 				</Grid>
 			</Grid>
 			<!--#endregion-->

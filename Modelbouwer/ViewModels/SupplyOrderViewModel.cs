@@ -37,6 +37,46 @@ public partial class SupplyOrderViewModel : ObservableObject
 	[ObservableProperty]
 	public string? supplyOrderClosedDate;
 
+	[ObservableProperty]
+	private double _subTotal;
+
+	[ObservableProperty]
+	private double _shippingCosts;
+
+	[ObservableProperty]
+	private double _orderCosts;
+
+	[ObservableProperty]
+	private double _grandTotalOrder;
+
+	public bool HasSubTotal => SubTotal > 0;
+	public bool HasShippingCosts => ShippingCosts > 0;
+	public bool HasOrderCosts => OrderCosts > 0;
+
+	// Since we want to update the HasXXX properties when values change we can overwrite the OnPropertyChanged handlers
+	partial void OnSubTotalChanged( double value )
+	{
+		OnPropertyChanged( nameof( HasSubTotal ) );
+	}
+
+	partial void OnShippingCostsChanged( double value )
+	{
+		OnPropertyChanged( nameof( HasShippingCosts ) );
+	}
+
+	partial void OnOrderCostsChanged( double value )
+	{
+		OnPropertyChanged( nameof( HasOrderCosts ) );
+	}
+
+	public void UpdateOrderTotals( double totalOrderCost, double shippingCosts, double orderCosts )
+	{
+		SubTotal = totalOrderCost;
+		ShippingCosts = shippingCosts;
+		OrderCosts = orderCosts;
+		GrandTotalOrder = totalOrderCost + shippingCosts + orderCosts;
+	}
+
 	private SupplyOrderModel? selectedOrder;
 	public SupplyOrderModel? SelectedOrder
 	{
