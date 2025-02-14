@@ -3,18 +3,31 @@ using System.Runtime.CompilerServices;
 
 namespace Modelbouwer.Model;
 
-public class SupplyOrderModel
+public class SupplyOrderModel : ObservableObject
 {
 	public event PropertyChangedEventHandler? PropertyChanged;
 
 	protected void OnPropertyChanged( [CallerMemberName] string? propertyName = null ) =>
-		PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
+	PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
 
 	public int SupplyOrderId { get; set; }
 	public int SupplyOrderSupplierId { get; set; }
 	public int SupplyOrderCurrencyId { get; set; }
-	public string? SupplyOrderNumber { get; set; }
-	public string? SupplyOrderDate { get; set; }
+	//public string? SupplyOrderNumber { get; set; }
+	//public string? SupplyOrderDate { get; set; }
+	private string _supplyOrderNumber = string.Empty;
+	public string SupplyOrderNumber
+	{
+		get => _supplyOrderNumber;
+		set => SetProperty( ref _supplyOrderNumber, value );
+	}
+
+	private DateOnly? _supplyOrderDate;
+	public DateOnly? SupplyOrderDate
+	{
+		get => _supplyOrderDate;
+		set => SetProperty( ref _supplyOrderDate, value );
+	}
 	public string? SupplyOrderCurrencySymbol { get; set; }
 	public double SupplyOrderCurrencyRate { get; set; }
 	public double SupplyOrderShippingCosts { get; set; }

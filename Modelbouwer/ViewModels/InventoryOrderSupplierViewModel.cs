@@ -100,21 +100,21 @@ public partial class InventoryOrderSupplierViewModel : ObservableObject
 	//	OnPropertyChanged( nameof( ProductList ) );
 	//}
 
-	//private int selectedSupplierId;
+	//private int _selectedSupplierId;
 	//public int SelectedSupplier
 	//{
-	//	get => selectedSupplierId;
+	//	get => _selectedSupplierId;
 	//	set
 	//	{
-	//		if ( selectedSupplierId != value )
+	//		if ( _selectedSupplierId != value )
 	//		{
-	//			selectedSupplierId = value;
+	//			_selectedSupplierId = value;
 	//			OnPropertyChanged( nameof( SelectedSupplier ) );
 
-	//			LoadProductsForSelectedSupplier( selectedSupplierId );
+	//			LoadProductsForSelectedSupplier( _selectedSupplierId );
 
-	//			SelectedSupplierChanged?.Invoke( this, selectedSupplierId );
-	//			//SupplierOrderList = new ObservableCollection<SupplyOrderModel>( DBCommands.GetSupplierOrderList( selectedSupplierId.ToString() ) );
+	//			SelectedSupplierChanged?.Invoke( this, _selectedSupplierId );
+	//			//SupplierOrderList = new ObservableCollection<SupplyOrderModel>( DBCommands.GetSupplierOrderList( _selectedSupplierId.ToString() ) );
 	//		}
 	//	}
 	//}

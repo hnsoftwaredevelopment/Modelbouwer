@@ -101,7 +101,7 @@ public partial class StorageManagement : Page
 			var propertyInfo = record.GetType().GetProperty(columnName);
 			if ( propertyInfo != null )
 			{
-				_originalValue = propertyInfo.GetValue( record ); // Store original value
+				_originalValue = propertyInfo.GetValue( record ) ?? new object(); // Store original value
 			}
 		}
 	}

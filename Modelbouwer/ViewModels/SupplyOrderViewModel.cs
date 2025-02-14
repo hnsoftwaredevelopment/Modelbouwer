@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 
+using CommunityToolkit.Mvvm.Input;
+
 namespace Modelbouwer.ViewModels;
 public partial class SupplyOrderViewModel : ObservableObject
 {
@@ -15,11 +17,33 @@ public partial class SupplyOrderViewModel : ObservableObject
 	[ObservableProperty]
 	public int supplyOrderCurrencyId;
 
-	[ObservableProperty]
-	public string? supplyOrderNumber;
+	public string SupplyOrderNumber
+	{
+		get => SelectedOrder?.SupplyOrderNumber ?? string.Empty;
+		set
+		{
+			if ( SelectedOrder != null && SelectedOrder.SupplyOrderNumber != value )
+			{
+				SelectedOrder.SupplyOrderNumber = value;
+				UpdateCanSave();
+			}
+		}
+	}
 
-	[ObservableProperty]
-	public string? supplyOrderDate;
+	public DateTime? SupplyOrderDate
+	{
+		get => SelectedOrder?.SupplyOrderDate.HasValue == true ? ( DateTime? ) SelectedOrder.SupplyOrderDate.Value.ToDateTime( TimeOnly.MinValue ) : null;
+		set
+		{
+			if ( SelectedOrder != null && value.HasValue )
+			{
+				SelectedOrder.SupplyOrderDate = DateOnly.FromDateTime( value.Value );
+				UpdateCanSave();
+				Debug.WriteLine( $"SupplyOrderDate updated to: {value}" );
+			}
+		}
+	}
+
 
 	[ObservableProperty]
 	public string? supplyOrderCurrencySymbol;
@@ -63,21 +87,29 @@ public partial class SupplyOrderViewModel : ObservableObject
 	partial void OnSubTotalChanged( double value )
 	{
 		OnPropertyChanged( nameof( HasSubTotal ) );
+		UpdateCanSave();
+		//CommandManager.InvalidateRequerySuggested();
 	}
 
 	partial void OnShippingCostsChanged( double value )
 	{
 		OnPropertyChanged( nameof( HasShippingCosts ) );
+		UpdateCanSave();
+		//CommandManager.InvalidateRequerySuggested();
 	}
 
 	partial void OnOrderCostsChanged( double value )
 	{
 		OnPropertyChanged( nameof( HasOrderCosts ) );
+		UpdateCanSave();
+		//CommandManager.InvalidateRequerySuggested();
 	}
 
 	partial void OnGrandTotalOrderChanged( double value )
 	{
 		OnPropertyChanged( nameof( HasGrandTotal ) );
+		UpdateCanSave();
+		//CommandManager.InvalidateRequerySuggested();
 	}
 
 	public void UpdateOrderTotals( double totalOrderCost, double shippingCosts, double orderCosts )
@@ -94,41 +126,63 @@ public partial class SupplyOrderViewModel : ObservableObject
 		double shippingCosts = 0.00;
 		double orderCosts = 0.00;
 
-		// Get Selected supplier
-		var selectedSupplier = SupplierList.FirstOrDefault(s => s.SupplierId == SelectedSupplier);
-
-		if ( selectedSupplier != null )
+		if ( SelectedSupplier != 0 )
 		{
-			orderCosts = selectedSupplier.SupplierOrderCosts;
+			var selectedSupplier = SupplierList.FirstOrDefault(
+				s => s.SupplierId == SelectedSupplier);
+
+			if ( selectedSupplier != null )
+			{
+				orderCosts = selectedSupplier.SupplierOrderCosts;
+			}
+
+			// calculate subtotal for the selected products
+			foreach ( var product in SelectedProducts )
+			{
+				subTotalOrder += product.ProductToOrder * product.SupplierPrice;
+			}
+
+			// Calculate send costs
+			if ( subTotalOrder < MinShippingCosts )
+			{
+				shippingCosts = selectedSupplier.SupplierShippingCosts;
+			}
 		}
 
-		// calculate subtotal for the selected products
-		foreach ( var product in SelectedProducts )
-		{
-			subTotalOrder += product.ProductToOrder * product.SupplierPrice;
-		}
-
-		// Calculate send costs
-		if ( subTotalOrder < MinShippingCosts && selectedSupplier != null )
-		{
-			shippingCosts = selectedSupplier.SupplierShippingCosts;
-		}
-
-		// Update Totals
 		UpdateOrderTotals( subTotalOrder, shippingCosts, orderCosts );
 	}
+
 	private SupplyOrderModel? selectedOrder;
 	public SupplyOrderModel? SelectedOrder
 	{
 		get => selectedOrder;
 		set
 		{
+			// First Remove event handler of the previous order
+			if ( selectedOrder != null )
+			{
+				selectedOrder.PropertyChanged -= SelectedOrder_PropertyChanged;
+			}
+
 			if ( selectedOrder != value )
 			{
 				selectedOrder = value;
+
+				if ( selectedOrder != null )
+				{
+					selectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
+				}
+
 				IsNewOrder = selectedOrder == null;
 				OnPropertyChanged( nameof( SelectedOrder ) );
 				UpdateFilteredOrderLines();
+				UpdateCanSave();
+
+				if ( selectedOrder != null )
+				{
+					selectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
+				}
+
 			}
 		}
 	}
@@ -194,6 +248,11 @@ public partial class SupplyOrderViewModel : ObservableObject
 				SelectedOrder = selectedOrder.IsSelected ? selectedOrder : null;
 			}
 		}
+		if ( e.PropertyName == nameof( SupplyOrderModel.SupplyOrderNumber ) ||
+			e.PropertyName == nameof( SupplyOrderModel.SupplyOrderDate ) )
+		{
+			UpdateCanSave();
+		}
 	}
 	#endregion
 
@@ -226,6 +285,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 					}
 				}
 
+				CommandManager.InvalidateRequerySuggested();
 				OnPropertyChanged( nameof( ProductList ) );
 			}
 		}
@@ -251,31 +311,55 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 	public event EventHandler<int>? SelectedSupplierChanged;
 
-	private int selectedSupplierId;
+	private int _selectedSupplierId;
 	public int SelectedSupplier
 	{
-		get => selectedSupplierId;
+		get => _selectedSupplierId;
 		set
 		{
-			if ( selectedSupplierId != value )
+			if ( _selectedSupplierId != value )
 			{
-				selectedSupplierId = value;
-				OnPropertyChanged( nameof( SelectedSupplier ) );
-
-				LoadProductsForSelectedSupplier( selectedSupplierId );
+				_selectedSupplierId = value;
+				LoadProductsForSelectedSupplier( _selectedSupplierId );
 				UpdateFilteredOrders();
+				UpdateCanSave();
 
-				SelectedSupplierChanged?.Invoke( this, selectedSupplierId );
+				// Create a new SelectedOrder if no existing order is selected
+				if ( SelectedOrder == null )
+				{
+					SelectedOrder = new SupplyOrderModel
+					{
+						SupplyOrderNumber = string.Empty,
+						SupplyOrderDate = null,
+						SupplyOrderSupplierId = _selectedSupplierId
+					};
+					IsNewOrder = true;
+				}
+				else { IsNewOrder = false; }
+
+				SelectedSupplierChanged?.Invoke( this, _selectedSupplierId );
+			}
+			else
+			{
+				CommandManager.InvalidateRequerySuggested();
 			}
 		}
 	}
 
-	private void LoadProductsForSelectedSupplier( int supplierId )
+
+	public void LoadProductsForSelectedSupplier( int supplierId )
 	{
-		// Stel hier je DB-oproep in om de productenlijst te halen op basis van supplierId
-		ProductList = [ .. DBCommands.GetInventoryOrder( supplierId ) ];
-		// Zorg ervoor dat de UI wordt geïnformeerd over de wijziging
-		OnPropertyChanged( nameof( ProductList ) );
+		try
+		{
+			var products = DBCommands.GetInventoryOrder(supplierId);
+			ProductList = [ .. products ];
+
+			OnPropertyChanged( nameof( ProductList ) );
+		}
+		catch ( Exception ex )
+		{
+			throw; // Re-throw de exception om het probleem niet te verbergen
+		}
 	}
 
 	private void UpdateFilteredOrders()
@@ -289,25 +373,103 @@ public partial class SupplyOrderViewModel : ObservableObject
 		else
 		{
 			// Leeg de lijst als er geen leverancier is geselecteerd
-			FilteredOrders = new ObservableCollection<SupplyOrderModel>();
+			FilteredOrders = [ ];
 		}
 
 		OnPropertyChanged( nameof( FilteredOrders ) );
 	}
 
-	private bool isNewOrder = true;
+	private bool _isNewOrder = true;
 	public bool IsNewOrder
 	{
-		get => isNewOrder;
+		get => _isNewOrder;
 		set
 		{
-			if ( isNewOrder != value )
+			if ( _isNewOrder != value )
 			{
-				isNewOrder = value;
+				_isNewOrder = value;
 				OnPropertyChanged( nameof( IsNewOrder ) );
 			}
 		}
 	}
+
+	#region Clear all fields
+	public IRelayCommand ClearSelectionCommand { get; }
+
+	private void ClearAllFields()
+	{
+		// Clear checkbox selections in grid
+		foreach ( var item in ProductList )
+		{
+			item.IsSelected = false;
+		}
+
+		// Reset other fields
+		if ( selectedOrder != null )
+		{
+			selectedOrder.PropertyChanged -= SelectedOrder_PropertyChanged;
+		}
+		SelectedSupplier = 0;
+		SelectedOrder = null;
+		SupplyOrderNumber = string.Empty;
+		SupplyOrderDate = null;
+		SelectedProducts.Clear();
+
+		if ( IsNewOrder )
+		{
+			// Als het een nieuwe order is, maak een nieuwe lege SelectedOrder aan
+			SelectedOrder = new()
+			{
+				SupplyOrderNumber = string.Empty,
+				SupplyOrderDate = null
+			};
+		}
+		else
+		{
+			// Als het een bestaande order was, zet gewoon de velden op leeg
+			if ( SelectedOrder != null )
+			{
+				SelectedOrder.SupplyOrderNumber = string.Empty;
+				SelectedOrder.SupplyOrderDate = null;
+			}
+		}
+
+		// Notify property changes
+		OnPropertyChanged( nameof( ProductList ) );
+		OnPropertyChanged( nameof( SelectedSupplier ) );
+		UpdateCanSave();
+	}
+	#endregion
+
+	#region Save Order
+	public IRelayCommand SaveCommand { get; }
+
+	private bool _canSave;
+	public bool CanSave
+	{
+		get => _canSave;
+		set => SetProperty( ref _canSave, value );
+	}
+
+	private void UpdateCanSave()
+	{
+		bool hasSupplier = SelectedSupplier != 0;
+		bool hasOrderNumber = !string.IsNullOrWhiteSpace(SelectedOrder?.SupplyOrderNumber);
+		bool hasOrderDate = SelectedOrder?.SupplyOrderDate != null;
+		bool hasSelectedProducts = ProductList?.Any(p => p.IsSelected) ?? false;
+
+		Debug.WriteLine( $"UpdateCanSave: Supplier({hasSupplier}) && OrderNumber({hasOrderNumber}) && OrderDate({hasOrderDate}) && Products({hasSelectedProducts})" );
+
+		CanSave = hasSupplier && hasOrderNumber && hasOrderDate && hasSelectedProducts;
+	}
+
+	[RelayCommand( CanExecute = nameof( CanSave ) )]
+	private void SaveOrder()
+	{
+		// Je bestaande save logica
+		Debug.WriteLine( "Hello" );
+	}
+	#endregion
 
 	#region Filter the orderlnes based on the selected OrderId
 	private ObservableCollection<SupplyOrderLineModel> _filteredOrderLines = new();
@@ -342,13 +504,27 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 	public SupplyOrderViewModel()
 	{
+		ClearSelectionCommand = new RelayCommand( ClearAllFields );
+		SaveCommand = new RelayCommand( SaveOrder, () => CanSave );
+
 		SupplierList = [ .. DBCommands.GetSupplierList() ];
 		SupplierOrderList = [ .. DBCommands.GetSupplierOrderList() ];
 		SupplierOrderLineShortList = [ .. DBCommands.GetSupplierOrderLineShortList() ];
 
 		SelectedProducts = [ ];
 
+		// Ensure SelectedOrder is initialized
+		if ( IsNewOrder )
+		{
+			SelectedOrder = new SupplyOrderModel
+			{
+				SupplyOrderNumber = string.Empty,
+				SupplyOrderDate = null
+			};
+		}
+
 		UpdateFilteredOrderLines();
+		UpdateCanSave();
 	}
 }
 

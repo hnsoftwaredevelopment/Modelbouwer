@@ -1,13 +1,16 @@
-﻿namespace Modelbouwer.View;
+﻿using TextBox = System.Windows.Controls.TextBox;
+
+namespace Modelbouwer.View;
 
 public partial class StorageOrder : Page
 {
-	double _minShippingCosts= 0.00;
+	double minShippingCosts= 0.00;
 
 	public StorageOrder()
 	{
 		InitializeComponent();
 		DataContext = new CombinedInventoryOrderViewModel();
+		Debug.WriteLine( $"DataContext type: {DataContext?.GetType().FullName}" );
 	}
 
 	#region Switch between search and filter button
@@ -151,7 +154,7 @@ public partial class StorageOrder : Page
 		if ( selectedSupplier != null )
 		{
 			var shippingCosts = selectedSupplier.SupplierShippingCosts;
-			_minShippingCosts = selectedSupplier.SupplierMinShippingCosts;
+			minShippingCosts = selectedSupplier.SupplierMinShippingCosts;
 			var orderCosts = selectedSupplier.SupplierOrderCosts;
 
 			SupplierShippingCosts.Text = shippingCosts.ToString( "N", CultureInfo.CreateSpecificCulture( "nl-NL" ) );
@@ -161,4 +164,30 @@ public partial class StorageOrder : Page
 	}
 	#endregion
 
+	#region Clear selected supplier, all selected rows, order number and Order date
+	private void ButtonClear( object sender, RoutedEventArgs e )
+	{
+
+	}
+
+	#endregion
+
+	#region Save the order to the table, if products are new or changed for the selected supplier  update this table
+	private void ButtonSave( object sender, RoutedEventArgs e )
+	{
+	}
+	#endregion
+
+	private void OrderNumberChanged( object sender, TextChangedEventArgs e )
+	{
+		var textBox = sender as TextBox;
+		if ( textBox != null )
+		{
+			var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
+			if ( viewModel?.SupplyOrderViewModel?.SelectedOrder != null )
+			{
+				viewModel.SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber = textBox.Text;
+			}
+		}
+	}
 }

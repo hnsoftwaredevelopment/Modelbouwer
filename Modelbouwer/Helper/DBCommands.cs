@@ -211,8 +211,8 @@ public class DBCommands
 		{
 			brandList.Add( new BrandModel
 			{
-				BrandId = ( int ) _dt.Rows [ i ] [ 0 ],
-				BrandName = _dt.Rows [ i ] [ 1 ].ToString(),
+				BrandId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				BrandName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
 			} );
 		}
 		return brandList;
@@ -228,23 +228,23 @@ public class DBCommands
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			int? _parent = null;
-			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ); }
 
 			if ( _parent != null )
 			{
 				categoryList.Add( new CategoryModel
 				{
-					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
+					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 					CategoryParentId = ( int ) _parent,
-					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
 			else
 			{
 				categoryList.Add( new CategoryModel
 				{
-					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
-					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
 
@@ -273,23 +273,23 @@ public class DBCommands
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			int? _parent = null;
-			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ); }
 
 			if ( _parent != null )
 			{
 				categoryList.Add( new CategoryModel
 				{
-					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
+					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 					CategoryParentId = ( int ) _parent,
-					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
 			else
 			{
 				categoryList.Add( new CategoryModel
 				{
-					CategoryId = ( int ) _dt.Rows [ i ] [ 0 ],
-					CategoryName = _dt.Rows [ i ] [ 2 ].ToString()
+					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
 		}
@@ -307,13 +307,13 @@ public class DBCommands
 		{
 			contactList.Add( new SupplierContactModel
 			{
-				SupplierContactId = ( int ) _dt.Rows [ i ] [ 0 ],
-				SupplierContactSuppplierId = ( int ) _dt.Rows [ i ] [ 1 ],
-				SupplierContactName = _dt.Rows [ i ] [ 2 ].ToString(),
-				SupplierContactContactTypeId = ( int ) _dt.Rows [ i ] [ 3 ],
-				SupplierContactContactType = _dt.Rows [ i ] [ 4 ].ToString(),
-				SupplierContactMail = _dt.Rows [ i ] [ 5 ].ToString(),
-				SupplierContactPhone = _dt.Rows [ i ] [ 6 ].ToString()
+				SupplierContactId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				SupplierContactSuppplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				SupplierContactName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				SupplierContactContactTypeId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
+				SupplierContactContactType = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				SupplierContactMail = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
+				SupplierContactPhone = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] )
 			} );
 		}
 		return contactList;
@@ -330,8 +330,8 @@ public class DBCommands
 		{
 			_list.Add( new SupplierContactTypeModel
 			{
-				ContactTypeId = ( int ) _dt.Rows [ i ] [ 0 ],
-				ContactTypeName = _dt.Rows [ i ] [ 1 ].ToString(),
+				ContactTypeId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				ContactTypeName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
 			} );
 		}
 		return _list;
@@ -348,11 +348,11 @@ public class DBCommands
 		{
 			countryList.Add( new CountryModel
 			{
-				CountryId = ( int ) _dt.Rows [ i ] [ 0 ],
-				CountryCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				CountryName = _dt.Rows [ i ] [ 2 ].ToString(),
-				CountryCurrencyId = ( int ) _dt.Rows [ i ] [ 3 ],
-				CountryCurrencySymbol = _dt.Rows [ i ] [ 4 ].ToString()
+				CountryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				CountryCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				CountryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				CountryCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
+				CountryCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] )
 			} );
 		}
 		return countryList;
@@ -366,11 +366,11 @@ public class DBCommands
 		{
 			countryList.Add( new CountryViewModel
 			{
-				CountryId = ( int ) _dt.Rows [ i ] [ 0 ],
-				CountryCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				CountryName = _dt.Rows [ i ] [ 2 ].ToString(),
-				CountryCurrencyId = ( int ) _dt.Rows [ i ] [ 3 ],
-				CountryCurrencySymbol = _dt.Rows [ i ] [ 4 ].ToString()
+				CountryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				CountryCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				CountryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				CountryCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
+				CountryCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] )
 			} );
 		}
 		return countryList;
@@ -387,11 +387,11 @@ public class DBCommands
 		{
 			_list.Add( new CurrencyModel
 			{
-				CurrencyId = ( int ) _dt.Rows [ i ] [ 0 ],
-				CurrencyCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				CurrencySymbol = _dt.Rows [ i ] [ 2 ].ToString(),
-				CurrencyName = _dt.Rows [ i ] [ 3 ].ToString(),
-				CurrencyConversionRate = ( double ) _dt.Rows [ i ] [ 4 ]
+				CurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				CurrencyCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				CurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				CurrencyName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				CurrencyConversionRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] )
 			} );
 		}
 		return _list;
@@ -412,20 +412,20 @@ public class DBCommands
 			var _virtualValue = double.Parse(_dt.Rows [ i ] [ 11 ].ToString());
 			_list.Add( new InventoryModel
 			{
-				ProductId = ( int ) _dt.Rows [ i ] [ 0 ],
-				ProductCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				ProductName = _dt.Rows [ i ] [ 2 ].ToString(),
+				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
 				ProductPrice = _price,
-				ProductMinimalStock = ( double ) _dt.Rows [ i ] [ 4 ],
-				ProductCategory = _dt.Rows [ i ] [ 5 ].ToString(),
-				ProductStorageLocation = _dt.Rows [ i ] [ 6 ].ToString(),
-				ProductInventory = ( double ) _dt.Rows [ i ] [ 7 ],
+				ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] ),
+				ProductCategory = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
+				ProductStorageLocation = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
+				ProductInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 7 ] ),
 				ProductInventoryValue = _value,
-				ProductInOrder = ( double ) _dt.Rows [ i ] [ 9 ],
-				ProductVirtualInventory = ( double ) _dt.Rows [ i ] [ 10 ],
+				ProductInOrder = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 9 ] ),
+				ProductVirtualInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 10 ] ),
 				ProductVirtualInventoryValue = _virtualValue,
-				ProductShortInventory = ( double ) _dt.Rows [ i ] [ 12 ],
-				ProductTempShortInventory = ( double ) _dt.Rows [ i ] [ 13 ]
+				ProductShortInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 12 ] ),
+				ProductTempShortInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 13 ] )
 			} );
 		}
 		return _list;
@@ -441,29 +441,32 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			var _price = double.Parse(_dt.Rows [ i ] [ 4 ].ToString(), CultureInfo.InvariantCulture);
-			var _supplierPrice = double.Parse(_dt.Rows [ i ] [ 13 ].ToString(), CultureInfo.InvariantCulture);
+			if ( double.TryParse( _dt.Rows [ i ] [ 4 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double _price ) &&
+	double.TryParse( _dt.Rows [ i ] [ 13 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double _supplierPrice ) )
 
-			_list.Add( new InventoryOrderModel
-			{
-				ProductId = ( int ) _dt.Rows [ i ] [ 0 ],
-				ProductCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				ProductName = _dt.Rows [ i ] [ 2 ].ToString(),
-				SupplierProductName = _dt.Rows [ i ] [ 3 ].ToString(),
-				ProductPrice = _price,
-				ProductMinimalStock = ( double ) _dt.Rows [ i ] [ 5 ],
-				ProductOrderPer = ( double ) _dt.Rows [ i ] [ 6 ],
-				ProductCategory = _dt.Rows [ i ] [ 7 ].ToString(),
-				ProductInventory = ( double ) _dt.Rows [ i ] [ 8 ],
-				ProductInOrder = ( double ) _dt.Rows [ i ] [ 9 ],
-				ProductShortInventory = ( double ) _dt.Rows [ i ] [ 10 ],
-				ProductToOrder = ( double ) _dt.Rows [ i ] [ 11 ],
-				SupplierProductNumber = _dt.Rows [ i ] [ 12 ].ToString(),
-				SupplierPrice = _supplierPrice,
-				SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 14 ] ),
-				SupplierCurrencySymbol = _dt.Rows [ i ] [ 15 ].ToString(),
-				ProductFromSupplier = _dt.Rows [ i ] [ 16 ].ToString()
-			} );
+				//var _price = double.Parse(_dt.Rows [ i ] [ 4 ].ToString(), CultureInfo.InvariantCulture);
+				//var _supplierPrice = double.Parse(_dt.Rows [ i ] [ 13 ].ToString(), CultureInfo.InvariantCulture);
+
+				_list.Add( new InventoryOrderModel
+				{
+					ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+					ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+					ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+					SupplierProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+					ProductPrice = _price,
+					ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 5 ] ),
+					ProductOrderPer = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
+					ProductCategory = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
+					ProductInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
+					ProductInOrder = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 9 ] ),
+					ProductShortInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 10 ] ),
+					ProductToOrder = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 11 ] ),
+					SupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
+					SupplierPrice = _supplierPrice,
+					SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 14 ] ),
+					SupplierCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
+					ProductFromSupplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] )
+				} );
 		}
 		return _list;
 	}
@@ -485,17 +488,17 @@ public class DBCommands
 			{
 				storageList.Add( new StorageModel
 				{
-					StorageId = ( int ) _dt.Rows [ i ] [ 0 ],
+					StorageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 					StorageParentId = ( int ) _parent,
-					StorageName = _dt.Rows [ i ] [ 3 ].ToString()
+					StorageName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] )
 				} );
 			}
 			else
 			{
 				storageList.Add( new StorageModel
 				{
-					StorageId = ( int ) _dt.Rows [ i ] [ 0 ],
-					StorageName = _dt.Rows [ i ] [ 3 ].ToString()
+					StorageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+					StorageName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] )
 				} );
 			}
 
@@ -520,23 +523,23 @@ public class DBCommands
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			int? _parent = null;
-			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = ( int ) _dt.Rows [ i ] [ 1 ]; }
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ); }
 
 			if ( _parent != null )
 			{
 				storageList.Add( new StorageModel
 				{
-					StorageId = ( int ) _dt.Rows [ i ] [ 0 ],
+					StorageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 					StorageParentId = ( int ) _parent,
-					StorageName = _dt.Rows [ i ] [ 3 ].ToString()
+					StorageName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] )
 				} );
 			}
 			else
 			{
 				storageList.Add( new StorageModel
 				{
-					StorageId = ( int ) _dt.Rows [ i ] [ 0 ],
-					StorageName = _dt.Rows [ i ] [ 3 ].ToString()
+					StorageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+					StorageName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] )
 				} );
 			}
 		}
@@ -554,22 +557,22 @@ public class DBCommands
 		{
 			supplierList.Add( new SupplierModel
 			{
-				SupplierId = ( int ) _dt.Rows [ i ] [ 0 ],
-				SupplierCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				SupplierName = _dt.Rows [ i ] [ 2 ].ToString(),
-				SupplierAddress1 = _dt.Rows [ i ] [ 3 ].ToString(),
-				SupplierAddress2 = _dt.Rows [ i ] [ 4 ].ToString(),
-				SupplierZip = _dt.Rows [ i ] [ 5 ].ToString(),
-				SupplierCity = _dt.Rows [ i ] [ 6 ].ToString(),
-				SupplierUrl = _dt.Rows [ i ] [ 7 ].ToString(),
-				SupplierCountryId = ( int ) _dt.Rows [ i ] [ 8 ],
-				SupplierCountry = _dt.Rows [ i ] [ 9 ].ToString(),
-				SupplierCurrencyId = ( int ) _dt.Rows [ i ] [ 10 ],
-				SupplierCurrency = _dt.Rows [ i ] [ 11 ].ToString(),
-				SupplierShippingCosts = ( double ) _dt.Rows [ i ] [ 12 ],
-				SupplierMinShippingCosts = ( double ) _dt.Rows [ i ] [ 13 ],
-				SupplierOrderCosts = ( double ) _dt.Rows [ i ] [ 14 ],
-				SupplierMemo = _dt.Rows [ i ] [ 15 ].ToString(),
+				SupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				SupplierCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				SupplierName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				SupplierAddress1 = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				SupplierAddress2 = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				SupplierZip = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
+				SupplierCity = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
+				SupplierUrl = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
+				SupplierCountryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 8 ] ),
+				SupplierCountry = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
+				SupplierCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 10 ] ),
+				SupplierCurrency = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] ),
+				SupplierShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 12 ] ),
+				SupplierMinShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 13 ] ),
+				SupplierOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 14 ] ),
+				SupplierMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
 			} );
 		}
 		return supplierList;
@@ -582,22 +585,22 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			var _tempCheck = _dt.Rows [ i ] [ 4 ].ToString() == "*";
+			var _tempCheck = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "*";
 			var parsedPrice =  double.Parse(_dt.Rows [ i ] [ 10 ].ToString(), CultureInfo.InvariantCulture);
 
 			supplierList.Add( new ProductSupplierModel
 			{
-				ProductSupplierId = ( int ) _dt.Rows [ i ] [ 0 ],
-				ProductSupplierProductId = ( int ) _dt.Rows [ i ] [ 1 ],
-				ProductSupplierSupplierId = ( int ) _dt.Rows [ i ] [ 2 ],
-				ProductSupplierCurrencyId = ( int ) _dt.Rows [ i ] [ 3 ],
-				ProductSupplierDefaultSupplier = _dt.Rows [ i ] [ 4 ].ToString(),
-				ProductSupplierProductName = _dt.Rows [ i ] [ 5 ].ToString(),
-				ProductSupplierSupplierName = _dt.Rows [ i ] [ 6 ].ToString(),
-				ProductSupplierProductNumber = _dt.Rows [ i ] [ 7 ].ToString(),
-				ProductSupplierURL = _dt.Rows [ i ] [ 9 ].ToString(),
+				ProductSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				ProductSupplierProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				ProductSupplierSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
+				ProductSupplierCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
+				ProductSupplierDefaultSupplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				ProductSupplierProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
+				ProductSupplierSupplierName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
+				ProductSupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
+				ProductSupplierURL = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
 				ProductSupplierPrice = parsedPrice,
-				ProductSupplierCurrencySymbol = _dt.Rows [ i ] [ 11 ].ToString(),
+				ProductSupplierCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] ),
 				ProductSupplierDefaultSupplierCheck = _tempCheck
 			} );
 		}
@@ -615,18 +618,18 @@ public class DBCommands
 		{
 			orderList.Add( new SupplyOrderModel
 			{
-				SupplyOrderId = ( int ) _dt.Rows [ i ] [ 0 ],
-				SupplyOrderSupplierId = ( int ) _dt.Rows [ i ] [ 1 ],
-				SupplyOrderCurrencyId = ( int ) _dt.Rows [ i ] [ 2 ],
-				SupplyOrderNumber = _dt.Rows [ i ] [ 3 ].ToString(),
-				SupplyOrderDate = _dt.Rows [ i ] [ 4 ].ToString(),
-				SupplyOrderCurrencySymbol = _dt.Rows [ i ] [ 5 ].ToString(),
-				SupplyOrderCurrencyRate = ( double ) _dt.Rows [ i ] [ 6 ],
-				SupplyOrderShippingCosts = ( double ) _dt.Rows [ i ] [ 7 ],
-				SupplyOrderOrderCosts = ( double ) _dt.Rows [ i ] [ 8 ],
-				SupplyOrderMemo = _dt.Rows [ i ] [ 9 ].ToString(),
-				SupplyOrderClosed = ( sbyte ) _dt.Rows [ i ] [ 10 ],
-				SupplyOrderClosedDate = _dt.Rows [ i ] [ 11 ].ToString(),
+				SupplyOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				SupplyOrderSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				SupplyOrderCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
+				SupplyOrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				SupplyOrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 4 ] ),
+				SupplyOrderCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
+				SupplyOrderCurrencyRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
+				SupplyOrderShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 7 ] ),
+				SupplyOrderOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
+				SupplyOrderMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
+				SupplyOrderClosed = DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 10 ] ),
+				SupplyOrderClosedDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] ),
 			} );
 		}
 		return orderList;
@@ -643,11 +646,11 @@ public class DBCommands
 		{
 			orderLineList.Add( new SupplyOrderLineModel
 			{
-				SupplyOrderlineShortId = ( int ) _dt.Rows [ i ] [ 0 ],
-				SupplyOrderlineShortOrderId = ( int ) _dt.Rows [ i ] [ 1 ],
-				SupplyOrderlineShortProductId = ( int ) _dt.Rows [ i ] [ 2 ],
-				SupplyOrderlineShortAmount = ( double ) _dt.Rows [ i ] [ 3 ],
-				SupplyOrderlineShortPrice = ( double ) _dt.Rows [ i ] [ 4 ]
+				SupplyOrderlineShortId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				SupplyOrderlineShortOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				SupplyOrderlineShortProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
+				SupplyOrderlineShortAmount = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 3 ] ),
+				SupplyOrderlineShortPrice = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] )
 			} );
 		}
 		return orderLineList;
@@ -664,21 +667,21 @@ public class DBCommands
 		{
 			productList.Add( new ProductModel
 			{
-				ProductId = ( int ) _dt.Rows [ i ] [ 0 ],
-				ProductCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				ProductName = _dt.Rows [ i ] [ 2 ].ToString(),
-				ProductDimensions = _dt.Rows [ i ] [ 3 ].ToString(),
-				ProductPrice = ( double ) _dt.Rows [ i ] [ 4 ],
-				ProductMinimalStock = ( double ) _dt.Rows [ i ] [ 5 ],
-				ProductStandardQuantity = ( double ) _dt.Rows [ i ] [ 6 ],
-				ProductProjectCosts = ( int ) _dt.Rows [ i ] [ 7 ],
-				ProductUnitId = ( int ) _dt.Rows [ i ] [ 8 ],
-				ProductImageRotationAngle = _dt.Rows [ i ] [ 9 ].ToString(),
+				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				ProductDimensions = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				ProductPrice = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] ),
+				ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 5 ] ),
+				ProductStandardQuantity = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
+				ProductProjectCosts = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 7 ] ),
+				ProductUnitId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 8 ] ),
+				ProductImageRotationAngle = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
 				ProductImage = _dt.Rows [ i ] [ 10 ] != DBNull.Value ? ( byte [ ] ) _dt.Rows [ i ] [ 10 ] : GetDefaultImage(),
-				ProductBrandId = ( int ) _dt.Rows [ i ] [ 11 ],
-				ProductCategoryId = ( int ) _dt.Rows [ i ] [ 12 ],
-				ProductStorageId = ( int ) _dt.Rows [ i ] [ 13 ],
-				ProductMemo = _dt.Rows [ i ] [ 14 ].ToString()
+				ProductBrandId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 11 ] ),
+				ProductCategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 12 ] ),
+				ProductStorageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 13 ] ),
+				ProductMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] )
 			} );
 		}
 		return productList;
@@ -694,18 +697,18 @@ public class DBCommands
 		{
 			costList.Add( new ProductUsageModel
 			{
-				ProductUsageId = ( int ) _dt.Rows [ i ] [ 0 ],
-				ProductUsageProjectId = ( int ) _dt.Rows [ i ] [ 1 ],
-				ProductUsageProductId = ( int ) _dt.Rows [ i ] [ 2 ],
-				ProductUsageUsageDate = _dt.Rows [ i ] [ 3 ].ToString(),
-				ProductUsageProjectName = _dt.Rows [ i ] [ 4 ].ToString(),
-				ProductUsageProductName = _dt.Rows [ i ] [ 5 ].ToString(),
-				ProductUsageCategoryName = _dt.Rows [ i ] [ 6 ].ToString(),
-				ProductUsageCategoryId = ( int ) _dt.Rows [ i ] [ 7 ],
-				ProductUsageAmount = ( double ) _dt.Rows [ i ] [ 8 ],
-				ProductUsageProductPrice = ( double ) _dt.Rows [ i ] [ 9 ],
-				ProductUsageCosts = ( double ) _dt.Rows [ i ] [ 10 ],
-				ProductUsageComment = _dt.Rows [ i ] [ 11 ].ToString()
+				ProductUsageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				ProductUsageProjectId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				ProductUsageProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
+				ProductUsageUsageDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				ProductUsageProjectName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				ProductUsageProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
+				ProductUsageCategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
+				ProductUsageCategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 7 ] ),
+				ProductUsageAmount = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
+				ProductUsageProductPrice = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 9 ] ),
+				ProductUsageCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 10 ] ),
+				ProductUsageComment = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] )
 			} );
 		}
 		return costList;
@@ -752,30 +755,30 @@ public class DBCommands
 			#endregion
 
 			#region Determin the ElepsedHours
-			var _workedHours = TimeSpan.FromMinutes(( double ) _dt.Rows [ i ] [ 8 ]);
+			var _workedHours = TimeSpan.FromMinutes(DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ));
 			#endregion
 
 			timeList.Add( new TimeModel
 			{
-				TimeId = ( int ) _dt.Rows [ i ] [ 0 ],
-				TimeProjectId = ( int ) _dt.Rows [ i ] [ 1 ],
-				TimeProjectName = _dt.Rows [ i ] [ 2 ].ToString(),
-				TimeWorktypeId = ( int ) _dt.Rows [ i ] [ 3 ],
-				TimeWorktypeName = _dt.Rows [ i ] [ 4 ].ToString(),
-				TimeWorkDate = _dt.Rows [ i ] [ 5 ].ToString(),
-				TimeStartTime = _dt.Rows [ i ] [ 6 ].ToString(),
-				TimeEndTime = _dt.Rows [ i ] [ 7 ].ToString(),
-				TimeElapsedMinutes = ( double ) _dt.Rows [ i ] [ 8 ],
-				TimeElapsedTime = _dt.Rows [ i ] [ 9 ].ToString(),
+				TimeId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				TimeProjectId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				TimeProjectName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				TimeWorktypeId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
+				TimeWorktypeName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				TimeWorkDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
+				TimeStartTime = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
+				TimeEndTime = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
+				TimeElapsedMinutes = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
+				TimeElapsedTime = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
 				TimeWorkedHours = _workedHours,
-				TimeComment = _dt.Rows [ i ] [ 10 ].ToString(),
+				TimeComment = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 10 ] ),
 				TimeYear = int.Parse( _dt.Rows [ i ] [ 11 ].ToString() ),
 				TimeMonth = int.Parse( _dt.Rows [ i ] [ 12 ].ToString() ),
 				TimeWorkday = int.Parse( _dt.Rows [ i ] [ 13 ].ToString() ),
 				TimeWorkdayName = _workdayName,
-				TimeYearMonth = _dt.Rows [ i ] [ 14 ].ToString(),
-				TimeYearWorkday = _dt.Rows [ i ] [ 15 ].ToString(),
-				TimeSortIndex = _dt.Rows [ i ] [ 16 ].ToString()
+				TimeYearMonth = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] ),
+				TimeYearWorkday = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
+				TimeSortIndex = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] )
 			} );
 		}
 		return timeList;
@@ -796,30 +799,30 @@ public class DBCommands
 			if ( _dt.Rows [ i ] [ 15 ].ToString().Equals( "true", StringComparison.CurrentCultureIgnoreCase ) ) { _projectClosed = true; }
 			var workdaysToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) / 8;
 			var timeToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) - double.Parse( _dt.Rows [ i ] [ 9 ].ToString() );
-			var materialCosts = GetProjectMaterialCosts(( int ) _dt.Rows [ i ] [ 0 ]);
+			var materialCosts = GetProjectMaterialCosts(DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ));
 			var timeCosts = double.Parse(_dt.Rows [ i ] [ 9 ].ToString()) * HourRate;
 			var totalCosts = materialCosts + timeCosts;
 			var expectedTime = int.Parse(_dt.Rows [ i ] [ 5 ].ToString());
 
 			projectList.Add( new ProjectModel
 			{
-				ProjectId = ( int ) _dt.Rows [ i ] [ 0 ],
-				ProjectCode = _dt.Rows [ i ] [ 1 ].ToString(),
-				ProjectName = _dt.Rows [ i ] [ 2 ].ToString(),
-				ProjectStartDate = _dt.Rows [ i ] [ 3 ].ToString(),
-				ProjectEndDate = _dt.Rows [ i ] [ 4 ].ToString(),
+				ProjectId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				ProjectCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				ProjectName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				ProjectStartDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				ProjectEndDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
 				ProjectExpectedTime = expectedTime.ToString(),
 				ProjectImage = _dt.Rows [ i ] [ 6 ] != DBNull.Value ? ( byte [ ] ) _dt.Rows [ i ] [ 6 ] : GetDefaultImage(),
-				ProjectImageRotationAngle = _dt.Rows [ i ] [ 7 ].ToString(),
-				ProjectMemo = _dt.Rows [ i ] [ 8 ].ToString(),
-				ProjectTotalTimeInHours = _dt.Rows [ i ] [ 9 ].ToString(),
-				ProjectShortestWorkday = _dt.Rows [ i ] [ 10 ].ToString(),
-				ProjectShortestWorkdayHours = _dt.Rows [ i ] [ 11 ].ToString(),
-				ProjectLongestWorkday = _dt.Rows [ i ] [ 12 ].ToString(),
-				ProjectLongestWorkdayHours = _dt.Rows [ i ] [ 13 ].ToString(),
-				ProjectBuildDays = _dt.Rows [ i ] [ 14 ].ToString(),
+				ProjectImageRotationAngle = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
+				ProjectMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 8 ] ),
+				ProjectTotalTimeInHours = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
+				ProjectShortestWorkday = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 10 ] ),
+				ProjectShortestWorkdayHours = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] ),
+				ProjectLongestWorkday = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
+				ProjectLongestWorkdayHours = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 13 ] ),
+				ProjectBuildDays = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] ),
 				ProjectClosed = _projectClosed,
-				ProjectAverageHoursPerDay = _dt.Rows [ i ] [ 16 ].ToString(),
+				ProjectAverageHoursPerDay = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] ),
 				ProjectTodoTime = timeToGo.ToString(),
 				ProjectExpectedWorkdays = workdaysToGo.ToString(),
 				ProjectMaterialCosts = materialCosts.ToString(),
@@ -872,8 +875,8 @@ public class DBCommands
 		{
 			unitList.Add( new UnitModel
 			{
-				UnitId = ( int ) _dt.Rows [ i ] [ 0 ],
-				UnitName = _dt.Rows [ i ] [ 1 ].ToString(),
+				UnitId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				UnitName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
 			} );
 		}
 		return unitList;
@@ -895,17 +898,17 @@ public class DBCommands
 			{
 				worktypeList.Add( new WorktypeModel
 				{
-					WorktypeId = ( int ) _dt.Rows [ i ] [ 0 ],
+					WorktypeId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 					WorktypeParentId = ( int ) _parent,
-					WorktypeName = _dt.Rows [ i ] [ 2 ].ToString()
+					WorktypeName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
 			else
 			{
 				worktypeList.Add( new WorktypeModel
 				{
-					WorktypeId = ( int ) _dt.Rows [ i ] [ 0 ],
-					WorktypeName = _dt.Rows [ i ] [ 2 ].ToString()
+					WorktypeId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+					WorktypeName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
 

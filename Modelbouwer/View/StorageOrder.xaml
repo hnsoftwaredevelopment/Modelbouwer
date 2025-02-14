@@ -15,7 +15,6 @@
 	d:DesignWidth="1000"
 	mc:Ignorable="d"
 	>
-
 	<Page.DataContext>
 		<viewmodels:CombinedInventoryOrderViewModel />
 	</Page.DataContext>
@@ -25,6 +24,8 @@
 		<converter:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
 		<converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 		<converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<converter:TooltipValidationConverter x:Key="TooltipValidationConverter" />
+		<converter:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
@@ -78,7 +79,7 @@
 						<RowDefinition Height="30" />
 						<RowDefinition Height="30" />
 						<RowDefinition Height="30" />
-						<RowDefinition Height="44" />
+						<RowDefinition />
 					</Grid.RowDefinitions>
 
 					<Grid.ColumnDefinitions>
@@ -103,13 +104,14 @@
 						<syncfusion:ComboBoxAdv
 							x:Name="SupplierComboBox"
 							Grid.Column="0"
-							Margin="0,0,10,0"
+							Height="30"
 							HorizontalAlignment="Left"
+							VerticalAlignment="Top"
 							AutoCompleteMode="Suggest"
 							DefaultText="{StaticResource Edit.Inventory.Orders.Supplier.Tag}"
 							DisplayMemberPath="SupplierName"
 							ItemsSource="{Binding SupplyOrderViewModel.SupplierList}"
-							SelectedValue="{Binding SupplyOrderViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							SelectedValue="{Binding SupplyOrderViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True, FallbackValue=0, TargetNullValue=0}"
 							SelectedValuePath="SupplierId"
 							SelectionChanged="SupplierSelectionChanged"
 							ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Tooltip}"
@@ -128,7 +130,7 @@
 							DefaultText="{StaticResource Edit.Inventory.Orders.SupplierOrder.Tag}"
 							DisplayMemberPath="SupplyOrderNumber"
 							ItemsSource="{Binding SupplyOrderViewModel.FilteredOrders}"
-							SelectedItem="{Binding SupplyOrderViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							SelectedItem="{Binding SupplyOrderViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
 							SelectedValuePath="SupplyOrderId"
 							SelectionChanged="OrderSelected"
 							ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Tooltip}"
@@ -294,10 +296,11 @@
 
 					<TextBox
 						Grid.Row="1"
-						Grid.Column="1"
-						Width="120"
+						Grid.Column="1" Style="{DynamicResource ValidatedTextBox}"
+						Width="140"
 						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
 						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+						ToolTip="{StaticResource Edit.Inventory.Orders.SupplierOrderNumber.Tooltip.Text}"
 						/>
 
 					<TextBlock
@@ -307,13 +310,50 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Text}"
 						/>
 
-					<TextBox
-						Grid.Row="2"
-						Grid.Column="1"
-						Width="120"
-						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
-						/>
+                    <DatePicker
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Width="140"
+                        HorizontalAlignment="Left"
+                        IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
+                        SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+                        Style="{DynamicResource ValidatedDatePicker}"
+                        ToolTip="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Tooltip.Text}"
+                    />
+
+					<StackPanel
+						Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+						Grid.ColumnSpan="3"
+						Orientation="Horizontal"
+						>
+						<ToolBarTray Height="35"
+							Style="{DynamicResource DefaultToolBarTray}"
+							>
+							<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}" Height="30">
+								<Button Command="{Binding SupplyOrderViewModel.ClearSelectionCommand}" Height="30" ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Clear.Tooltip}">
+									<Image Style="{DynamicResource ToolBarResetIcon}" Height="20" Width="20" Stretch="UniformToFill"/>
+								</Button>
+								<Button Command="{Binding SupplyOrderViewModel.SaveCommand}" Height="30" ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Save.Tooltip}">
+									<Image Height="20" Width="20" Stretch="UniformToFill" >
+										<Image.Style>
+											<Style TargetType="Image" BasedOn="{StaticResource ToolBarSaveIcon}">
+												<Style.Triggers>
+													<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="False">
+														<Setter Property="Opacity" Value="0.5"/>
+													</DataTrigger>
+												</Style.Triggers>
+											</Style>
+										</Image.Style>
+									</Image>
+								</Button>
+							</ToolBar>
+						</ToolBarTray>
+						<StackPanel>
+						<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, StringFormat='Order Number: {0}'}" />
+						<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, StringFormat='Order Date: {0}'}" />
+						</StackPanel>
+					</StackPanel>
+
 				</Grid>
 			</Grid>
 			<!--#endregion-->
