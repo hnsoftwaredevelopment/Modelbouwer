@@ -223,19 +223,17 @@ public class DBCommands
 	public ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
 	{
 		categoryList ??= [ ];
-		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameName );
+		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameId );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			int? _parent = null;
-			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ); }
-
-			if ( _parent != null )
+			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value )
 			{
 				categoryList.Add( new CategoryModel
 				{
 					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-					CategoryParentId = ( int ) _parent,
+					CategoryParentId = ( int ) DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
 					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
@@ -254,46 +252,71 @@ public class DBCommands
 
 	private ObservableCollection<CategoryModel> GetCategoryHierarchy( ObservableCollection<CategoryModel>? categoryList )
 	{
-		ILookup<int?, CategoryModel> lookup = categoryList.ToLookup( c => c.CategoryParentId )  ;
-
+		ILookup<int?, CategoryModel> lookup = categoryList.ToLookup(c => c.CategoryParentId);
 		foreach ( CategoryModel category in categoryList )
 		{
-			category.SubCategories = lookup [ category.CategoryId ].ToObservableCollection();
+			var subCategories = lookup[category.CategoryId].ToObservableCollection();
+			// Stel de Parent property in voor elke subcategory
+			foreach ( var subCategory in subCategories )
+			{
+				subCategory.Parent = category;
+			}
+			category.SubCategories = subCategories;
 		}
-
 		return lookup [ null ].ToObservableCollection();
 	}
 
 
 	public List<CategoryModel> GetFlatCategoryList( List<CategoryModel>? categoryList = null )
 	{
-		categoryList ??= [ ];
-		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameName );
+		categoryList ??= new List<CategoryModel>();
+		DataTable? _dt = GetData(DBNames.CategoryTable, DBNames.CategoryFieldNameName);
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			int? _parent = null;
-			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ); }
+			int categoryId = DatabaseValueConverter.GetInt(_dt.Rows[i][0]);
+			int? _parent = _dt.Rows[i][1] != DBNull.Value ? DatabaseValueConverter.GetInt(_dt.Rows[i][1]) : (int?)null;
+			string categoryName = DatabaseValueConverter.GetString(_dt.Rows[i][2]);
 
-			if ( _parent != null )
+			categoryList.Add( new CategoryModel
 			{
-				categoryList.Add( new CategoryModel
-				{
-					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-					CategoryParentId = ( int ) _parent,
-					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
-				} );
-			}
-			else
-			{
-				categoryList.Add( new CategoryModel
-				{
-					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
-				} );
-			}
+				CategoryId = categoryId,
+				CategoryParentId = _parent,
+				CategoryName = categoryName
+			} );
+		}
+
+		foreach ( var category in categoryList )
+		{
+			category.CategoryName = BuildFullCategoryPath( category, categoryList );
 		}
 		return categoryList;
+	}
+
+	private Dictionary<int, string> categoryPathCache = new Dictionary<int, string>();
+
+	private string BuildFullCategoryPath( CategoryModel category, List<CategoryModel> categoryList )
+	{
+		if ( categoryPathCache.TryGetValue( category.CategoryId, out string? cachedPath ) )
+		{
+			return cachedPath;
+		}
+
+		string? fullPath =  category.CategoryName;
+
+		CategoryModel? parent = categoryList.FirstOrDefault( c => c.CategoryId == category.CategoryParentId );
+
+		if ( parent != null )
+		{
+			string parentPath = BuildFullCategoryPath(parent, categoryList);
+			fullPath = $"{parentPath} / {category.CategoryName}";
+		}
+
+		List<string> pathParts = [];
+		CategoryModel? current = category;
+
+		categoryPathCache [ category.CategoryId ] = fullPath;
+		return fullPath;
 	}
 	#endregion CategoryList
 
@@ -507,43 +530,69 @@ public class DBCommands
 	}
 	private ObservableCollection<StorageModel> GetStorageHierarchy( ObservableCollection<StorageModel>? storagelocationList )
 	{
-		ILookup<int?, StorageModel> lookup =      storagelocationList.ToLookup(c => c.StorageParentId )      ;
+		ILookup<int?, StorageModel> lookup = storagelocationList.ToLookup(c => c.StorageParentId);
 		foreach ( StorageModel storagelocation in storagelocationList )
 		{
-			storagelocation.SubStorage = lookup [ storagelocation.StorageId ].ToObservableCollection();
+			var subLocations = lookup[storagelocation.StorageId].ToObservableCollection();
+			foreach ( var subLocation in subLocations )
+			{
+				subLocation.Parent = storagelocation;
+			}
+			storagelocation.SubStorage = subLocations;
 		}
 		return lookup [ null ].ToObservableCollection();
 	}
 
 	public List<StorageModel> GetFlatStorageList( List<StorageModel>? storageList = null )
 	{
-		storageList ??= [ ];
-		DataTable? _dt = GetData( DBNames.StorageTable, DBNames.StorageFieldNameName );
+		storageList ??= new List<StorageModel>();
+		DataTable? _dt = GetData(DBNames.StorageTable, DBNames.StorageFieldNameName);
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			int? _parent = null;
-			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value ) { _parent = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ); }
+			int storageId = DatabaseValueConverter.GetInt(_dt.Rows[i][0]);
+			int? _parent = _dt.Rows[i][1] != DBNull.Value ? DatabaseValueConverter.GetInt(_dt.Rows[i][1]) : (int?)null;
+			string storageName = DatabaseValueConverter.GetString(_dt.Rows[i][3]);
 
-			if ( _parent != null )
+			storageList.Add( new StorageModel
 			{
-				storageList.Add( new StorageModel
-				{
-					StorageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-					StorageParentId = ( int ) _parent,
-					StorageName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] )
-				} );
-			}
-			else
-			{
-				storageList.Add( new StorageModel
-				{
-					StorageId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-					StorageName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] )
-				} );
-			}
+				StorageId = storageId,
+				StorageParentId = _parent,
+				StorageName = storageName
+			} );
+		}
+
+		foreach ( var storage in storageList )
+		{
+			storage.StorageName = BuildFullStoragePath( storage, storageList );
 		}
 		return storageList;
+	}
+
+	private Dictionary<int, string> storagePathCache = new Dictionary<int, string>();
+
+	private string BuildFullStoragePath( StorageModel storage, List<StorageModel> storageList )
+	{
+		if ( storagePathCache.TryGetValue( storage.StorageId, out string? cachedPath ) )
+		{
+			return cachedPath;
+		}
+
+		string? fullPath =  storage.StorageName;
+
+		StorageModel? parent = storageList.FirstOrDefault( c => c.StorageId == storage.StorageParentId );
+
+		if ( parent != null )
+		{
+			string parentPath = BuildFullStoragePath(parent, storageList);
+			fullPath = $"{parentPath} / {storage.StorageName}";
+		}
+
+		List<string> pathParts = [];
+		StorageModel? current = storage;
+
+		storagePathCache [ storage.StorageId ] = fullPath;
+		return fullPath;
 	}
 	#endregion StorageLocationList
 
@@ -1044,12 +1093,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 			throw;
 		}
 		return result;
@@ -1085,12 +1132,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 			throw;
 		}
 		return result;
@@ -1175,12 +1220,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 			throw;
 		}
 		return result;
@@ -1223,12 +1266,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 			throw;
 		}
 		return result;
@@ -1259,12 +1300,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 			throw;
 		}
 
@@ -1305,12 +1344,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Update _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Update _table): " + ex.Message );
 			throw;
 		}
 		return result;
@@ -1333,12 +1370,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 			throw;
 		}
 	}
@@ -1365,12 +1400,10 @@ public class DBCommands
 		}
 		catch ( MySqlException ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 			throw;
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 			throw;
 		}
 		return result;
@@ -1401,12 +1434,10 @@ public class DBCommands
 			}
 			catch ( MySqlException ex )
 			{
-				Debug.WriteLine( "Error (Insert in _table - MySqlException): " + ex.Message );
 				throw;
 			}
 			catch ( Exception ex )
 			{
-				Debug.WriteLine( "Error (Insert in _table): " + ex.Message );
 				throw;
 			}
 		}

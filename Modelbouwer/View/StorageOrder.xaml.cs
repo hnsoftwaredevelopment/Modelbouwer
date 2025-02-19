@@ -10,7 +10,6 @@ public partial class StorageOrder : Page
 	{
 		InitializeComponent();
 		DataContext = new CombinedInventoryOrderViewModel();
-		Debug.WriteLine( $"DataContext type: {DataContext?.GetType().FullName}" );
 	}
 
 	#region Switch between search and filter button

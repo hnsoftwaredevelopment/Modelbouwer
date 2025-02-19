@@ -482,7 +482,6 @@ public class GeneralHelper
 							}
 							catch ( Exception ex )
 							{
-								Debug.WriteLine( $"Error converting value '{value}' for property '{property.Name}': {ex.Message}" );
 							}
 						}
 					}
@@ -615,7 +614,8 @@ public class GeneralHelper
 			_result [ 0, 1 ] = _categoryName;
 			_result [ 0, 2 ] = _categoryFullpath;
 			_result [ 0, 3 ] = string.Join( "\\", _temp );
-		};
+		}
+		;
 
 		return _result;
 	}

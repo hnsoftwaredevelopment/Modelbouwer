@@ -13,6 +13,7 @@ public partial class ProductSupplierViewModel : ObservableObject
 	[ObservableProperty]
 	public string? productSupplierSupplierName;
 
+
 	[ObservableProperty]
 	private ProductSupplierModel? _selectedSupplier;
 

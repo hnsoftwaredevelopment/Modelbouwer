@@ -47,7 +47,6 @@ public partial class StorageManagement : Page
 			// Update the MySQL table
 			if ( _originalValue.ToString() != editedRow.ProductInventory.ToString() )
 			{
-				Debug.WriteLine( $"Updated InventoryOrder: {editedRow.ProductId}, {columnName},Old Value={_originalValue} New Value: {editedRow.ProductInventory}" );
 				switch ( columnName )
 				{
 					case "productinventory":

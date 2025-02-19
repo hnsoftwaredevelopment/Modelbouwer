@@ -1,7 +1,4 @@
-﻿using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class ProductViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -93,7 +90,7 @@ public partial class ProductViewModel : ObservableObject
 			ProductDimensions = string.Empty,
 			ProductId = 0,
 			//ProductImage = NULL,
-			ProductImageRotationAngle = string.Empty,
+			ProductImageRotationAngle = "0",
 			ProductMemo = string.Empty,
 			ProductMinimalStock = 0.00,
 			ProductName = string.Empty,

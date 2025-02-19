@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.View;
+﻿using DataFormats = System.Windows.DataFormats;
+
+namespace Modelbouwer.View;
 
 public partial class ProductManagement : Page
 {
@@ -79,10 +81,16 @@ public partial class ProductManagement : Page
 	#region Load the memo field
 	private void SetRtfContent( string rtfContent )
 	{
-		using var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) );
-		TextRange textRange = new TextRange(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
-		if ( !textRange.IsEmpty )
-		{ textRange.Load( stream, System.Windows.DataFormats.Rtf ); }
+		if ( !string.IsNullOrEmpty( rtfContent ) )
+		{
+			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(rtfContent));
+			TextRange textRange = new TextRange(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
+			textRange.Load( stream, DataFormats.Rtf );
+		}
+		else
+		{
+			ProductMemo.Document.Blocks.Clear();
+		}
 	}
 	#endregion
 
@@ -367,22 +375,22 @@ public partial class ProductManagement : Page
 		var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
 		var productImage = selectedProduct.ProductImage;
-		var productMemo = selectedProduct.ProductMemo;
+		var ProjCost = ProductProjectCosts.IsChecked == true ? "1" : "0";
 
 		string[ , ] productFields = new string [12,3]
 			{
-				{DBNames.ProductFieldNameBrandId, DBNames.ProductFieldTypeBrandId, selectedProduct.ProductBrandId.ToString()},
-				{DBNames.ProductFieldNameCategoryId, DBNames.ProductFieldTypeCategoryId, selectedProduct.ProductCategoryId.ToString()},
-				{DBNames.ProductFieldNameCode, DBNames.ProductFieldTypeCode, selectedProduct.ProductCode.ToString()},
-				{DBNames.ProductFieldNameDimensions, DBNames.ProductFieldTypeDimensions, selectedProduct.ProductDimensions.ToString()},
-				{DBNames.ProductFieldNameImageRotationAngle, DBNames.ProductFieldTypeImageRotationAngle, selectedProduct.ProductImageRotationAngle.ToString()},
-				{DBNames.ProductFieldNameMinimalStock, DBNames.ProductFieldTypeMinimalStock, selectedProduct.ProductMinimalStock.ToString()},
-				{DBNames.ProductFieldNameName, DBNames.ProductFieldTypeName, selectedProduct.ProductName.ToString()},
-				{DBNames.ProductFieldNameStandardOrderQuantity, DBNames.ProductFieldTypeStandardOrderQuantity, selectedProduct.ProductStandardQuantity.ToString()},
-				{DBNames.ProductFieldNamePrice, DBNames.ProductFieldTypePrice, selectedProduct.ProductPrice.ToString()},
-				{DBNames.ProductFieldNameProjectCosts, DBNames.ProductFieldTypeProjectCosts, selectedProduct.ProductProjectCosts.ToString()},
-				{DBNames.ProductFieldNameStorageId, DBNames.ProductFieldTypeStorageId, selectedProduct.ProductStorageId.ToString()},
-				{DBNames.ProductFieldNameUnitId, DBNames.ProductFieldTypeUnitId, selectedProduct.ProductUnitId.ToString()}
+				{DBNames.ProductFieldNameBrandId, DBNames.ProductFieldTypeBrandId, viewModel.BrandViewModel.SelectedBrandId.ToString()},
+				{DBNames.ProductFieldNameCategoryId, DBNames.ProductFieldTypeCategoryId, viewModel.CategoryViewModel.SelectedCategory.CategoryId.ToString()},
+				{DBNames.ProductFieldNameCode, DBNames.ProductFieldTypeCode, ProductCode.Text},
+				{DBNames.ProductFieldNameDimensions, DBNames.ProductFieldTypeDimensions, ProductDimensions.Text},
+				{DBNames.ProductFieldNameImageRotationAngle, DBNames.ProductFieldTypeImageRotationAngle, ProductImageRotationAngle.Text},
+				{DBNames.ProductFieldNameMinimalStock, DBNames.ProductFieldTypeMinimalStock, ProductMinStock.Text},
+				{DBNames.ProductFieldNameName, DBNames.ProductFieldTypeName, ProductName.Text},
+				{DBNames.ProductFieldNameStandardOrderQuantity, DBNames.ProductFieldTypeStandardOrderQuantity, ProductOrderQuantity.Text},
+				{DBNames.ProductFieldNamePrice, DBNames.ProductFieldTypePrice, ProductPrice.Text},
+				{DBNames.ProductFieldNameProjectCosts, DBNames.ProductFieldTypeProjectCosts, ProjCost},
+				{DBNames.ProductFieldNameStorageId, DBNames.ProductFieldTypeStorageId, viewModel.StorageViewModel.SelectedStorage.StorageId.ToString()},
+				{DBNames.ProductFieldNameUnitId, DBNames.ProductFieldTypeUnitId, ProductUnitId.Text}
 			};
 
 		if ( selectedProduct.ProductId == 0 )
@@ -398,7 +406,7 @@ public partial class ProductManagement : Page
 			};
 
 			//Save the memo in de product table
-			DBCommands.UpdateMemoFieldInTable( DBNames.ProductTable, whereFields, DBNames.ProductFieldNameMemo, productMemo );
+			DBCommands.UpdateMemoFieldInTable( DBNames.ProductTable, whereFields, DBNames.ProductFieldNameMemo, GeneralHelper.GetRichTextFromFlowDocument( ProductMemo.Document ) );
 
 			//Save Image
 			DBCommands.UpdateImageInTable( DBNames.ProductTable, whereFields, productImage, DBNames.ProductFieldNameImage );
@@ -420,7 +428,7 @@ public partial class ProductManagement : Page
 			DBCommands.UpdateInTable( DBNames.ProductTable, productFields, whereFields );
 
 			//Update the memo in de product table
-			DBCommands.UpdateMemoFieldInTable( DBNames.ProductTable, whereFields, DBNames.ProductFieldNameMemo, productMemo );
+			DBCommands.UpdateMemoFieldInTable( DBNames.ProductTable, whereFields, DBNames.ProductFieldNameMemo, GeneralHelper.GetRichTextFromFlowDocument( ProductMemo.Document ) );
 
 			//Update Image
 			DBCommands.UpdateImageInTable( DBNames.ProductTable, whereFields, productImage, DBNames.ProductFieldNameImage );
@@ -489,7 +497,8 @@ public partial class ProductManagement : Page
 				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( selectedProductId );
 
 				dispStatusLine.Text = $"{_result}";
-			};
+			}
+			;
 		}
 	}
 	#endregion
@@ -586,24 +595,36 @@ public partial class ProductManagement : Page
 			}
 			else { DBCommands.SetDefaultSupplier( selectedProductId, selectedSupplierId, "Reset" ); }
 		}
+
+		// Refresh the DataGrid to show the updated supplier
+		viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
+		ProductSupplierDataGrid.ItemsSource = null;
+		ProductSupplierDataGrid.ItemsSource = viewModel.ProductSupplierViewModel.FilteredSuppliers;
+
+		//ProductSupplierDataGrid.Items.Refresh();
 	}
 	#endregion
 
 	#region Selected supplier changed
 	private void SupplierChanged( object sender, SelectionChangedEventArgs e )
 	{
-		//if ( DataContext is CombinedProductViewModel viewModel )
-		//{
-		//	var _selectedSupplierId = viewModel.ProductSupplierViewModel.SelectedSupplier;
-		//	if ( _selectedSupplierId != null )
-		//	{
-		//		SupplierComboBox.SelectedValue = _selectedSupplierId.ProductSupplierSupplierId;
-		//	}
-		//	else
-		//	{
-		//		//SupplierComboBox.SelectedValue = null;
-		//	}
-		//}
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+			var selectedSupplierId = (int?)SupplierComboBox.SelectedValue;
+
+			if ( selectedSupplier != null && selectedSupplierId.HasValue )
+			{
+				var supplier = viewModel.ProductSupplierViewModel.SupplierList
+				.FirstOrDefault(s => s.SupplierId == selectedSupplierId.Value);
+
+				if ( supplier != null )
+				{
+					selectedSupplier.ProductSupplierCurrencyId = supplier.SupplierCurrencyId;
+					selectedSupplier.ProductSupplierSupplierName = supplier.SupplierName; // Update the supplier name
+				}
+			}
+		}
 	}
 	#endregion
 

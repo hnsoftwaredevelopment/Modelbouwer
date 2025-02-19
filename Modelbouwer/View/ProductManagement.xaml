@@ -233,6 +233,11 @@
 										</Button>
 									</ToolBar>
 								</ToolBarTray>
+								<TextBox
+									x:Name="ProductImageRotationAngle"
+									Text="{Binding ProductViewModel.SelectedProduct.ProductImageRotationAngle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									Visibility="Collapsed"
+									/>
 							</StackPanel>
 							<!--#endregion-->
 
@@ -384,7 +389,7 @@
 										Grid.ColumnSpan="2"
 										Width="600"
 										Click="CategoryChange"
-										Content="{Binding CategoryViewModel.SelectedCategory.CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										Content="{Binding CategoryViewModel.SelectedCategory.FullPath, Mode=OneWay}"
 										Style="{StaticResource ComboBoxButtonStyle}"
 										/>
 									<!--#endregion-->
@@ -538,7 +543,7 @@
 										Grid.ColumnSpan="4"
 										Width="600"
 										Click="StorageChange"
-										Content="{Binding StorageViewModel.SelectedStorage.StorageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										Content="{Binding StorageViewModel.SelectedStorage.FullPath, Mode=OneWay}"
 										Style="{StaticResource ComboBoxButtonStyle}"
 										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Tooltip}"
 										/>
@@ -645,7 +650,12 @@
 					<!--#endregion-->
 
 					<!--#region Product memo-->
-					<TabItem Header="{StaticResource Edit.Product.Tab.Memo.Label}" Style="{DynamicResource Default TabItem}">
+					<TabItem
+						Width="176"
+						HorizontalAlignment="Left"
+						Header="{StaticResource Edit.Product.Tab.Memo.Label}"
+						Style="{DynamicResource Default TabItem}"
+						>
 						<Grid Margin="5">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="40" />
@@ -746,6 +756,8 @@
 					<!--#region Product suppliers tab-->
 					<TabItem
 						x:Name="SupplierTab"
+						Width="107"
+						HorizontalAlignment="Right"
 						Header="{StaticResource Edit.Product.Tab.Supplier.Label}"
 						Style="{DynamicResource Default TabItem}"
 						>
@@ -831,7 +843,7 @@
 											Width="70"
 											Binding="{Binding ProductSupplierProductId}"
 											Header="{StaticResource Edit.Product.Tab.Supplier.ProductId.Header}"
-											Visibility="Collapsed"
+											Visibility="Hidden"
 											/>
 										<!--#endregion-->
 
@@ -856,7 +868,7 @@
 										<!--#region Default supplier-->
 										<DataGridTextColumn
 											Width="AUTO"
-											Binding="{Binding ProductSupplierDefaultSupplier}"
+											Binding="{Binding ProductSupplierDefaultSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 											Header="{StaticResource Edit.Product.Tab.Supplier.DefaultSupplier.Header}"
 											>
 											<DataGridTextColumn.ElementStyle>
@@ -871,7 +883,7 @@
 										<!--#region Product Supplier Name-->
 										<DataGridTextColumn
 											Width="*"
-											Binding="{Binding ProductSupplierSupplierName}"
+											Binding="{Binding ProductSupplierSupplierName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 											Header="{StaticResource Edit.Product.Tab.Supplier.Supplier.Header}"
 											/>
 										<!--#endregion-->
@@ -879,7 +891,7 @@
 										<!--#region Product Number-->
 										<DataGridTextColumn
 											Width="75"
-											Binding="{Binding ProductSupplierProductNumber}"
+											Binding="{Binding ProductSupplierProductNumber, Mode=TwoWay}"
 											Header="{StaticResource Edit.Product.Tab.Supplier.ProductNumber.Header}"
 											/>
 										<!--#endregion-->
@@ -887,7 +899,7 @@
 										<!--#region Price-->
 										<DataGridTextColumn
 											Width="80"
-											Binding="{Binding ProductSupplierPrice, StringFormat={}{0:N2}, ConverterCulture='nl-NL'}"
+											Binding="{Binding ProductSupplierPrice, StringFormat={}{0:N2}, ConverterCulture='nl-NL', Mode=TwoWay}"
 											Header="{StaticResource Edit.Product.Tab.Supplier.Price.Header}"
 											>
 											<DataGridTextColumn.ElementStyle>
@@ -946,6 +958,7 @@
 											ItemsSource="{Binding ProductSupplierViewModel.SupplierList}"
 											SelectedValue="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierSupplierId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 											SelectedValuePath="SupplierId"
+											SelectionChanged="SupplierChanged"
 											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Supplier.Tooltip}"
 											>
 											<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
@@ -967,7 +980,7 @@
 											IsEnabled="True"
 											Style="{DynamicResource DefaultTextBox}"
 											Tag="{StaticResource Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tag}"
-											Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierProductNumber}"
+											Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierProductNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.ProductNumberSupplier.Tooltip}"
 											/>
 										<!--#endregion-->
@@ -1088,7 +1101,7 @@
 										<CheckBox
 											x:Name="SupplierDefault"
 											Grid.Row="11"
-											IsChecked="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierDefaultSupplierCheck}"
+											IsChecked="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierDefaultSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 											ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.DefaultSupplier.Tooltip}"
 											/>
 										<!--#endregion-->

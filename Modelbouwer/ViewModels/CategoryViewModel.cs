@@ -16,6 +16,7 @@ public partial class CategoryViewModel : ObservableObject
 	public ObservableCollection<CategoryModel> Category { get; set; }
 
 	public List<CategoryModel> FlatCategory { get; set; }
+	//public ObservableCollection<CategoryModel> FlatCategory { get; set; }
 
 	[ObservableProperty]
 	private CategoryModel? _selectedCategory;

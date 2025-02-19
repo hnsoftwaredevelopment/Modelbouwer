@@ -39,7 +39,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 			{
 				SelectedOrder.SupplyOrderDate = DateOnly.FromDateTime( value.Value );
 				UpdateCanSave();
-				Debug.WriteLine( $"SupplyOrderDate updated to: {value}" );
 			}
 		}
 	}
@@ -457,8 +456,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 		bool hasOrderNumber = !string.IsNullOrWhiteSpace(SelectedOrder?.SupplyOrderNumber);
 		bool hasOrderDate = SelectedOrder?.SupplyOrderDate != null;
 		bool hasSelectedProducts = ProductList?.Any(p => p.IsSelected) ?? false;
-
-		Debug.WriteLine( $"UpdateCanSave: Supplier({hasSupplier}) && OrderNumber({hasOrderNumber}) && OrderDate({hasOrderDate}) && Products({hasSelectedProducts})" );
 
 		CanSave = hasSupplier && hasOrderNumber && hasOrderDate && hasSelectedProducts;
 	}
