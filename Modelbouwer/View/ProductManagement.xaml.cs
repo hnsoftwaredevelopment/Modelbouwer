@@ -4,10 +4,14 @@ namespace Modelbouwer.View;
 
 public partial class ProductManagement : Page
 {
+	private readonly CombinedProductViewModel _viewModel;
+	private bool _isUpdatingFields;
+
 	public ProductManagement()
 	{
 		InitializeComponent();
-		DataContext = new CombinedProductViewModel();
+		_viewModel = new CombinedProductViewModel();
+		DataContext = _viewModel;
 	}
 
 	#region Add/Replace product image
@@ -101,6 +105,10 @@ public partial class ProductManagement : Page
 		{
 			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
+			//Make sure the SafeChanges warning will not be dislayed when changing products
+			_isUpdatingFields = true;
+
+
 			if ( selectedProduct != null )
 			{
 				SetRtfContent( selectedProduct.ProductMemo );
@@ -159,8 +167,12 @@ public partial class ProductManagement : Page
 			{
 				// Make sure ProductSupplierViewModel uses the selected product
 				viewModel.ProductSupplierViewModel.SelectedProduct = selectedProduct;
+				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( selectedProduct.ProductId );
 			}
 			#endregion
+
+			//From here changes will activate the SafeChanges Warning 
+			_isUpdatingFields = false;
 		}
 	}
 	#endregion
@@ -608,6 +620,14 @@ public partial class ProductManagement : Page
 	#region Selected supplier changed
 	private void SupplierChanged( object sender, SelectionChangedEventArgs e )
 	{
+		if ( !_isUpdatingFields )
+		{
+			var _viewModel = DataContext as CombinedProductViewModel;
+			if ( _viewModel != null )
+			{
+				_viewModel.ProductSupplierViewModel.HasUnsavedChanges = false;
+			}
+		}
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
 			var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
@@ -621,7 +641,14 @@ public partial class ProductManagement : Page
 				if ( supplier != null )
 				{
 					selectedSupplier.ProductSupplierCurrencyId = supplier.SupplierCurrencyId;
-					selectedSupplier.ProductSupplierSupplierName = supplier.SupplierName; // Update the supplier name
+					selectedSupplier.ProductSupplierCurrencySymbol = supplier.SupplierCurrency;
+					selectedSupplier.ProductSupplierSupplierName = supplier.SupplierName;
+					// Ensure PropertyChanged event is raised
+					viewModel.ProductSupplierViewModel.RaisePropertyChanged( nameof( viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierSupplierName ) );
+					viewModel.ProductSupplierViewModel.RaisePropertyChanged( nameof( viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencyId ) );
+					viewModel.ProductSupplierViewModel.RaisePropertyChanged( nameof( viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencySymbol ) );
+					// Force DataGrid refresh
+					ProductSupplierDataGrid.Items.Refresh();
 				}
 			}
 		}
@@ -642,4 +669,16 @@ public partial class ProductManagement : Page
 		}
 	}
 	#endregion
+
+	private void FieldChanged( object sender, RoutedEventArgs e )
+	{
+		if ( !_isUpdatingFields )
+		{
+			var _viewModel = DataContext as CombinedProductViewModel;
+			if ( _viewModel != null )
+			{
+				_viewModel.ProductSupplierViewModel.HasUnsavedChanges = true;
+			}
+		}
+	}
 }

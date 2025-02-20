@@ -131,4 +131,5 @@ public partial class SupplierViewModel : ObservableObject
 	{
 		Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
 	}
+
 }

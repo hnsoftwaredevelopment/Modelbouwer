@@ -137,6 +137,7 @@ public partial class BrandViewModel : ObservableObject
 	{
 		Brand = new ObservableCollection<BrandModel>( DBCommands.GetBrandList() );
 		_temporaryBrand = new();
-	}
 
+		_temporaryBrand = new();
+	}
 }

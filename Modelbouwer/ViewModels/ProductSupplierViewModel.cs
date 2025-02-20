@@ -1,63 +1,82 @@
 ﻿namespace Modelbouwer.ViewModels;
+
 public partial class ProductSupplierViewModel : ObservableObject
 {
 	[ObservableProperty]
-	public int productSupplierId;
+	private int productSupplierId;
 
 	[ObservableProperty]
-	public int productSupplierProductId;
+	private int productSupplierProductId;
 
 	[ObservableProperty]
-	public int productSupplierSupplierId;
+	private int productSupplierSupplierId;
 
 	[ObservableProperty]
-	public string? productSupplierSupplierName;
-
-
-	[ObservableProperty]
-	private ProductSupplierModel? _selectedSupplier;
+	private string? productSupplierSupplierName;
 
 	[ObservableProperty]
-	public int productSupplierCurrencyId;
+	private ProductSupplierModel? selectedSupplier;
 
 	[ObservableProperty]
-	public string? productSupplierProductNumber;
+	private int productSupplierCurrencyId;
 
 	[ObservableProperty]
-	public string? productSupplierProductName;
+	private string? productSupplierProductNumber;
 
 	[ObservableProperty]
-	public double productSupplierPriceId;
+	private string? productSupplierProductName;
 
 	[ObservableProperty]
-	public string? productSupplierURLId;
+	private double productSupplierPrice;
 
 	[ObservableProperty]
-	public string? productSupplierDefaultSupplier;
+	private string? productSupplierURL;
 
 	[ObservableProperty]
-	public bool? productSupplierDefaultSupplierCheck;
+	private bool? productSupplierDefaultSupplier;
 
-	public ObservableCollection<ProductSupplierModel> FilteredSuppliers { get; private set; } = [ ];
+	[ObservableProperty]
+	private bool? productSupplierDefaultSupplierCheck;
+
+	public ObservableCollection<ProductSupplierModel> FilteredSuppliers { get; private set; } = new();
 
 	public ObservableCollection<ProductSupplierModel> ProductSupplier { get; set; }
 
 	private ProductModel? _selectedProduct;
 
-	public ObservableCollection<SupplierModel> SupplierList { get; set; } = [ ];
+	public ObservableCollection<SupplierModel> SupplierList { get; set; } = new();
+
+	private bool _hasSuppliers;
+	public bool HasSuppliers
+	{
+		get => _hasSuppliers;
+		set
+		{
+			if ( _hasSuppliers != value )
+			{
+				_hasSuppliers = value;
+				OnPropertyChanged( nameof( HasSuppliers ) );
+			}
+		}
+	}
 
 	private bool _isAddingNew;
 
 	public bool IsAddingNew
 	{
 		get => _isAddingNew;
+		set => SetProperty( ref _isAddingNew, value );
+	}
+
+	private bool _hasUnsavedChanges;
+
+	public bool HasUnsavedChanges
+	{
+		get => _hasUnsavedChanges;
 		set
 		{
-			if ( _isAddingNew != value )
-			{
-				_isAddingNew = value;
-				OnPropertyChanged( nameof( IsAddingNew ) );
-			}
+			_hasUnsavedChanges = value;
+			OnPropertyChanged( nameof( HasUnsavedChanges ) );
 		}
 	}
 
@@ -73,7 +92,7 @@ public partial class ProductSupplierViewModel : ObservableObject
 			ProductSupplierProductName = string.Empty,
 			ProductSupplierPrice = 0.00,
 			ProductSupplierURL = string.Empty,
-			ProductSupplierDefaultSupplier = string.Empty,
+			ProductSupplierDefaultSupplier = false,
 			ProductSupplierSupplierName = string.Empty,
 			ProductSupplierCurrencySymbol = string.Empty,
 			ProductSupplierDefaultSupplierCheck = false
@@ -85,6 +104,8 @@ public partial class ProductSupplierViewModel : ObservableObject
 
 		// Refresh the list to display
 		OnPropertyChanged( nameof( FilteredSuppliers ) );
+		OnPropertyChanged( nameof( HasSuppliers ) );
+		OnPropertyChanged( nameof( HasUnsavedChanges ) );
 		FilterSuppliersByProductId( int.Parse( productId ) );
 	}
 
@@ -92,11 +113,12 @@ public partial class ProductSupplierViewModel : ObservableObject
 	{
 		FilterSuppliersByProductId( productId );
 
-		// Zorg ervoor dat de eerste leverancier geselecteerd is als die beschikbaar is
+		// Ensure the first supplier is selected if available
 		if ( FilteredSuppliers.Any() )
 		{
 			SelectedSupplier = FilteredSuppliers.First();
-			ProductSupplierSupplierId = SelectedSupplier.ProductSupplierSupplierId; // Zorg ervoor dat de ID ook wordt ingesteld
+			ProductSupplierSupplierId = SelectedSupplier.ProductSupplierSupplierId; // Ensure the ID is also set
+																					//OnPropertyChanged( nameof( HasSuppliers ) ); // Notify that there is a supplier now (to enable edit and save)
 		}
 	}
 
@@ -109,7 +131,6 @@ public partial class ProductSupplierViewModel : ObservableObject
 			{
 				if ( _selectedProduct != null )
 				{
-					//FilterSuppliersByProductId( _selectedProduct.ProductId );
 					LoadSuppliersForProduct( _selectedProduct.ProductId );
 				}
 			}
@@ -124,11 +145,16 @@ public partial class ProductSupplierViewModel : ObservableObject
 			FilteredSuppliers.Add( supplier );
 		}
 
-		//Select first supplier in the list if there are suppliers
+		// Select first supplier in the list if there are suppliers
 		if ( FilteredSuppliers.Any() )
 		{
 			SelectedSupplier = FilteredSuppliers.First();
 		}
+		OnPropertyChanged( nameof( FilteredSuppliers ) );
+
+		// Update HasSuppliers property
+		HasSuppliers = FilteredSuppliers.Any();
+		OnPropertyChanged( nameof( HasSuppliers ) );
 	}
 
 	partial void OnProductSupplierSupplierIdChanged( int value )
@@ -144,6 +170,11 @@ public partial class ProductSupplierViewModel : ObservableObject
 			OnPropertyChanged( nameof( FilteredSuppliers ) );
 			OnPropertyChanged( nameof( SelectedSupplier ) );
 		}
+	}
+
+	public void RaisePropertyChanged( string propertyName )
+	{
+		OnPropertyChanged( propertyName );
 	}
 
 	public ProductSupplierViewModel()

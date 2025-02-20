@@ -1,6 +1,6 @@
 ﻿namespace Modelbouwer.Model;
 
-public class ProductSupplierModel
+public class ProductSupplierModel : ObservableObject
 {
 	public int ProductSupplierId { get; set; }
 	public int ProductSupplierProductId { get; set; }
@@ -11,10 +11,18 @@ public class ProductSupplierModel
 	public string? ProductSupplierProductName { get; set; }
 	public double ProductSupplierPrice { get; set; }
 	public string? ProductSupplierURL { get; set; }
-	public string? ProductSupplierDefaultSupplier { get; set; }
+	public bool? ProductSupplierDefaultSupplier { get; set; }
 	public bool? ProductSupplierDefaultSupplierCheck { get; set; }
 	public string? ProductSupplierSupplierName { get; set; }
-	public string? ProductSupplierCurrencySymbol { get; set; }
+	//public string? ProductSupplierCurrencySymbol { get; set; }
+
+	private string? productSupplierCurrencySymbol;
+
+	public string? ProductSupplierCurrencySymbol
+	{
+		get => productSupplierCurrencySymbol;
+		set => SetProperty( ref productSupplierCurrencySymbol, value );
+	}
 
 
 	// Define the property that you want to use in TLists (for example in the errorList

@@ -52,4 +52,19 @@
 		</Style.Triggers>
 	</Style>
 
+	<Style x:Key="NotSafedWarning" TargetType="TextBox">
+		<Setter Property="Background" Value="Red" />
+		<Setter Property="FontWeight" Value="Bold" />
+		<Setter Property="Foreground" Value="Yellow" />
+		<Setter Property="Height" Value="25" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="0,0,0,7" />
+		<Setter Property="Padding" Value="15,0" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="Width" Value="AUTO" />
+	</Style>
+
+
+
 </ResourceDictionary>

@@ -636,6 +636,9 @@ public class DBCommands
 		{
 			var _tempCheck = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "*";
 			var parsedPrice =  double.Parse(_dt.Rows [ i ] [ 10 ].ToString(), CultureInfo.InvariantCulture);
+			var _defaultSupplier = false;
+
+			if ( DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "1" ) { _defaultSupplier = true; }
 
 			supplierList.Add( new ProductSupplierModel
 			{
@@ -643,7 +646,7 @@ public class DBCommands
 				ProductSupplierProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
 				ProductSupplierSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
 				ProductSupplierCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
-				ProductSupplierDefaultSupplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				ProductSupplierDefaultSupplier = _defaultSupplier,
 				ProductSupplierProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
 				ProductSupplierSupplierName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
 				ProductSupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),

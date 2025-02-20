@@ -57,5 +57,4 @@ public partial class UnitViewModel : ObservableObject
 			SelectedUnit = Unit.First();
 		}
 	}
-
 }

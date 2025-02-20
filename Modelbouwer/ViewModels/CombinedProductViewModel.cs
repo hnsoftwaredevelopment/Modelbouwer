@@ -1,5 +1,5 @@
 ﻿namespace Modelbouwer.ViewModels;
-public class CombinedProductViewModel
+public class CombinedProductViewModel : ObservableObject
 {
 	public BrandViewModel BrandViewModel { get; set; }
 	public CategoryViewModel CategoryViewModel { get; set; }
@@ -8,6 +8,7 @@ public class CombinedProductViewModel
 	public StorageViewModel StorageViewModel { get; set; }
 	public SupplierViewModel SupplierViewModel { get; set; }
 	public UnitViewModel UnitViewModel { get; set; }
+
 	public CombinedProductViewModel()
 	{
 		BrandViewModel = new();
@@ -23,7 +24,14 @@ public class CombinedProductViewModel
 			if ( e.PropertyName == nameof( ProductViewModel.SelectedProduct ) )
 			{
 				ProductSupplierViewModel.SelectedProduct = ProductViewModel.SelectedProduct;
+				OnPropertyChanged( nameof( SelectedProduct ) );
 			}
 		};
+	}
+
+	public ProductModel SelectedProduct
+	{
+		get => ProductViewModel.SelectedProduct;
+		set => ProductViewModel.SelectedProduct = value;
 	}
 }
