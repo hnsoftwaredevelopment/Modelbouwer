@@ -98,7 +98,7 @@ jobs:
       
     # Upload the artifactes
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: BuildOutput
         path: D:\a\Modelbouwer\Modelbouwer\Modelbouwer\bin\Debug\net8.0-windows7.0/  # Bijvoorbeeld: bin/Release
