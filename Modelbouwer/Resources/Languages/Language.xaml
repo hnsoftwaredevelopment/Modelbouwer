@@ -720,7 +720,7 @@
 	<!--#region ProductMaintanance-->
 	<system:String x:Key="Edit.Product.ProductSupplier.UnSavedChanges">"Let de wijzigingen zijn nog niet opgelagen</system:String>
 	<!--#endregion-->
-	
+
 	<!--#region Export page-->
 	<system:String x:Key="Export.ProductSupplier.Title">Leveranciers per product Exporteren</system:String>
 	<system:String x:Key="Export.ProductSupplier.Subtitle">Exporteer leveranciers per product naar een CSV bestand</system:String>

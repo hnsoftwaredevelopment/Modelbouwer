@@ -389,6 +389,8 @@ public partial class ProductManagement : Page
 		var productImage = selectedProduct.ProductImage;
 		var ProjCost = ProductProjectCosts.IsChecked == true ? "1" : "0";
 
+		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+
 		string[ , ] productFields = new string [12,3]
 			{
 				{DBNames.ProductFieldNameBrandId, DBNames.ProductFieldTypeBrandId, viewModel.BrandViewModel.SelectedBrandId.ToString()},
@@ -423,6 +425,7 @@ public partial class ProductManagement : Page
 			//Save Image
 			DBCommands.UpdateImageInTable( DBNames.ProductTable, whereFields, productImage, DBNames.ProductFieldNameImage );
 
+
 			//Set the pnew productId for the selected Product
 			selectedProduct.ProductId = int.Parse( productId );
 
@@ -447,7 +450,14 @@ public partial class ProductManagement : Page
 
 		}
 
-		//TODO Update the datgrid and reselect the saved product
+		//Update the datgrid and reselect the saved product
+		viewModel.ProductViewModel.RefreshProductList( selectedProduct.ProductId );
+		viewModel.ProductSupplierViewModel.RefreshProductSupplierList( selectedProduct.ProductId, selectedSupplier?.ProductSupplierId );
+
+		// When saving a product, the product per supplier tab should be enabled
+		SupplierTab.IsEnabled = true;
+		InventoryTab.IsEnabled = true;
+
 	}
 	#endregion
 
@@ -520,8 +530,8 @@ public partial class ProductManagement : Page
 	{
 		var viewModel = DataContext as CombinedProductViewModel;
 		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
-
-		var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
+		var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
+		//var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
 		var selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
 		var selectedSupplierId = ((int)(SupplierComboBox.SelectedValue ?? 0)).ToString();
 		var selectedSupplierName = ((SupplierModel)SupplierComboBox.SelectedItem).Name.ToString();
@@ -536,7 +546,7 @@ public partial class ProductManagement : Page
 			string[,] _whereFields = new string[2, 3]
 			{
 				{ DBNames.ProductSupplierFieldNameId, DBNames.ProductSupplierFieldTypeId, selectedSupplierId },
-				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId }
+				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId.ToString() }
 			};
 
 			int _checkPresence = DBCommands.CheckForRecords(DBNames.ProductSupplierTable, _whereFields);
@@ -546,7 +556,7 @@ public partial class ProductManagement : Page
 				string[,] _addFields = new string[8, 3]
 				{
 					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId },
-					{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId,selectedProductId },
+					{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId,selectedProductId.ToString() },
 					{ DBNames.ProductSupplierFieldNameCurrencyId, DBNames.ProductSupplierFieldTypeCurrencyId,currencyId },
 					{ DBNames.ProductSupplierFieldNameProductNumber, DBNames.ProductSupplierFieldTypeProductNumber, SupplierProductNumber.Text },
 					{ DBNames.ProductSupplierFieldNameProductName, DBNames.ProductSupplierFieldTypeProductName, SupplierProductName.Text },
@@ -560,7 +570,7 @@ public partial class ProductManagement : Page
 
 				// Refresh the ProductSupplier-collection
 
-				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
+				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId.ToString() ) );
 				_ = viewModel.SupplierViewModel.SelectedSupplier;
 
 
@@ -576,12 +586,12 @@ public partial class ProductManagement : Page
 			// An excisting item has been changed, save changes
 			string[,] _whereFields = new string [ 1, 3 ]
 			{
-				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId }
+				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, selectedProductId.ToString() }
 			};
 
 			string[,] _updateFields = new string[7, 3]
 			{
-					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId },
+					{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, selectedSupplierId.ToString() },
 					{ DBNames.ProductSupplierFieldNameCurrencyId, DBNames.ProductSupplierFieldTypeCurrencyId,currencyId },
 					{ DBNames.ProductSupplierFieldNameProductNumber, DBNames.ProductSupplierFieldTypeProductNumber, SupplierProductNumber.Text },
 					{ DBNames.ProductSupplierFieldNameProductName, DBNames.ProductSupplierFieldTypeProductName, SupplierProductName.Text },
@@ -595,7 +605,7 @@ public partial class ProductManagement : Page
 
 			viewModel.ProductSupplierViewModel.IsAddingNew = false;
 
-			viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
+			viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId.ToString() ) );
 			_ = viewModel.SupplierViewModel.SelectedSupplier;
 
 			dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.DataOf" )} {SupplierProductNumber.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Changed" )}";
@@ -603,17 +613,16 @@ public partial class ProductManagement : Page
 			// If the DefaultSupplier checkbox is checked, then the DefautltSupplier in the database table should be updated
 			if ( SupplierDefault.IsChecked == true )
 			{
-				DBCommands.SetDefaultSupplier( selectedProductId, selectedSupplierId, "Set" );
+				DBCommands.SetDefaultSupplier( selectedProductId.ToString(), selectedSupplierId, "Set" );
 			}
-			else { DBCommands.SetDefaultSupplier( selectedProductId, selectedSupplierId, "Reset" ); }
+			else { DBCommands.SetDefaultSupplier( selectedProductId.ToString(), selectedSupplierId, "Reset" ); }
 		}
 
 		// Refresh the DataGrid to show the updated supplier
-		viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( int.Parse( selectedProductId ) );
-		ProductSupplierDataGrid.ItemsSource = null;
-		ProductSupplierDataGrid.ItemsSource = viewModel.ProductSupplierViewModel.FilteredSuppliers;
-
-		//ProductSupplierDataGrid.Items.Refresh();
+		viewModel.ProductSupplierViewModel.RefreshProductSupplierList(
+		selectedProductId,
+		selectedSupplier?.ProductSupplierId
+	);
 	}
 	#endregion
 

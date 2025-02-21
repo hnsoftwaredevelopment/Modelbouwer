@@ -296,9 +296,10 @@
 
 					<TextBox
 						Grid.Row="1"
-						Grid.Column="1" Style="{DynamicResource ValidatedTextBox}"
+						Grid.Column="1"
 						Width="140"
 						IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+						Style="{DynamicResource ValidatedTextBox}"
 						Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
 						ToolTip="{StaticResource Edit.Inventory.Orders.SupplierOrderNumber.Tooltip.Text}"
 						/>
@@ -310,36 +311,57 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Text}"
 						/>
 
-                    <DatePicker
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        Width="140"
-                        HorizontalAlignment="Left"
-                        IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
-                        SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
-                        Style="{DynamicResource ValidatedDatePicker}"
-                        ToolTip="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Tooltip.Text}"
-                    />
+					<DatePicker
+						Grid.Row="2"
+						Grid.Column="1"
+						Width="140"
+						HorizontalAlignment="Left"
+						IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
+						SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+						Style="{DynamicResource ValidatedDatePicker}"
+						ToolTip="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Tooltip.Text}"
+						/>
 
 					<StackPanel
-						Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+						Grid.Row="3"
 						Grid.ColumnSpan="3"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Bottom"
 						Orientation="Horizontal"
 						>
-						<ToolBarTray Height="35"
-							Style="{DynamicResource DefaultToolBarTray}"
-							>
-							<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}" Height="30">
-								<Button Command="{Binding SupplyOrderViewModel.ClearSelectionCommand}" Height="30" ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Clear.Tooltip}">
-									<Image Style="{DynamicResource ToolBarResetIcon}" Height="20" Width="20" Stretch="UniformToFill"/>
+						<ToolBarTray Height="35" Style="{DynamicResource DefaultToolBarTray}">
+							<ToolBar
+								x:Name="generalToolbar"
+								Height="30"
+								Style="{DynamicResource DefaultToolBar}"
+								>
+								<Button
+									Height="30"
+									Command="{Binding SupplyOrderViewModel.ClearSelectionCommand}"
+									ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Clear.Tooltip}"
+									>
+									<Image
+										Width="20"
+										Height="20"
+										Stretch="UniformToFill"
+										Style="{DynamicResource ToolBarResetIcon}"
+										/>
 								</Button>
-								<Button Command="{Binding SupplyOrderViewModel.SaveCommand}" Height="30" ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Save.Tooltip}">
-									<Image Height="20" Width="20" Stretch="UniformToFill" >
+								<Button
+									Height="30"
+									Command="{Binding SupplyOrderViewModel.SaveCommand}"
+									ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Save.Tooltip}"
+									>
+									<Image
+										Width="20"
+										Height="20"
+										Stretch="UniformToFill"
+										>
 										<Image.Style>
-											<Style TargetType="Image" BasedOn="{StaticResource ToolBarSaveIcon}">
+											<Style BasedOn="{StaticResource ToolBarSaveIcon}" TargetType="Image">
 												<Style.Triggers>
 													<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="False">
-														<Setter Property="Opacity" Value="0.5"/>
+														<Setter Property="Opacity" Value="0.5" />
 													</DataTrigger>
 												</Style.Triggers>
 											</Style>
@@ -349,8 +371,8 @@
 							</ToolBar>
 						</ToolBarTray>
 						<StackPanel>
-						<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, StringFormat='Order Number: {0}'}" />
-						<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, StringFormat='Order Date: {0}'}" />
+							<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, StringFormat='Order Number: {0}'}" />
+							<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, StringFormat='Order Date: {0}'}" />
 						</StackPanel>
 					</StackPanel>
 

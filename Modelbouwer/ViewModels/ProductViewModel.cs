@@ -106,6 +106,24 @@ public partial class ProductViewModel : ObservableObject
 		IsAddingNew = true;
 	}
 
+	public void RefreshProductList( int productIdToSelect )
+	{
+		// Save the current scroll position
+		var currentIndex = Product.IndexOf(SelectedProduct);
+
+		// Update the collection
+		var updatedProducts = DBCommands.GetProductList();
+		Product.Clear();
+		foreach ( var product in updatedProducts )
+		{
+			Product.Add( product );
+		}
+
+		// Select the current product
+		SelectedProduct = Product.FirstOrDefault( p => p.ProductId == productIdToSelect )
+			?? Product [ currentIndex >= Product.Count ? Product.Count - 1 : currentIndex ];
+	}
+
 
 	public ProductViewModel()
 	{

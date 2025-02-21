@@ -177,6 +177,48 @@ public partial class ProductSupplierViewModel : ObservableObject
 		OnPropertyChanged( propertyName );
 	}
 
+	public void RefreshProductSupplierList( int productId, int? supplierIdToSelect = null )
+	{
+		// Bewaar huidige selectie als geen specifieke supplier is opgegeven
+		var currentSupplierId = supplierIdToSelect ?? SelectedSupplier?.ProductSupplierId;
+
+		// Update hoofdcollectie
+		var updatedSuppliers = DBCommands.GetProductSupplierList();
+		ProductSupplier.Clear();
+		foreach ( var supplier in updatedSuppliers )
+		{
+			ProductSupplier.Add( supplier );
+		}
+
+		// Update gefilterde lijst voor het huidige product
+		FilterSuppliersByProductId( productId );
+
+		// Selecteer de juiste supplier
+		if ( FilteredSuppliers.Any() )
+		{
+			if ( currentSupplierId.HasValue )
+			{
+				// Probeer de vorige selectie te behouden
+				SelectedSupplier = FilteredSuppliers.FirstOrDefault( s =>
+					s.ProductSupplierId == currentSupplierId ) ?? FilteredSuppliers.First();
+			}
+			else
+			{
+				// Als er geen vorige selectie was, neem de eerste
+				SelectedSupplier = FilteredSuppliers.First();
+			}
+		}
+		else
+		{
+			SelectedSupplier = null;
+		}
+
+		// Update alle relevante properties
+		OnPropertyChanged( nameof( FilteredSuppliers ) );
+		OnPropertyChanged( nameof( HasSuppliers ) );
+		OnPropertyChanged( nameof( HasUnsavedChanges ) );
+	}
+
 	public ProductSupplierViewModel()
 	{
 		SupplierList = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
