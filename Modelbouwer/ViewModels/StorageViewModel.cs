@@ -28,4 +28,13 @@ public partial class StorageViewModel : ObservableObject
 
 		SelectedStorage = Storage.FirstOrDefault( c => c.StorageId == 1 );
 	}
+
+	public void Refresh()
+	{
+		DBCommands dbCommands = new();
+		Storage = [ .. dbCommands.GetStorageList() ];
+		FlatStorage = [ .. dbCommands.GetFlatStorageList() ];
+		OnPropertyChanged( nameof( Storage ) );
+		OnPropertyChanged( nameof( FlatStorage ) );
+	}
 }

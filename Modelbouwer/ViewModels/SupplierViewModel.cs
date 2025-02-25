@@ -132,4 +132,9 @@ public partial class SupplierViewModel : ObservableObject
 		Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
 	}
 
+	public void Refresh()
+	{
+		Supplier = [ .. DBCommands.GetSupplierList() ];
+		OnPropertyChanged( nameof( Supplier ) );
+	}
 }

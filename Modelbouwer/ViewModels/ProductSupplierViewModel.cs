@@ -221,7 +221,16 @@ public partial class ProductSupplierViewModel : ObservableObject
 
 	public ProductSupplierViewModel()
 	{
-		SupplierList = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
-		ProductSupplier = new ObservableCollection<ProductSupplierModel>( DBCommands.GetProductSupplierList() );
+		SupplierList = [ .. DBCommands.GetSupplierList() ];
+		ProductSupplier = [ .. DBCommands.GetProductSupplierList() ];
+	}
+
+	public void Refresh()
+	{
+		SupplierList = [ .. DBCommands.GetSupplierList() ];
+		ProductSupplier = [ .. DBCommands.GetProductSupplierList() ];
+
+		OnPropertyChanged( nameof( SupplierList ) );
+		OnPropertyChanged( nameof( ProductSupplier ) );
 	}
 }

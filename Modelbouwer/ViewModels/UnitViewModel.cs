@@ -57,4 +57,11 @@ public partial class UnitViewModel : ObservableObject
 			SelectedUnit = Unit.First();
 		}
 	}
+
+	public void Refresh()
+	{
+		Unit = [ .. DBCommands.GetUnitList() ];
+		OnPropertyChanged( nameof( Unit ) );
+	}
+
 }

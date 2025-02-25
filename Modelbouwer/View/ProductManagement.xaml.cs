@@ -10,8 +10,17 @@ public partial class ProductManagement : Page
 	public ProductManagement()
 	{
 		InitializeComponent();
-		_viewModel = new CombinedProductViewModel();
-		DataContext = _viewModel;
+		this.Loaded += ProductManagement_Loaded;
+		//_viewModel = new CombinedProductViewModel();
+		//DataContext = _viewModel;
+	}
+
+	private void ProductManagement_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedProductViewModel viewModel )
+		{
+			viewModel.RefreshAll();
+		}
 	}
 
 	#region Add/Replace product image
@@ -600,7 +609,7 @@ public partial class ProductManagement : Page
 					{ DBNames.ProductSupplierFieldNameDefaultSupplier, DBNames.ProductSupplierFieldTypeDefaultSupplier, SupplierDefault.IsChecked == true ? "*" : "" }
 			};
 
-			_ = DBCommands.UpdateInTable( DBNames.SupplierContactTable, _updateFields, _whereFields );
+			_ = DBCommands.UpdateInTable( DBNames.ProductSupplierTable, _updateFields, _whereFields );
 
 
 			viewModel.ProductSupplierViewModel.IsAddingNew = false;

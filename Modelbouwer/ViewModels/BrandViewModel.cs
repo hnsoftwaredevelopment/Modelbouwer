@@ -140,4 +140,10 @@ public partial class BrandViewModel : ObservableObject
 
 		_temporaryBrand = new();
 	}
+
+	public void Refresh()
+	{
+		Brand = [ .. DBCommands.GetBrandList() ];
+		OnPropertyChanged( nameof( Brand ) );
+	}
 }

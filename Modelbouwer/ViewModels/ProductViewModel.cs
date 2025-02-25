@@ -127,7 +127,13 @@ public partial class ProductViewModel : ObservableObject
 
 	public ProductViewModel()
 	{
-		Product = new ObservableCollection<ProductModel>( DBCommands.GetProductList() );
+		Product = [ .. DBCommands.GetProductList() ];
 		SelectedProduct = Product [ 0 ];
+	}
+
+	public void Refresh()
+	{
+		Product = [ .. DBCommands.GetProductList() ];
+		OnPropertyChanged( nameof( Product ) );
 	}
 }

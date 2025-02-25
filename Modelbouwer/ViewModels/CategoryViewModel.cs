@@ -24,9 +24,19 @@ public partial class CategoryViewModel : ObservableObject
 	public CategoryViewModel()
 	{
 		DBCommands dbCommands = new();
-		Category = new ObservableCollection<CategoryModel>( dbCommands.GetCategoryList() );
-		FlatCategory = new List<CategoryModel>( dbCommands.GetFlatCategoryList() );
+		Category = [ .. dbCommands.GetCategoryList() ];
+		FlatCategory = [ .. dbCommands.GetFlatCategoryList() ];
 
 		SelectedCategory = Category.FirstOrDefault( c => c.CategoryId == 1 );
+	}
+
+	public void Refresh()
+	{
+		DBCommands dbCommands = new();
+		Category = [ .. dbCommands.GetCategoryList() ];
+		FlatCategory = [ .. dbCommands.GetFlatCategoryList() ];
+
+		OnPropertyChanged( nameof( Category ) );
+		OnPropertyChanged( nameof( FlatCategory ) );
 	}
 }

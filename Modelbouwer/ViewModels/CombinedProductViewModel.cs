@@ -34,4 +34,15 @@ public class CombinedProductViewModel : ObservableObject
 		get => ProductViewModel.SelectedProduct;
 		set => ProductViewModel.SelectedProduct = value;
 	}
+
+	public void RefreshAll()
+	{
+		BrandViewModel.Refresh();
+		CategoryViewModel.Refresh();
+		ProductViewModel.Refresh();
+		ProductSupplierViewModel.Refresh();
+		StorageViewModel.Refresh();
+		SupplierViewModel.Refresh();
+		UnitViewModel.Refresh();
+	}
 }
