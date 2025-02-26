@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.ViewModels;
+﻿namespace Modelbouwer.ViewModels;
 public partial class CurrencyViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -87,5 +85,12 @@ public partial class CurrencyViewModel : ObservableObject
 		{
 			SelectedCurrency = Currency.First();
 		}
+	}
+
+	public void Refresh()
+	{
+		DBCommands dbCommands = new();
+		Currency = new ObservableCollection<CurrencyModel>( dbCommands.GetCurrencyList() );
+		OnPropertyChanged( nameof( Currency ) );
 	}
 }

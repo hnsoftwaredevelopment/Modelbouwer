@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.View;
+﻿namespace Modelbouwer.View;
 
 /// <summary>
 /// Interaction logic for CountryManagement.xaml
@@ -11,6 +9,15 @@ public partial class CountryManagement : Page
 	{
 		InitializeComponent();
 		DataContext = new CombinedCountryViewModel();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedCountryViewModel viewModel )
+		{
+			viewModel.RefreshAll();
+		}
 	}
 
 	private void ButtonNew( object sender, RoutedEventArgs e )

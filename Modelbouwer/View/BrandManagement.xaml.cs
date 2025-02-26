@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.View;
+﻿namespace Modelbouwer.View;
 /// <summary>
 /// Interaction logic for BrandManagement.xaml
 /// </summary>
@@ -10,6 +8,15 @@ public partial class BrandManagement : Page
 	{
 		InitializeComponent();
 		DataContext = new BrandViewModel();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is BrandViewModel viewModel )
+		{
+			viewModel.Refresh();
+		}
 	}
 
 	private void ButtonNew( object sender, RoutedEventArgs e )

@@ -480,7 +480,7 @@ public class GeneralHelper
 								object convertedValue = Convert.ChangeType(value, property.PropertyType);
 								property.SetValue( item, convertedValue );
 							}
-							catch ( Exception ex )
+							catch ( Exception )
 							{
 							}
 						}

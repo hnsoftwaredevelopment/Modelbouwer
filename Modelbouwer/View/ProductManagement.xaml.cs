@@ -4,18 +4,17 @@ namespace Modelbouwer.View;
 
 public partial class ProductManagement : Page
 {
-	private readonly CombinedProductViewModel _viewModel;
 	private bool _isUpdatingFields;
 
 	public ProductManagement()
 	{
 		InitializeComponent();
-		this.Loaded += ProductManagement_Loaded;
+		this.Loaded += Data_Loaded;
 		//_viewModel = new CombinedProductViewModel();
 		//DataContext = _viewModel;
 	}
 
-	private void ProductManagement_Loaded( object sender, RoutedEventArgs e )
+	private void Data_Loaded( object sender, RoutedEventArgs e )
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{

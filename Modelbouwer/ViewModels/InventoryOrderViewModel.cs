@@ -70,8 +70,8 @@ public partial class InventoryOrderViewModel : ObservableObject
 
 	public InventoryOrderViewModel()
 	{
-		InventoryOrder = [ .. DBCommands.GetInventoryOrder() ];
-		SelectedProducts = [ ];
+		InventoryOrder = new ObservableCollection<InventoryOrderModel>( DBCommands.GetInventoryOrder() );
+		SelectedProducts = new ObservableCollection<InventoryOrderModel>();
 
 		foreach ( var product in InventoryOrder )
 		{
@@ -79,18 +79,15 @@ public partial class InventoryOrderViewModel : ObservableObject
 		}
 	}
 
-	//public void FilterInventoryBySupplier( int supplierId )
-	//{
-	//	InventoryOrder = new ObservableCollection<InventoryOrderModel>(
-	//		DBCommands.GetInventoryOrder( supplierId )
-	//	);
-	//}
-	//public void UpdateInventoryOrder( int supplierId )
-	//{
-	//	InventoryOrder = new ObservableCollection<InventoryOrderModel>( DBCommands.GetInventoryOrder( supplierId ) );
-	//}
+	public void Refresh()
+	{
+		InventoryOrder = new ObservableCollection<InventoryOrderModel>( DBCommands.GetInventoryOrder() );
+		SelectedProducts = new ObservableCollection<InventoryOrderModel>();
+		OnPropertyChanged( nameof( InventoryOrder ) );
+		OnPropertyChanged( nameof( SelectedProducts ) );
+	}
 
-	private void SelectedProduct_PropertyChanged( object sender, PropertyChangedEventArgs e )
+	private void SelectedProduct_PropertyChanged( object? sender, PropertyChangedEventArgs e )
 	{
 		if ( e.PropertyName == nameof( InventoryOrderModel.IsSelected ) )
 		{
@@ -105,7 +102,7 @@ public partial class InventoryOrderViewModel : ObservableObject
 		}
 	}
 
-	public event PropertyChangedEventHandler PropertyChanged;
-	protected void OnPropertyChanged( string name ) =>
+	public new event PropertyChangedEventHandler? PropertyChanged;
+	protected new void OnPropertyChanged( string name ) =>
 		PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( name ) );
 }

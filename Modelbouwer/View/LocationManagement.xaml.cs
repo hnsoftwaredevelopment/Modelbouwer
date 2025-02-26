@@ -8,6 +8,15 @@ public partial class LocationManagement : Page
 	public LocationManagement()
 	{
 		InitializeComponent();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is StorageViewModel viewModel )
+		{
+			viewModel.Refresh();
+		}
 	}
 
 	private void ButtonDelete( object sender, RoutedEventArgs e )

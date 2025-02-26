@@ -1565,7 +1565,7 @@ In order to be able to add a new time registration, a date and project must firs
     <value>April</value>
   </data>
   <data name="generalDateTimeMonth8Short" xml:space="preserve">
-    <value>Aug.</value>
+    <value>Aug</value>
   </data>
   <data name="generalDateTimeMonth8" xml:space="preserve">
     <value>August</value>
@@ -1667,13 +1667,13 @@ In order to be able to add a new time registration, a date and project must firs
     <value>MRT</value>
   </data>
   <data name="generalDateTimeMonth11Short" xml:space="preserve">
-    <value>Nov.</value>
+    <value>Nov</value>
   </data>
   <data name="generalDateTimeMonth11" xml:space="preserve">
     <value>November</value>
   </data>
   <data name="generalDateTimeMonth10Short" xml:space="preserve">
-    <value>Oct.</value>
+    <value>Oct</value>
   </data>
   <data name="generalDateTimeMonth10" xml:space="preserve">
     <value>October</value>

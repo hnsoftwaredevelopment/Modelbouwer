@@ -266,7 +266,7 @@
     <comment>Text for LessThanorEqual</comment>
   </data>
   <data name="MatchCaseToolTip" xml:space="preserve">
-    <value>Match Case </value>
+    <value>Match Case</value>
     <comment>Tooltip text for Match Case on AdvancedFiltering Popup@MutedRule(StringFormat)@MutedRule(WhiteSpaceLead)</comment>
   </data>
   <data name="Moderate" xml:space="preserve">
@@ -410,7 +410,7 @@
     <comment>Text for Cannot drop here in RowDragAndDrop popup</comment>
   </data>
   <data name="DraggingRowsCount" xml:space="preserve">
-    <value>Dragging rows count : </value>
+    <value>Dragging rows count :</value>
     <comment>Text for Dragging rows count in DragAndDrop popup</comment>
   </data>
   <data name="DropAbove" xml:space="preserve">
@@ -426,7 +426,7 @@
     <comment>Text for Drop below in RowDragAndDrop popup</comment>
   </data>
   <data name="DropStatus" xml:space="preserve">
-    <value>Drop status : </value>
+    <value>Drop status :</value>
     <comment>Text for Drop status in RowDragAndDrop popup</comment>
   </data>
   <data name="NotBeginsWith" xml:space="preserve">

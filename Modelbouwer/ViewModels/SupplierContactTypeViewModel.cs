@@ -57,4 +57,10 @@ public partial class SupplierContactTypeViewModel : ObservableObject
 			SelectedContactType = SupplierContactType.First();
 		}
 	}
+
+	public void Refresh()
+	{
+		SupplierContactType = new ObservableCollection<SupplierContactTypeModel>( collection: DBCommands.GetContactTypeList() );
+		OnPropertyChanged( nameof( SupplierContactType ) );
+	}
 }

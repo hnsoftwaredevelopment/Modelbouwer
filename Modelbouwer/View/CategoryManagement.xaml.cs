@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Modelbouwer.View;
+﻿namespace Modelbouwer.View;
 
 /// <summary>
 /// Interaction logic for CatagoryManagement.xaml
@@ -10,6 +8,15 @@ public partial class CategoryManagement : Page
 	public CategoryManagement()
 	{
 		InitializeComponent();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is BrandViewModel viewModel )
+		{
+			viewModel.Refresh();
+		}
 	}
 
 	private void ButtonDelete( object sender, RoutedEventArgs e )

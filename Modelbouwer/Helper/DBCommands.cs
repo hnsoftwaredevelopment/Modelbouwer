@@ -227,7 +227,6 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			int? _parent = null;
 			if ( _dt.Rows [ i ] [ 1 ] != DBNull.Value )
 			{
 				categoryList.Add( new CategoryModel
@@ -315,7 +314,7 @@ public class DBCommands
 		List<string> pathParts = [];
 		CategoryModel? current = category;
 
-		categoryPathCache [ category.CategoryId ] = fullPath;
+		categoryPathCache [ category.CategoryId ] = fullPath ?? string.Empty;
 		return fullPath;
 	}
 	#endregion CategoryList
@@ -591,7 +590,7 @@ public class DBCommands
 		List<string> pathParts = [];
 		StorageModel? current = storage;
 
-		storagePathCache [ storage.StorageId ] = fullPath;
+		storagePathCache [ storage.StorageId ] = fullPath ?? string.Empty;
 		return fullPath;
 	}
 	#endregion StorageLocationList
@@ -1094,11 +1093,11 @@ public class DBCommands
 		{
 			ExecuteNonQuery( _sqlQuery );
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1133,11 +1132,11 @@ public class DBCommands
 
 			result = rowsAffected > 0 ? "Rij toegevoegd." : "Rij niet toegevoegd.";
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1221,11 +1220,11 @@ public class DBCommands
 
 			result = rowsAffected > 0 ? "Rij toegevoegd." : "Rij niet toegevoegd.";
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1267,11 +1266,11 @@ public class DBCommands
 
 			result = rowsAffected > 0 ? $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.Updated" )}." : $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.NotUpdated" )}.";
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1301,11 +1300,11 @@ public class DBCommands
 
 			result = rowsAffected > 0 ? "Rij toegevoegd." : "Rij niet toegevoegd.";
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1345,11 +1344,11 @@ public class DBCommands
 				result = "Rij niet toegevoegd.";
 			}
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1371,11 +1370,11 @@ public class DBCommands
 		{
 			ExecuteNonQuery( sqlQuery );
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1401,11 +1400,11 @@ public class DBCommands
 
 			result = rowsAffected > 0 ? $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.Deleted" )}." : $"{GeneralHelper.GetResourceString( "Maintanance.Statusline.NotDeleted" )}.";
 		}
-		catch ( MySqlException ex )
+		catch ( MySqlException )
 		{
 			throw;
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw;
 		}
@@ -1435,11 +1434,11 @@ public class DBCommands
 			{
 				ExecuteNonQuery( sqlQuery );
 			}
-			catch ( MySqlException ex )
+			catch ( MySqlException )
 			{
 				throw;
 			}
-			catch ( Exception ex )
+			catch ( Exception )
 			{
 				throw;
 			}

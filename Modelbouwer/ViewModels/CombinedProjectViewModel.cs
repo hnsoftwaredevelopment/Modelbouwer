@@ -32,4 +32,14 @@ public class CombinedProjectViewModel
 			}
 		}
 	}
+
+	public void RefreshAll()
+	{
+		ProjectViewModel.Refresh();
+		TimeViewModel.Refresh();
+		ProductViewModel.Refresh();
+		ProductUsageViewModel.Refresh();
+
+		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
+	}
 }

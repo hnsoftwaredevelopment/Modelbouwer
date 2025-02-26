@@ -5,9 +5,9 @@ namespace Modelbouwer.Model;
 
 public class SupplyOrderModel : ObservableObject
 {
-	public event PropertyChangedEventHandler? PropertyChanged;
+	public new event PropertyChangedEventHandler? PropertyChanged;
 
-	protected void OnPropertyChanged( [CallerMemberName] string? propertyName = null ) =>
+	protected new void OnPropertyChanged( [CallerMemberName] string? propertyName = null ) =>
 	PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
 
 	public int SupplyOrderId { get; set; }
@@ -55,18 +55,18 @@ public class SupplyOrderModel : ObservableObject
 
 	// Mapping dictionary for mapping Database Header to Property name
 	public static readonly Dictionary<string, string> HeaderToPropertyMap = new()
-{
-	{ DBNames.OrderFieldNameId, "SupplyOrderId" },
-	{ DBNames.OrderFieldNameClosed, "SupplyOrderClosed"},
-	{ DBNames.OrderFieldNameClosedDate, "SupplyOrderClosedDate"},
-	{ DBNames.OrderFieldNameSupplierId, "SupplyOrderSupplierId"},
-	{ DBNames.OrderFieldNameCurrencyId, "SupplyOrderCurrencyId"},
-	{ DBNames.OrderFieldNameOrderNumber, "SupplyOrderNumber"},
-	{ DBNames.OrderFieldNameOrderDate, "SupplyOrderDate"},
-	{ DBNames.OrderFieldNameCurrencySymbol, "SupplyOrderCurrencySymbol"},
-	{ DBNames.OrderFieldNameConversionRate, "SupplyOrderCurrencyRate"},
-	{ DBNames.OrderFieldNameShippingCosts, "SupplyOrderShippingCosts"},
-	{ DBNames.OrderFieldNameOrderCosts, "SupplyOrderOrderCosts"},
-	{ DBNames.OrderFieldNameOrderMemo, "SupplyOrderMemo"},
-};
+					{
+									{ DBNames.OrderFieldNameId, "SupplyOrderId" },
+									{ DBNames.OrderFieldNameClosed, "SupplyOrderClosed"},
+									{ DBNames.OrderFieldNameClosedDate, "SupplyOrderClosedDate"},
+									{ DBNames.OrderFieldNameSupplierId, "SupplyOrderSupplierId"},
+									{ DBNames.OrderFieldNameCurrencyId, "SupplyOrderCurrencyId"},
+									{ DBNames.OrderFieldNameOrderNumber, "SupplyOrderNumber"},
+									{ DBNames.OrderFieldNameOrderDate, "SupplyOrderDate"},
+									{ DBNames.OrderFieldNameCurrencySymbol, "SupplyOrderCurrencySymbol"},
+									{ DBNames.OrderFieldNameConversionRate, "SupplyOrderCurrencyRate"},
+									{ DBNames.OrderFieldNameShippingCosts, "SupplyOrderShippingCosts"},
+									{ DBNames.OrderFieldNameOrderCosts, "SupplyOrderOrderCosts"},
+									{ DBNames.OrderFieldNameOrderMemo, "SupplyOrderMemo"},
+					};
 }

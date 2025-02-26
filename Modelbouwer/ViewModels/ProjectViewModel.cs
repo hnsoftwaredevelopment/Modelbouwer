@@ -179,4 +179,11 @@ public partial class ProjectViewModel : ObservableObject
 		Project = [ .. DBCommands.GetProjectList() ];
 		SelectedProject = Project [ 0 ];
 	}
+
+	public void Refresh()
+	{
+		Project = [ .. DBCommands.GetProjectList() ];
+		OnPropertyChanged( nameof( Project ) );
+		SelectedProject = Project [ 0 ];
+	}
 }

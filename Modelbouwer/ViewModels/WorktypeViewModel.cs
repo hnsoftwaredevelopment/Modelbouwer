@@ -58,4 +58,16 @@ public partial class WorktypeViewModel : ObservableObject
 		}
 	}
 
+	public void Refresh()
+	{
+		DBCommands dbCommands = new();
+		Worktype = new ObservableCollection<WorktypeModel>( dbCommands.GetWorktypeList() );
+
+		if ( Worktype != null && Worktype.Any() )
+		{
+			SelectedWorktype = Worktype.First();
+		}
+		OnPropertyChanged( nameof( Worktype ) );
+	}
+
 }

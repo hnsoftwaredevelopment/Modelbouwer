@@ -237,7 +237,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 		}
 	}
 
-	private void SelectedOrder_PropertyChanged( object sender, PropertyChangedEventArgs e )
+	private void SelectedOrder_PropertyChanged( object? sender, PropertyChangedEventArgs e )
 	{
 		if ( e.PropertyName == nameof( SupplyOrderModel.IsSelected ) )
 		{
@@ -290,7 +290,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 		}
 	}
 
-	private void SelectedProduct_PropertyChanged( object sender, PropertyChangedEventArgs e )
+	private void SelectedProduct_PropertyChanged( object? sender, PropertyChangedEventArgs e )
 	{
 		if ( e.PropertyName == nameof( SupplyOrderModel.IsSelected ) )
 		{
@@ -355,7 +355,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 			OnPropertyChanged( nameof( ProductList ) );
 		}
-		catch ( Exception ex )
+		catch ( Exception )
 		{
 			throw; // Re-throw de exception om het probleem niet te verbergen
 		}
@@ -522,6 +522,16 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 		UpdateFilteredOrderLines();
 		UpdateCanSave();
+	}
+
+	public void Refresh()
+	{
+		SupplierList = [ .. DBCommands.GetSupplierList() ];
+		SupplierOrderList = [ .. DBCommands.GetSupplierOrderList() ];
+		SupplierOrderLineShortList = [ .. DBCommands.GetSupplierOrderLineShortList() ];
+		OnPropertyChanged( nameof( SupplierList ) );
+		OnPropertyChanged( nameof( SupplierOrderList ) );
+		OnPropertyChanged( nameof( SupplierOrderLineShortList ) );
 	}
 }
 

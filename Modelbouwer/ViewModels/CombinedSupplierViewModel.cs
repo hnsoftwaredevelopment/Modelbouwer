@@ -64,4 +64,15 @@ public class CombinedSupplierViewModel
 			}
 		}
 	}
+
+	public void RefreshAll()
+	{
+		SupplierViewModel.Refresh();
+		SupplierContactViewModel.Refresh();
+		SupplierContactTypeViewModel.Refresh();
+		CurrencyViewModel.Refresh();
+		CountryViewModel.Refresh();
+
+		SupplierViewModel.PropertyChanged += OnSupplierViewModelPropertyChanged;
+	}
 }

@@ -101,4 +101,10 @@ public partial class SupplierContactViewModel : ObservableObject
 	{
 		SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
 	}
+
+	public void Refresh()
+	{
+		SupplierContact = new ObservableCollection<SupplierContactModel>( collection: DBCommands.GetContactList() );
+		OnPropertyChanged( nameof( SupplierContact ) );
+	}
 }

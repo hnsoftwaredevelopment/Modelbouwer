@@ -412,7 +412,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toegevoegd: .
+        ///   Looks up a localized string similar to Toegevoegd:.
         /// </summary>
         public static string ExportStatuslineStatusPrefixAdded {
             get {
@@ -430,7 +430,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status: .
+        ///   Looks up a localized string similar to Status:.
         /// </summary>
         public static string ExportStatuslineStatusText {
             get {
@@ -2230,7 +2230,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toegevoegd: .
+        ///   Looks up a localized string similar to Toegevoegd:.
         /// </summary>
         public static string ImportStatuslineStatusPrefixAdded {
             get {
@@ -2248,7 +2248,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status: .
+        ///   Looks up a localized string similar to Status:.
         /// </summary>
         public static string ImportStatuslineStatusText {
             get {
@@ -2500,7 +2500,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toegevoegd: .
+        ///   Looks up a localized string similar to Toegevoegd:.
         /// </summary>
         public static string ImportTimeEntryStatuslineStatusPrefixAdded {
             get {
@@ -2518,7 +2518,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status: .
+        ///   Looks up a localized string similar to Status:.
         /// </summary>
         public static string ImportTimeEntryStatuslineStatusText {
             get {
@@ -4084,7 +4084,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toegevoegd: .
+        ///   Looks up a localized string similar to Toegevoegd:.
         /// </summary>
         public static string metadataProductStatuslineStatusPrefixAdded {
             get {
@@ -4102,7 +4102,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status: .
+        ///   Looks up a localized string similar to Status:.
         /// </summary>
         public static string metadataProductStatuslineStatusText {
             get {
@@ -4921,7 +4921,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toegevoegd: .
+        ///   Looks up a localized string similar to Toegevoegd:.
         /// </summary>
         public static string metadataProjectStatuslineStatusPrefixAdded {
             get {
@@ -4939,7 +4939,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Status: .
+        ///   Looks up a localized string similar to Status:.
         /// </summary>
         public static string metadataProjectStatuslineStatusText {
             get {
@@ -5776,7 +5776,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toegevoegd: .
+        ///   Looks up a localized string similar to Toegevoegd:.
         /// </summary>
         public static string metadataSupplierStatuslineStatusPrefixAdded {
             get {
@@ -7405,7 +7405,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aantal producten: .
+        ///   Looks up a localized string similar to Aantal producten:.
         /// </summary>
         public static string ProjectCostsDataGridGroupTotalsNumber {
             get {
@@ -7414,7 +7414,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totale kosten: .
+        ///   Looks up a localized string similar to Totale kosten:.
         /// </summary>
         public static string ProjectCostsDataGridGroupTotalsTotals {
             get {
@@ -7513,7 +7513,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aantal dagdelen: .
+        ///   Looks up a localized string similar to Aantal dagdelen:.
         /// </summary>
         public static string ProjectTimeEntriesDataGridGroupTotalsNumber {
             get {
@@ -7522,7 +7522,7 @@ namespace Modelbouwer.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Totaal gewerkte uren: .
+        ///   Looks up a localized string similar to Totaal gewerkte uren:.
         /// </summary>
         public static string ProjectTimeEntriesDataGridGroupTotalsTotals {
             get {

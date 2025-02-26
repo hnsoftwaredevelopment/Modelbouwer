@@ -1673,7 +1673,7 @@ Um eine neue Zeitregistrierung hinzufügen zu können, muss zuerst ein Datum und
     <value>November</value>
   </data>
   <data name="generalDateTimeMonth10Short" xml:space="preserve">
-    <value>Okt.</value>
+    <value>Okt</value>
   </data>
   <data name="generalDateTimeMonth10" xml:space="preserve">
     <value>Oktober</value>
@@ -1895,7 +1895,7 @@ Um eine neue Zeitregistrierung hinzufügen zu können, muss zuerst ein Datum und
     <value>Std ...</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemBuildTimeExpectationFieldHoursTooltip" xml:space="preserve">
-    <value>Wie viele Stunden erwarten Sie, an dem Projekt zu arbeiten?</value>
+    <value>Wie viele Stunden erwarten Sie, an dem Projekt zu arbeiten</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemBuildTimeExpectationFieldWorkdaysTag" xml:space="preserve">
     <value>Arbeitstage:</value>
@@ -1982,19 +1982,19 @@ Um eine neue Zeitregistrierung hinzufügen zu können, muss zuerst ein Datum und
     <value>Ende</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemGeneralFieldEndDateTooltip" xml:space="preserve">
-    <value>Wann wird das Projekt abgeschlossen?</value>
+    <value>Wann wird das Projekt abgeschlossen</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemGeneralFieldExpectedEndDateTag" xml:space="preserve">
     <value>Erwartete Enddatum</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemGeneralFieldExpectedEndDateTooltip" xml:space="preserve">
-    <value>Was ist das erwartete Enddatum für das Projekt?</value>
+    <value>Was ist das erwartete Enddatum für das Projekt</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemGeneralFieldNameTag" xml:space="preserve">
     <value>Projektname</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemGeneralFieldNameTooltip" xml:space="preserve">
-    <value>Wie lautet der vollständige Name des Projekts?</value>
+    <value>Wie lautet der vollständige Name des Projekts</value>
   </data>
   <data name="metadataProjectTabGeneralTabItemGeneralFieldStartDateTag" xml:space="preserve">
     <value>Startdatum</value>

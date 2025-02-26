@@ -9,4 +9,10 @@ public class CombinedCountryViewModel
 		CountryViewModel = new();
 		CurrencyViewModel = new();
 	}
+
+	public void RefreshAll()
+	{
+		CountryViewModel.Refresh();
+		CurrencyViewModel.Refresh();
+	}
 }

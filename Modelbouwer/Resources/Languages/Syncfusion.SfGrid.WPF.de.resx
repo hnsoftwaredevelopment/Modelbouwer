@@ -229,7 +229,7 @@
     <value>Weniger oder gleich oder gleich</value>
   </data>
   <data name="MatchCaseToolTip" xml:space="preserve">
-    <value>Match -Fall </value>
+    <value>Match -Fall</value>
   </data>
   <data name="Moderate" xml:space="preserve">
     <value>Mäßig</value>
@@ -337,7 +337,7 @@
     <value>Kann hier nicht fallen</value>
   </data>
   <data name="DraggingRowsCount" xml:space="preserve">
-    <value>Ziehen von Zeilen zählen: </value>
+    <value>Ziehen von Zeilen zählen:</value>
   </data>
   <data name="DropAbove" xml:space="preserve">
     <value>Oben fallen</value>
@@ -349,7 +349,7 @@
     <value>Unten fallen</value>
   </data>
   <data name="DropStatus" xml:space="preserve">
-    <value>Dropstatus: </value>
+    <value>Dropstatus:</value>
   </data>
   <data name="NotBeginsWith" xml:space="preserve">
     <value>Beginnt nicht mit</value>

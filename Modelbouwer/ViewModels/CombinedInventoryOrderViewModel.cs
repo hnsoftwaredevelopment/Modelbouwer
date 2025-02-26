@@ -9,4 +9,10 @@ public class CombinedInventoryOrderViewModel
 		SupplyOrderViewModel = new();
 		ProductViewModel = new();
 	}
+
+	public void RefreshAll()
+	{
+		SupplyOrderViewModel.Refresh();
+		ProductViewModel.Refresh();
+	}
 }

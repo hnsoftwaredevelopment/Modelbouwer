@@ -8,7 +8,7 @@ namespace Modelbouwer.View;
 /// </summary>
 public partial class StorageManagement : Page
 {
-	private object _originalValue; // Temporary variable to store the original value
+	private object? _originalValue; // Temporary variable to store the original value
 	public StorageManagement()
 	{
 		InitializeComponent();
@@ -29,23 +29,23 @@ public partial class StorageManagement : Page
 		// Forceer de grid om de wijzigingen weer te geven
 		dataGrid.View.Refresh();
 	}
-	private void ChangedInventory( object sender, CurrentCellEndEditEventArgs e )
+	private void ChangedInventory( object? sender, CurrentCellEndEditEventArgs e )
 	{
-		var dataGrid = (SfDataGrid)sender;
+		var dataGrid = (SfDataGrid)sender!;
 
 		var columnIndex = e.RowColumnIndex.ColumnIndex;
 		var rowIndex = e.RowColumnIndex.RowIndex;
 		var gridColumn = dataGrid.Columns[columnIndex];
 		var columnName = gridColumn.MappingName.ToString().ToLower();
 
-		var editedRow = (InventoryModel)((SfDataGrid)sender).GetRecordAtRowIndex(e.RowColumnIndex.RowIndex);
+		var editedRow = (InventoryModel)dataGrid.GetRecordAtRowIndex(e.RowColumnIndex.RowIndex);
 		string _whereFieldName = "", _whereFieldType = "", _changeFieldName = "", _changeFieldType = "", _changeTable = "";
 
 		// Check if the row is not null
 		if ( editedRow != null )
 		{
 			// Update the MySQL table
-			if ( _originalValue.ToString() != editedRow.ProductInventory.ToString() )
+			if ( _originalValue?.ToString() != editedRow.ProductInventory.ToString() )
 			{
 				switch ( columnName )
 				{
@@ -56,11 +56,11 @@ public partial class StorageManagement : Page
 						_whereFieldName = DBNames.ProductInventoryFieldNameProduct_Id;
 						_whereFieldType = DBNames.ProductInventoryFieldTypeProduct_Id;
 
-						// Check here if the Selected Product_Id already excists in the productinventory table, if excists do nothing otherwise add ProductId, with value 0 
-						var _excists = DBCommands.CheckForRecords( _changeTable, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
-						if ( _excists == 0 )
+						// Check here if the Selected Product_Id already exists in the productinventory table, if exists do nothing otherwise add ProductId, with value 0 
+						var _exists = DBCommands.CheckForRecords(_changeTable, new string[1, 3] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } });
+						if ( _exists == 0 )
 						{
-							//There is no record available in table, add first with minimal data to be able to find the record to save changes
+							// There is no record available in table, add first with minimal data to be able to find the record to save changes
 							DBCommands.InsertInTable( _changeTable, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
 						}
 						break;
@@ -83,13 +83,13 @@ public partial class StorageManagement : Page
 				DBCommands.UpdateInTable( _changeTable, new string [ 1, 3 ] { { _changeFieldName, _changeFieldType, editedRow.ProductInventory.ToString() } }, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
 				RefreshDataGrid();
 
-				//UpdateDatabase( editedRow );
+				// UpdateDatabase(editedRow);
 			}
 		}
 	}
-	private void OriginalInventory( object sender, CurrentCellBeginEditEventArgs e )
+	private void OriginalInventory( object? sender, CurrentCellBeginEditEventArgs e )
 	{
-		var dataGrid = (SfDataGrid)sender;
+		var dataGrid = (SfDataGrid)sender!;
 		var rowIndex = e.RowColumnIndex.RowIndex;
 		var columnName = e.Column.MappingName;
 

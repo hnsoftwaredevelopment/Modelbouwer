@@ -807,13 +807,13 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
     <value>Geen regels ingelezen</value>
   </data>
   <data name="ImportTimeEntryStatuslineStatusText" xml:space="preserve">
-    <value>Status: </value>
+    <value>Status:</value>
   </data>
   <data name="ImportTimeEntryFileDialogFiltertext" xml:space="preserve">
     <value>Te importeren betanden</value>
   </data>
   <data name="ImportTimeEntryStatuslineStatusPrefixAdded" xml:space="preserve">
-    <value>Toegevoegd: </value>
+    <value>Toegevoegd:</value>
   </data>
   <data name="ImportTimeEntryStatuslineStatusPrefixError" xml:space="preserve">
     <value>Fout in regel</value>
@@ -915,7 +915,7 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
     <value>Geen regels ingelezen</value>
   </data>
   <data name="metadataSupplierStatuslineStatusPrefixAdded" xml:space="preserve">
-    <value>Toegevoegd: </value>
+    <value>Toegevoegd:</value>
   </data>
   <data name="metadataSupplierStatuslineStatusPrefixError" xml:space="preserve">
     <value>Fout in regel</value>
@@ -975,13 +975,13 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
     <value>Geen regels ingelezen</value>
   </data>
   <data name="metadataProductStatuslineStatusPrefixAdded" xml:space="preserve">
-    <value>Toegevoegd: </value>
+    <value>Toegevoegd:</value>
   </data>
   <data name="metadataProductStatuslineStatusPrefixError" xml:space="preserve">
     <value>Fout in regel</value>
   </data>
   <data name="metadataProductStatuslineStatusText" xml:space="preserve">
-    <value>Status: </value>
+    <value>Status:</value>
   </data>
   <data name="metadataProductProductDatagridHeaderProductId" xml:space="preserve">
     <value>ID</value>
@@ -1254,13 +1254,13 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
     <value>Geen regels ingelezen</value>
   </data>
   <data name="metadataProjectStatuslineStatusPrefixAdded" xml:space="preserve">
-    <value>Toegevoegd: </value>
+    <value>Toegevoegd:</value>
   </data>
   <data name="metadataProjectStatuslineStatusPrefixError" xml:space="preserve">
     <value>Fout in regel</value>
   </data>
   <data name="metadataProjectStatuslineStatusText" xml:space="preserve">
-    <value>Status: </value>
+    <value>Status:</value>
   </data>
   <data name="metadataProjectProjectDatagridHeaderProjectId" xml:space="preserve">
     <value>ID</value>
@@ -1527,16 +1527,16 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
     <value>Op project</value>
   </data>
   <data name="ProjectCostsDataGridGroupTotalsNumber" xml:space="preserve">
-    <value>Aantal producten: </value>
+    <value>Aantal producten:</value>
   </data>
   <data name="ProjectCostsDataGridGroupTotalsTotals" xml:space="preserve">
-    <value>Totale kosten: </value>
+    <value>Totale kosten:</value>
   </data>
   <data name="ProjectTimeEntriesDataGridGroupTotalsNumber" xml:space="preserve">
-    <value>Aantal dagdelen: </value>
+    <value>Aantal dagdelen:</value>
   </data>
   <data name="ProjectTimeEntriesDataGridGroupTotalsTotals" xml:space="preserve">
-    <value>Totaal gewerkte uren: </value>
+    <value>Totaal gewerkte uren:</value>
   </data>
   <data name="generalDateTimeMonth4Short" xml:space="preserve">
     <value>Apr</value>
@@ -2295,13 +2295,13 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
     <value>Geen regels ingelezen</value>
   </data>
   <data name="ImportStatuslineStatusPrefixAdded" xml:space="preserve">
-    <value>Toegevoegd: </value>
+    <value>Toegevoegd:</value>
   </data>
   <data name="ImportStatuslineStatusPrefixError" xml:space="preserve">
     <value>Fout in regel</value>
   </data>
   <data name="ImportStatuslineStatusText" xml:space="preserve">
-    <value>Status: </value>
+    <value>Status:</value>
   </data>
   <data name="ImportUnitsLabel" xml:space="preserve">
     <value>Eenheid</value>
@@ -2385,13 +2385,13 @@ Om een nieuwe tijdsregistratie toe te kunnen voegen moet eerst een Datum en proj
     <value>Geen regels weggeschreven</value>
   </data>
   <data name="ExportStatuslineStatusPrefixAdded" xml:space="preserve">
-    <value>Toegevoegd: </value>
+    <value>Toegevoegd:</value>
   </data>
   <data name="ExportStatuslineStatusPrefixError" xml:space="preserve">
     <value>Fout in regel</value>
   </data>
   <data name="ExportStatuslineStatusText" xml:space="preserve">
-    <value>Status: </value>
+    <value>Status:</value>
   </data>
   <data name="ExportUnitsStatuslineStatusDescription" xml:space="preserve">
     <value>Geen regels weggeschreven</value>

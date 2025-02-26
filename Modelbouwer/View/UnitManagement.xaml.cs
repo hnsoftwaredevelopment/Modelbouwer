@@ -8,7 +8,16 @@ public partial class UnitManagement : Page
 	{
 		InitializeComponent();
 		DataContext = new UnitViewModel();
+		this.Loaded += Data_Loaded;
 		dataGrid.Loaded += DataGrid_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is UnitViewModel viewModel )
+		{
+			viewModel.Refresh();
+		}
 	}
 
 	private void ButtonNew( object sender, RoutedEventArgs e )
@@ -22,12 +31,19 @@ public partial class UnitManagement : Page
 
 	private void DataGrid_Loaded( object sender, RoutedEventArgs e )
 	{
-		int _rowCount = dataGrid.View.Records.Count;
-		dispStatusLine.Text = _rowCount == 0
-			? $"{( string ) FindResource( "Maintanance.Statusline.Read.None" )}"
-			: _rowCount == 1
-			? $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read.None" )}"
-			: $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read" )}";
+		if ( dataGrid.View != null )
+		{
+			int _rowCount = dataGrid.View.Records.Count;
+			dispStatusLine.Text = _rowCount == 0
+				? $"{( string ) FindResource( "Maintanance.Statusline.Read.None" )}"
+				: _rowCount == 1
+				? $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read.None" )}"
+				: $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read" )}";
+		}
+		else
+		{
+			dispStatusLine.Text = "DataGrid view is not initialized.";
+		}
 	}
 
 	private void ButtonDelete( object sender, RoutedEventArgs e )

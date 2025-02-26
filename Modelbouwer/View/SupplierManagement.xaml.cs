@@ -1,6 +1,4 @@
 ﻿#pragma warning disable CS8601 // Possible null reference assignment.
-using System.Windows.Documents;
-
 namespace Modelbouwer.View;
 
 /// <summary>
@@ -11,6 +9,15 @@ public partial class SupplierManagement : Page
 	public SupplierManagement()
 	{
 		InitializeComponent();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedSupplierViewModel viewModel )
+		{
+			viewModel.RefreshAll();
+		}
 	}
 
 	#region Open Supplier Manitenance page on specific Tab page

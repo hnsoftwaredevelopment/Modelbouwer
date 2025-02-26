@@ -8,6 +8,15 @@ public partial class ProjectManagement : Page
 	public ProjectManagement()
 	{
 		InitializeComponent();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedProjectViewModel viewModel )
+		{
+			viewModel.RefreshAll();
+		}
 	}
 
 	#region Checkbox for project completion is checked/unchecked
@@ -111,7 +120,7 @@ public partial class ProjectManagement : Page
 				SetRtfContent( selectedProject.ProjectMemo );
 			}
 
-			if ( ProjectClosed.IsChecked == false && double.Parse( viewModel.ProjectViewModel.SelectedProject.ProjectExpectedTime ) > 0 )
+			if ( ProjectClosed.IsChecked == false && selectedProject != null && double.Parse( viewModel.ProjectViewModel.SelectedProject.ProjectExpectedTime ) > 0 )
 			{
 				ProjectExpEnddate.Text = DBCommands.GetProjectEndDate( viewModel.ProjectViewModel.SelectedProject.ProjectId ).ToString();
 			}
@@ -158,7 +167,8 @@ public partial class ProjectManagement : Page
 			//{ dispStatusLine.Text = $"{_deleteName} {( string ) FindResource( "Edit.Product.Tab.Statusline.Hidden" )}"; }
 			//else
 			//{ dispStatusLine.Text = $"{_deleteName} {( string ) FindResource( "Edit.Product.Tab.Statusline.Deleted" )}"; }
-		};
+		}
+		;
 	}
 	#endregion
 

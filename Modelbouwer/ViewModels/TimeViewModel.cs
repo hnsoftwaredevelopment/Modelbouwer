@@ -99,4 +99,10 @@ public partial class TimeViewModel : ObservableObject
 	{
 		ProjectTime = new ObservableCollection<TimeModel>( DBCommands.GetTimeList() );
 	}
+
+	public void Refresh()
+	{
+		ProjectTime = new ObservableCollection<TimeModel>( DBCommands.GetTimeList() );
+		OnPropertyChanged( nameof( ProjectTime ) );
+	}
 }

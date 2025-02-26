@@ -72,4 +72,10 @@ public partial class CountryViewModel : ObservableObject
 	{
 		Country = new ObservableCollection<CountryModel>( DBCommands.GetCountryList() );
 	}
+
+	public void Refresh()
+	{
+		Country = new ObservableCollection<CountryModel>( DBCommands.GetCountryList() );
+		OnPropertyChanged( nameof( Country ) );
+	}
 }

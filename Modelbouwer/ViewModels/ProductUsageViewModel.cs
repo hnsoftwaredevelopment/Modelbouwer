@@ -40,8 +40,6 @@ public partial class ProductUsageViewModel : ObservableObject
 	[ObservableProperty]
 	private ProductUsageModel? _selectedCostEntry;
 
-	private ProjectModel? _selectedProject;
-
 	public ObservableCollection<ProductUsageModel> ProjectCost { get; set; }
 	public ObservableCollection<ProductUsageModel> FilteredCostEntries { get; private set; } = [ ];
 	public bool HasFilteredCostEntries => FilteredCostEntries != null && FilteredCostEntries.Any();
@@ -73,6 +71,12 @@ public partial class ProductUsageViewModel : ObservableObject
 	}
 	public ProductUsageViewModel()
 	{
-		ProjectCost = new ObservableCollection<ProductUsageModel>( DBCommands.GetCostList() );
+		ProjectCost = [ .. DBCommands.GetCostList() ];
+	}
+
+	public void Refresh()
+	{
+		ProjectCost = [ .. DBCommands.GetCostList() ];
+		OnPropertyChanged( nameof( ProjectCost ) );
 	}
 }

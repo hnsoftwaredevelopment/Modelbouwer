@@ -8,6 +8,15 @@ public partial class WorktypeManagement : Page
 	public WorktypeManagement()
 	{
 		InitializeComponent();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is WorktypeViewModel viewModel )
+		{
+			viewModel.Refresh();
+		}
 	}
 
 	private void ButtonDelete( object sender, RoutedEventArgs e )
@@ -17,11 +26,7 @@ public partial class WorktypeManagement : Page
 			// Check if a row is selected (check if there is a known Id)
 			if ( inpWorktypeId != null && !string.IsNullOrWhiteSpace( inpWorktypeId.Text ) )
 			{
-				//WorktypeViewModel worktypeViewModel = viewModel;
-
 				DBCommands.DeleteRecordTree( DBNames.WorktypeTable, DBNames.WorktypeFieldNameId, DBNames.WorktypeFieldNameParentId, int.Parse( inpWorktypeId.Text ) );
-				//string [ , ] _whereFields = new string [ 1, 3 ] { { DBNames.WorktypeFieldNameId, DBNames.WorktypeFieldTypeId, inpWorktypeId.Text } };
-				//string _result = DBCommands.DeleteRecord( DBNames.WorktypeTable, _whereFields );
 
 				UpdateDataGrid();
 				dispStatusLine.Text = $"{inpWorktypeName.Text}";

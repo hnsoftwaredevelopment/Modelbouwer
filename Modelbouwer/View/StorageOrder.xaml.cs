@@ -9,7 +9,15 @@ public partial class StorageOrder : Page
 	public StorageOrder()
 	{
 		InitializeComponent();
-		DataContext = new CombinedInventoryOrderViewModel();
+		this.Loaded += Data_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CombinedInventoryOrderViewModel viewModel )
+		{
+			viewModel.RefreshAll();
+		}
 	}
 
 	#region Switch between search and filter button

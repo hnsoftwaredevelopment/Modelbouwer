@@ -62,4 +62,10 @@ public partial class InventoryViewModel : ObservableObject
 	{
 		Inventory = [ .. DBCommands.GetInventory() ];
 	}
+
+	public void Refresh()
+	{
+		Inventory = new ObservableCollection<InventoryModel>( DBCommands.GetInventory() );
+		OnPropertyChanged( nameof( Inventory ) );
+	}
 }

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-
-namespace Modelbouwer.View;
+﻿namespace Modelbouwer.View;
 
 /// <summary>
 /// Interaction logic for CurrencyManagement.xaml
@@ -12,7 +10,16 @@ public partial class CurrencyManagement : Page
 		System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo( "nl" );
 		InitializeComponent();
 		DataContext = new CurrencyViewModel();
+		this.Loaded += Data_Loaded;
 		dataGrid.Loaded += DataGrid_Loaded;
+	}
+
+	private void Data_Loaded( object sender, RoutedEventArgs e )
+	{
+		if ( DataContext is CurrencyViewModel viewModel )
+		{
+			viewModel.Refresh();
+		}
 	}
 
 	private void ButtonNew( object sender, RoutedEventArgs e )
@@ -26,12 +33,19 @@ public partial class CurrencyManagement : Page
 
 	private void DataGrid_Loaded( object sender, RoutedEventArgs e )
 	{
-		int _rowCount = dataGrid.View.Records.Count;
-		if ( _rowCount == 0 ) 
-		{ dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.Read.None" )}"; }
-		else if ( _rowCount == 1 )
-				{ dispStatusLine.Text = $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read.None" )}"; }
-		else { dispStatusLine.Text = $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read" )}"; }
+		if ( dataGrid.View != null && dataGrid.View.Records != null )
+		{
+			int _rowCount = dataGrid.View.Records.Count;
+			if ( _rowCount == 0 )
+			{ dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.Read.None" )}"; }
+			else if ( _rowCount == 1 )
+			{ dispStatusLine.Text = $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read.None" )}"; }
+			else { dispStatusLine.Text = $"{_rowCount} {( string ) FindResource( "Maintanance.Statusline.Read" )}"; }
+		}
+		else
+		{
+			dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.Read.None" )}";
+		}
 	}
 
 	private void ButtonDelete( object sender, RoutedEventArgs e )
@@ -73,7 +87,7 @@ public partial class CurrencyManagement : Page
 				if ( _checkPresence == 0 )
 				{
 					// Add item to the table
-					string [ , ] _addFields = new string [ 4, 3 ] 
+					string [ , ] _addFields = new string [ 4, 3 ]
 					{
 						{ DBNames.CurrencyFieldNameCode, DBNames.CurrencyFieldTypeCode, inpCurrenyCode.Text },
 						{ DBNames.CurrencyFieldNameName, DBNames.CurrencyFieldTypeName, inpCurrencyName.Text },
