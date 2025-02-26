@@ -6,15 +6,15 @@ class TableSummaryRowConverter : IValueConverter
 {
 	public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
 	{
-		var data = value != null ? value as SummaryRecordEntry : null;
+		SummaryRecordEntry? data = value != null ? value as SummaryRecordEntry : null;
 
 		if ( data != null )
 		{
 			SfDataGrid _dataGrid = (SfDataGrid)parameter;
-			var _totalMinutes = (int)double.Parse(SummaryCreator.GetSummaryDisplayText(data, "TimeElapsedMinutes", _dataGrid.View));
-			var _hours = _totalMinutes / 60;
-			var _minutes = _totalMinutes % 60;
-			var _count = SummaryCreator.GetSummaryDisplayText(data, "TimeId", _dataGrid.View);
+			int _totalMinutes = (int)double.Parse(SummaryCreator.GetSummaryDisplayText(data, "TimeElapsedMinutes", _dataGrid.View));
+			int _hours = _totalMinutes / 60;
+			int _minutes = _totalMinutes % 60;
+			string _count = SummaryCreator.GetSummaryDisplayText(data, "TimeId", _dataGrid.View);
 
 			if ( _minutes > 0 )
 			{

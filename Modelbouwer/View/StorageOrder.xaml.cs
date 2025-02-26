@@ -23,7 +23,7 @@ public partial class StorageOrder : Page
 	#region Switch between search and filter button
 	private void ToggleButton( object sender, RoutedEventArgs e )
 	{
-		var name = ((FrameworkElement)sender).Name;
+		string name = ((FrameworkElement)sender).Name;
 
 		if ( !string.IsNullOrEmpty( name ) )
 		{
@@ -65,7 +65,7 @@ public partial class StorageOrder : Page
 			: Visibility.Collapsed;
 		#endregion
 
-		var action = SearchButton.Visibility == Visibility.Visible
+		string action = SearchButton.Visibility == Visibility.Visible
 		? "search"
 		: "filter";
 
@@ -91,17 +91,17 @@ public partial class StorageOrder : Page
 
 	private void OrderSelected( object sender, System.Windows.Controls.SelectionChangedEventArgs e )
 	{
-		var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
+		CombinedInventoryOrderViewModel viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
 
-		foreach ( var line in viewModel.SupplyOrderViewModel.SupplierOrderLineShortList )
+		foreach ( SupplyOrderLineModel line in viewModel.SupplyOrderViewModel.SupplierOrderLineShortList )
 		{
-			foreach ( var record in dataGrid.View.Records )
+			foreach ( Syncfusion.Data.RecordEntry? record in dataGrid.View.Records )
 			{
-				var inventoryOrderModel = record.Data as Modelbouwer.Model.InventoryOrderModel;
+				InventoryOrderModel? inventoryOrderModel = record.Data as Modelbouwer.Model.InventoryOrderModel;
 
 				// Zoek het bijbehorende product in de ProductViewModel
-				var correspondingProduct = viewModel.ProductViewModel.Product
-				.FirstOrDefault(p => p.ProductId == line.SupplyOrderlineShortProductId);
+				ProductModel? correspondingProduct = viewModel.ProductViewModel.Product
+				.FirstOrDefault( p => p.ProductId == line.SupplyOrderlineShortProductId );
 
 				if ( inventoryOrderModel != null &&
 					line.SupplyOrderlineShortProductId == inventoryOrderModel.ProductId )
@@ -126,7 +126,9 @@ public partial class StorageOrder : Page
 	{
 		// Als de standaard bestel hoeveelheid 0 of 1 is, gebruik dan de oorspronkelijke hoeveelheid
 		if ( standardQuantity <= 1 )
+		{
 			return requestedAmount;
+		}
 
 		// Bereken hoeveel volledige standaard hoeveelheden nodig zijn
 		double fullQuantities = Math.Ceiling(requestedAmount / standardQuantity);
@@ -148,7 +150,7 @@ public partial class StorageOrder : Page
 	#region calculate subtotal, shipping costs, order costs and grand total for each order and update the view
 	private void CalculateTotalOrderCost()
 	{
-		var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
+		CombinedInventoryOrderViewModel viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
 		viewModel?.SupplyOrderViewModel.CalculateTotalOrderCost();
 	}
 	#endregion
@@ -156,13 +158,13 @@ public partial class StorageOrder : Page
 	#region The selected supplier is changed
 	private void SupplierSelectionChanged( object sender, SelectionChangedEventArgs e )
 	{
-		var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
-		var selectedSupplier = viewModel.SupplyOrderViewModel.SupplierList.FirstOrDefault(s => s.SupplierId == viewModel.SupplyOrderViewModel.SelectedSupplier);
+		CombinedInventoryOrderViewModel viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
+		SupplierModel? selectedSupplier = viewModel.SupplyOrderViewModel.SupplierList.FirstOrDefault( s => s.SupplierId == viewModel.SupplyOrderViewModel.SelectedSupplier );
 		if ( selectedSupplier != null )
 		{
-			var shippingCosts = selectedSupplier.SupplierShippingCosts;
+			double shippingCosts = selectedSupplier.SupplierShippingCosts;
 			minShippingCosts = selectedSupplier.SupplierMinShippingCosts;
-			var orderCosts = selectedSupplier.SupplierOrderCosts;
+			double orderCosts = selectedSupplier.SupplierOrderCosts;
 
 			SupplierShippingCosts.Text = shippingCosts.ToString( "N", CultureInfo.CreateSpecificCulture( "nl-NL" ) );
 			SupplierOrderCosts.Text = orderCosts.ToString( "N", CultureInfo.CreateSpecificCulture( "nl-NL" ) );
@@ -187,10 +189,10 @@ public partial class StorageOrder : Page
 
 	private void OrderNumberChanged( object sender, TextChangedEventArgs e )
 	{
-		var textBox = sender as TextBox;
+		TextBox? textBox = sender as TextBox;
 		if ( textBox != null )
 		{
-			var viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
+			CombinedInventoryOrderViewModel viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
 			if ( viewModel?.SupplyOrderViewModel?.SelectedOrder != null )
 			{
 				viewModel.SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber = textBox.Text;

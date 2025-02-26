@@ -35,8 +35,9 @@ public class StorageModel : INameable
 
 	private string BuildFullPath()
 	{
-		var path = new List<string> { StorageName };
-		var currentNode = this;
+		List<string> path = new()
+		{ StorageName };
+		StorageModel currentNode = this;
 
 		while ( currentNode.Parent != null )
 		{

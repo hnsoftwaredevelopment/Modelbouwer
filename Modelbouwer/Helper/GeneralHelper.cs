@@ -28,7 +28,9 @@ public class GeneralHelper
 	#region Get Timestamp as Filename prefix
 
 	/// <summary>
-	/// Get file prefix. The filename for an csv exportfile wil start with a timestamp, this function generates the timestamp for the current export action
+	/// Get file prefix. The filename for an csv exportfile wil start with a
+	/// timestamp, this function generates the timestamp for the current export
+	/// action
 	/// </summary>
 	/// <returns>A string containing the current timestamp</returns>
 	public static string GetFilePrefix()
@@ -55,10 +57,14 @@ public class GeneralHelper
 	#region Get Im-/Export file headers
 
 	/// <summary>
-	/// All CSV export files will have different named columns to export. Therefore each file will also have <see langword="abstract"/>different header
+	/// All CSV export files will have different named columns to export.
+	/// Therefore each file will also have <see langword="abstract"/>different
+	/// header
 	/// </summary>
-	/// <param name="ExportFile This represents the type of fily user wants to export"></param>
-	/// <returns>_header <see langword="abstract"/>string contining the file header</returns>
+	/// <param name="ExportFile This represents the type of fily user wants to export">
+	///     </param>
+	/// <returns>_header <see langword="abstract"/>string contining the file
+	///     header</returns>
 	public static string [ ] GetHeaders( string ExportFile )
 	{
 		string [ ]? _header = ExportFile.ToLower() switch
@@ -687,7 +693,7 @@ public class GeneralHelper
 	#region MothNames
 	public static string MonthName( int _month )
 	{
-		var months = new Dictionary<int, string>
+		Dictionary<int, string> months = new()
 		{
 			{ 1, (string)Application.Current.Resources[ "Region.Month.Name.01" ] },
 			{ 2, (string)Application.Current.Resources[ "Region.Month.Name.02" ] },

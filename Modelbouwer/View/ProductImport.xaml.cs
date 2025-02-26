@@ -16,14 +16,14 @@ public partial class ProductImport : Page
 	#region Prepare an empty CSV file, with only headers
 	private void Prepare( object sender, RoutedEventArgs e )
 	{
-		var folderDialog = new FolderBrowserDialog()
+		FolderBrowserDialog folderDialog = new()
 		{
 			Description = (string)FindResource("Import.FileDialog.Description")
 		};
 
 		DialogResult result = folderDialog.ShowDialog();
 
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Product.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Product.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Product");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
@@ -56,7 +56,7 @@ public partial class ProductImport : Page
 	#region Import selected CSV file
 	private void Import( object sender, RoutedEventArgs e )
 	{
-		var errorIdentifier = 1; //See Error Class for meaning of this number
+		int errorIdentifier = 1; //See Error Class for meaning of this number
 		string[] checkField = [DBNames.ProductFieldNameCode, DBNames.ProductFieldTypeCode, "0"]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
 		string metadataType = "Product"; // Used for getting the headers for import
 

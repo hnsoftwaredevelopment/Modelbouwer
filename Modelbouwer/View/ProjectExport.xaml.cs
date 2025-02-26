@@ -52,7 +52,7 @@ public partial class ProjectExport : Page
 	#region Perform Export after selecting folder
 	private void Export( object sender, RoutedEventArgs e )
 	{
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Project.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.Project.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Project");
 
 		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );

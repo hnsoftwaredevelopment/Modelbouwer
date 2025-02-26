@@ -73,7 +73,7 @@ public partial class InventoryOrderViewModel : ObservableObject
 		InventoryOrder = new ObservableCollection<InventoryOrderModel>( DBCommands.GetInventoryOrder() );
 		SelectedProducts = new ObservableCollection<InventoryOrderModel>();
 
-		foreach ( var product in InventoryOrder )
+		foreach ( InventoryOrderModel product in InventoryOrder )
 		{
 			product.PropertyChanged += SelectedProduct_PropertyChanged;
 		}
@@ -91,13 +91,17 @@ public partial class InventoryOrderViewModel : ObservableObject
 	{
 		if ( e.PropertyName == nameof( InventoryOrderModel.IsSelected ) )
 		{
-			var selectedProduct = sender as InventoryOrderModel;
+			InventoryOrderModel? selectedProduct = sender as InventoryOrderModel;
 			if ( selectedProduct != null )
 			{
 				if ( selectedProduct.IsSelected && !SelectedProducts.Contains( selectedProduct ) )
+				{
 					SelectedProducts.Add( selectedProduct );
+				}
 				else if ( !selectedProduct.IsSelected && SelectedProducts.Contains( selectedProduct ) )
+				{
 					SelectedProducts.Remove( selectedProduct );
+				}
 			}
 		}
 	}

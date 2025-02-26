@@ -32,7 +32,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 	public DateTime? SupplyOrderDate
 	{
-		get => SelectedOrder?.SupplyOrderDate.HasValue == true ? ( DateTime? ) SelectedOrder.SupplyOrderDate.Value.ToDateTime( TimeOnly.MinValue ) : null;
+		get => SelectedOrder?.SupplyOrderDate.HasValue == true ? SelectedOrder.SupplyOrderDate.Value.ToDateTime( TimeOnly.MinValue ) : null;
 		set
 		{
 			if ( SelectedOrder != null && value.HasValue )
@@ -127,8 +127,8 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 		if ( SelectedSupplier != 0 )
 		{
-			var selectedSupplier = SupplierList.FirstOrDefault(
-				s => s.SupplierId == SelectedSupplier);
+			SupplierModel? selectedSupplier = SupplierList.FirstOrDefault(
+				s => s.SupplierId == SelectedSupplier );
 
 			if ( selectedSupplier != null )
 			{
@@ -136,7 +136,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 			}
 
 			// calculate subtotal for the selected products
-			foreach ( var product in SelectedProducts )
+			foreach ( InventoryOrderModel product in SelectedProducts )
 			{
 				subTotalOrder += product.ProductToOrder * product.SupplierPrice;
 			}
@@ -216,7 +216,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 			{
 				if ( _orderList != null )
 				{
-					foreach ( var order in _orderList )
+					foreach ( InventoryOrderModel order in _orderList )
 					{
 						order.PropertyChanged -= SelectedOrder_PropertyChanged;
 					}
@@ -226,7 +226,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 				if ( _orderList != null )
 				{
-					foreach ( var order in _orderList )
+					foreach ( InventoryOrderModel order in _orderList )
 					{
 						order.PropertyChanged += SelectedOrder_PropertyChanged;
 					}
@@ -241,7 +241,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 	{
 		if ( e.PropertyName == nameof( SupplyOrderModel.IsSelected ) )
 		{
-			var selectedOrder = sender as SupplyOrderModel;
+			SupplyOrderModel? selectedOrder = sender as SupplyOrderModel;
 			if ( selectedOrder != null )
 			{
 				SelectedOrder = selectedOrder.IsSelected ? selectedOrder : null;
@@ -268,7 +268,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 			{
 				if ( _productList != null )
 				{
-					foreach ( var product in _productList )
+					foreach ( InventoryOrderModel product in _productList )
 					{
 						product.PropertyChanged -= SelectedProduct_PropertyChanged;
 					}
@@ -278,7 +278,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 				if ( _productList != null )
 				{
-					foreach ( var product in _productList )
+					foreach ( InventoryOrderModel product in _productList )
 					{
 						product.PropertyChanged += SelectedProduct_PropertyChanged;
 					}
@@ -294,13 +294,17 @@ public partial class SupplyOrderViewModel : ObservableObject
 	{
 		if ( e.PropertyName == nameof( SupplyOrderModel.IsSelected ) )
 		{
-			var selectedProduct = sender as InventoryOrderModel;
+			InventoryOrderModel? selectedProduct = sender as InventoryOrderModel;
 			if ( selectedProduct != null )
 			{
 				if ( selectedProduct.IsSelected && !SelectedProducts.Contains( selectedProduct ) )
+				{
 					SelectedProducts.Add( selectedProduct );
+				}
 				else if ( !selectedProduct.IsSelected && SelectedProducts.Contains( selectedProduct ) )
+				{
 					SelectedProducts.Remove( selectedProduct );
+				}
 			}
 
 			CalculateTotalOrderCost();
@@ -350,7 +354,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 	{
 		try
 		{
-			var products = DBCommands.GetInventoryOrder(supplierId);
+			ObservableCollection<InventoryOrderModel> products = DBCommands.GetInventoryOrder( supplierId );
 			ProductList = [ .. products ];
 
 			OnPropertyChanged( nameof( ProductList ) );
@@ -398,7 +402,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 	private void ClearAllFields()
 	{
 		// Clear checkbox selections in grid
-		foreach ( var item in ProductList )
+		foreach ( InventoryOrderModel item in ProductList )
 		{
 			item.IsSelected = false;
 		}

@@ -51,7 +51,7 @@ public partial class ProductSupplierExport : Page
 	#region Perform Export after selecting folder
 	private void Export( object sender, RoutedEventArgs e )
 	{
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.ProductSupplier.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.ProductSupplier.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("ProductSupplier");
 
 		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );

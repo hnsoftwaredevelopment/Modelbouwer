@@ -1,8 +1,7 @@
 ﻿namespace Modelbouwer.Helper;
 
 /// <summary>
-/// The model table helper.
-/// This helper Connects Models to Tabels
+/// The model table helper. This helper Connects Models to Tabels
 /// </summary>
 public static class ModelTableHelper
 {

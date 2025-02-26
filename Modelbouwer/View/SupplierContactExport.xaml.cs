@@ -52,7 +52,7 @@ public partial class SupplierContactExport : Page
 	#region Perform Export after selecting folder
 	private void Export( object sender, RoutedEventArgs e )
 	{
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.SupplierContact.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Export.SupplierContact.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("SupplierContact");
 
 		DBCommands.ExportToCsv( _dt!, $"{dispFolderName.Text}\\{_filename}", _header, "Header" );

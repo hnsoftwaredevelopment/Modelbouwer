@@ -1,6 +1,4 @@
-﻿using System.Windows.Media;
-
-namespace Modelbouwer.Converters;
+﻿namespace Modelbouwer.Converters;
 public class NullOrEmptyImageConverter : IValueConverter
 {
 	public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
@@ -8,7 +6,7 @@ public class NullOrEmptyImageConverter : IValueConverter
 		if ( value is ImageSource imageSource )
 		{
 			// Haal de "noimage" op uit de resources
-			var noImage = System.Windows.Application.Current.TryFindResource("noimage") as DrawingImage;
+			DrawingImage? noImage = System.Windows.Application.Current.TryFindResource( "noimage" ) as DrawingImage;
 
 			// Vergelijk de huidige afbeelding met de "noimage"
 			if ( imageSource == noImage )

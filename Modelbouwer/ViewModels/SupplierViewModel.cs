@@ -124,7 +124,7 @@ public partial class SupplierViewModel : ObservableObject
 	public SupplierViewModel( SupplierContactViewModel supplierContactViewModel )
 	{
 		Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
-		var _supplierContactViewModel = supplierContactViewModel;
+		SupplierContactViewModel _supplierContactViewModel = supplierContactViewModel;
 	}
 
 	public SupplierViewModel()

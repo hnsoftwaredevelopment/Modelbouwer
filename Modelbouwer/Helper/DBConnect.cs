@@ -1,9 +1,9 @@
 ﻿namespace Modelbouwer.Helper;
 
 /// <summary>
-/// Create connectionstring to connect to the MySql Database.
-/// Use GetIp to retrieve IP Address of the MySql Server from the configfile.
-/// With the additional parameter GetIp("local") is forced the local MySql Server is used
+/// Create connectionstring to connect to the MySql Database. Use GetIp to
+/// retrieve IP Address of the MySql Server from the configfile. With the
+/// additional parameter GetIp("local") is forced the local MySql Server is used
 /// </summary>
 public class DBConnect
 {

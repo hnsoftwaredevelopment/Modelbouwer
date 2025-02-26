@@ -1,16 +1,13 @@
-﻿using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace Modelbouwer.Converters;
+﻿namespace Modelbouwer.Converters;
 public class ByteToImageConverter : IValueConverter
 {
 	public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
 	{
 		if ( value is byte [ ] imageBytes && imageBytes.Length > 0 )
 		{
-			using ( var ms = new MemoryStream( imageBytes ) )
+			using ( MemoryStream ms = new( imageBytes ) )
 			{
-				var image = new BitmapImage();
+				BitmapImage image = new();
 				image.BeginInit();
 				image.CacheOption = BitmapCacheOption.OnLoad;
 				image.StreamSource = ms;
@@ -27,7 +24,7 @@ public class ByteToImageConverter : IValueConverter
 	{
 		if ( value is BitmapSource bitmapSource )
 		{
-			using ( var stream = new MemoryStream() )
+			using ( MemoryStream stream = new() )
 			{
 				BitmapEncoder encoder = new PngBitmapEncoder();
 				encoder.Frames.Add( BitmapFrame.Create( bitmapSource ) );

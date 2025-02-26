@@ -2,8 +2,8 @@
 
 namespace Modelbouwer.Helper;
 /// <summary>
-/// Te Database commands helper.
-/// This helper contains function and method that perform Database actions
+/// Te Database commands helper. This helper contains function and method that
+/// perform Database actions
 /// </summary>
 public class DBCommands
 {
@@ -232,7 +232,7 @@ public class DBCommands
 				categoryList.Add( new CategoryModel
 				{
 					CategoryId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-					CategoryParentId = ( int ) DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+					CategoryParentId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
 					CategoryName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] )
 				} );
 			}
@@ -254,9 +254,9 @@ public class DBCommands
 		ILookup<int?, CategoryModel> lookup = categoryList.ToLookup(c => c.CategoryParentId);
 		foreach ( CategoryModel category in categoryList )
 		{
-			var subCategories = lookup[category.CategoryId].ToObservableCollection();
+			ObservableCollection<CategoryModel> subCategories = lookup [ category.CategoryId ].ToObservableCollection();
 			// Stel de Parent property in voor elke subcategory
-			foreach ( var subCategory in subCategories )
+			foreach ( CategoryModel? subCategory in subCategories )
 			{
 				subCategory.Parent = category;
 			}
@@ -274,7 +274,7 @@ public class DBCommands
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			int categoryId = DatabaseValueConverter.GetInt(_dt.Rows[i][0]);
-			int? _parent = _dt.Rows[i][1] != DBNull.Value ? DatabaseValueConverter.GetInt(_dt.Rows[i][1]) : (int?)null;
+			int? _parent = _dt.Rows[i][1] != DBNull.Value ? DatabaseValueConverter.GetInt(_dt.Rows[i][1]) :  null ;
 			string categoryName = DatabaseValueConverter.GetString(_dt.Rows[i][2]);
 
 			categoryList.Add( new CategoryModel
@@ -285,14 +285,14 @@ public class DBCommands
 			} );
 		}
 
-		foreach ( var category in categoryList )
+		foreach ( CategoryModel category in categoryList )
 		{
 			category.CategoryName = BuildFullCategoryPath( category, categoryList );
 		}
 		return categoryList;
 	}
 
-	private Dictionary<int, string> categoryPathCache = new Dictionary<int, string>();
+	private Dictionary<int, string> categoryPathCache = new();
 
 	private string BuildFullCategoryPath( CategoryModel category, List<CategoryModel> categoryList )
 	{
@@ -429,9 +429,9 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			var _price = double.Parse(_dt.Rows [ i ] [ 3 ].ToString());
-			var _value = double.Parse(_dt.Rows [ i ] [ 8 ].ToString());
-			var _virtualValue = double.Parse(_dt.Rows [ i ] [ 11 ].ToString());
+			double _price = double.Parse(_dt.Rows [ i ] [ 3 ].ToString());
+			double _value = double.Parse(_dt.Rows [ i ] [ 8 ].ToString());
+			double _virtualValue = double.Parse(_dt.Rows [ i ] [ 11 ].ToString());
 			_list.Add( new InventoryModel
 			{
 				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
@@ -458,13 +458,14 @@ public class DBCommands
 	public static ObservableCollection<InventoryOrderModel> GetInventoryOrder( int _supplierId = 0, ObservableCollection<InventoryOrderModel>? _list = null )
 	{
 		_list ??= [ ];
-		var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.ProductInventoryOrderProcedure} ({_supplierId})";
+		string sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.ProductInventoryOrderProcedure} ({_supplierId})";
 		DataTable? _dt = GetTable( sqlQuery );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			if ( double.TryParse( _dt.Rows [ i ] [ 4 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double _price ) &&
 	double.TryParse( _dt.Rows [ i ] [ 13 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double _supplierPrice ) )
+			{
 
 				//var _price = double.Parse(_dt.Rows [ i ] [ 4 ].ToString(), CultureInfo.InvariantCulture);
 				//var _supplierPrice = double.Parse(_dt.Rows [ i ] [ 13 ].ToString(), CultureInfo.InvariantCulture);
@@ -489,6 +490,7 @@ public class DBCommands
 					SupplierCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
 					ProductFromSupplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] )
 				} );
+			}
 		}
 		return _list;
 	}
@@ -532,8 +534,8 @@ public class DBCommands
 		ILookup<int?, StorageModel> lookup = storagelocationList.ToLookup(c => c.StorageParentId);
 		foreach ( StorageModel storagelocation in storagelocationList )
 		{
-			var subLocations = lookup[storagelocation.StorageId].ToObservableCollection();
-			foreach ( var subLocation in subLocations )
+			ObservableCollection<StorageModel> subLocations = lookup [ storagelocation.StorageId ].ToObservableCollection();
+			foreach ( StorageModel? subLocation in subLocations )
 			{
 				subLocation.Parent = storagelocation;
 			}
@@ -550,7 +552,7 @@ public class DBCommands
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			int storageId = DatabaseValueConverter.GetInt(_dt.Rows[i][0]);
-			int? _parent = _dt.Rows[i][1] != DBNull.Value ? DatabaseValueConverter.GetInt(_dt.Rows[i][1]) : (int?)null;
+			int? _parent = _dt.Rows[i][1] != DBNull.Value ? DatabaseValueConverter.GetInt(_dt.Rows[i][1]) :  null ;
 			string storageName = DatabaseValueConverter.GetString(_dt.Rows[i][3]);
 
 			storageList.Add( new StorageModel
@@ -561,14 +563,14 @@ public class DBCommands
 			} );
 		}
 
-		foreach ( var storage in storageList )
+		foreach ( StorageModel storage in storageList )
 		{
 			storage.StorageName = BuildFullStoragePath( storage, storageList );
 		}
 		return storageList;
 	}
 
-	private Dictionary<int, string> storagePathCache = new Dictionary<int, string>();
+	private Dictionary<int, string> storagePathCache = new();
 
 	private string BuildFullStoragePath( StorageModel storage, List<StorageModel> storageList )
 	{
@@ -633,9 +635,9 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			var _tempCheck = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "*";
-			var parsedPrice =  double.Parse(_dt.Rows [ i ] [ 10 ].ToString(), CultureInfo.InvariantCulture);
-			var _defaultSupplier = false;
+			bool _tempCheck = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "*";
+			double parsedPrice =  double.Parse(_dt.Rows [ i ] [ 10 ].ToString(), CultureInfo.InvariantCulture);
+			bool _defaultSupplier = false;
 
 			if ( DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "1" ) { _defaultSupplier = true; }
 
@@ -771,12 +773,12 @@ public class DBCommands
 	{
 		timeList ??= [ ];
 		DataTable? _dt = GetData(DBNames.TimeView, DBNames.TimeViewFieldNameSortIndex);
-		var _workdayName = "";
+		string _workdayName = "";
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			#region Deterrmine the day of the week
-			switch ( ( int.Parse( _dt.Rows [ i ] [ 13 ].ToString() ) ) )
+			switch ( int.Parse( _dt.Rows [ i ] [ 13 ].ToString() ) )
 			{
 				case 0:
 					_workdayName = ( string ) Application.Current.Resources [ "Region.Day.Name.01" ];
@@ -806,7 +808,7 @@ public class DBCommands
 			#endregion
 
 			#region Determin the ElepsedHours
-			var _workedHours = TimeSpan.FromMinutes(DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ));
+			TimeSpan _workedHours = TimeSpan.FromMinutes(DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ));
 			#endregion
 
 			timeList.Add( new TimeModel
@@ -839,7 +841,7 @@ public class DBCommands
 	#region ProjectList
 	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )
 	{
-		var HourRate = GetHourRate();
+		double HourRate = GetHourRate();
 		projectList ??= [ ];
 		DataTable? _dt = GetData(DBNames.ProjectTotalsView, DBNames.ProjectFieldNameCode);
 
@@ -848,12 +850,12 @@ public class DBCommands
 		{
 			bool _projectClosed = false;
 			if ( _dt.Rows [ i ] [ 15 ].ToString().Equals( "true", StringComparison.CurrentCultureIgnoreCase ) ) { _projectClosed = true; }
-			var workdaysToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) / 8;
-			var timeToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) - double.Parse( _dt.Rows [ i ] [ 9 ].ToString() );
-			var materialCosts = GetProjectMaterialCosts(DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ));
-			var timeCosts = double.Parse(_dt.Rows [ i ] [ 9 ].ToString()) * HourRate;
-			var totalCosts = materialCosts + timeCosts;
-			var expectedTime = int.Parse(_dt.Rows [ i ] [ 5 ].ToString());
+			double workdaysToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) / 8;
+			double timeToGo = double.Parse( _dt.Rows [ i ] [ 5 ].ToString() ) - double.Parse( _dt.Rows [ i ] [ 9 ].ToString() );
+			double materialCosts = GetProjectMaterialCosts(DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ));
+			double timeCosts = double.Parse(_dt.Rows [ i ] [ 9 ].ToString()) * HourRate;
+			double totalCosts = materialCosts + timeCosts;
+			int expectedTime = int.Parse(_dt.Rows [ i ] [ 5 ].ToString());
 
 			projectList.Add( new ProjectModel
 			{
@@ -889,26 +891,26 @@ public class DBCommands
 	private static byte [ ] GetDefaultImage()
 	{
 		// Retrieve your 'NoImage' DrawingImage from the resource dictionary
-		var drawingImage = (DrawingImage)System.Windows.Application.Current.Resources["noimage"];
+		DrawingImage drawingImage = (DrawingImage)System.Windows.Application.Current.Resources["noimage"];
 
 		// Render the DrawingImage to a bitmap
-		var drawingVisual = new DrawingVisual();
-		using ( var context = drawingVisual.RenderOpen() )
+		DrawingVisual drawingVisual = new();
+		using ( DrawingContext context = drawingVisual.RenderOpen() )
 		{
 			context.DrawImage( drawingImage, new Rect( 0, 0, drawingImage.Width, drawingImage.Height ) );
 		}
 
 		// Render to bitmap (set width and height)
-		var width = (int)drawingImage.Width;
-		var height = (int)drawingImage.Height;
-		var renderBitmap = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+		int width = (int)drawingImage.Width;
+		int height = (int)drawingImage.Height;
+		RenderTargetBitmap renderBitmap = new(width, height, 96, 96, PixelFormats.Pbgra32);
 		renderBitmap.Render( drawingVisual );
 
 		// Convert bitmap to byte[]
-		var pngEncoder = new PngBitmapEncoder();
+		PngBitmapEncoder pngEncoder = new();
 		pngEncoder.Frames.Add( BitmapFrame.Create( renderBitmap ) );
 
-		using ( var ms = new MemoryStream() )
+		using ( MemoryStream ms = new() )
 		{
 			pngEncoder.Save( ms );
 			return ms.ToArray();  // Return byte array of the PNG
@@ -983,18 +985,18 @@ public class DBCommands
 	{
 		string result = "Onbekend";
 
-		using var connection = new MySqlConnection( DBConnect.ConnectionString );
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
 		connection.Open();
 
-		using var command = new MySqlCommand( DBNames.SPGeProjectEndDate, connection );
+		using MySqlCommand command = new( DBNames.SPGeProjectEndDate, connection );
 		command.CommandType = CommandType.StoredProcedure;
 		command.Parameters.AddWithValue( DBNames.SPProjectEndDateInputParameter, projectId );
 
-		var sqlResult = command.ExecuteScalar().ToString();
+		string? sqlResult = command.ExecuteScalar().ToString();
 		if ( sqlResult != null && sqlResult != "" )
 		{
-			var _date = sqlResult.Split(" ");
-			var _temp = _date[0].Split("-");
+			string [ ] _date = sqlResult.Split(" ");
+			string [ ] _temp = _date[0].Split("-");
 			result = $"{_temp [ 0 ]} {GeneralHelper.MonthName( int.Parse( _temp [ 1 ] ) )} {_temp [ 2 ]}";
 		}
 
@@ -1005,14 +1007,14 @@ public class DBCommands
 	#region Get the totalmaterial costs for a project
 	public static double GetProjectMaterialCosts( int projectId )
 	{
-		using var connection = new MySqlConnection( DBConnect.ConnectionString );
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
 		connection.Open();
 
-		using var command = new MySqlCommand( DBNames.SPGeProjectMaterialCosts, connection );
+		using MySqlCommand command = new( DBNames.SPGeProjectMaterialCosts, connection );
 		command.CommandType = CommandType.StoredProcedure;
 		command.Parameters.AddWithValue( DBNames.SPProjectMaterialCostsInputParameter, projectId );
 
-		var sqlResult = command.ExecuteScalar().ToString();
+		string? sqlResult = command.ExecuteScalar().ToString();
 
 		if ( sqlResult == "" )
 		{
@@ -1026,14 +1028,14 @@ public class DBCommands
 	#region Get the HourRate
 	public static double GetHourRate()
 	{
-		var result = 0.00;
+		double result = 0.00;
 
-		var sqlQuery = $"{DBNames.SqlSelect}{DBNames.SettingsFieldNameHourRate}{DBNames.SqlFrom}{DBNames.Database}.{DBNames.SettingsTable}";
+		string sqlQuery = $"{DBNames.SqlSelect}{DBNames.SettingsFieldNameHourRate}{DBNames.SqlFrom}{DBNames.Database}.{DBNames.SettingsTable}";
 
-		using var connection = new MySqlConnection( DBConnect.ConnectionString );
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
 		connection.Open();
 
-		using var command = new MySqlCommand( sqlQuery, connection );
+		using MySqlCommand command = new( sqlQuery, connection );
 
 		result = ( double ) command.ExecuteScalar();
 
@@ -1047,8 +1049,11 @@ public class DBCommands
 	/// </summary>
 	/// <param name="_dt">The datatable containing the data to export</param>
 	/// <param name="_filename">The file name for the csv file.</param>
-	/// <param name="_header">The header on the first line of the csv file.</param>
-	/// <param name="_needsHeader">when it containes "header" a header is needed on the first file of the csv file, <see langword="if"/>different the no header will be written..</param>
+	/// <param name="_header">The header on the first line of the csv file.
+	///     </param>
+	/// <param name="_needsHeader">when it containes "header" a header is needed
+	///     on the first file of the csv file, <see langword="if"/>different the
+	///     no header will be written..</param>
 	public static void ExportToCsv( DataTable _dt, string _filename, string [ ] _header, string _needsHeader )
 	{
 		using StreamWriter sw = new(_filename, false);
@@ -1359,7 +1364,9 @@ public class DBCommands
 	#region Replace start of FullPath with changed FullPath
 	public static void ChangeFullPath( string _table, string _fullPathFieldName, string _oldPath, string _newPath )
 	{
-		///UPDATE Category SET CategoryFullPath = CONCAT('Item A', SUBSTRING(CategoryFullPath, 7)) WHERE CategoryFullPath LIKE 'Item 1%';
+		///UPDATE Category SET CategoryFullPath = CONCAT('Item A',
+		///SUBSTRING(CategoryFullPath, 7)) WHERE CategoryFullPath LIKE 'Item
+		///1%';
 		string sqlQuery = $"" +
 			$"{DBNames.SqlUpdate}{_table}" +
 			$"{DBNames.SqlSet}{_fullPathFieldName} = " +
@@ -1517,16 +1524,19 @@ public class DBCommands
 
 	#region Delete or Hide a product from the product table
 	/// <summary>
-	/// Delete or Hide a product from the product table, if it is used in history in is set to Hidden. If deleted all related records in the productsuppliertable will also be deleted
+	/// Delete or Hide a product from the product table, if it is used in
+	/// history in is set to Hidden. If deleted all related records in the
+	/// productsuppliertable will also be deleted
 	/// </summary>
 	/// <param name="productId">The id of the selected product.</param>
-	/// <returns>An int</returns> (1 = hidden, 0 = deleted)
+	/// <returns>An int</returns>
+	/// (1 = hidden, 0 = deleted)
 	public static int DeleteProduct( int productId )
 	{
 		using MySqlConnection connection = new(DBConnect.ConnectionString);
 		connection.Open();
 
-		using MySqlCommand cmd = new MySqlCommand(DBNames.SPDeleteProductId, connection);
+		using MySqlCommand cmd = new(DBNames.SPDeleteProductId, connection);
 		cmd.CommandType = CommandType.StoredProcedure;
 
 		//Provide input parameter to the stored procedure
@@ -1588,7 +1598,7 @@ public class DBCommands
 		using MySqlConnection connection = new( DBConnect.ConnectionString );
 		connection.Open();
 
-		var sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.ResetDefaultSupplier( {int.Parse(productId)}, {int.Parse(supplierId)};";
+		string sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.ResetDefaultSupplier( {int.Parse(productId)}, {int.Parse(supplierId)};";
 
 		using MySqlCommand cmd = new( sqlQuery, connection );
 		cmd.CommandType = CommandType.StoredProcedure;

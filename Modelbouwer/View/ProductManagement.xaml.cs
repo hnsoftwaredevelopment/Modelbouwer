@@ -40,7 +40,7 @@ public partial class ProductManagement : Page
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+			ProductModel? selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
 			if ( selectedProduct != null )
 			{
@@ -58,11 +58,11 @@ public partial class ProductManagement : Page
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+			ProductModel? selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
 			if ( selectedProduct != null )
 			{
-				var _tempValue = int.Parse(viewModel.ProductViewModel.SelectedProduct.ProductImageRotationAngle) + 90;
+				int _tempValue = int.Parse(viewModel.ProductViewModel.SelectedProduct.ProductImageRotationAngle) + 90;
 				if ( _tempValue == 360 )
 				{
 					_tempValue = 0;
@@ -95,8 +95,8 @@ public partial class ProductManagement : Page
 	{
 		if ( !string.IsNullOrEmpty( rtfContent ) )
 		{
-			using var stream = new MemoryStream(Encoding.UTF8.GetBytes(rtfContent));
-			TextRange textRange = new TextRange(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
+			using MemoryStream stream = new(Encoding.UTF8.GetBytes(rtfContent));
+			TextRange textRange = new(ProductMemo.Document.ContentStart, ProductMemo.Document.ContentEnd);
 			textRange.Load( stream, DataFormats.Rtf );
 		}
 		else
@@ -111,7 +111,7 @@ public partial class ProductManagement : Page
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+			ProductModel? selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
 			//Make sure the SafeChanges warning will not be dislayed when changing products
 			_isUpdatingFields = true;
@@ -122,12 +122,12 @@ public partial class ProductManagement : Page
 				SetRtfContent( selectedProduct.ProductMemo );
 			}
 
-			var Supliers = viewModel.ProductSupplierViewModel.ProductSupplier;
+			ObservableCollection<ProductSupplierModel> Supliers = viewModel.ProductSupplierViewModel.ProductSupplier;
 
 			#region Select the correct Category
 			if ( selectedProduct != null && selectedProduct.ProductCategoryId > 0 )
 			{
-				var selectedCategory = viewModel.CategoryViewModel.FlatCategory.FirstOrDefault(c => c.CategoryId == selectedProduct.ProductCategoryId);
+				CategoryModel? selectedCategory = viewModel.CategoryViewModel.FlatCategory.FirstOrDefault( c => c.CategoryId == selectedProduct.ProductCategoryId );
 
 				if ( selectedCategory != null )
 				{
@@ -144,7 +144,7 @@ public partial class ProductManagement : Page
 			#region Select the correct Storage Location
 			if ( selectedProduct != null && selectedProduct.ProductStorageId > 0 )
 			{
-				var selectedStorage = viewModel.StorageViewModel.FlatStorage.FirstOrDefault(c => c.StorageId == selectedProduct.ProductStorageId);
+				StorageModel? selectedStorage = viewModel.StorageViewModel.FlatStorage.FirstOrDefault( c => c.StorageId == selectedProduct.ProductStorageId );
 
 				if ( selectedStorage != null )
 				{
@@ -161,7 +161,7 @@ public partial class ProductManagement : Page
 			#region Select the Barnsd of the selected Product
 			if ( selectedProduct != null && selectedProduct.ProductBrandId > 0 )
 			{
-				var selectedBrand = viewModel.BrandViewModel.Brand.FirstOrDefault(c => c.BrandId == selectedProduct.ProductBrandId);
+				BrandModel? selectedBrand = viewModel.BrandViewModel.Brand.FirstOrDefault( c => c.BrandId == selectedProduct.ProductBrandId );
 
 				if ( selectedBrand != null )
 				{
@@ -188,7 +188,7 @@ public partial class ProductManagement : Page
 	#region Product DataGrid Loaded
 	private void ProductDataGridLoaded( object sender, RoutedEventArgs e )
 	{
-		var dataSource = dataGrid.ItemsSource as ObservableCollection<ProductModel>;
+		ObservableCollection<ProductModel>? dataSource = dataGrid.ItemsSource as ObservableCollection<ProductModel>;
 		if ( dataGrid.SelectedIndex == 0 && dataSource.Count > 0 )
 		{
 			// Forceer de selectie om de SelectionChanged logica aan te roepen
@@ -202,7 +202,7 @@ public partial class ProductManagement : Page
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedCategory = viewModel.CategoryViewModel.SelectedCategory;
+			CategoryModel? selectedCategory = viewModel.CategoryViewModel.SelectedCategory;
 			if ( selectedCategory != null )
 			{
 				ExpandAndSelectCategoryNode( selectedCategory );
@@ -216,7 +216,7 @@ public partial class ProductManagement : Page
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedStorage = viewModel.StorageViewModel.SelectedStorage;
+			StorageModel? selectedStorage = viewModel.StorageViewModel.SelectedStorage;
 			if ( selectedStorage != null )
 			{
 				ExpandAndSelectStorageNode( selectedStorage );
@@ -231,12 +231,12 @@ public partial class ProductManagement : Page
 
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+			ProductModel? selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
 			if ( selectedProduct != null && selectedProduct.ProductCategoryId > 0 )
 			{
-				var selectedCategory = viewModel.CategoryViewModel.FlatCategory
-				.FirstOrDefault(c => c.CategoryId == selectedProduct.ProductCategoryId);
+				CategoryModel? selectedCategory = viewModel.CategoryViewModel.FlatCategory
+				.FirstOrDefault( c => c.CategoryId == selectedProduct.ProductCategoryId );
 
 				if ( selectedCategory != null )
 				{
@@ -251,12 +251,12 @@ public partial class ProductManagement : Page
 
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+			ProductModel? selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
 			if ( selectedProduct != null && selectedProduct.ProductStorageId > 0 )
 			{
-				var selectedStorage = viewModel.StorageViewModel.FlatStorage
-			.FirstOrDefault(c => c.StorageId == selectedProduct.ProductStorageId);
+				StorageModel? selectedStorage = viewModel.StorageViewModel.FlatStorage
+			.FirstOrDefault( c => c.StorageId == selectedProduct.ProductStorageId );
 
 				if ( selectedStorage != null )
 				{
@@ -270,7 +270,7 @@ public partial class ProductManagement : Page
 	#region Expand and select the node from the selected product
 	private void ExpandAndSelectCategoryNode( CategoryModel category )
 	{
-		var node = FindCategoryNode(CategoryTreeView.Nodes, category);
+		TreeViewNode node = FindCategoryNode(CategoryTreeView.Nodes, category);
 
 		if ( node != null )
 		{
@@ -283,7 +283,7 @@ public partial class ProductManagement : Page
 
 	private void ExpandAndSelectStorageNode( StorageModel storage )
 	{
-		var node = FindStorageNode(StorageTreeView.Nodes, storage);
+		TreeViewNode node = FindStorageNode(StorageTreeView.Nodes, storage);
 
 		if ( node != null )
 		{
@@ -298,7 +298,7 @@ public partial class ProductManagement : Page
 	#region TreeViewNode: Method to find the correct node in the tree
 	private TreeViewNode FindCategoryNode( TreeViewNodeCollection nodes, CategoryModel category )
 	{
-		foreach ( var node in nodes )
+		foreach ( TreeViewNode? node in nodes )
 		{
 			if ( node.Content is CategoryModel categoryModel && categoryModel.CategoryId == category.CategoryId )
 			{
@@ -306,7 +306,7 @@ public partial class ProductManagement : Page
 			}
 
 			// Zoek recursief in de subnodes
-			var foundNode = FindCategoryNode(node.ChildNodes, category);
+			TreeViewNode foundNode = FindCategoryNode(node.ChildNodes, category);
 			if ( foundNode != null )
 			{
 				return foundNode;
@@ -318,7 +318,7 @@ public partial class ProductManagement : Page
 
 	private TreeViewNode FindStorageNode( TreeViewNodeCollection nodes, StorageModel storage )
 	{
-		foreach ( var node in nodes )
+		foreach ( TreeViewNode? node in nodes )
 		{
 			if ( node.Content is StorageModel storageModel && storageModel.StorageId == storage.StorageId )
 			{
@@ -326,7 +326,7 @@ public partial class ProductManagement : Page
 			}
 
 			// Search recursifly in the subnodes
-			var foundNode = FindStorageNode(node.ChildNodes, storage);
+			TreeViewNode foundNode = FindStorageNode(node.ChildNodes, storage);
 			if ( foundNode != null )
 			{
 				return foundNode;
@@ -340,7 +340,7 @@ public partial class ProductManagement : Page
 	#region ExpandParentNode: // Method to open the parrent nodes of the selected node
 	private void ExpandParentNodes( TreeViewNode node )
 	{
-		var parentNode = node.ParentNode;
+		TreeViewNode parentNode = node.ParentNode;
 		while ( parentNode != null )
 		{
 			parentNode.IsExpanded = true;
@@ -374,10 +374,10 @@ public partial class ProductManagement : Page
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
-			var _deleteName = selectedProduct.ProductName;
+			ProductModel? selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+			string? _deleteName = selectedProduct.ProductName;
 
-			var result = DBCommands.DeleteProduct( selectedProduct.ProductId );
+			int result = DBCommands.DeleteProduct( selectedProduct.ProductId );
 			viewModel.ProductViewModel.Product.Remove( selectedProduct );
 
 			if ( result == 1 )
@@ -391,13 +391,13 @@ public partial class ProductManagement : Page
 	#region Product Save
 	private void ButtonSave( object sender, RoutedEventArgs e )
 	{
-		var viewModel = DataContext as CombinedProductViewModel;
-		var selectedProduct = viewModel.ProductViewModel.SelectedProduct;
+		CombinedProductViewModel? viewModel = DataContext as CombinedProductViewModel;
+		ProductModel? selectedProduct = viewModel.ProductViewModel.SelectedProduct;
 
-		var productImage = selectedProduct.ProductImage;
-		var ProjCost = ProductProjectCosts.IsChecked == true ? "1" : "0";
+		byte [ ]? productImage = selectedProduct.ProductImage;
+		string ProjCost = ProductProjectCosts.IsChecked == true ? "1" : "0";
 
-		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+		ProductSupplierModel? selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
 
 		string[ , ] productFields = new string [12,3]
 			{
@@ -421,7 +421,7 @@ public partial class ProductManagement : Page
 			DBCommands.InsertInTable( DBNames.ProductTable, productFields, selectedProduct.ProductImage, DBNames.ProductFieldNameImage );
 
 			// Get the Id of the just saved product and use it to create the where field for the update memo action
-			var productId = DBCommands.GetLatestIdFromTable( DBNames.ProductTable );
+			string productId = DBCommands.GetLatestIdFromTable( DBNames.ProductTable );
 			string[,] whereFields = new string[1, 3]
 			{
 				{ DBNames.ProductFieldNameId, DBNames.ProductFieldTypeId,  productId},
@@ -481,7 +481,7 @@ public partial class ProductManagement : Page
 			SupplierProductUrl.Text = "";
 			SupplierDefault.IsChecked = false;
 
-			var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
+			int selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
 
 			// Add a new contact
 			viewModel.ProductSupplierViewModel.AddNewItem( selectedProductId.ToString() );
@@ -507,13 +507,13 @@ public partial class ProductManagement : Page
 	{
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+			ProductSupplierModel? selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
 
 			//Check if there is a supplier selected
 			if ( selectedSupplier != null )
 			{
-				var selectedSupplierId = selectedSupplier.ProductSupplierSupplierId;
-				var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
+				int selectedSupplierId = selectedSupplier.ProductSupplierSupplierId;
+				int selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
 
 				string [ , ] _whereFields = new string [ 2, 3 ]
 				{
@@ -536,16 +536,16 @@ public partial class ProductManagement : Page
 	#region Save product supplier
 	private void SupplierToolbarButtonSave( object sender, RoutedEventArgs e )
 	{
-		var viewModel = DataContext as CombinedProductViewModel;
-		var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
-		var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
+		CombinedProductViewModel? viewModel = DataContext as CombinedProductViewModel;
+		ProductSupplierModel? selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+		int selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
 		//var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
-		var selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
-		var selectedSupplierId = ((int)(SupplierComboBox.SelectedValue ?? 0)).ToString();
-		var selectedSupplierName = ((SupplierModel)SupplierComboBox.SelectedItem).Name.ToString();
-		var currencyId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencyId.ToString();
+		string selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
+		string selectedSupplierId = ((int)(SupplierComboBox.SelectedValue ?? 0)).ToString();
+		string selectedSupplierName = ((SupplierModel)SupplierComboBox.SelectedItem).Name.ToString();
+		string currencyId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierCurrencyId.ToString();
 
-		var isNew = viewModel.ProductSupplierViewModel.IsAddingNew;
+		bool isNew = viewModel.ProductSupplierViewModel.IsAddingNew;
 
 		if ( isNew )
 		{
@@ -639,7 +639,7 @@ public partial class ProductManagement : Page
 	{
 		if ( !_isUpdatingFields )
 		{
-			var _viewModel = DataContext as CombinedProductViewModel;
+			CombinedProductViewModel? _viewModel = DataContext as CombinedProductViewModel;
 			if ( _viewModel != null )
 			{
 				_viewModel.ProductSupplierViewModel.HasUnsavedChanges = false;
@@ -647,13 +647,13 @@ public partial class ProductManagement : Page
 		}
 		if ( DataContext is CombinedProductViewModel viewModel )
 		{
-			var selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
-			var selectedSupplierId = (int?)SupplierComboBox.SelectedValue;
+			ProductSupplierModel? selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
+			int? selectedSupplierId = ( int? ) SupplierComboBox.SelectedValue;
 
 			if ( selectedSupplier != null && selectedSupplierId.HasValue )
 			{
-				var supplier = viewModel.ProductSupplierViewModel.SupplierList
-				.FirstOrDefault(s => s.SupplierId == selectedSupplierId.Value);
+				SupplierModel? supplier = viewModel.ProductSupplierViewModel.SupplierList
+				.FirstOrDefault( s => s.SupplierId == selectedSupplierId.Value );
 
 				if ( supplier != null )
 				{
@@ -691,7 +691,7 @@ public partial class ProductManagement : Page
 	{
 		if ( !_isUpdatingFields )
 		{
-			var _viewModel = DataContext as CombinedProductViewModel;
+			CombinedProductViewModel? _viewModel = DataContext as CombinedProductViewModel;
 			if ( _viewModel != null )
 			{
 				_viewModel.ProductSupplierViewModel.HasUnsavedChanges = true;

@@ -109,12 +109,12 @@ public partial class ProductViewModel : ObservableObject
 	public void RefreshProductList( int productIdToSelect )
 	{
 		// Save the current scroll position
-		var currentIndex = Product.IndexOf(SelectedProduct);
+		int currentIndex = Product.IndexOf(SelectedProduct);
 
 		// Update the collection
-		var updatedProducts = DBCommands.GetProductList();
+		ObservableCollection<ProductModel> updatedProducts = DBCommands.GetProductList();
 		Product.Clear();
-		foreach ( var product in updatedProducts )
+		foreach ( ProductModel product in updatedProducts )
 		{
 			Product.Add( product );
 		}

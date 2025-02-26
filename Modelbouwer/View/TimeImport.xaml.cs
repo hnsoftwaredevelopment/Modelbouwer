@@ -16,14 +16,14 @@ public partial class TimeImport : Page
 	#region Prepare an empty CSV file, with only headers
 	private void Prepare( object sender, RoutedEventArgs e )
 	{
-		var folderDialog = new FolderBrowserDialog()
+		FolderBrowserDialog folderDialog = new()
 		{
 			Description = (string)FindResource("Import.FileDialog.Description")
 		};
 
 		DialogResult result = folderDialog.ShowDialog();
 
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Time.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Time.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Time");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
@@ -56,7 +56,7 @@ public partial class TimeImport : Page
 	#region Import selected CSV file
 	private void Import( object sender, RoutedEventArgs e )
 	{
-		var errorIdentifier = 16; //See Error Class for meaning of this number
+		int errorIdentifier = 16; //See Error Class for meaning of this number
 		string[] checkField = [DBNames.TimeFieldNameProjectId, DBNames.TimeFieldTypeProjectId, "0", DBNames.TimeFieldNameWorktypeId, DBNames.TimeFieldTypeWorktypeId, "1", DBNames.TimeFieldNameWorkDate, DBNames.TimeFieldTypeWorkDate, "2", DBNames.TimeFieldNameStartTime, DBNames.TimeFieldTypeStartTime, "3"]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
 		string metadataType = "Time"; // Used for getting the headers for import
 

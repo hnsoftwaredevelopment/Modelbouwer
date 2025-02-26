@@ -31,14 +31,40 @@ public static class TimeFormatterHelper
 		int minutes = (int) totalMinutes % minutesInHour;
 
 		string result = "";
-		if ( years > 0 ) result += $"{years} {( years == 1 ? "jaar" : "jaren" )}, ";
-		if ( months > 0 ) result += $"{months} {( months == 1 ? "maand" : "maanden" )}, ";
-		if ( weeks > 0 ) result += $"{weeks} {( weeks == 1 ? "week" : "weken" )}, ";
-		if ( days > 0 ) result += $"{days} {( days == 1 ? "dag" : "dagen" )}, ";
-		if ( hours > 0 ) result += $"{hours} {( hours == 1 ? "uur" : "uren" )}, ";
-		if ( minutes > 0 ) result += $"{minutes} {( minutes == 1 ? "minuut" : "minuten" )}";
+		if ( years > 0 )
+		{
+			result += $"{years} {( years == 1 ? "jaar" : "jaren" )}, ";
+		}
 
-		if ( result.EndsWith( ", " ) ) result = result.Substring( 0, result.Length - 2 );
+		if ( months > 0 )
+		{
+			result += $"{months} {( months == 1 ? "maand" : "maanden" )}, ";
+		}
+
+		if ( weeks > 0 )
+		{
+			result += $"{weeks} {( weeks == 1 ? "week" : "weken" )}, ";
+		}
+
+		if ( days > 0 )
+		{
+			result += $"{days} {( days == 1 ? "dag" : "dagen" )}, ";
+		}
+
+		if ( hours > 0 )
+		{
+			result += $"{hours} {( hours == 1 ? "uur" : "uren" )}, ";
+		}
+
+		if ( minutes > 0 )
+		{
+			result += $"{minutes} {( minutes == 1 ? "minuut" : "minuten" )}";
+		}
+
+		if ( result.EndsWith( ", " ) )
+		{
+			result = result.Substring( 0, result.Length - 2 );
+		}
 
 		return result;
 	}

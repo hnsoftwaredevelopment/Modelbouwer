@@ -35,8 +35,9 @@ public class CategoryModel : INameable
 
 	private string BuildFullPath()
 	{
-		var path = new List<string> { CategoryName };
-		var currentNode = this;
+		List<string> path = new()
+		{ CategoryName };
+		CategoryModel currentNode = this;
 
 		while ( currentNode.Parent != null )
 		{

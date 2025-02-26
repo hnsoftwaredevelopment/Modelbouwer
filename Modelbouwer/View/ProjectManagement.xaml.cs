@@ -38,11 +38,11 @@ public partial class ProjectManagement : Page
 	{
 		if ( DataContext is CombinedProjectViewModel viewModel )
 		{
-			var selectedProject = viewModel.ProjectViewModel.SelectedProject;
+			ProjectModel? selectedProject = viewModel.ProjectViewModel.SelectedProject;
 
 			if ( selectedProject != null )
 			{
-				var _tempValue = int.Parse(viewModel.ProjectViewModel.SelectedProject.ProjectImageRotationAngle) + 90;
+				int _tempValue = int.Parse(viewModel.ProjectViewModel.SelectedProject.ProjectImageRotationAngle) + 90;
 				if ( _tempValue == 360 )
 				{
 					_tempValue = 0;
@@ -61,7 +61,7 @@ public partial class ProjectManagement : Page
 	{
 		if ( DataContext is CombinedProjectViewModel viewModel )
 		{
-			var selectedProject = viewModel.ProjectViewModel.SelectedProject;
+			ProjectModel? selectedProject = viewModel.ProjectViewModel.SelectedProject;
 
 			if ( selectedProject != null )
 			{
@@ -92,7 +92,7 @@ public partial class ProjectManagement : Page
 	{
 		if ( rtfContent != null && rtfContent != "" )
 		{
-			using var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) );
+			using MemoryStream stream = new( Encoding.UTF8.GetBytes( rtfContent ) );
 			TextRange textRange = new(ProjectMemo.Document.ContentStart, ProjectMemo.Document.ContentEnd);
 			textRange.Load( stream, System.Windows.DataFormats.Rtf );
 		}
@@ -113,7 +113,7 @@ public partial class ProjectManagement : Page
 	{
 		if ( DataContext is CombinedProjectViewModel viewModel )
 		{
-			var selectedProject = viewModel.ProjectViewModel.SelectedProject;
+			ProjectModel? selectedProject = viewModel.ProjectViewModel.SelectedProject;
 
 			if ( selectedProject != null )
 			{
@@ -126,7 +126,7 @@ public partial class ProjectManagement : Page
 			}
 		}
 
-		var originalSource = ProjectTimeEntriesDataGrid.ItemsSource;
+		object originalSource = ProjectTimeEntriesDataGrid.ItemsSource;
 		ProjectTimeEntriesDataGrid.ItemsSource = null;
 		ProjectTimeEntriesDataGrid.ItemsSource = originalSource;
 	}
@@ -157,10 +157,10 @@ public partial class ProjectManagement : Page
 	{
 		if ( DataContext is CombinedProjectViewModel viewModel )
 		{
-			var selectedProject = viewModel.ProjectViewModel.SelectedProject;
-			var _deleteName = selectedProject.ProjectName;
+			ProjectModel? selectedProject = viewModel.ProjectViewModel.SelectedProject;
+			string? _deleteName = selectedProject.ProjectName;
 
-			var result = DBCommands.DeleteProduct( selectedProject.ProjectId );
+			int result = DBCommands.DeleteProduct( selectedProject.ProjectId );
 			viewModel.ProjectViewModel.Project.Remove( selectedProject );
 
 			//if ( result == 1 )
@@ -175,10 +175,10 @@ public partial class ProjectManagement : Page
 	#region Save a new or changed project
 	private void ButtonSave( object sender, RoutedEventArgs e )
 	{
-		var viewModel = DataContext as CombinedProjectViewModel;
-		var selectedProject = viewModel.ProjectViewModel.SelectedProject;
+		CombinedProjectViewModel? viewModel = DataContext as CombinedProjectViewModel;
+		ProjectModel? selectedProject = viewModel.ProjectViewModel.SelectedProject;
 
-		var ProjectImage = selectedProject.ProjectImage;
+		byte [ ]? ProjectImage = selectedProject.ProjectImage;
 		//var ProjectMemo = selectedProject.ProjectMemo;
 
 		string[ , ] ProjectFields = new string [7,3]
@@ -187,7 +187,7 @@ public partial class ProjectManagement : Page
 				{ DBNames.ProjectFieldNameCode, DBNames.ProjectFieldTypeCode, ProjectCode.Text },
 				{ DBNames.ProjectFieldNameStartDate, DBNames.ProjectFieldTypeStartDate, ProjectStartDate.Text },
 				{ DBNames.ProjectFieldNameEndDate, DBNames.ProjectFieldTypeEndDate, ProjectEnddate.Text },
-				{ DBNames.ProjectFieldNameClosed, DBNames.ProjectFieldTypeClosed, (ProjectClosed.IsChecked == true ? "1" : "0") },
+				{ DBNames.ProjectFieldNameClosed, DBNames.ProjectFieldTypeClosed, ProjectClosed.IsChecked == true ? "1" : "0" },
 				{ DBNames.ProjectFieldNameExpectedTime, DBNames.ProjectFieldTypeExpectedTime, ProjectExpectedBuildTime.Text },
 				{ DBNames.ProjectFieldNameImageRotationAngle, DBNames.ProjectFieldTypeImageRotationAngle, selectedProject.ProjectImageRotationAngle.ToString() }
 			};
@@ -198,7 +198,7 @@ public partial class ProjectManagement : Page
 			DBCommands.InsertInTable( DBNames.ProjectTable, ProjectFields, ProjectImage, DBNames.ProjectFieldNameImage );
 
 			// Get the Id of the just saved Project and use it to create the where field for the update memo action
-			var ProjectId = DBCommands.GetLatestIdFromTable( DBNames.ProjectTable );
+			string ProjectId = DBCommands.GetLatestIdFromTable( DBNames.ProjectTable );
 			string[,] whereFields = new string[1, 3]
 			{
 				{ DBNames.ProjectFieldNameId, DBNames.ProjectFieldTypeId,  ProjectId},
@@ -237,8 +237,8 @@ public partial class ProjectManagement : Page
 		// Update the ObservableCollection
 		viewModel.ProjectViewModel.Project.Clear();
 
-		var updatedProjects = DBCommands.GetProjectList();
-		foreach ( var project in updatedProjects )
+		ObservableCollection<ProjectModel> updatedProjects = DBCommands.GetProjectList();
+		foreach ( ProjectModel project in updatedProjects )
 		{
 			viewModel.ProjectViewModel.Project.Add( project );
 		}

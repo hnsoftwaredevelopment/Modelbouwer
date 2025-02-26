@@ -63,11 +63,11 @@ public partial class SupplierManagement : Page
 	#region Delete selected supplier and all related contacts
 	private void ButtonDelete( object sender, RoutedEventArgs e )
 	{
-		var viewModel = DataContext as CombinedSupplierViewModel;
+		CombinedSupplierViewModel? viewModel = DataContext as CombinedSupplierViewModel;
 
 		if ( viewModel != null )
 		{
-			var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+			SupplierModel? selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 
 			if ( selectedSupplier != null )
 			{
@@ -167,7 +167,7 @@ public partial class SupplierManagement : Page
 						_ = DBCommands.InsertInTable( DBNames.SupplierTable, _addFields );
 
 						// Get the Id of the newly added supplier
-						var _newId = DBCommands.GetLatestIdFromTable( DBNames.SupplierTable );
+						string _newId = DBCommands.GetLatestIdFromTable( DBNames.SupplierTable );
 						SupplierId.Text = _newId;
 
 						// Update memo field for the newly saved supplier
@@ -231,7 +231,7 @@ public partial class SupplierManagement : Page
 
 				// Refresh the suppliers list
 				viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
-				var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+				SupplierModel? selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 			}
 			else
 			{
@@ -281,11 +281,11 @@ public partial class SupplierManagement : Page
 	#region Delete selected contact
 	private void ButtonDeleteContact( object sender, RoutedEventArgs e )
 	{
-		var viewModel = DataContext as CombinedSupplierViewModel;
+		CombinedSupplierViewModel? viewModel = DataContext as CombinedSupplierViewModel;
 
 		if ( viewModel != null )
 		{
-			var selectedContact = viewModel.SupplierContactViewModel.SelectedContact;
+			SupplierContactModel? selectedContact = viewModel.SupplierContactViewModel.SelectedContact;
 
 			if ( selectedContact != null )
 			{
@@ -297,7 +297,7 @@ public partial class SupplierManagement : Page
 				string _result = DBCommands.DeleteRecord( DBNames.SupplierContactTable, _whereFields );
 
 				viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
-				var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+				SupplierModel? selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 				if ( selectedSupplier != null )
 				{
 					viewModel.SupplierContactViewModel.FilterContactsBySupplierId( selectedSupplier.SupplierId );
@@ -319,10 +319,10 @@ public partial class SupplierManagement : Page
 		// Save can only be performed if a name is entered
 		if ( SupplierContactName.Text != "" )
 		{
-			var viewModel = DataContext as CombinedSupplierViewModel;
+			CombinedSupplierViewModel? viewModel = DataContext as CombinedSupplierViewModel;
 			if ( viewModel != null )
 			{
-				var supplierContactViewModel = viewModel.SupplierContactViewModel;
+				SupplierContactViewModel supplierContactViewModel = viewModel.SupplierContactViewModel;
 
 				if ( !string.IsNullOrEmpty( SupplierContactName.Text ) )
 				{
@@ -355,7 +355,7 @@ public partial class SupplierManagement : Page
 
 							// Reefresh the SupplierContact-collection
 							viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
-							var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+							SupplierModel? selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 
 
 							dispStatusLine.Text = $"{SupplierContactName.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Added" )}";
@@ -383,7 +383,7 @@ public partial class SupplierManagement : Page
 						_ = DBCommands.UpdateInTable( DBNames.SupplierContactTable, _updateFields, _whereFields );
 
 						viewModel.SupplierContactViewModel.SupplierContact = new ObservableCollection<SupplierContactModel>( DBCommands.GetContactList() );
-						var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+						SupplierModel? selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 
 						dispStatusLine.Text = $"{( string ) FindResource( "Maintanance.Statusline.NotSaved.DataOf" )} {SupplierContactName.Text} {( string ) FindResource( "Maintanance.Statusline.NotSaved.Changed" )}";
 					}
@@ -402,7 +402,7 @@ public partial class SupplierManagement : Page
 	{
 		if ( DataContext is CombinedSupplierViewModel viewModel )
 		{
-			var selectedContact = (SupplierContactModel)((System.Windows.Controls.Button)sender).Tag;
+			SupplierContactModel selectedContact = (SupplierContactModel)((System.Windows.Controls.Button)sender).Tag;
 
 			if ( selectedContact != null )
 			{
@@ -414,13 +414,13 @@ public partial class SupplierManagement : Page
 				else if ( _hour >= 12 && _hour < 18 ) { _salution = $"{( string ) FindResource( "Maintanance.Mail.Salution.Afternoon" )}"; }
 				else if ( _hour >= 18 && _hour < 24 ) { _salution = $"{( string ) FindResource( "Maintanance.Mail.Salution.Evening" )}"; }
 				else { _salution = $"{( string ) FindResource( "Maintanance.Mail.Salution.Night" )}"; }
-				var emailAddress = selectedContact.SupplierContactMail;
-				var contactName = selectedContact.SupplierContactName;
-				var subject = $"{( string ) FindResource( "Maintanance.Mail.Subject" )}";
-				var body = $"{_salution} {contactName},\n\n";
+				string? emailAddress = selectedContact.SupplierContactMail;
+				string? contactName = selectedContact.SupplierContactName;
+				string subject = $"{( string ) FindResource( "Maintanance.Mail.Subject" )}";
+				string body = $"{_salution} {contactName},\n\n";
 
 				// Construct the mailto URL
-				var mailtoUrl = $"mailto:{emailAddress}?subject={Uri.EscapeDataString(subject)}&body={Uri.EscapeDataString(body)}";
+				string mailtoUrl = $"mailto:{emailAddress}?subject={Uri.EscapeDataString(subject)}&body={Uri.EscapeDataString(body)}";
 
 				// Open the default mail client
 				Process.Start( new ProcessStartInfo
@@ -437,8 +437,8 @@ public partial class SupplierManagement : Page
 	private void UpdateRichTextBox( string memoText )
 	{
 		// Create a new FlowDocument and Paragraph
-		FlowDocument flowDoc = new FlowDocument();
-		Paragraph paragraph = new Paragraph();
+		FlowDocument flowDoc = new();
+		Paragraph paragraph = new();
 
 		// Add the memo text as a Run in the Paragraph
 		paragraph.Inlines.Add( new Run( memoText ) );
@@ -451,9 +451,9 @@ public partial class SupplierManagement : Page
 
 	private void SetRtfContent( string rtfContent )
 	{
-		using ( var stream = new MemoryStream( Encoding.UTF8.GetBytes( rtfContent ) ) )
+		using ( MemoryStream stream = new( Encoding.UTF8.GetBytes( rtfContent ) ) )
 		{
-			TextRange textRange = new TextRange(SupplierMemo.Document.ContentStart, SupplierMemo.Document.ContentEnd);
+			TextRange textRange = new(SupplierMemo.Document.ContentStart, SupplierMemo.Document.ContentEnd);
 			textRange.Load( stream, System.Windows.DataFormats.Rtf );
 		}
 	}
@@ -462,7 +462,7 @@ public partial class SupplierManagement : Page
 	{
 		if ( DataContext is CombinedSupplierViewModel viewModel )
 		{
-			var selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
+			SupplierModel? selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 			if ( selectedSupplier != null )
 			{
 				SetRtfContent( selectedSupplier.SupplierMemo );

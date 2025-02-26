@@ -21,7 +21,7 @@ public partial class StorageManagement : Page
 	private void RefreshDataGrid()
 	{
 		// Haal de bijgewerkte data op vanuit de database
-		var updatedInventory = DBCommands.GetInventory();
+		ObservableCollection<InventoryModel> updatedInventory = DBCommands.GetInventory();
 
 		// Stel de nieuwe ItemsSource in
 		dataGrid.ItemsSource = updatedInventory;
@@ -31,14 +31,14 @@ public partial class StorageManagement : Page
 	}
 	private void ChangedInventory( object? sender, CurrentCellEndEditEventArgs e )
 	{
-		var dataGrid = (SfDataGrid)sender!;
+		SfDataGrid dataGrid = (SfDataGrid)sender!;
 
-		var columnIndex = e.RowColumnIndex.ColumnIndex;
-		var rowIndex = e.RowColumnIndex.RowIndex;
-		var gridColumn = dataGrid.Columns[columnIndex];
-		var columnName = gridColumn.MappingName.ToString().ToLower();
+		int columnIndex = e.RowColumnIndex.ColumnIndex;
+		int rowIndex = e.RowColumnIndex.RowIndex;
+		GridColumn gridColumn = dataGrid.Columns[columnIndex];
+		string columnName = gridColumn.MappingName.ToString().ToLower();
 
-		var editedRow = (InventoryModel)dataGrid.GetRecordAtRowIndex(e.RowColumnIndex.RowIndex);
+		InventoryModel editedRow = (InventoryModel)dataGrid.GetRecordAtRowIndex(e.RowColumnIndex.RowIndex);
 		string _whereFieldName = "", _whereFieldType = "", _changeFieldName = "", _changeFieldType = "", _changeTable = "";
 
 		// Check if the row is not null
@@ -57,7 +57,7 @@ public partial class StorageManagement : Page
 						_whereFieldType = DBNames.ProductInventoryFieldTypeProduct_Id;
 
 						// Check here if the Selected Product_Id already exists in the productinventory table, if exists do nothing otherwise add ProductId, with value 0 
-						var _exists = DBCommands.CheckForRecords(_changeTable, new string[1, 3] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } });
+						int _exists = DBCommands.CheckForRecords(_changeTable, new string[1, 3] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } });
 						if ( _exists == 0 )
 						{
 							// There is no record available in table, add first with minimal data to be able to find the record to save changes
@@ -89,15 +89,15 @@ public partial class StorageManagement : Page
 	}
 	private void OriginalInventory( object? sender, CurrentCellBeginEditEventArgs e )
 	{
-		var dataGrid = (SfDataGrid)sender!;
-		var rowIndex = e.RowColumnIndex.RowIndex;
-		var columnName = e.Column.MappingName;
+		SfDataGrid dataGrid = (SfDataGrid)sender!;
+		int rowIndex = e.RowColumnIndex.RowIndex;
+		string columnName = e.Column.MappingName;
 
 		// Retrieve the record and original value
-		var record = dataGrid.GetRecordAtRowIndex(rowIndex);
+		object record = dataGrid.GetRecordAtRowIndex(rowIndex);
 		if ( record != null )
 		{
-			var propertyInfo = record.GetType().GetProperty(columnName);
+			System.Reflection.PropertyInfo? propertyInfo = record.GetType().GetProperty( columnName );
 			if ( propertyInfo != null )
 			{
 				_originalValue = propertyInfo.GetValue( record ) ?? new object(); // Store original value
@@ -108,7 +108,7 @@ public partial class StorageManagement : Page
 	#region Switch between search and filter button
 	private void ToggleButton( object sender, RoutedEventArgs e )
 	{
-		var name = ((FrameworkElement)sender).Name;
+		string name = ((FrameworkElement)sender).Name;
 		//var viewModel = (InventoryViewModel)this.DataContext;
 
 		if ( !string.IsNullOrEmpty( name ) )
@@ -150,7 +150,7 @@ public partial class StorageManagement : Page
 			: Visibility.Collapsed;
 		#endregion
 
-		var action = SearchButton.Visibility == Visibility.Visible
+		string action = SearchButton.Visibility == Visibility.Visible
 			? "search"
 			: "filter";
 

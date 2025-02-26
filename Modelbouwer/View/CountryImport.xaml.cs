@@ -15,14 +15,14 @@ public partial class CountryImport : Page
 	#region Prepare an empty CSV file, with only headers
 	private void Prepare( object sender, RoutedEventArgs e )
 	{
-		var folderDialog = new FolderBrowserDialog()
+		FolderBrowserDialog folderDialog = new()
 		{
 			Description = (string)FindResource("Import.FileDialog.Description")
 		};
 
 		DialogResult result = folderDialog.ShowDialog();
 
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Country.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Country.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Country");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
@@ -55,7 +55,7 @@ public partial class CountryImport : Page
 	#region Import selected CSV file
 	private void Import( object sender, RoutedEventArgs e )
 	{
-		var errorIdentifier = 11; //See Error Class for meaning of this number
+		int errorIdentifier = 11; //See Error Class for meaning of this number
 
 		string[] checkField = [DBNames.CountryFieldNameCode, DBNames.CountryFieldTypeCode, "0"]; // The field name to check if record is unique
 		string metadataType = "Country"; // Used for getting the headers for import

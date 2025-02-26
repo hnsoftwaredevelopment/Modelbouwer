@@ -15,14 +15,14 @@ public partial class UnitImport : Page
 	#region Prepare an empty CSV file, with only headers
 	private void Prepare( object sender, RoutedEventArgs e )
 	{
-		var folderDialog = new FolderBrowserDialog()
+		FolderBrowserDialog folderDialog = new()
 		{
 			Description = (string)FindResource("Import.FileDialog.Description")
 		};
 
 		DialogResult result = folderDialog.ShowDialog();
 
-		var _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Unit.Filename")}.csv";
+		string _filename = $"{GeneralHelper.GetFilePrefix()}{(string)FindResource("Import.Unit.Filename")}.csv";
 		string[] _header = GeneralHelper.GetHeaders("Unit");
 
 		GeneralHelper.PrepareCsv( $"{folderDialog.SelectedPath}\\{_filename}", _header );
@@ -55,7 +55,7 @@ public partial class UnitImport : Page
 	#region Import selected CSV file
 	private void Import( object sender, RoutedEventArgs e )
 	{
-		var errorIdentifier = 4; //See Error Class for meaning of this number
+		int errorIdentifier = 4; //See Error Class for meaning of this number
 		string[] checkField = [DBNames.UnitFieldNameUnitName, DBNames.UnitFieldTypeUnitName, "0"]; // The field name to check if record is unique, number is the header item that contains thye data for the check field
 		string metadataType = "Unit"; // Used for getting the headers for import
 

@@ -3,7 +3,8 @@
 public class StringHelper
 {
 	/// <summary>
-	/// Escape the backslashes. For MySqlQueris, this replaces single \ in a string into \\
+	/// Escape the backslashes. For MySqlQueris, this replaces single \ in a
+	/// string into \\
 	/// </summary>
 	/// <param name="input">The input.</param>
 	/// <returns>A string</returns>

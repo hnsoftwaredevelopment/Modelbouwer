@@ -1,6 +1,4 @@
-﻿using System.Windows.Media.Imaging;
-
-namespace Modelbouwer.View.Dialog;
+﻿namespace Modelbouwer.View.Dialog;
 
 /// <summary>
 /// Interaction logic for ScrollableMessagebox.xaml

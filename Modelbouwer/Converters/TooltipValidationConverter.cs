@@ -8,9 +8,11 @@ public class TooltipValidationConverter : IMultiValueConverter
 
 		// Combineer beide, indien aanwezig
 		if ( !string.IsNullOrEmpty( validationError ) )
+		{
 			return string.IsNullOrEmpty( existingTooltip )
 				? validationError
 				: $"{validationError}\n{existingTooltip}";
+		}
 
 		return existingTooltip;
 	}

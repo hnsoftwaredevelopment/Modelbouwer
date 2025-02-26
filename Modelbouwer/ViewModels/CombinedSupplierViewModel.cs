@@ -2,7 +2,8 @@
 
 namespace Modelbouwer.ViewModels;
 /// <summary>
-/// Represents a view model that combines multiple related view models for supplier management.
+/// Represents a view model that combines multiple related view models for
+/// supplier management.
 /// </summary>
 public class CombinedSupplierViewModel
 {
@@ -32,7 +33,8 @@ public class CombinedSupplierViewModel
 	public CountryViewModel CountryViewModel { get; set; }
 
 	/// <summary>
-	/// Initializes a new instance of the <see cref="CombinedSupplierViewModel"/> class.
+	/// Initializes a new instance of the
+	/// <see cref="CombinedSupplierViewModel"/> class.
 	/// </summary>
 	public CombinedSupplierViewModel()
 	{
@@ -47,17 +49,20 @@ public class CombinedSupplierViewModel
 	}
 
 	/// <summary>
-	/// Handles the <see cref="PropertyChanged"/> event of the <see cref="SupplierViewModel"/> instance.
-	/// Updates the <see cref="SupplierContactViewModel"/> with contacts filtered by the selected supplier.
+	/// Handles the <see cref="PropertyChanged"/> event of the
+	/// <see cref="SupplierViewModel"/> instance. Updates the
+	/// <see cref="SupplierContactViewModel"/> with contacts filtered by the
+	/// selected supplier.
 	/// </summary>
 	/// <param name="sender">The source of the event.</param>
-	/// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+	/// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance
+	///     containing the event data.</param>
 	private void OnSupplierViewModelPropertyChanged( object? sender, PropertyChangedEventArgs e )
 	{
 		if ( e.PropertyName == nameof( SupplierViewModel.SelectedSupplier ) )
 		{
 			// Update SupplierContactViewModel with the selected supplier
-			var selectedSupplier = SupplierViewModel.SelectedSupplier;
+			SupplierModel? selectedSupplier = SupplierViewModel.SelectedSupplier;
 			if ( selectedSupplier != null )
 			{
 				SupplierContactViewModel.FilterContactsBySupplierId( selectedSupplier.SupplierId );

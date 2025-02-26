@@ -1,42 +1,23 @@
 ﻿namespace Modelbouwer.Helper;
 /// <summary>
-/// Used Error codes
-///  1 => Product already exists
-///  2 => Worktype already exists
-///  3 => Brand already excists
-///  4 => Unit Already Excists
-///  5 => Category already excists
-///  6 => Storage already exists
-///  7 => Project already exists
-///  8 => Contacttype already excists
-///  9 => Supplier already excists
-/// 10 => Currency already excists
-/// 11 => Country already excists
-/// 12 => Category Parent Id already excists
-/// 13 => Worktype Parent Id already excists
-/// 14 => Product per supplier already exists
-/// 15 => Supplier Contact already excists
-/// 16 => Time Entry already excists
-/// 21 => Not existing ProductCode
-/// 22 => Not existing WorktypeName
-/// 23 => Not existing BrandId
-/// 24 => Not existing UnitId
-/// 25 => Not existing Category
-/// 26 => Not existing StorageId
-/// 27 => Not existing ProjectId
-/// 28 => Not existing Contacttype
-/// 29 => Not existing Supplier
-/// 30 => Not existing CurrencyId
-/// 31 => Not existing CountryId
-/// 32 => Not existing Category ParentId
-/// 33 => Not existing Worktype ParentId
-/// 40 => Endtime bigger or equal then Starttime
-/// 41 => Incorrect number of fields in CSV file
+/// Used Error codes 1 => Product already exists 2 => Worktype already exists 3
+/// => Brand already excists 4 => Unit Already Excists 5 => Category already
+/// excists 6 => Storage already exists 7 => Project already exists 8 =>
+/// Contacttype already excists 9 => Supplier already excists 10 => Currency
+/// already excists 11 => Country already excists 12 => Category Parent Id
+/// already excists 13 => Worktype Parent Id already excists 14 => Product per
+/// supplier already exists 15 => Supplier Contact already excists 16 => Time
+/// Entry already excists 21 => Not existing ProductCode 22 => Not existing
+/// WorktypeName 23 => Not existing BrandId 24 => Not existing UnitId 25 => Not
+/// existing Category 26 => Not existing StorageId 27 => Not existing ProjectId
+/// 28 => Not existing Contacttype 29 => Not existing Supplier 30 => Not
+/// existing CurrencyId 31 => Not existing CountryId 32 => Not existing Category
+/// ParentId 33 => Not existing Worktype ParentId 40 => Endtime bigger or equal
+/// then Starttime 41 => Incorrect number of fields in CSV file
 /// </summary>
 
 /// <summary Errorlevels>
-/// 1 => Already excists
-/// 2 => Not existing
+/// 1 => Already excists 2 => Not existing
 /// </summary>
 
 internal class ErrorClass

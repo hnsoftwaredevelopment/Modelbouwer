@@ -30,11 +30,11 @@ public class TimeSpanSumAggregate : ISummaryAggregate
 	public void CalculateAggregateFunc( IEnumerable records, string propertyName, PropertyDescriptor propertyDescriptor )
 	{
 		_totalTime = TimeSpan.Zero; // Reset de som
-		foreach ( var record in records )
+		foreach ( object? record in records )
 		{
 			if ( record != null )
 			{
-				var value = propertyDescriptor.GetValue(record);
+				object? value = propertyDescriptor.GetValue( record );
 				if ( value is TimeSpan timeSpanValue )
 				{
 					_totalTime += timeSpanValue;
@@ -48,7 +48,7 @@ public class TimeSpanSumAggregate : ISummaryAggregate
 		return ( items, propertyName, descriptor ) =>
 		{
 			TimeSpan total = TimeSpan.Zero;
-			foreach ( var item in items )
+			foreach ( object? item in items )
 			{
 				if ( descriptor.GetValue( item ) is TimeSpan timeValue )
 				{

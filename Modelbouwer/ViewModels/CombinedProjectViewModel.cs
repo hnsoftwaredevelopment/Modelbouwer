@@ -24,7 +24,7 @@ public class CombinedProjectViewModel
 		if ( e.PropertyName == nameof( ProjectViewModel.SelectedProject ) )
 		{
 			// Update TimeContactViewModel with the selected Project
-			var selectedProject = ProjectViewModel.SelectedProject;
+			ProjectModel? selectedProject = ProjectViewModel.SelectedProject;
 			if ( selectedProject != null )
 			{
 				TimeViewModel.FilterTimeEntriesByProjectId( selectedProject.ProjectId );

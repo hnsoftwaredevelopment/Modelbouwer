@@ -180,12 +180,12 @@ public partial class ProductSupplierViewModel : ObservableObject
 	public void RefreshProductSupplierList( int productId, int? supplierIdToSelect = null )
 	{
 		// Bewaar huidige selectie als geen specifieke supplier is opgegeven
-		var currentSupplierId = supplierIdToSelect ?? SelectedSupplier?.ProductSupplierId;
+		int? currentSupplierId = supplierIdToSelect ?? SelectedSupplier?.ProductSupplierId;
 
 		// Update hoofdcollectie
-		var updatedSuppliers = DBCommands.GetProductSupplierList();
+		ObservableCollection<ProductSupplierModel> updatedSuppliers = DBCommands.GetProductSupplierList();
 		ProductSupplier.Clear();
-		foreach ( var supplier in updatedSuppliers )
+		foreach ( ProductSupplierModel supplier in updatedSuppliers )
 		{
 			ProductSupplier.Add( supplier );
 		}
