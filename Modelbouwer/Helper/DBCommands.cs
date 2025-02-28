@@ -741,6 +741,36 @@ public class DBCommands
 	}
 	#endregion
 
+	#region Products for supplier List
+	public static ObservableCollection<ProductModel> GetProductsForSupplierList( int _supplierId, ObservableCollection<ProductModel>? productList = null )
+	{
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPGetShortListProductsBySupplier, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		command.Parameters.AddWithValue( DBNames.SPGetShortListProductsBySupplierInputParameter, _supplierId );
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		productList ??= [ ];
+
+		foreach ( DataRow row in dt.Rows )
+		{
+			int productId = DatabaseValueConverter.GetInt(row[0]);
+
+			productList.Add( new ProductModel { ProductId = productId } );
+		}
+
+		return productList;
+	}
+	#endregion
+
 	#region Costs
 	public static ObservableCollection<ProductUsageModel> GetCostList( ObservableCollection<ProductUsageModel>? costList = null )
 	{
@@ -1040,6 +1070,33 @@ public class DBCommands
 		result = ( double ) command.ExecuteScalar();
 
 		return result;
+	}
+	#endregion
+
+	#region Get the Latest Added Record Id
+	public static int GetLatestAddedId( string _table, string _idField )
+	{
+		int latestId = 0;
+
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPGetLatestAddedRecord, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		command.Parameters.AddWithValue( DBNames.SPGetLatestAddedRecordInputParameterTable, _table );
+		command.Parameters.AddWithValue( DBNames.SPGetLatestAddedRecordInputParameterId, _idField );
+
+		// ExecuteScalar gebruiken omdat we één waarde verwachten
+		object result = command.ExecuteScalar();
+
+		// Controleren of het resultaat niet null is en converteren naar int
+		if ( result != null && result != DBNull.Value )
+		{
+			latestId = Convert.ToInt32( result );
+		}
+
+		return latestId;
 	}
 	#endregion
 

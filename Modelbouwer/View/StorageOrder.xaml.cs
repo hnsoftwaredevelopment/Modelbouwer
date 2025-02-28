@@ -116,10 +116,13 @@ public partial class StorageOrder : Page
 					double calculatedOrderQuantity = CalculateOrderQuantity(orderAmount, standardQuantity);
 
 					inventoryOrderModel.ProductShortInventory = calculatedOrderQuantity;
+					//viewModel.SupplyOrderViewModel.IsNewOrder = false;
 				}
 			}
 		}
 		CalculateTotalOrderCost();
+		viewModel.SupplyOrderViewModel.IsNewOrder = false;
+		viewModel.SupplyOrderViewModel.IsOrderSelected = true;
 	}
 
 	private double CalculateOrderQuantity( double requestedAmount, double standardQuantity )
@@ -168,8 +171,16 @@ public partial class StorageOrder : Page
 
 			SupplierShippingCosts.Text = shippingCosts.ToString( "N", CultureInfo.CreateSpecificCulture( "nl-NL" ) );
 			SupplierOrderCosts.Text = orderCosts.ToString( "N", CultureInfo.CreateSpecificCulture( "nl-NL" ) );
+
+			viewModel.SupplyOrderViewModel.ShippingCosts = shippingCosts;
+			viewModel.SupplyOrderViewModel.MinShippingCosts = minShippingCosts;
+			viewModel.SupplyOrderViewModel.OrderCosts = orderCosts;
+			viewModel.SupplyOrderViewModel.SupplyOrderCurrencyId = selectedSupplier.SupplierCurrencyId;
+
 			viewModel.SupplyOrderViewModel.UpdateOrderTotals( 0, shippingCosts, orderCosts );
+			viewModel.SupplyOrderViewModel.IsNewOrder = true;
 		}
+
 	}
 	#endregion
 

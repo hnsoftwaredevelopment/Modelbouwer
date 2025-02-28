@@ -168,6 +168,9 @@
 								x:Name="SubTotalOrder"
 								Grid.Column="1"
 								Width="100"
+								Height="24"
+								Margin="0,3,0,0"
+								VerticalAlignment="Top"
 								HorizontalContentAlignment="Right"
 								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
 								Text="{Binding SupplyOrderViewModel.SubTotal, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
@@ -176,7 +179,7 @@
 						<!--#endregion-->
 
 						<!--#region Shipping costs section, Hide when 0-->
-						<Grid Visibility="{Binding SupplyOrderViewModel.HasShippingCosts, Converter={StaticResource BooleanToVisibilityConverter}}">
+						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="100" />
 								<ColumnDefinition />
@@ -195,6 +198,9 @@
 								x:Name="SupplierShippingCosts"
 								Grid.Column="1"
 								Width="100"
+								Height="24"
+								Margin="0,0,0,3"
+								VerticalAlignment="Bottom"
 								HorizontalContentAlignment="Right"
 								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
 								Text="{Binding SupplyOrderViewModel.ShippingCosts, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
@@ -203,7 +209,7 @@
 						<!--#endregion-->
 
 						<!--#region Order costs section, Hide when 0-->
-						<Grid Visibility="{Binding SupplyOrderViewModel.HasOrderCosts, Converter={StaticResource BooleanToVisibilityConverter}}">
+						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="100" />
 								<ColumnDefinition />
@@ -317,7 +323,7 @@
 						Width="140"
 						HorizontalAlignment="Left"
 						IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
-						SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+						SelectedDate="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
 						Style="{DynamicResource ValidatedDatePicker}"
 						ToolTip="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Tooltip.Text}"
 						/>
@@ -347,11 +353,28 @@
 										Style="{DynamicResource ToolBarResetIcon}"
 										/>
 								</Button>
+
 								<Button
 									Height="30"
 									Command="{Binding SupplyOrderViewModel.SaveCommand}"
 									ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Save.Tooltip}"
 									>
+									<Button.Style>
+										<Style TargetType="Button">
+											<Setter Property="IsEnabled" Value="False" />
+											<Setter Property="Visibility" Value="Collapsed" />
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="True">
+													<Setter Property="IsEnabled" Value="True" />
+													<Setter Property="Visibility" Value="Visible" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="False">
+													<Setter Property="IsEnabled" Value="False" />
+													<Setter Property="Visibility" Value="Collapsed" />
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</Button.Style>
 									<Image
 										Width="20"
 										Height="20"
@@ -368,12 +391,35 @@
 										</Image.Style>
 									</Image>
 								</Button>
+
+								<Button
+									Height="30"
+									Command="{Binding SupplyOrderViewModel.DeleteOrderCommand}"
+									ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Delete.Tooltip}"
+									>
+									<Button.Style>
+										<Style TargetType="Button">
+											<Setter Property="IsEnabled" Value="False" />
+											<Setter Property="Visibility" Value="Collapsed" />
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding SupplyOrderViewModel.CanDelete}" Value="True">
+													<Setter Property="IsEnabled" Value="True" />
+													<Setter Property="Visibility" Value="Visible" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding SupplyOrderViewModel.CanDelete}" Value="False">
+													<Setter Property="IsEnabled" Value="False" />
+													<Setter Property="Visibility" Value="Collapsed" />
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</Button.Style>
+									<Image
+										Width="20"
+										Height="20"
+										Stretch="UniformToFill" Style="{StaticResource ToolBarTrashIcon}"/>
+								</Button>
 							</ToolBar>
 						</ToolBarTray>
-						<StackPanel>
-							<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, StringFormat='Order Number: {0}'}" />
-							<TextBlock Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, StringFormat='Order Date: {0}'}" />
-						</StackPanel>
 					</StackPanel>
 
 				</Grid>

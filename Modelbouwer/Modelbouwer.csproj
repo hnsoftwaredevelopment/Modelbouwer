@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>25.2.26.11</AssemblyVersion>
-    <FileVersion>25.2.26.11</FileVersion>
+    <AssemblyVersion>25.2.28.43</AssemblyVersion>
+    <FileVersion>25.2.28.43</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
@@ -147,6 +147,7 @@
     <None Remove="Resources\Icons\toolbarSmallDelete.png" />
     <None Remove="Resources\Icons\toolbarSmallSave.png" />
     <None Remove="Resources\Icons\toolbarStart.png" />
+    <None Remove="Resources\Icons\toolbarTrash.png" />
     <None Remove="Resources\Icons\trashbin.png" />
     <None Remove="Resources\Icons\Warning-Message.ico" />
     <None Remove="Resources\Icons\warning.png" />
@@ -568,6 +569,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\toolbarStart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\toolbarTrash.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\trashbin.png">

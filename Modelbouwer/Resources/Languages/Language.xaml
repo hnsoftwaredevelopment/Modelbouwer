@@ -683,6 +683,7 @@
 	<system:String x:Key="Edit.Inventory.Orders.SupplierOrderTotalCosts.Text">Totaal</system:String>
 	<system:String x:Key="Edit.Inventory.Orders.Supplier.Toolbar.Clear.Tooltip">Reset de bestelling</system:String>
 	<system:String x:Key="Edit.Inventory.Orders.Supplier.Toolbar.Save.Tooltip">Sla de bestelling op en werk, indien nodig, de artikelen per leverancier bij</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.Supplier.Toolbar.Delete.Tooltip">Verwijder deze geselecteerde bestelling</system:String>
 	<!--#endregion-->
 
 	<!--#region Order products-->

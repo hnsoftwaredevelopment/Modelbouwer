@@ -22,9 +22,13 @@ public partial class SupplyOrderViewModel : ObservableObject
 		get => SelectedOrder?.SupplyOrderNumber ?? string.Empty;
 		set
 		{
-			if ( SelectedOrder != null && SelectedOrder.SupplyOrderNumber != value )
+			if ( SelectedOrder != null )
 			{
-				SelectedOrder.SupplyOrderNumber = value;
+				if ( SelectedOrder.SupplyOrderNumber != value )
+				{
+					SelectedOrder.SupplyOrderNumber = value;
+					OnPropertyChanged( nameof( SupplyOrderNumber ) );
+				}
 				UpdateCanSave();
 			}
 		}
@@ -35,14 +39,21 @@ public partial class SupplyOrderViewModel : ObservableObject
 		get => SelectedOrder?.SupplyOrderDate.HasValue == true ? SelectedOrder.SupplyOrderDate.Value.ToDateTime( TimeOnly.MinValue ) : null;
 		set
 		{
-			if ( SelectedOrder != null && value.HasValue )
+			if ( SelectedOrder != null )
 			{
-				SelectedOrder.SupplyOrderDate = DateOnly.FromDateTime( value.Value );
+				if ( value.HasValue )
+				{
+					SelectedOrder.SupplyOrderDate = DateOnly.FromDateTime( value.Value );
+				}
+				else
+				{
+					SelectedOrder.SupplyOrderDate = null;
+				}
+				OnPropertyChanged( nameof( SupplyOrderDate ) );
 				UpdateCanSave();
 			}
 		}
 	}
-
 
 	[ObservableProperty]
 	public string? supplyOrderCurrencySymbol;
@@ -74,6 +85,20 @@ public partial class SupplyOrderViewModel : ObservableObject
 	[ObservableProperty]
 	private double _grandTotalOrder;
 
+	partial void OnShippingCostsChanged( double value )
+	{
+		OnPropertyChanged( nameof( HasShippingCosts ) );
+		UpdateCanSave();
+		CalculateTotalOrderCost();
+	}
+
+	partial void OnOrderCostsChanged( double value )
+	{
+		OnPropertyChanged( nameof( HasOrderCosts ) );
+		UpdateCanSave();
+		CalculateTotalOrderCost();
+	}
+
 	public bool HasSubTotal => SubTotal > 0;
 	public bool HasShippingCosts => ShippingCosts > 0;
 	public bool HasOrderCosts => OrderCosts > 0;
@@ -82,33 +107,16 @@ public partial class SupplyOrderViewModel : ObservableObject
 		GrandTotalOrder != SubTotal &&
 		( ShippingCosts > 0 || OrderCosts > 0 );
 
-	// Since we want to update the HasXXX properties when values change we can overwrite the OnPropertyChanged handlers
 	partial void OnSubTotalChanged( double value )
 	{
 		OnPropertyChanged( nameof( HasSubTotal ) );
 		UpdateCanSave();
-		//CommandManager.InvalidateRequerySuggested();
-	}
-
-	partial void OnShippingCostsChanged( double value )
-	{
-		OnPropertyChanged( nameof( HasShippingCosts ) );
-		UpdateCanSave();
-		//CommandManager.InvalidateRequerySuggested();
-	}
-
-	partial void OnOrderCostsChanged( double value )
-	{
-		OnPropertyChanged( nameof( HasOrderCosts ) );
-		UpdateCanSave();
-		//CommandManager.InvalidateRequerySuggested();
 	}
 
 	partial void OnGrandTotalOrderChanged( double value )
 	{
 		OnPropertyChanged( nameof( HasGrandTotal ) );
 		UpdateCanSave();
-		//CommandManager.InvalidateRequerySuggested();
 	}
 
 	public void UpdateOrderTotals( double totalOrderCost, double shippingCosts, double orderCosts )
@@ -121,9 +129,9 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 	public void CalculateTotalOrderCost()
 	{
-		double subTotalOrder = 0.00;
-		double shippingCosts = 0.00;
-		double orderCosts = 0.00;
+		double subTotalOrder = 0;
+		double shippingCosts = ShippingCosts;
+		double orderCosts = OrderCosts;
 
 		if ( SelectedSupplier != 0 )
 		{
@@ -132,7 +140,11 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 			if ( selectedSupplier != null )
 			{
-				orderCosts = selectedSupplier.SupplierOrderCosts;
+				// Only set orderCosts if it hasn't been manually set
+				if ( orderCosts == 0 )
+				{
+					orderCosts = selectedSupplier.SupplierOrderCosts;
+				}
 			}
 
 			// calculate subtotal for the selected products
@@ -141,8 +153,8 @@ public partial class SupplyOrderViewModel : ObservableObject
 				subTotalOrder += product.ProductToOrder * product.SupplierPrice;
 			}
 
-			// Calculate send costs
-			if ( subTotalOrder < MinShippingCosts )
+			// Calculate send costs only if it hasn't been manually set
+			if ( shippingCosts == 0 && subTotalOrder < selectedSupplier.SupplierMinShippingCosts )
 			{
 				shippingCosts = selectedSupplier.SupplierShippingCosts;
 			}
@@ -157,16 +169,13 @@ public partial class SupplyOrderViewModel : ObservableObject
 		get => selectedOrder;
 		set
 		{
-			// First Remove event handler of the previous order
 			if ( selectedOrder != null )
 			{
 				selectedOrder.PropertyChanged -= SelectedOrder_PropertyChanged;
 			}
 
-			if ( selectedOrder != value )
+			if ( SetProperty( ref selectedOrder, value ) )
 			{
-				selectedOrder = value;
-
 				if ( selectedOrder != null )
 				{
 					selectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
@@ -176,12 +185,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 				OnPropertyChanged( nameof( SelectedOrder ) );
 				UpdateFilteredOrderLines();
 				UpdateCanSave();
-
-				if ( selectedOrder != null )
-				{
-					selectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
-				}
-
+				UpdateCanDelete();
 			}
 		}
 	}
@@ -239,19 +243,16 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 	private void SelectedOrder_PropertyChanged( object? sender, PropertyChangedEventArgs e )
 	{
-		if ( e.PropertyName == nameof( SupplyOrderModel.IsSelected ) )
+		if ( e.PropertyName == nameof( SupplyOrderModel.SupplyOrderNumber ) )
 		{
-			SupplyOrderModel? selectedOrder = sender as SupplyOrderModel;
-			if ( selectedOrder != null )
-			{
-				SelectedOrder = selectedOrder.IsSelected ? selectedOrder : null;
-			}
+			OnPropertyChanged( nameof( SupplyOrderNumber ) );
 		}
-		if ( e.PropertyName == nameof( SupplyOrderModel.SupplyOrderNumber ) ||
-			e.PropertyName == nameof( SupplyOrderModel.SupplyOrderDate ) )
+		if ( e.PropertyName == nameof( SupplyOrderModel.SupplyOrderDate ) )
 		{
-			UpdateCanSave();
+			OnPropertyChanged( nameof( SupplyOrderDate ) );
 		}
+		UpdateCanSave();
+		UpdateCanDelete();
 	}
 	#endregion
 
@@ -338,7 +339,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 					};
 					IsNewOrder = true;
 				}
-				else { IsNewOrder = false; }
+				else { IsNewOrder = false; UpdateCanDelete(); }
 
 				SelectedSupplierChanged?.Invoke( this, _selectedSupplierId );
 			}
@@ -369,14 +370,15 @@ public partial class SupplyOrderViewModel : ObservableObject
 	{
 		if ( SelectedSupplier > 0 )
 		{
-			// Filter de bestellingen voor de geselecteerde leverancier
-			FilteredOrders = [ .. SupplierOrderList.Where( order => order.SupplyOrderSupplierId == SelectedSupplier ) ];
-
+			// Filter the orders for the selected supplier
+			FilteredOrders = new ObservableCollection<SupplyOrderModel>(
+				SupplierOrderList.Where( order => order.SupplyOrderSupplierId == SelectedSupplier )
+			);
 		}
 		else
 		{
-			// Leeg de lijst als er geen leverancier is geselecteerd
-			FilteredOrders = [ ];
+			// Clear the list if no supplier is selected
+			FilteredOrders = new ObservableCollection<SupplyOrderModel>();
 		}
 
 		OnPropertyChanged( nameof( FilteredOrders ) );
@@ -416,6 +418,9 @@ public partial class SupplyOrderViewModel : ObservableObject
 		SelectedOrder = null;
 		SupplyOrderNumber = string.Empty;
 		SupplyOrderDate = null;
+		ShippingCosts = 0;
+		OrderCosts = 0;
+
 		SelectedProducts.Clear();
 
 		if ( IsNewOrder )
@@ -444,6 +449,18 @@ public partial class SupplyOrderViewModel : ObservableObject
 	}
 	#endregion
 
+	[RelayCommand( CanExecute = nameof( CanDelete ) )]
+	private void DeleteOrder()
+	{
+		Debug.WriteLine( "DeleteOrder" );
+		//if ( SelectedOrder != null )
+		//{
+		//	DBCommands.DeleteOrder( SelectedOrder.SupplyOrderId );
+		//	Refresh();
+		//}
+	}
+
+
 	#region Save Order
 	public IRelayCommand SaveCommand { get; }
 
@@ -451,7 +468,15 @@ public partial class SupplyOrderViewModel : ObservableObject
 	public bool CanSave
 	{
 		get => _canSave;
-		set => SetProperty( ref _canSave, value );
+		set
+		{
+			if ( _canSave != value )
+			{
+				_canSave = value;
+				OnPropertyChanged( nameof( CanSave ) );
+				SaveCommand.NotifyCanExecuteChanged();
+			}
+		}
 	}
 
 	private void UpdateCanSave()
@@ -461,14 +486,113 @@ public partial class SupplyOrderViewModel : ObservableObject
 		bool hasOrderDate = SelectedOrder?.SupplyOrderDate != null;
 		bool hasSelectedProducts = ProductList?.Any(p => p.IsSelected) ?? false;
 
-		CanSave = hasSupplier && hasOrderNumber && hasOrderDate && hasSelectedProducts;
+		CanSave = IsNewOrder && hasSupplier && hasOrderNumber && hasOrderDate && hasSelectedProducts;
 	}
+
+	//public bool IsOrderSelected => SelectedOrder != null;
+	private bool _isOrderSelected;
+	public bool IsOrderSelected
+	{
+		get => _isOrderSelected;
+		set
+		{
+			if ( _isOrderSelected != value )
+			{
+				_isOrderSelected = value;
+				OnPropertyChanged( nameof( IsOrderSelected ) );
+				UpdateCanDelete();
+			}
+		}
+	}
+
+	private bool _canDelete;
+	public bool CanDelete
+	{
+		get => _canDelete;
+		set
+		{
+			if ( _canDelete != value )
+			{
+				_canDelete = value;
+				OnPropertyChanged( nameof( CanDelete ) );
+				DeleteOrderCommand.NotifyCanExecuteChanged();
+			}
+		}
+	}
+
+	private void UpdateCanDelete()
+	{
+		CanDelete = IsOrderSelected;
+	}
+
 
 	[RelayCommand( CanExecute = nameof( CanSave ) )]
 	private void SaveOrder()
 	{
-		// Je bestaande save logica
-		Debug.WriteLine( "Hello" );
+		#region Check if all the selected products are in the Products Per supplier table, if one is missing it should be added to that table
+		// Retrieve the current list of product IDs from the database
+		ObservableCollection<ProductModel> currentList = DBCommands.GetProductsForSupplierList(_selectedSupplierId);
+		List<int> currentProductIds = currentList.Select( p => p.ProductId ).ToList();
+
+		// Retrieve the list of selected product IDs from the selectedProductsDataGrid
+		List<InventoryOrderModel> selectedProducts = SelectedProducts.ToList();
+
+		// Find the product IDs that are in selectedProducts but not in currentProductIds
+		List<InventoryOrderModel> newProducts = selectedProducts.Where( p => !currentProductIds.Contains( p.ProductId ) ).ToList();
+
+		// Add the product to the ProductPerSupplier table with additional information
+		foreach ( InventoryOrderModel? product in newProducts )
+		{
+			string [ , ] _addProductSupplierfields = new string [ 5, 3 ]
+			{
+				{ DBNames.ProductSupplierFieldNameSupplierId, DBNames.ProductSupplierFieldTypeSupplierId, _selectedSupplierId.ToString()  },
+				{ DBNames.ProductSupplierFieldNameProductId, DBNames.ProductSupplierFieldTypeProductId, product.ProductId.ToString() },
+				{ DBNames.ProductSupplierFieldNameProductNumber, DBNames.ProductSupplierFieldTypeProductNumber, product.SupplierProductNumber },
+				{ DBNames.ProductSupplierFieldNameProductName, DBNames.ProductSupplierFieldTypeProductName, product.SupplierProductName },
+				{ DBNames.ProductSupplierFieldNamePrice, DBNames.ProductSupplierFieldTypePrice, product.SupplierPrice.ToString() }
+			};
+
+			DBCommands.InsertInTable( DBNames.ProductSupplierTable, _addProductSupplierfields );
+		}
+		#endregion
+
+		#region Add general Order information to the Order Table
+		string [ , ] _addOrderFields = new string [ 6, 3 ]
+		{
+			{DBNames.OrderFieldNameSupplierId, DBNames.OrderFieldTypeSupplierId, _selectedSupplierId.ToString()},
+			{DBNames.OrderFieldNameCurrencyId, DBNames.OrderFieldTypeCurrencyId, SupplyOrderCurrencyId.ToString()},
+			{DBNames.OrderFieldNameOrderNumber, DBNames.OrderFieldTypeOrderNumber, SelectedOrder.SupplyOrderNumber},
+			{DBNames.OrderFieldNameOrderDate, DBNames.OrderFieldTypeOrderDate, SelectedOrder.SupplyOrderDate.ToString()},
+			{DBNames.OrderFieldNameShippingCosts, DBNames.OrderFieldTypeShippingCosts, ShippingCosts.ToString()},
+			{DBNames.OrderFieldNameOrderCosts, DBNames.OrderFieldTypeOrderCosts, OrderCosts.ToString()}
+		};
+		DBCommands.InsertInTable( DBNames.OrderTable, _addOrderFields );
+		#endregion
+
+		// Retrieve the Id of the latest added order
+		int _orderId = DBCommands.GetLatestAddedId(DBNames.OrderTable, DBNames.OrderFieldNameId);
+
+		#region Add Order lines to the Orderline table
+		// To trough the rows of the slected products datagrid
+		foreach ( InventoryOrderModel line in selectedProducts )
+		{
+			string [ , ] _addOrderLineFields = new string [ 5, 3 ]
+			{
+				{DBNames.OrderLineFieldNameOrderId, DBNames.OrderLineFieldTypeOrderId, _orderId.ToString()},
+				{DBNames.OrderLineFieldNameProductId, DBNames.OrderLineFieldTypeProductId, line.ProductId.ToString()},
+				{DBNames.OrderLineFieldNameAmount, DBNames.OrderLineFieldTypeAmount, line.ProductToOrder.ToString()},
+				{DBNames.OrderLineFieldNameOpenAmount, DBNames.OrderLineFieldTypeOpenAmount, line.ProductToOrder.ToString()},
+				{DBNames.OrderLineFieldNamePrice, DBNames.OrderLineFieldTypePrice, line.SupplierPrice.ToString()}
+			};
+
+			DBCommands.InsertInTable( DBNames.OrderLineTable, _addOrderLineFields );
+		}
+		#endregion
+
+
+		// Refresh the data for the UI
+		ClearAllFields();
+		Refresh();
 	}
 	#endregion
 

@@ -53,8 +53,8 @@ public class DBNames
 	public static readonly string SPDeleteProductIdOutputParameter = "result";
 
 	public static readonly string SPGetLatestAddedRecord = "GetlatestAddedRecord";
-	public static readonly string SPGetLatestAddedRecordInputParameterTable = "p_TableName";
-	public static readonly string SPGetLatestAddedRecordInputParameterId = "p_IdColumn";
+	public static readonly string SPGetLatestAddedRecordInputParameterTable = "?tableName";
+	public static readonly string SPGetLatestAddedRecordInputParameterId = "?IdColumn";
 
 	public static readonly string SPGeProjectEndDate = "GetProjectEndDate";
 	public static readonly string SPProjectEndDateInputParameter = "p_ProductId";
@@ -70,6 +70,8 @@ public class DBNames
 	public static readonly string SPGeProjectMaterialCosts = "GetTotalCostByProjectId";
 	public static readonly string SPProjectMaterialCostsInputParameter = "p_ProjectId";
 
+	public static readonly string SPGetShortListProductsBySupplier = "GetShortListProductsBySupplier";
+	public static readonly string SPGetShortListProductsBySupplierInputParameter = "?SelectedSupplierId"; // The ? is added to work correctly
 	#endregion
 
 	#region Database
@@ -617,9 +619,9 @@ public class DBNames
 	public static readonly string OrderFieldTypeCurrencySymbol = "string";
 	public static readonly string OrderFieldNameConversionRate = "CurrencyConversionRate";
 	public static readonly string OrderFieldTypeConversionRate = "double";
-	public static readonly string OrderFieldNameShippingCosts = "SupplierShippingCosts";
+	public static readonly string OrderFieldNameShippingCosts = "ShippingCosts";
 	public static readonly string OrderFieldTypeShippingCosts = "double";
-	public static readonly string OrderFieldNameOrderCosts = "SupplierOrderCosts";
+	public static readonly string OrderFieldNameOrderCosts = "OrderCosts";
 	public static readonly string OrderFieldTypeOrderCosts = "double";
 	public static readonly string OrderFieldNameOrderMemo = "Memo";
 	public static readonly string OrderFieldTypeOrderMemo = "longtext";
