@@ -623,6 +623,7 @@ public class DBCommands
 				SupplierMinShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 13 ] ),
 				SupplierOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 14 ] ),
 				SupplierMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
+				SupplierCurrencyRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 16 ] )
 			} );
 		}
 		return supplierList;
@@ -665,7 +666,7 @@ public class DBCommands
 	public static ObservableCollection<SupplyOrderModel> GetSupplierOrderList( ObservableCollection<SupplyOrderModel>? orderList = null )
 	{
 		orderList ??= [ ];
-		DataTable _dt = GetData(DBNames.OrderTable, DBNames.OrderFieldNameOrderNumber);
+		DataTable _dt = GetData(DBNames.OrderView, DBNames.OrderFieldNameOrderNumber);
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
@@ -673,16 +674,17 @@ public class DBCommands
 			{
 				SupplyOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 				SupplyOrderSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
-				SupplyOrderCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
-				SupplyOrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
-				SupplyOrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 4 ] ),
-				SupplyOrderCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
-				SupplyOrderCurrencyRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
-				SupplyOrderShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 7 ] ),
-				SupplyOrderOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
-				SupplyOrderMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
-				SupplyOrderClosed = DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 10 ] ),
-				SupplyOrderClosedDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] ),
+				SupplyOrderCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 9 ] ),
+				SupplyOrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
+				SupplyOrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 13 ] ),
+				SupplyOrderCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] ),
+				SupplyOrderCurrencyRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 15 ] ),
+				SupplyOrderShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 16 ] ),
+				SupplyOrderOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 17 ] ),
+				SupplyOrderMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 20 ] ),
+				SupplyOrderClosed = DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 18 ] ),
+				SupplyOrderClosedDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 19 ] ),
+				SupplyOrderHasStackLog = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 21 ] )
 			} );
 		}
 		return orderList;
@@ -718,6 +720,9 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
+			// PackagePrice = Price * StandardQuantity
+			double _packagePrice = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] ) * DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] );
+
 			productList.Add( new ProductModel
 			{
 				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
@@ -725,6 +730,7 @@ public class DBCommands
 				ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
 				ProductDimensions = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
 				ProductPrice = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] ),
+				ProductPackagePrice = _packagePrice,
 				ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 5 ] ),
 				ProductStandardQuantity = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
 				ProductProjectCosts = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 7 ] ),

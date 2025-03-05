@@ -2,20 +2,84 @@
 public partial class UnitViewModel : ObservableObject
 {
 	[ObservableProperty]
+	public string? unitName;
+
+	[ObservableProperty]
 	public int unitId;
 
 	[ObservableProperty]
-	public string? unitName;
+	public UnitModel? selectedItem;
 
-	public ObservableCollection<UnitModel>? Unit { get; set; }
+	public ObservableCollection<UnitModel> Unit
+	{
+		get => _unit;
+		set
+		{
+			if ( _unit != value )
+			{
+				_unit = value;
+				OnPropertyChanged( nameof( Unit ) );
+			}
+		}
+	}
+
+	private ObservableCollection<UnitModel>? _unit;
+
+	[ObservableProperty]
+	private bool isTextChanged;
 
 	[ObservableProperty]
 	private UnitModel? _selectedUnit;
 
-	private readonly ObservableCollection<UnitModel>? _unit;
+	private UnitModel? _temporaryUnit;
+	private string? _originalUnitName;
+	private int _originalUnitId;
 
-	[ObservableProperty]
-	public UnitModel? selectedItem;
+	public string? SelectedUnitName
+	{
+		get => _temporaryUnit?.UnitName;
+		set
+		{
+			if ( _temporaryUnit != null && _temporaryUnit.UnitName != value )
+			{
+				_temporaryUnit.UnitName = value;
+				IsTextChanged = _temporaryUnit.UnitName != _originalUnitName;
+				OnPropertyChanged( nameof( SelectedUnitName ) );
+			}
+		}
+	}
+
+	public int SelectedUnitId
+	{
+		get => _temporaryUnit?.UnitId ?? 0;
+		set
+		{
+			if ( _temporaryUnit != null )
+			{
+				_temporaryUnit.UnitId = value;
+				OnPropertyChanged( nameof( SelectedUnitId ) );
+			}
+		}
+	}
+
+	partial void OnSelectedUnitChanged( UnitModel? value )
+	{
+		if ( value != null )
+		{
+			// Copy the selected item for changes
+			_temporaryUnit = new() { UnitId = value.UnitId, UnitName = value.UnitName };
+			_originalUnitName = value.UnitName;
+			_originalUnitId = value.UnitId;
+		}
+		else
+		{
+			_temporaryUnit = new();
+		}
+
+		OnPropertyChanged( nameof( SelectedUnitName ) );
+		OnPropertyChanged( nameof( SelectedUnitId ) );
+		IsTextChanged = false;
+	}
 
 	private bool _isAddingNew;
 
@@ -34,28 +98,41 @@ public partial class UnitViewModel : ObservableObject
 
 	public void AddNewItem()
 	{
-		// Voeg het nieuwe, lege item toe aan de lijst
-		UnitModel newUnit = new()
+		if ( IsTextChanged )
 		{
-			UnitId = 0,
-			UnitName = string.Empty
-		};
+			if ( _temporaryUnit != null )
+			{
+				UnitModel newUnit = new()
+				{
+					UnitId = _temporaryUnit.UnitId,
+					UnitName = _temporaryUnit.UnitName
+				};
+				Unit.Add( newUnit );
+				SelectedUnit = newUnit; // Stel de nieuwe regel in als de geselecteerde regel
+			}
+		}
+		else
+		{
+			_temporaryUnit = new UnitModel
+			{
+				UnitId = 0,
+				UnitName = string.Empty
+			};
 
-		Unit.Add( newUnit );
-		SelectedUnit = newUnit;
+			// Voeg het nieuwe, lege item toe aan de lijst
+			Unit.Add( _temporaryUnit );
+			SelectedUnit = _temporaryUnit;
+		}
+
 		IsAddingNew = true;
-	}
 
+		IsTextChanged = true;
+	}
 
 	public UnitViewModel()
 	{
-		_ = new DBCommands();
-		Unit = new ObservableCollection<UnitModel>( collection: DBCommands.GetUnitList() );
-
-		if ( Unit != null && Unit.Any() )
-		{
-			SelectedUnit = Unit.First();
-		}
+		Unit = new ObservableCollection<UnitModel>( DBCommands.GetUnitList() );
+		_temporaryUnit = new();
 	}
 
 	public void Refresh()
@@ -63,5 +140,4 @@ public partial class UnitViewModel : ObservableObject
 		Unit = [ .. DBCommands.GetUnitList() ];
 		OnPropertyChanged( nameof( Unit ) );
 	}
-
 }

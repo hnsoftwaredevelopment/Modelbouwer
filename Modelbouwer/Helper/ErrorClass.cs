@@ -7,7 +7,7 @@
 /// already excists 11 => Country already excists 12 => Category Parent Id
 /// already excists 13 => Worktype Parent Id already excists 14 => Product per
 /// supplier already exists 15 => Supplier Contact already excists 16 => Time
-/// Entry already excists 21 => Not existing ProductCode 22 => Not existing
+/// Entry already excists 21 => Not existing _productCode 22 => Not existing
 /// WorktypeName 23 => Not existing BrandId 24 => Not existing UnitId 25 => Not
 /// existing Category 26 => Not existing StorageId 27 => Not existing ProjectId
 /// 28 => Not existing Contacttype 29 => Not existing Supplier 30 => Not
@@ -154,8 +154,8 @@ internal class ErrorClass
 				break;
 
 			case 21:
-				// Not existing ProductCode
-				_metadataType = "ProductCode";
+				// Not existing _productCode
+				_metadataType = "_productCode";
 				_errorLevel = 2;
 				break;
 

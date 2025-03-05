@@ -26,6 +26,7 @@
 		<converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 		<converter:TooltipValidationConverter x:Key="TooltipValidationConverter" />
 		<converter:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
+		<converter:ButtonTooltipConverter x:Key="ButtonTooltipConverter" />
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
@@ -317,13 +318,11 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Text}"
 						/>
 
-					<DatePicker
-						Grid.Row="2"
-						Grid.Column="1"
-						Width="140"
+						<DatePicker
+						Width="140"  Grid.Row="2" Grid.Column="1"
 						HorizontalAlignment="Left"
 						IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
-						SelectedDate="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateOnlyToDateTimeConverter}}"
+						SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, PresentationTraceSources.TraceLevel=High}"
 						Style="{DynamicResource ValidatedDatePicker}"
 						ToolTip="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Tooltip.Text}"
 						/>
@@ -395,8 +394,11 @@
 								<Button
 									Height="30"
 									Command="{Binding SupplyOrderViewModel.DeleteOrderCommand}"
-									ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Toolbar.Delete.Tooltip}"
+									CommandParameter="{Binding SupplyOrderViewModel.DeleteOrderWithTooltipCommand}"
+									IsEnabled="{Binding SupplyOrderViewModel.NoHistory}"
+									ToolTip="{Binding SupplyOrderViewModel.DeleteButtonTooltip}"
 									>
+									<ToolTipService.ShowOnDisabled>True</ToolTipService.ShowOnDisabled>
 									<Button.Style>
 										<Style TargetType="Button">
 											<Setter Property="IsEnabled" Value="False" />
@@ -416,7 +418,9 @@
 									<Image
 										Width="20"
 										Height="20"
-										Stretch="UniformToFill" Style="{StaticResource ToolBarTrashIcon}"/>
+										Stretch="UniformToFill"
+										Style="{StaticResource ToolBarTrashIcon}"
+										/>
 								</Button>
 							</ToolBar>
 						</ToolBarTray>

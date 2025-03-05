@@ -14,6 +14,7 @@
 				<ResourceDictionary Source="Resources/Languages/Language.xaml" />
 				<ResourceDictionary Source="Resources/Styles/Button.xaml" />
 				<ResourceDictionary Source="Resources/Styles/ComboBox.xaml" />
+				<ResourceDictionary Source="Resources/Styles/DatePicker.xaml" />
 				<ResourceDictionary Source="Resources/Styles/DataGrid.xaml" />
 				<ResourceDictionary Source="Resources/Styles/General.xaml" />
 				<ResourceDictionary Source="Resources/Styles/Label.xaml" />

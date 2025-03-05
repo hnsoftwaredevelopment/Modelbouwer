@@ -24,6 +24,7 @@
 		<converter:IndentToPaddingConverter x:Key="IndentToBoolConverter" />
 		<converter:ByteToImageConverter x:Key="ByteToImageConverter" />
 		<converter:ByteToImageConverter x:Key="NullOrEmptyImageConverter" />
+		<converter:DynamicPriceConverter x:Key="DynamicPriceConverter" />
 	</Page.Resources>
 
 	<Page.DataContext>
@@ -419,8 +420,9 @@
 										<RowDefinition Height="*" />
 									</Grid.RowDefinitions>
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="180" />
-										<ColumnDefinition Width="180" />
+										<ColumnDefinition Width="160" />
+										<ColumnDefinition Width="160" />
+										<ColumnDefinition Width="160" />
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
 
@@ -489,6 +491,14 @@
 										Text="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Dimensions.Label}"
 										/>
 
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="3"
+										Style="{DynamicResource Tab.Panel.Label}"
+										Text="{DynamicResource Edit.Product.Tab.General.Group.Inventory.PackingUnit.Label}"
+										/>
+
+
 									<TextBox
 										x:Name="ProductMinStock"
 										Grid.Row="1"
@@ -515,6 +525,7 @@
 										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Quantity.Tooltip}"
 										/>
 
+
 									<TextBox
 										x:Name="ProductDimensions"
 										Grid.Row="1"
@@ -528,6 +539,22 @@
 										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Dimensions.Tooltip}"
 										/>
 
+									<syncfusion:ComboBoxAdv
+										x:Name="ProductPackagingUnit"
+										Grid.Row="1"
+										Grid.Column="3"
+										Width="120"
+										HorizontalAlignment="Left"
+										HorizontalContentAlignment="Left"
+										Cursor="Arrow"
+										DefaultText="{DynamicResource Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tag}"
+										DisplayMemberPath="UnitName"
+										ItemsSource="{Binding UnitViewModel.Unit}"
+										SelectedItem="{Binding UnitViewModel.SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										TextSearch.TextPath="UnitName"
+										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tooltip}"
+										/>
+
 									<TextBlock
 										Grid.Row="2"
 										Grid.Column="0"
@@ -535,8 +562,6 @@
 										Style="{DynamicResource Tab.Panel.Label}"
 										Text="{DynamicResource Edit.Product.Tab.General.Group.Inventory.Location.Label}"
 										/>
-
-
 									<Button
 										x:Name="ProductStorageLocation"
 										Grid.Row="3"
@@ -577,6 +602,7 @@
 									</Grid.RowDefinitions>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="180" />
+										<ColumnDefinition Width="180" />
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
 
@@ -589,8 +615,15 @@
 										/>
 
 									<TextBlock
-										Grid.Row="0"
+										Grid.Row="0" x:Name="PackagePriceLabel"
 										Grid.Column="1"
+										Style="{DynamicResource Tab.Panel.Label}"
+										Text="{DynamicResource Edit.Product.Tab.General.Group.Project.PackagePrice.Label}"
+										/>
+
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="2"
 										Style="{DynamicResource Tab.Panel.Label}"
 										Text="{DynamicResource Edit.Product.Tab.General.Group.Project.ProjectCosts.Label}"
 										/>
@@ -613,15 +646,38 @@
 											Language="nl-NL"
 											Style="{DynamicResource DefaultTextBox}"
 											Tag="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tag}"
-											Text="{Binding ProductViewModel.SelectedProduct.ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}}"
+											Text="{Binding ProductViewModel.SelectedProduct.ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DynamicPriceConverter}}"
 											ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tooltip}"
+											/>
+									</StackPanel>
+
+									<StackPanel
+										Grid.Row="1"
+										Grid.Column="1"
+										Orientation="Horizontal"
+										>
+										<TextBlock
+											Margin="0,0,3,0"
+											VerticalAlignment="Center"
+											Text="€"
+											/>
+										<TextBox
+											x:Name="ProductPackagePrice"
+											Width="150"
+											HorizontalAlignment="Left"
+											HorizontalContentAlignment="Right"
+											Language="nl-NL"
+											Style="{DynamicResource DefaultTextBox}"
+											Tag="{DynamicResource Edit.Product.Tab.General.Group.Project.PackagePrice.Tag}"
+											Text="{Binding ProductViewModel.SelectedProduct.ProductPackagePrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}}"
+											ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Project.PackagePrice.Tooltip}"
 											/>
 									</StackPanel>
 
 									<CheckBox
 										x:Name="ProductProjectCosts"
 										Grid.Row="1"
-										Grid.Column="1"
+										Grid.Column="2"
 										VerticalAlignment="Center"
 										IsChecked="{Binding ProductViewModel.SelectedProduct.ProductProjectCosts, Converter={StaticResource IntToBoolConverter}}"
 										/>

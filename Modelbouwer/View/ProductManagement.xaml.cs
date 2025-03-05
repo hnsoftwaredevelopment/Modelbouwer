@@ -1,4 +1,6 @@
-﻿using DataFormats = System.Windows.DataFormats;
+﻿using Modelbouwer.Converters;
+
+using DataFormats = System.Windows.DataFormats;
 
 namespace Modelbouwer.View;
 
@@ -10,8 +12,6 @@ public partial class ProductManagement : Page
 	{
 		InitializeComponent();
 		this.Loaded += Data_Loaded;
-		//_viewModel = new CombinedProductViewModel();
-		//DataContext = _viewModel;
 	}
 
 	private void Data_Loaded( object sender, RoutedEventArgs e )
@@ -158,7 +158,7 @@ public partial class ProductManagement : Page
 			}
 			#endregion
 
-			#region Select the Barnsd of the selected Product
+			#region Select the Brand of the selected Product
 			if ( selectedProduct != null && selectedProduct.ProductBrandId > 0 )
 			{
 				BrandModel? selectedBrand = viewModel.BrandViewModel.Brand.FirstOrDefault( c => c.BrandId == selectedProduct.ProductBrandId );
@@ -170,6 +170,18 @@ public partial class ProductManagement : Page
 			}
 			#endregion
 
+			#region Select the Unit of the selected Product
+			if ( selectedProduct != null && selectedProduct.ProductUnitId > 0 )
+			{
+				UnitModel? selectedUnit = viewModel.UnitViewModel.Unit.FirstOrDefault( c => c.UnitId == selectedProduct.ProductUnitId );
+
+				if ( selectedUnit != null )
+				{
+					viewModel.UnitViewModel.SelectedUnit = selectedUnit;
+				}
+			}
+			#endregion
+
 			#region Select the Correct (first) Supplier
 			if ( selectedProduct != null )
 			{
@@ -177,6 +189,16 @@ public partial class ProductManagement : Page
 				viewModel.ProductSupplierViewModel.SelectedProduct = selectedProduct;
 				viewModel.ProductSupplierViewModel.FilterSuppliersByProductId( selectedProduct.ProductId );
 			}
+			#endregion
+
+			#region Set the correct label for the Price per [quantity] [unit]
+			string _quantity = DynamicNumericStringConverter.FormatNumber ( decimal.Parse( ProductOrderQuantity.Text ) );
+			string _unit = ProductPackagingUnit.Text;
+			string _spacer = " ";
+			if ( _quantity == "" || _quantity.Trim() == "1" ) { _quantity = ""; _spacer = ""; }
+			PackagePriceLabel.Text = $"{( string ) FindResource( "Edit.Product.Tab.General.Group.Project.PackagePrice.Prefix.Label" )} {_quantity}{_spacer}{_unit.ToLower()}";
+
+			//TODO: When quantity = 1 or "" the entire TextBox + TextBlock should be hidden and therefore a Textblock shoulod apear "prijs per [unit]"
 			#endregion
 
 			//From here changes will activate the SafeChanges Warning 
@@ -539,7 +561,7 @@ public partial class ProductManagement : Page
 		CombinedProductViewModel? viewModel = DataContext as CombinedProductViewModel;
 		ProductSupplierModel? selectedSupplier = viewModel.ProductSupplierViewModel.SelectedSupplier;
 		int selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId;
-		//var selectedProductId = viewModel.ProductViewModel.SelectedProduct.ProductId.ToString();
+		//var selectedProductId = viewModel.ProductViewModel.selectedProduct.ProductId.ToString();
 		string selectedId = viewModel.ProductSupplierViewModel.SelectedSupplier.ProductSupplierId.ToString();
 		string selectedSupplierId = ((int)(SupplierComboBox.SelectedValue ?? 0)).ToString();
 		string selectedSupplierName = ((SupplierModel)SupplierComboBox.SelectedItem).Name.ToString();

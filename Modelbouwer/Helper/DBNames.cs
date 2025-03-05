@@ -293,7 +293,7 @@ public class DBNames
 	public static readonly string ProductSupplierFieldTypeCurrencyId = "int";
 	public static readonly string ProductSupplierFieldNameProductNumber = "ProductNumber";
 	public static readonly string ProductSupplierFieldTypeProductNumber = "string";
-	public static readonly string ProductSupplierFieldNameProductName = "ProductName";
+	public static readonly string ProductSupplierFieldNameProductName = "_productName";
 	public static readonly string ProductSupplierFieldTypeProductName = "string";
 	public static readonly string ProductSupplierFieldNamePrice = "Price";
 	public static readonly string ProductSupplierFieldTypePrice = "double";
@@ -334,7 +334,7 @@ public class DBNames
 	public static readonly string ProjectCostsViewFieldTypeProjectName = "string";
 	public static readonly string ProjectCostsViewFieldNameCategoryName = "Category";
 	public static readonly string ProjectCostsViewFieldTypeCategoryName = "string";
-	public static readonly string ProjectCostsViewFieldNameProductName = "ProductName";
+	public static readonly string ProjectCostsViewFieldNameProductName = "_productName";
 	public static readonly string ProjectCostsViewFieldTypeProductName = "string";
 	public static readonly string ProjectCostsViewFieldNameAmountUsed = "AmountUsed";
 	public static readonly string ProjectCostsViewFieldTypeAmountUsed = "int";
@@ -569,7 +569,7 @@ public class DBNames
 	public static readonly string ProductUsageViewFieldTypeId = "int";
 	public static readonly string ProductUsageViewFieldNameProjectId = "ProjectId";
 	public static readonly string ProductUsageViewFieldTypeProjectId = "int";
-	public static readonly string ProductUsageViewFieldNameProductId = "ProductId";
+	public static readonly string ProductUsageViewFieldNameProductId = "_productId";
 	public static readonly string ProductUsageViewFieldTypeProductId = "int";
 	public static readonly string ProductUsageViewFieldNameStorageId = "StorageId";
 	public static readonly string ProductUsageViewFieldTypeStorageId = "int";
@@ -577,7 +577,7 @@ public class DBNames
 	public static readonly string ProductUsageViewFieldTypeCategoryId = "int";
 	public static readonly string ProductUsageViewFieldNameProjectName = "ProjectName";
 	public static readonly string ProductUsageViewFieldTypeProjectName = "string";
-	public static readonly string ProductUsageViewFieldNameProductName = "ProductName";
+	public static readonly string ProductUsageViewFieldNameProductName = "_productName";
 	public static readonly string ProductUsageViewFieldTypeProductName = "string";
 	public static readonly string ProductUsageViewFieldNameStorageName = "StorageName";
 	public static readonly string ProductUsageViewFieldTypeStorageName = "string";
@@ -599,7 +599,6 @@ public class DBNames
 	#region Order table and view
 
 	public static readonly string OrderTable = "supplyorder";
-	public static readonly string OrderView = "view_supplyorder";
 	public static readonly string OpenOrderView = "view_supplyopenorder";
 	public static readonly string OrderFieldNameId = "Id";
 	public static readonly string OrderFieldTypeId = "int";
@@ -626,11 +625,59 @@ public class DBNames
 	public static readonly string OrderFieldNameOrderMemo = "Memo";
 	public static readonly string OrderFieldTypeOrderMemo = "longtext";
 
+	public static readonly string OrderView = "view_supplyorder";
+	public static readonly string OrderViewFieldNameId = "Id";
+	public static readonly string OrderViewFieldTypeId = "int";
+	public static readonly string OrderViewFieldNameSupplierId = "Supplier_Id";
+	public static readonly string OrderViewFieldTypeSupplierId = "int";
+	public static readonly string OrderViewFieldNameSupplierName = "SupplierName";
+	public static readonly string OrderViewFieldTypeSupplierName = "string";
+	public static readonly string OrderViewFieldNameShippingCosts = "ShippingCosts";
+	public static readonly string OrderViewFieldTypeShippingCosts = "double";
+	public static readonly string OrderViewFieldNameMinShippingCosts = "MinShippingCosts";
+	public static readonly string OrderViewFieldTypeMinShippingCosts = "double";
+	public static readonly string OrderViewFieldNameOrderCosts = "OrderCosts";
+	public static readonly string OrderViewFieldTypeOrderCosts = "double";
+	public static readonly string OrderViewFieldNameDefSupplierCurrencyId = "DefaultCurrencyIdSupplier";
+	public static readonly string OrderViewFieldTypeDefSupplierCurrencyId = "int";
+	public static readonly string OrderViewFieldNameDefSupplierCurrencySymbol = "DefaultCurrencySymboldSupplier";
+	public static readonly string OrderViewFieldTypeDefSupplierCurrencySymbol = "string";
+	public static readonly string OrderViewFieldNameDefSupplierConversionRatel = "DefaultConversionRateSupplier";
+	public static readonly string OrderViewFieldTypeDefSupplierConversionRatel = "Double";
+	public static readonly string OrderViewFieldNameCurrencyId = "Currency_Id";
+	public static readonly string OrderViewFieldTypeCurrencyId = "int";
+	public static readonly string OrderViewFieldNameDefOrderCurrencySymbol = "DefaultCurrencySymboldOrder";
+	public static readonly string OrderViewFieldTypeDefOrderCurrencySymbol = "string";
+	public static readonly string OrderViewFieldNameDefOrderConversionRatel = "DefaultConversionRateOrder";
+	public static readonly string OrderViewFieldTypeDefOrderConversionRatel = "Double";
+	public static readonly string OrderViewFieldNameOrderNumber = "OrderNumber";
+	public static readonly string OrderViewFieldTypeOrderNumber = "string";
+	public static readonly string OrderViewFieldNameOrderDate = "OrderDate";
+	public static readonly string OrderViewFieldTypeOrderDate = "date";
+	public static readonly string OrderViewFieldNameCurrencySymbol = "OrderCurrencySymbol";
+	public static readonly string OrderViewFieldTypeCurrencySymbol = "string";
+	public static readonly string OrderViewFieldNameConversionRate = "OrderCurrencyConversionRate";
+	public static readonly string OrderViewFieldTypeConversionRate = "double";
+	public static readonly string OrderViewFieldNameOrderShippingCosts = "OrderShippingCosts";
+	public static readonly string OrderViewFieldTypeOrderShippingCosts = "double";
+	public static readonly string OrderViewFieldNameOrderOrderCosts = "OrderOrderCosts";
+	public static readonly string OrderViewFieldTypeOrderOrderCosts = "double";
+	public static readonly string OrderViewFieldNameClosed = "Closed";
+	public static readonly string OrderViewFieldTypeClosed = "int";
+	public static readonly string OrderViewFieldNameClosedDate = "ClosedDate";
+	public static readonly string OrderViewFieldTypeClosedDate = "date";
+	public static readonly string OrderViewFieldNameOrderMemo = "Memo";
+	public static readonly string OrderViewFieldTypeOrderMemo = "longtext";
+	public static readonly string OrderViewFieldNameHasStackLog = "HasStackLog";
+	public static readonly string OrderViewFieldTypeHasStackLog = "int";
+
 	public static readonly string OrderLineTable = "supplyorderline";
 	public static readonly string OrderLineView = "view_supplyorderline";
 	public static readonly string OpenOrderLineView = "view_supplyopenorderline";
 	public static readonly string OrderLineFieldNameId = "Id";
 	public static readonly string OrderLineFieldTypeId = "int";
+	public static readonly string OrderLineFieldNameSupplierOrderId = "SupplyOrder_Id";
+	public static readonly string OrderLineFieldTypeSupplierOrderId = "int";
 	public static readonly string OrderLineFieldNameSupplierId = "Supplier_Id";
 	public static readonly string OrderLineFieldTypeSupplierId = "int";
 	public static readonly string OrderLineFieldNameProductId = "Product_Id";

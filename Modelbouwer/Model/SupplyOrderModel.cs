@@ -11,6 +11,7 @@ public class SupplyOrderModel : ObservableObject
 	PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
 
 	public int SupplyOrderId { get; set; }
+	public int SupplyOrderHasStackLog { get; set; }
 	public int SupplyOrderSupplierId { get; set; }
 	public int SupplyOrderCurrencyId { get; set; }
 	//public string? SupplyOrderNumber { get; set; }

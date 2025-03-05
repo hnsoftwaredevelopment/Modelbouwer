@@ -56,7 +56,7 @@ public partial class StorageManagement : Page
 						_whereFieldName = DBNames.ProductInventoryFieldNameProduct_Id;
 						_whereFieldType = DBNames.ProductInventoryFieldTypeProduct_Id;
 
-						// Check here if the Selected Product_Id already exists in the productinventory table, if exists do nothing otherwise add ProductId, with value 0 
+						// Check here if the Selected Product_Id already exists in the productinventory table, if exists do nothing otherwise add _productId, with value 0 
 						int _exists = DBCommands.CheckForRecords(_changeTable, new string[1, 3] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } });
 						if ( _exists == 0 )
 						{

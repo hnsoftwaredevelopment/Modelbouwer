@@ -2,86 +2,73 @@
 public partial class ProductViewModel : ObservableObject
 {
 	[ObservableProperty]
-	public int productId;
+	private int _productId;
 
 	[ObservableProperty]
-	public string? productCode;
+	private string? _productCode;
 
 	[ObservableProperty]
-	public string? productName;
+	private string? _productName;
 
 	[ObservableProperty]
-	public string? productDimensions;
+	private string? _productDimensions;
 
 	[ObservableProperty]
-	public double productPrice;
+	private double _productMinimalStock;
 
 	[ObservableProperty]
-	public double productMinimalStock;
+	private int _productProjectCosts;
 
 	[ObservableProperty]
-	public double productStandardQuantity;
+	private int _productUnitId;
 
 	[ObservableProperty]
-	public int productProjectCosts;
+	private string? _productImageRotationAngle;
 
 	[ObservableProperty]
-	public int productUnitId;
+	private int _productBrandId;
 
 	[ObservableProperty]
-	public string? productImageRotationAngle;
+	private int _productCategoryId;
 
 	[ObservableProperty]
-	public int productBrandId;
+	private int _productStorageId;
 
 	[ObservableProperty]
-	public int productCategoryId;
+	private string? _productMemo;
 
 	[ObservableProperty]
-	public int productStorageId;
+	private ObservableCollection<ProductModel>? _product;
 
 	[ObservableProperty]
-	public string? productMemo;
-
-	public ObservableCollection<ProductModel>? Product { get; set; }
-
 	private ImageSource? _productImage;
-	public ImageSource? ProductImage
-	{
-		get => _productImage;
-		set
-		{
-			//_productImage = value ?? System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource;
-			_productImage = value ?? ( System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource )
-				?? new BitmapImage( new Uri( "pack://application:,,,/YourAssemblyName;component/Resources/noimage.png" ) );
-
-			OnPropertyChanged( nameof( ProductImage ) );
-		}
-	}
-
 
 	[ObservableProperty]
 	private ProductModel? _selectedProduct;
 
-
-
+	[ObservableProperty]
 	private bool _isAddingNew;
 
-	public bool IsAddingNew
+	//public ObservableCollection<ProductModel>? Product { get; set; }
+
+	partial void OnProductImageChanged( ImageSource? value )
 	{
-		get => _isAddingNew;
-		set
+		// If the image is null, try to find a default image resource
+		if ( value == null )
 		{
-			if ( _isAddingNew != value )
-			{
-				_isAddingNew = value;
-				OnPropertyChanged( nameof( IsAddingNew ) );
-			}
+			value = System.Windows.Application.Current.TryFindResource( "noimage" ) as ImageSource
+				?? new BitmapImage( new Uri( "pack://application:,,,/YourAssemblyName;component/Resources/noimage.png" ) );
 		}
+		_productImage = value;
 	}
 
 	public void AddNewItem()
 	{
+		if ( Product == null )
+		{
+			Product = new ObservableCollection<ProductModel>();
+		}
+
 		ProductModel newProduct = new()
 		{
 			ProductBrandId = 1,
@@ -89,12 +76,12 @@ public partial class ProductViewModel : ObservableObject
 			ProductCode = string.Empty,
 			ProductDimensions = string.Empty,
 			ProductId = 0,
-			//ProductImage = NULL,
 			ProductImageRotationAngle = "0",
 			ProductMemo = string.Empty,
 			ProductMinimalStock = 0.00,
 			ProductName = string.Empty,
 			ProductPrice = 0.00,
+			ProductPackagePrice = 0.00,
 			ProductProjectCosts = 0,
 			ProductStandardQuantity = 0.00,
 			ProductStorageId = 1,
@@ -108,8 +95,13 @@ public partial class ProductViewModel : ObservableObject
 
 	public void RefreshProductList( int productIdToSelect )
 	{
+		if ( Product == null )
+		{
+			Product = new ObservableCollection<ProductModel>();
+		}
+
 		// Save the current scroll position
-		int currentIndex = Product.IndexOf(SelectedProduct);
+		int currentIndex = Product.IndexOf(SelectedProduct ?? Product.FirstOrDefault());
 
 		// Update the collection
 		ObservableCollection<ProductModel> updatedProducts = DBCommands.GetProductList();
@@ -123,7 +115,6 @@ public partial class ProductViewModel : ObservableObject
 		SelectedProduct = Product.FirstOrDefault( p => p.ProductId == productIdToSelect )
 			?? Product [ currentIndex >= Product.Count ? Product.Count - 1 : currentIndex ];
 	}
-
 
 	public ProductViewModel()
 	{

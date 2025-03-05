@@ -16,6 +16,7 @@ public class SupplierModel
 	public string? SupplierMemo { get; set; }
 	public int SupplierCurrencyId { get; set; }
 	public string? SupplierCurrency { get; set; }
+	public double SupplierCurrencyRate { get; set; }
 	public int SupplierCountryId { get; set; }
 	public string? SupplierCountry { get; set; }
 

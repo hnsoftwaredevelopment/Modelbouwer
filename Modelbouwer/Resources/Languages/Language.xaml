@@ -579,8 +579,8 @@
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Quantity.Label">Bestel per</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Quantity.Tag">Hoeveelheid</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Quantity.Tooltip">Per hoeveel dient dit produkt te worden besteld</system:String>
-	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Label">Verpakking</system:String>
-	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tag">Verpakkingseenheid</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Label">Eenheid</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tag">Eenheid</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.PackingUnit.Tooltip">Wordt dit produkt bijvoorbeeld per stuk, per fles of per liter verkocht</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Dimensions.Label">Afmetingen</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Inventory.Dimensions.Tag">Afmeting</system:String>
@@ -593,6 +593,10 @@
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Label">Kostprijs</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Tag">Kostprijs</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Tooltip">Wat is de kostprijs van dit produkt, voor de calculaties</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.PackagePrice.Label">Kostprijs per verpakking</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.PackagePrice.Prefix.Label">Kostprijs per</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.PackagePrice.Tag">Verpakkingsprijs</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.PackagePrice.Tooltip">Wat is de kostprijs ver verpakking (Kostprijs x besteld per) van dit produkt, voor de calculaties</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.ProjectCosts.Label">Project kosten</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.ProjectCosts.Tag">Project Kosten</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.ProjectCosts.Tooltip">Moet dit produkt worden meegerekend bij de project kosten</system:String>
@@ -684,6 +688,7 @@
 	<system:String x:Key="Edit.Inventory.Orders.Supplier.Toolbar.Clear.Tooltip">Reset de bestelling</system:String>
 	<system:String x:Key="Edit.Inventory.Orders.Supplier.Toolbar.Save.Tooltip">Sla de bestelling op en werk, indien nodig, de artikelen per leverancier bij</system:String>
 	<system:String x:Key="Edit.Inventory.Orders.Supplier.Toolbar.Delete.Tooltip">Verwijder deze geselecteerde bestelling</system:String>
+	<system:String x:Key="Edit.Inventory.Orders.Supplier.Toolbar.NoDelete.Tooltip">Bij de geselecteerde besteling zijn al ontvangsten geboekt, verwijderen niet mogelijk</system:String>
 	<!--#endregion-->
 
 	<!--#region Order products-->

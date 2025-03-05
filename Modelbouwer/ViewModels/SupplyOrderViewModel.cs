@@ -12,10 +12,16 @@ public partial class SupplyOrderViewModel : ObservableObject
 	public int supplyOrderId;
 
 	[ObservableProperty]
+	public int supplyOrderHasStackLog;
+
+	[ObservableProperty]
 	public int supplyOrderSupplierId;
 
 	[ObservableProperty]
 	public int supplyOrderCurrencyId;
+
+	[ObservableProperty]
+	public double supplierCurrencyRate;
 
 	public string SupplyOrderNumber
 	{
@@ -186,6 +192,12 @@ public partial class SupplyOrderViewModel : ObservableObject
 				UpdateFilteredOrderLines();
 				UpdateCanSave();
 				UpdateCanDelete();
+			}
+
+			// Since selectedOrder.SupplyOrderDate is a DateOnly, we need to convert it to a DateTime so it works with the DatePicker
+			if ( selectedOrder != null )
+			{
+				SupplyOrderDate = selectedOrder.SupplyOrderDate?.ToDateTime( TimeOnly.MinValue );
 			}
 		}
 	}
@@ -449,18 +461,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 	}
 	#endregion
 
-	[RelayCommand( CanExecute = nameof( CanDelete ) )]
-	private void DeleteOrder()
-	{
-		Debug.WriteLine( "DeleteOrder" );
-		//if ( SelectedOrder != null )
-		//{
-		//	DBCommands.DeleteOrder( SelectedOrder.SupplyOrderId );
-		//	Refresh();
-		//}
-	}
-
-
 	#region Save Order
 	public IRelayCommand SaveCommand { get; }
 
@@ -505,6 +505,25 @@ public partial class SupplyOrderViewModel : ObservableObject
 		}
 	}
 
+	[RelayCommand( CanExecute = nameof( CanDelete ) )]
+	private void DeleteOrder()
+	{
+		if ( SelectedOrder != null )
+		{
+			//Delete all records for selected order from OrderLine table
+			string [ , ] _DeleteRecordsForOrder = new string [ 1, 3 ] { {DBNames.OrderLineFieldNameSupplierOrderId, DBNames.OrderLineFieldTypeSupplierOrderId, SelectedOrder.SupplyOrderId.ToString()} };
+
+			DBCommands.DeleteRecord( DBNames.OrderLineTable, _DeleteRecordsForOrder );
+
+			//Delete the selected order from the Order table
+			string [ , ] _DeleteOrder = new string [ 1, 3 ] { {DBNames.OrderFieldNameId, DBNames.OrderFieldTypeId, SelectedOrder.SupplyOrderId.ToString()} };
+			DBCommands.DeleteRecord( DBNames.OrderTable, _DeleteOrder );
+
+			ClearAllFields();
+			Refresh();
+		}
+	}
+
 	private bool _canDelete;
 	public bool CanDelete
 	{
@@ -520,16 +539,61 @@ public partial class SupplyOrderViewModel : ObservableObject
 		}
 	}
 
+	private bool _noHistory;
+	public bool NoHistory
+	{
+		get => _noHistory;
+		set
+		{
+			if ( _noHistory != value )
+			{
+				_noHistory = value;
+				OnPropertyChanged( nameof( NoHistory ) );
+				OnPropertyChanged( nameof( DeleteButtonTooltip ) );
+			}
+		}
+	}
+
 	private void UpdateCanDelete()
 	{
-		CanDelete = IsOrderSelected;
+		if ( SelectedOrder == null )
+		{
+			Debug.WriteLine( "SelectedOrder is null" );
+			CanDelete = false;
+			return;
+		}
+		else
+		{
+			CanDelete = IsOrderSelected;
+			if ( SelectedOrder.SupplyOrderHasStackLog == 1 ) { NoHistory = false; } else { NoHistory = true; }
+
+		}
+	}
+
+	public ResourceDictionary? ResourceDictionary { get; set; }
+
+	[RelayCommand]
+	private void DeleteOrderWithTooltip( string tooltip )
+	{
+		// Gebruik de tooltip in je ViewModel logica
+		Debug.WriteLine( tooltip );
+	}
+
+	public string DeleteButtonTooltip
+	{
+		get
+		{
+			string resourceKey = NoHistory ? "Edit.Inventory.Orders.Supplier.Toolbar.Delete.Tooltip" : "Edit.Inventory.Orders.Supplier.Toolbar.NoDelete.Tooltip";
+			return ResourceDictionary? [ resourceKey ] as string ?? "Default Tooltip"; // "Default tooltip" is a fallback string
+		}
 	}
 
 
 	[RelayCommand( CanExecute = nameof( CanSave ) )]
 	private void SaveOrder()
 	{
-		#region Check if all the selected products are in the Products Per supplier table, if one is missing it should be added to that table
+
+		#region Prepare comaprison between selected items and titems already known for supplier
 		// Retrieve the current list of product IDs from the database
 		ObservableCollection<ProductModel> currentList = DBCommands.GetProductsForSupplierList(_selectedSupplierId);
 		List<int> currentProductIds = currentList.Select( p => p.ProductId ).ToList();
@@ -539,8 +603,9 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 		// Find the product IDs that are in selectedProducts but not in currentProductIds
 		List<InventoryOrderModel> newProducts = selectedProducts.Where( p => !currentProductIds.Contains( p.ProductId ) ).ToList();
+		#endregion
 
-		// Add the product to the ProductPerSupplier table with additional information
+		#region Add the product to the ProductPerSupplier table with additional information
 		foreach ( InventoryOrderModel? product in newProducts )
 		{
 			string [ , ] _addProductSupplierfields = new string [ 5, 3 ]
@@ -556,14 +621,16 @@ public partial class SupplyOrderViewModel : ObservableObject
 		}
 		#endregion
 
+
 		#region Add general Order information to the Order Table
-		string [ , ] _addOrderFields = new string [ 6, 3 ]
+		string [ , ] _addOrderFields = new string [ 7, 3 ]
 		{
 			{DBNames.OrderFieldNameSupplierId, DBNames.OrderFieldTypeSupplierId, _selectedSupplierId.ToString()},
 			{DBNames.OrderFieldNameCurrencyId, DBNames.OrderFieldTypeCurrencyId, SupplyOrderCurrencyId.ToString()},
 			{DBNames.OrderFieldNameOrderNumber, DBNames.OrderFieldTypeOrderNumber, SelectedOrder.SupplyOrderNumber},
 			{DBNames.OrderFieldNameOrderDate, DBNames.OrderFieldTypeOrderDate, SelectedOrder.SupplyOrderDate.ToString()},
 			{DBNames.OrderFieldNameShippingCosts, DBNames.OrderFieldTypeShippingCosts, ShippingCosts.ToString()},
+			{DBNames.OrderFieldNameConversionRate, DBNames.OrderFieldTypeConversionRate, SupplyOrderCurrencyRate.ToString()},
 			{DBNames.OrderFieldNameOrderCosts, DBNames.OrderFieldTypeOrderCosts, OrderCosts.ToString()}
 		};
 		DBCommands.InsertInTable( DBNames.OrderTable, _addOrderFields );
@@ -629,6 +696,13 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 	public SupplyOrderViewModel()
 	{
+		// Load the ResourceDictionary
+		ResourceDictionary = new ResourceDictionary
+		{
+			Source = new Uri( "pack://application:,,,/Modelbouwer;component/Resources/Languages/Language.xaml" )
+
+		};
+
 		ClearSelectionCommand = new RelayCommand( ClearAllFields );
 		SaveCommand = new RelayCommand( SaveOrder, () => CanSave );
 

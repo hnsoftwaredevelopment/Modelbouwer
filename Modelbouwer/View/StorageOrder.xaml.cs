@@ -1,6 +1,4 @@
-﻿using TextBox = System.Windows.Controls.TextBox;
-
-namespace Modelbouwer.View;
+﻿namespace Modelbouwer.View;
 
 public partial class StorageOrder : Page
 {
@@ -108,7 +106,7 @@ public partial class StorageOrder : Page
 				{
 					inventoryOrderModel.IsSelected = true;
 
-					// Bereken de bestelhoeveelheid op basis van ProductStandardQuantity
+					// Bereken de bestelhoeveelheid op basis van _productStandardQuantity
 					double standardQuantity = correspondingProduct?.ProductStandardQuantity ?? 1;
 					double orderAmount = line.SupplyOrderlineShortAmount;
 
@@ -116,7 +114,6 @@ public partial class StorageOrder : Page
 					double calculatedOrderQuantity = CalculateOrderQuantity(orderAmount, standardQuantity);
 
 					inventoryOrderModel.ProductShortInventory = calculatedOrderQuantity;
-					//viewModel.SupplyOrderViewModel.IsNewOrder = false;
 				}
 			}
 		}
@@ -176,6 +173,7 @@ public partial class StorageOrder : Page
 			viewModel.SupplyOrderViewModel.MinShippingCosts = minShippingCosts;
 			viewModel.SupplyOrderViewModel.OrderCosts = orderCosts;
 			viewModel.SupplyOrderViewModel.SupplyOrderCurrencyId = selectedSupplier.SupplierCurrencyId;
+			viewModel.SupplyOrderViewModel.SupplyOrderCurrencyRate = selectedSupplier.SupplierCurrencyRate;
 
 			viewModel.SupplyOrderViewModel.UpdateOrderTotals( 0, shippingCosts, orderCosts );
 			viewModel.SupplyOrderViewModel.IsNewOrder = true;
@@ -197,17 +195,4 @@ public partial class StorageOrder : Page
 	{
 	}
 	#endregion
-
-	private void OrderNumberChanged( object sender, TextChangedEventArgs e )
-	{
-		TextBox? textBox = sender as TextBox;
-		if ( textBox != null )
-		{
-			CombinedInventoryOrderViewModel viewModel = (CombinedInventoryOrderViewModel)this.DataContext;
-			if ( viewModel?.SupplyOrderViewModel?.SelectedOrder != null )
-			{
-				viewModel.SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber = textBox.Text;
-			}
-		}
-	}
 }

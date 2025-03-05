@@ -44,6 +44,7 @@
 		BasedOn="{StaticResource DefaultDataPicker}"
 		TargetType="DatePicker"
 		>
+		<!--  Red Border if incorrect or no date has been enterend  -->
 		<Style.Triggers>
 			<Trigger Property="Text" Value="">
 				<Setter Property="BorderBrush" Value="Red" />
