@@ -591,6 +591,7 @@
 
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Text">Projekt gegevens</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Label">Kostprijs</system:String>
+	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Sufix.Label">per</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Tag">Kostprijs</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.Price.Tooltip">Wat is de kostprijs van dit produkt, voor de calculaties</system:String>
 	<system:String x:Key="Edit.Product.Tab.General.Group.Project.PackagePrice.Label">Kostprijs per verpakking</system:String>

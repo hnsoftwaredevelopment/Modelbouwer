@@ -1,6 +1,4 @@
-﻿using Modelbouwer.Converters;
-
-using DataFormats = System.Windows.DataFormats;
+﻿using DataFormats = System.Windows.DataFormats;
 
 namespace Modelbouwer.View;
 
@@ -192,13 +190,8 @@ public partial class ProductManagement : Page
 			#endregion
 
 			#region Set the correct label for the Price per [quantity] [unit]
-			string _quantity = DynamicNumericStringConverter.FormatNumber ( decimal.Parse( ProductOrderQuantity.Text ) );
-			string _unit = ProductPackagingUnit.Text;
-			string _spacer = " ";
-			if ( _quantity == "" || _quantity.Trim() == "1" ) { _quantity = ""; _spacer = ""; }
-			PackagePriceLabel.Text = $"{( string ) FindResource( "Edit.Product.Tab.General.Group.Project.PackagePrice.Prefix.Label" )} {_quantity}{_spacer}{_unit.ToLower()}";
-
-			//TODO: When quantity = 1 or "" the entire TextBox + TextBlock should be hidden and therefore a Textblock shoulod apear "prijs per [unit]"
+			viewModel.ProductViewModel.ProductOrderQuantity = ProductOrderQuantity.Text ?? "1";
+			viewModel.ProductViewModel.ProductPackagingUnit = ProductPackagingUnit.Text ?? "stuk";
 			#endregion
 
 			//From here changes will activate the SafeChanges Warning 

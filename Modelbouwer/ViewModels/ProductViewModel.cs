@@ -116,10 +116,111 @@ public partial class ProductViewModel : ObservableObject
 			?? Product [ currentIndex >= Product.Count ? Product.Count - 1 : currentIndex ];
 	}
 
+	#region Visibility of Fields in the ProductMaintanance.xaml
+	private string _productOrderQuantity;
+	private string _productPackagingUnit;
+
+	public string ProductOrderQuantity
+	{
+		get => _productOrderQuantity;
+		set
+		{
+			if ( SetProperty( ref _productOrderQuantity, value ) )
+			{
+				UpdateVisibilityStates();
+			}
+		}
+	}
+
+	public string ProductPackagingUnit
+	{
+		get => _productPackagingUnit;
+		set
+		{
+			if ( SetProperty( ref _productPackagingUnit, value ) )
+			{
+				UpdateVisibilityStates();
+			}
+		}
+	}
+
+	private Visibility _pricePerSufixVisibility = Visibility.Collapsed;
+	public Visibility PricePerSufixVisibility
+	{
+		get => _pricePerSufixVisibility;
+		set => SetProperty( ref _pricePerSufixVisibility, value );
+	}
+
+	private Visibility _procuctPacketPriceBlockVisibility = Visibility.Collapsed;
+	public Visibility ProcuctPacketPriceBlockVisibility
+	{
+		get => _procuctPacketPriceBlockVisibility;
+		set => SetProperty( ref _procuctPacketPriceBlockVisibility, value );
+	}
+
+	private Visibility _packagePriceLabelVisibility = Visibility.Collapsed;
+	public Visibility PackagePriceLabelVisibility
+	{
+		get => _packagePriceLabelVisibility;
+		set => SetProperty( ref _packagePriceLabelVisibility, value );
+	}
+
+	private string _pricePerSufixText;
+	public string PricePerSufixText
+	{
+		get => _pricePerSufixText;
+		set => SetProperty( ref _pricePerSufixText, value );
+	}
+
+	private string _packagePriceLabelText;
+	public string PackagePriceLabelText
+	{
+		get => _packagePriceLabelText;
+		set => SetProperty( ref _packagePriceLabelText, value );
+	}
+	#endregion
+
 	public ProductViewModel()
 	{
 		Product = [ .. DBCommands.GetProductList() ];
 		SelectedProduct = Product [ 0 ];
+
+		_productOrderQuantity = "1";
+		_productPackagingUnit = "Stuk";
+		UpdateVisibilityStates();
+	}
+
+	private void UpdateVisibilityStates()
+	{
+		if ( string.IsNullOrEmpty( ProductOrderQuantity ) || ProductOrderQuantity.Trim() == "1" )
+		{
+			string _quantity = ProductOrderQuantity;
+			string _unit = ProductPackagingUnit;
+			string _spacer = " ";
+
+			if ( _quantity.Trim() == "1" ) { _quantity = ""; }
+			if ( _quantity == "" ) { _spacer = ""; }
+
+			ProcuctPacketPriceBlockVisibility = Visibility.Collapsed;
+			PackagePriceLabelVisibility = Visibility.Collapsed;
+
+			if ( string.IsNullOrEmpty( _unit?.Trim() ) )
+			{
+				PricePerSufixVisibility = Visibility.Collapsed;
+			}
+			else
+			{
+				PricePerSufixVisibility = Visibility.Visible;
+				PricePerSufixText = $"per {_quantity}{_spacer}{_unit.ToLower()}";
+			}
+		}
+		else
+		{
+			PricePerSufixVisibility = Visibility.Collapsed;
+			ProcuctPacketPriceBlockVisibility = Visibility.Visible;
+			PackagePriceLabelVisibility = Visibility.Visible;
+			PackagePriceLabelText = $"Kostprijs per {ProductOrderQuantity} {ProductPackagingUnit?.ToLower()}";
+		}
 	}
 
 	public void Refresh()

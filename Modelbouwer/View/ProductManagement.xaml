@@ -601,8 +601,9 @@
 										<RowDefinition Height="*" />
 									</Grid.RowDefinitions>
 									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="160" />
 										<ColumnDefinition Width="180" />
-										<ColumnDefinition Width="180" />
+										<ColumnDefinition Width="100" />
 										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
 
@@ -610,20 +611,27 @@
 									<TextBlock
 										Grid.Row="0"
 										Grid.Column="0"
+										Margin="0,0,17,0"
+										HorizontalAlignment="Right"
 										Style="{DynamicResource Tab.Panel.Label}"
 										Text="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Label}"
 										/>
 
 									<TextBlock
-										Grid.Row="0" x:Name="PackagePriceLabel"
+										x:Name="PackagePriceLabel"
+										Grid.Row="0"
 										Grid.Column="1"
+										Margin="0,0,18,0"
+										HorizontalAlignment="Right"
 										Style="{DynamicResource Tab.Panel.Label}"
-										Text="{DynamicResource Edit.Product.Tab.General.Group.Project.PackagePrice.Label}"
+										Text="{Binding ProductViewModel.PackagePriceLabelText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+										Visibility="{Binding ProductViewModel.ProcuctPacketPriceBlockVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 										/>
 
 									<TextBlock
 										Grid.Row="0"
 										Grid.Column="2"
+										HorizontalAlignment="Center"
 										Style="{DynamicResource Tab.Panel.Label}"
 										Text="{DynamicResource Edit.Product.Tab.General.Group.Project.ProjectCosts.Label}"
 										/>
@@ -640,7 +648,7 @@
 											/>
 										<TextBox
 											x:Name="ProductPrice"
-											Width="150"
+											Width="135"
 											HorizontalAlignment="Left"
 											HorizontalContentAlignment="Right"
 											Language="nl-NL"
@@ -651,10 +659,22 @@
 											/>
 									</StackPanel>
 
+									<TextBlock
+										x:Name="PricePerSufix"
+										Grid.Row="1"
+										Grid.Column="1"
+										HorizontalAlignment="Left"
+										VerticalAlignment="Center"
+										Text="{Binding ProductViewModel.PricePerSufixText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+										Visibility="{Binding ProductViewModel.PricePerSufixVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+										/>
+
 									<StackPanel
+										x:Name="ProcuctPacketPriceBlock"
 										Grid.Row="1"
 										Grid.Column="1"
 										Orientation="Horizontal"
+										Visibility="{Binding ProductViewModel.ProcuctPacketPriceBlockVisibility, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 										>
 										<TextBlock
 											Margin="0,0,3,0"
@@ -678,6 +698,7 @@
 										x:Name="ProductProjectCosts"
 										Grid.Row="1"
 										Grid.Column="2"
+										HorizontalAlignment="Center"
 										VerticalAlignment="Center"
 										IsChecked="{Binding ProductViewModel.SelectedProduct.ProductProjectCosts, Converter={StaticResource IntToBoolConverter}}"
 										/>
