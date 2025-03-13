@@ -27,6 +27,7 @@
 		<converter:TooltipValidationConverter x:Key="TooltipValidationConverter" />
 		<converter:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
 		<converter:ButtonTooltipConverter x:Key="ButtonTooltipConverter" />
+		<converter:PreciseDecimalConverter x:Key="PreciseDecimalConverter" />
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
@@ -318,8 +319,10 @@
 						Text="{StaticResource Edit.Inventory.Orders.SupplierOrderDate.Text}"
 						/>
 
-						<DatePicker
-						Width="140"  Grid.Row="2" Grid.Column="1"
+					<DatePicker
+						Grid.Row="2"
+						Grid.Column="1"
+						Width="140"
 						HorizontalAlignment="Left"
 						IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
 						SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, PresentationTraceSources.TraceLevel=High}"
@@ -468,16 +471,6 @@
 						/>
 
 					<syncfusion:GridTextColumn
-						Width="150"
-						AllowGrouping="False"
-						AllowSorting="True"
-						CellStyle="{DynamicResource NonEditableCellStyle}"
-						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Code}"
-						HorizontalHeaderContentAlignment="Left"
-						MappingName="ProductCode"
-						/>
-
-					<syncfusion:GridTextColumn
 						Width="190"
 						AllowEditing="True"
 						AllowGrouping="False"
@@ -505,9 +498,9 @@
 						AllowGrouping="False"
 						AllowSorting="True"
 						CellStyle="{DynamicResource NonEditableCellStyle}"
-						HeaderText="{StaticResource Edit.Order.DataGrid.Header.MinStock}"
+						HeaderText="{StaticResource Edit.Order.DataGrid.Header.OrderPer}"
 						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductMinimalStock"
+						MappingName="ProductOrderPer"
 						MinValue="0"
 						/>
 
@@ -518,20 +511,9 @@
 						AllowGrouping="False"
 						AllowSorting="True"
 						CellStyle="{DynamicResource NonEditableCellStyle}"
-						HeaderText="{StaticResource Edit.Order.DataGrid.Header.OrderPer}"
+						HeaderText="{StaticResource Edit.Order.DataGrid.Header.MinStock}"
 						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductOrderPer"
-						MinValue="0"
-						/>
-
-					<syncfusion:GridNumericColumn
-						Width="90"
-						AllowEditing="False"
-						AllowSorting="True"
-						CellStyle="{DynamicResource NonEditableCellStyle}"
-						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Inventory}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductInventory"
+						MappingName="ProductMinimalStock"
 						MinValue="0"
 						/>
 
@@ -555,6 +537,19 @@
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="SupplierPrice"
 						MinValue="0"
+						NumberDecimalDigits="6"
+						NumberDecimalSeparator=","
+						/>
+
+					<syncfusion:GridNumericColumn
+						Width="90"
+						AllowEditing="False"
+						AllowSorting="True"
+						CellStyle="{DynamicResource NonEditableCellStyle}"
+						HeaderText="{StaticResource Edit.Order.DataGrid.Header.Inventory}"
+						HorizontalHeaderContentAlignment="Right"
+						MappingName="ProductInventory"
+						MinValue="0"
 						/>
 
 					<syncfusion:GridNumericColumn
@@ -564,6 +559,16 @@
 						HeaderText="{StaticResource Edit.Order.DataGrid.Header.ToOrder}"
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductToOrder"
+						MinValue="0"
+						/>
+
+					<syncfusion:GridNumericColumn
+						Width="90"
+						AllowEditing="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
+						HeaderText="Regeltotaal"
+						HorizontalHeaderContentAlignment="Right"
+						MappingName="CalculatedTotal"
 						MinValue="0"
 						/>
 				</syncfusion:SfDataGrid.Columns>
@@ -848,6 +853,8 @@
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="ProductPrice"
 						MinValue="0"
+						NumberDecimalDigits="6"
+						NumberDecimalSeparator=","
 						/>
 
 					<syncfusion:GridNumericColumn

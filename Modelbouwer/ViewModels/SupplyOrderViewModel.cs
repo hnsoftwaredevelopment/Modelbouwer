@@ -6,7 +6,7 @@ namespace Modelbouwer.ViewModels;
 public partial class SupplyOrderViewModel : ObservableObject
 {
 	[ObservableProperty]
-	private double minShippingCosts;
+	private decimal minShippingCosts;
 
 	[ObservableProperty]
 	public int supplyOrderId;
@@ -80,25 +80,25 @@ public partial class SupplyOrderViewModel : ObservableObject
 	public string? supplyOrderClosedDate;
 
 	[ObservableProperty]
-	private double _subTotal;
+	private decimal _subTotal;
 
 	[ObservableProperty]
-	private double _shippingCosts;
+	private decimal _shippingCosts;
 
 	[ObservableProperty]
-	private double _orderCosts;
+	private decimal _orderCosts;
 
 	[ObservableProperty]
-	private double _grandTotalOrder;
+	private decimal _grandTotalOrder;
 
-	partial void OnShippingCostsChanged( double value )
+	partial void OnShippingCostsChanged( decimal value )
 	{
 		OnPropertyChanged( nameof( HasShippingCosts ) );
 		UpdateCanSave();
 		CalculateTotalOrderCost();
 	}
 
-	partial void OnOrderCostsChanged( double value )
+	partial void OnOrderCostsChanged( decimal value )
 	{
 		OnPropertyChanged( nameof( HasOrderCosts ) );
 		UpdateCanSave();
@@ -113,19 +113,19 @@ public partial class SupplyOrderViewModel : ObservableObject
 		GrandTotalOrder != SubTotal &&
 		( ShippingCosts > 0 || OrderCosts > 0 );
 
-	partial void OnSubTotalChanged( double value )
+	partial void OnSubTotalChanged( decimal value )
 	{
 		OnPropertyChanged( nameof( HasSubTotal ) );
 		UpdateCanSave();
 	}
 
-	partial void OnGrandTotalOrderChanged( double value )
+	partial void OnGrandTotalOrderChanged( decimal value )
 	{
 		OnPropertyChanged( nameof( HasGrandTotal ) );
 		UpdateCanSave();
 	}
 
-	public void UpdateOrderTotals( double totalOrderCost, double shippingCosts, double orderCosts )
+	public void UpdateOrderTotals( decimal totalOrderCost, decimal shippingCosts, decimal orderCosts )
 	{
 		SubTotal = totalOrderCost;
 		ShippingCosts = shippingCosts;
@@ -135,9 +135,9 @@ public partial class SupplyOrderViewModel : ObservableObject
 
 	public void CalculateTotalOrderCost()
 	{
-		double subTotalOrder = 0;
-		double shippingCosts = ShippingCosts;
-		double orderCosts = OrderCosts;
+		decimal subTotalOrder = 0;
+		decimal shippingCosts = ShippingCosts;
+		decimal orderCosts = OrderCosts;
 
 		if ( SelectedSupplier != 0 )
 		{
@@ -558,7 +558,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 	{
 		if ( SelectedOrder == null )
 		{
-			Debug.WriteLine( "SelectedOrder is null" );
 			CanDelete = false;
 			return;
 		}

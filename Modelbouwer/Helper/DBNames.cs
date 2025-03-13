@@ -293,7 +293,7 @@ public class DBNames
 	public static readonly string ProductSupplierFieldTypeCurrencyId = "int";
 	public static readonly string ProductSupplierFieldNameProductNumber = "ProductNumber";
 	public static readonly string ProductSupplierFieldTypeProductNumber = "string";
-	public static readonly string ProductSupplierFieldNameProductName = "_productName";
+	public static readonly string ProductSupplierFieldNameProductName = "ProductName";
 	public static readonly string ProductSupplierFieldTypeProductName = "string";
 	public static readonly string ProductSupplierFieldNamePrice = "Price";
 	public static readonly string ProductSupplierFieldTypePrice = "double";

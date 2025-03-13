@@ -31,12 +31,46 @@ public partial class CountryViewModel : ObservableObject
 	private ObservableCollection<CountryModel>? _country;
 
 	[ObservableProperty]
+	private bool isTextChanged;
+
+	[ObservableProperty]
 	public CountryModel? selectedItem;
 
 	[ObservableProperty]
 	private CountryModel? _selectedCountry;
 
 	private bool _isAddingNew;
+
+	private CountryModel? _temporaryCountry;
+	private string? _originalCountryName;
+	private int _originalCountryId;
+
+	public string? SelectedCountryName
+	{
+		get => _temporaryCountry?.CountryName;
+		set
+		{
+			if ( _temporaryCountry != null && _temporaryCountry.CountryName != value )
+			{
+				_temporaryCountry.CountryName = value;
+				IsTextChanged = _temporaryCountry.CountryName != _originalCountryName;
+				OnPropertyChanged( nameof( SelectedCountryName ) );
+			}
+		}
+	}
+
+	public int SelectedCountryId
+	{
+		get => _temporaryCountry?.CountryId ?? 0;
+		set
+		{
+			if ( _temporaryCountry != null )
+			{
+				_temporaryCountry.CountryId = value;
+				OnPropertyChanged( nameof( SelectedCountryId ) );
+			}
+		}
+	}
 
 	public bool IsAddingNew
 	{
@@ -49,6 +83,25 @@ public partial class CountryViewModel : ObservableObject
 				OnPropertyChanged( nameof( IsAddingNew ) );
 			}
 		}
+	}
+
+	partial void OnSelectedCountryChanged( CountryModel? value )
+	{
+		if ( value != null )
+		{
+			// Copy the selected item for changes
+			_temporaryCountry = new() { CountryId = value.CountryId, CountryName = value.CountryName };
+			_originalCountryName = value.CountryName;
+			_originalCountryId = value.CountryId;
+		}
+		else
+		{
+			_temporaryCountry = new();
+		}
+
+		OnPropertyChanged( nameof( SelectedCountryName ) );
+		OnPropertyChanged( nameof( SelectedCountryId ) );
+		IsTextChanged = false;
 	}
 
 	public void AddNewItem()
@@ -71,11 +124,12 @@ public partial class CountryViewModel : ObservableObject
 	public CountryViewModel()
 	{
 		Country = new ObservableCollection<CountryModel>( DBCommands.GetCountryList() );
+		_temporaryCountry = new();
 	}
 
 	public void Refresh()
 	{
-		Country = new ObservableCollection<CountryModel>( DBCommands.GetCountryList() );
+		Country = [ .. DBCommands.GetCountryList() ];
 		OnPropertyChanged( nameof( Country ) );
 	}
 }

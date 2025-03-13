@@ -76,7 +76,11 @@
 			Style="{DynamicResource Default TabControl}"
 			>
 			<!--#region General supplier information tab-->
-			<TabItem Header="{StaticResource Edit.Supplier.Tab.General.Label}" Style="{DynamicResource Default TabItem}">
+			<TabItem
+				x:Name="GeneralTab"
+				Header="{StaticResource Edit.Supplier.Tab.General.Label}"
+				Style="{DynamicResource Default TabItem}"
+				>
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="2*" />
@@ -244,18 +248,18 @@
 									Style="{DynamicResource DefaultLabel}"
 									/>
 
-								<ComboBox
+								<syncfusion:ComboBoxAdv
 									x:Name="SupplierCountry"
 									Grid.Row="5"
 									Grid.Column="1"
 									Width="280"
+									HorizontalAlignment="Left"
 									Cursor="Arrow"
+									DefaultText="{DynamicResource Edit.Supplier.Tab.General.Group.Address.Country.Tag}"
 									DisplayMemberPath="CountryName"
 									ItemsSource="{Binding CountryViewModel.Country}"
-									SelectedValue="{Binding SupplierViewModel.SelectedSupplier.SupplierCountryId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-									SelectedValuePath="CountryId"
-									Style="{DynamicResource DefaultComboBox}"
-									Tag="{StaticResource Edit.Supplier.Tab.General.Group.Address.Country.Tag}"
+									SelectedItem="{Binding CountryViewModel.SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									TextSearch.TextPath="CountryName"
 									ToolTip="{StaticResource Edit.Supplier.Tab.General.Group.Address.Country.Tooltip}"
 									/>
 								<!--#endregion-->
@@ -335,18 +339,19 @@
 									Style="{DynamicResource DefaultLabel}"
 									/>
 
-								<ComboBox
+								<syncfusion:ComboBoxAdv
 									x:Name="SupplierCurrency"
 									Grid.Row="0"
 									Grid.Column="1"
 									Width="40"
+									HorizontalAlignment="Left"
 									Cursor="Arrow"
+									DefaultText="{DynamicResource Edit.Supplier.Tab.General.Group.Finance.Currency.Tag}"
 									DisplayMemberPath="CurrencySymbol"
 									ItemsSource="{Binding CurrencyViewModel.Currency}"
-									SelectedValue="{Binding SupplierViewModel.SelectedSupplier.SupplierCurrencyId, Mode=TwoWay}"
-									SelectedValuePath="CurrencyId"
-									Style="{DynamicResource DefaultComboBox}"
-									/>
+									SelectedItem="{Binding CurrencyViewModel.SelectedCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									TextSearch.TextPath="CurrencyId"
+									ToolTip="{DynamicResource Edit.Supplier.Tab.General.Group.Finance.Currency.Tooltip}"/>
 								<!--#endregion-->
 
 								<!--#region Shipping costs-->

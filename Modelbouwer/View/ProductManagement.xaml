@@ -355,7 +355,7 @@
 										ItemsSource="{Binding BrandViewModel.Brand}"
 										SelectedItem="{Binding BrandViewModel.SelectedBrand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 										TextSearch.TextPath="BrandName"
-										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tooltip}"
+										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tooltip}" Height="25" Grid.RowSpan="2" VerticalAlignment="Top"
 										/>
 
 									<TextBlock
@@ -654,7 +654,7 @@
 											Language="nl-NL"
 											Style="{DynamicResource DefaultTextBox}"
 											Tag="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tag}"
-											Text="{Binding ProductViewModel.SelectedProduct.ProductPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DynamicPriceConverter}}"
+											Text="{Binding ProductViewModel.SelectedProduct.ProductPrice, Mode=TwoWay, StringFormat={}{0:N2}, ConverterCulture='nl-NL', UpdateSourceTrigger=PropertyChanged}"
 											ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tooltip}"
 											/>
 									</StackPanel>

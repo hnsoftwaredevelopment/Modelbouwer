@@ -701,7 +701,7 @@
 	<system:String x:Key="Edit.Order.DataGrid.Header.Code">Zoeknaam</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.SupplierCode">Bestelnummer</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.Name">Produkt</system:String>
-	<system:String x:Key="Edit.Order.DataGrid.Header.Price">Prijs</system:String>
+	<system:String x:Key="Edit.Order.DataGrid.Header.Price">Stukprijs</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.SupplierPrice">Inkoopprijs</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.MinStock">Minimaal</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Header.OrderPer">Bestel per</system:String>

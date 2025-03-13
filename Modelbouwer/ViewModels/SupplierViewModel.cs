@@ -111,9 +111,9 @@ public partial class SupplierViewModel : ObservableObject
 			SupplierCity = string.Empty,
 			SupplierUrl = string.Empty,
 			SupplierMemo = string.Empty,
-			SupplierShippingCosts = 0.00,
-			SupplierMinShippingCosts = 0.00,
-			SupplierOrderCosts = 0.00
+			SupplierShippingCosts = 0.00M,
+			SupplierMinShippingCosts = 0.00M,
+			SupplierOrderCosts = 0.00M
 		};
 
 		Supplier.Add( newSupplier );

@@ -2,7 +2,7 @@
 
 public partial class StorageOrder : Page
 {
-	double minShippingCosts= 0.00;
+	decimal minShippingCosts= 0.00M;
 
 	public StorageOrder()
 	{
@@ -107,13 +107,15 @@ public partial class StorageOrder : Page
 					inventoryOrderModel.IsSelected = true;
 
 					// Bereken de bestelhoeveelheid op basis van _productStandardQuantity
-					double standardQuantity = correspondingProduct?.ProductStandardQuantity ?? 1;
-					double orderAmount = line.SupplyOrderlineShortAmount;
+					//decimal standardQuantity = correspondingProduct?.ProductStandardQuantity ?? 1;
+					//decimal orderAmount = (decimal)line.SupplyOrderlineShortAmount;
 
-					// Bereken de juiste bestelhoeveelheid
-					double calculatedOrderQuantity = CalculateOrderQuantity(orderAmount, standardQuantity);
+					//// Bereken de juiste bestelhoeveelheid
+					//decimal calculatedOrderQuantity = CalculateOrderQuantity(orderAmount, standardQuantity);
 
-					inventoryOrderModel.ProductShortInventory = calculatedOrderQuantity;
+					//inventoryOrderModel.ProductShortInventory = ( double ) calculatedOrderQuantity;
+					inventoryOrderModel.ProductToOrder = ( decimal ) line.SupplyOrderlineShortAmount;
+					inventoryOrderModel.ProductPrice = ( decimal ) line.SupplyOrderlineShortPrice;
 				}
 			}
 		}
@@ -122,7 +124,7 @@ public partial class StorageOrder : Page
 		viewModel.SupplyOrderViewModel.IsOrderSelected = true;
 	}
 
-	private double CalculateOrderQuantity( double requestedAmount, double standardQuantity )
+	private decimal CalculateOrderQuantity( decimal requestedAmount, decimal standardQuantity )
 	{
 		// Als de standaard bestel hoeveelheid 0 of 1 is, gebruik dan de oorspronkelijke hoeveelheid
 		if ( standardQuantity <= 1 )
@@ -131,7 +133,7 @@ public partial class StorageOrder : Page
 		}
 
 		// Bereken hoeveel volledige standaard hoeveelheden nodig zijn
-		double fullQuantities = Math.Ceiling(requestedAmount / standardQuantity);
+		decimal fullQuantities = Math.Ceiling(requestedAmount / standardQuantity);
 
 		// Bereken de finale bestelhoeveelheid
 		return fullQuantities * standardQuantity;
@@ -162,9 +164,9 @@ public partial class StorageOrder : Page
 		SupplierModel? selectedSupplier = viewModel.SupplyOrderViewModel.SupplierList.FirstOrDefault( s => s.SupplierId == viewModel.SupplyOrderViewModel.SelectedSupplier );
 		if ( selectedSupplier != null )
 		{
-			double shippingCosts = selectedSupplier.SupplierShippingCosts;
+			decimal shippingCosts = selectedSupplier.SupplierShippingCosts;
 			minShippingCosts = selectedSupplier.SupplierMinShippingCosts;
-			double orderCosts = selectedSupplier.SupplierOrderCosts;
+			decimal orderCosts = selectedSupplier.SupplierOrderCosts;
 
 			SupplierShippingCosts.Text = shippingCosts.ToString( "N", CultureInfo.CreateSpecificCulture( "nl-NL" ) );
 			SupplierOrderCosts.Text = orderCosts.ToString( "N", CultureInfo.CreateSpecificCulture( "nl-NL" ) );

@@ -424,7 +424,7 @@ public partial class ProductManagement : Page
 				{DBNames.ProductFieldNameMinimalStock, DBNames.ProductFieldTypeMinimalStock, ProductMinStock.Text},
 				{DBNames.ProductFieldNameName, DBNames.ProductFieldTypeName, ProductName.Text},
 				{DBNames.ProductFieldNameStandardOrderQuantity, DBNames.ProductFieldTypeStandardOrderQuantity, ProductOrderQuantity.Text},
-				{DBNames.ProductFieldNamePrice, DBNames.ProductFieldTypePrice, ProductPrice.Text},
+				{DBNames.ProductFieldNamePrice, DBNames.ProductFieldTypePrice, Double.Parse(ProductPrice.Text).ToString()},
 				{DBNames.ProductFieldNameProjectCosts, DBNames.ProductFieldTypeProjectCosts, ProjCost},
 				{DBNames.ProductFieldNameStorageId, DBNames.ProductFieldTypeStorageId, viewModel.StorageViewModel.SelectedStorage.StorageId.ToString()},
 				{DBNames.ProductFieldNameUnitId, DBNames.ProductFieldTypeUnitId, ProductUnitId.Text}

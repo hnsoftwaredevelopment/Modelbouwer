@@ -80,10 +80,10 @@ public partial class ProductViewModel : ObservableObject
 			ProductMemo = string.Empty,
 			ProductMinimalStock = 0.00,
 			ProductName = string.Empty,
-			ProductPrice = 0.00,
-			ProductPackagePrice = 0.00,
+			ProductPrice = 0.0000000M,
+			ProductPackagePrice = 0.00M,
 			ProductProjectCosts = 0,
-			ProductStandardQuantity = 0.00,
+			ProductStandardQuantity = 0.00M,
 			ProductStorageId = 1,
 			ProductUnitId = 1,
 		};

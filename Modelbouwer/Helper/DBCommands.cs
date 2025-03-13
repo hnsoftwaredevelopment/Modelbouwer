@@ -463,29 +463,27 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			if ( double.TryParse( _dt.Rows [ i ] [ 4 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double _price ) &&
-	double.TryParse( _dt.Rows [ i ] [ 13 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out double _supplierPrice ) )
+			//if ( decimal.TryParse( _dt.Rows [ i ] [ 4 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal _price ) &&
+			//decimal.TryParse( _dt.Rows [ i ] [ 13 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal _supplierPrice ) )
+
+
 			{
-
-				//var _price = double.Parse(_dt.Rows [ i ] [ 4 ].ToString(), CultureInfo.InvariantCulture);
-				//var _supplierPrice = double.Parse(_dt.Rows [ i ] [ 13 ].ToString(), CultureInfo.InvariantCulture);
-
 				_list.Add( new InventoryOrderModel
 				{
 					ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 					ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
 					ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
 					SupplierProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
-					ProductPrice = _price,
+					ProductPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 4 ] ),
 					ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 5 ] ),
 					ProductOrderPer = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
 					ProductCategory = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
 					ProductInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
 					ProductInOrder = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 9 ] ),
 					ProductShortInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 10 ] ),
-					ProductToOrder = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 11 ] ),
+					ProductToOrder = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 11 ] ),
 					SupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
-					SupplierPrice = _supplierPrice,
+					SupplierPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 13 ] ),
 					SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 14 ] ),
 					SupplierCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
 					ProductFromSupplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] )
@@ -619,9 +617,9 @@ public class DBCommands
 				SupplierCountry = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
 				SupplierCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 10 ] ),
 				SupplierCurrency = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] ),
-				SupplierShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 12 ] ),
-				SupplierMinShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 13 ] ),
-				SupplierOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 14 ] ),
+				SupplierShippingCosts = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 12 ] ),
+				SupplierMinShippingCosts = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 13 ] ),
+				SupplierOrderCosts = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 14 ] ),
 				SupplierMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
 				SupplierCurrencyRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 16 ] )
 			} );
@@ -721,7 +719,7 @@ public class DBCommands
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			// PackagePrice = Price * StandardQuantity
-			double _packagePrice = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] ) * DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] );
+			decimal _packagePrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 4 ] ) * DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 6 ] );
 
 			productList.Add( new ProductModel
 			{
@@ -729,10 +727,10 @@ public class DBCommands
 				ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
 				ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
 				ProductDimensions = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
-				ProductPrice = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 4 ] ),
+				ProductPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 4 ] ),
 				ProductPackagePrice = _packagePrice,
 				ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 5 ] ),
-				ProductStandardQuantity = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
+				ProductStandardQuantity = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 6 ] ),
 				ProductProjectCosts = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 7 ] ),
 				ProductUnitId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 8 ] ),
 				ProductImageRotationAngle = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
@@ -743,6 +741,7 @@ public class DBCommands
 				ProductMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] )
 			} );
 		}
+
 		return productList;
 	}
 	#endregion

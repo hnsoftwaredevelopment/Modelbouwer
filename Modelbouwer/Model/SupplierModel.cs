@@ -10,9 +10,9 @@ public class SupplierModel
 	public string? SupplierZip { get; set; }
 	public string? SupplierCity { get; set; }
 	public string? SupplierUrl { get; set; }
-	public double SupplierShippingCosts { get; set; }
-	public double SupplierMinShippingCosts { get; set; }
-	public double SupplierOrderCosts { get; set; }
+	public decimal SupplierShippingCosts { get; set; }
+	public decimal SupplierMinShippingCosts { get; set; }
+	public decimal SupplierOrderCosts { get; set; }
 	public string? SupplierMemo { get; set; }
 	public int SupplierCurrencyId { get; set; }
 	public string? SupplierCurrency { get; set; }

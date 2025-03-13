@@ -35,28 +35,29 @@ public partial class SupplierManagement : Page
 	#region Open browser with Supplier URL
 	private void ButtonWeb( object sender, RoutedEventArgs e )
 	{
-		ProcessStartInfo? browserwindow = new()
+		if ( SupplierUrl.Text != "" )
 		{
-			UseShellExecute = true,
-			FileName = SupplierUrl.Text
-		};
-		Process.Start( browserwindow );
-
+			ProcessStartInfo? browserwindow = new()
+			{
+				UseShellExecute = true,
+				FileName = SupplierUrl.Text
+			};
+			Process.Start( browserwindow );
+		}
 	}
 	#endregion
 
 	#region Create new supplier
 	private void ButtonNew( object sender, RoutedEventArgs e )
 	{
-		SupplierId.Text = "0";
+		//SupplierId.Text = "0";
 		if ( DataContext is CombinedSupplierViewModel viewModel )
 		{
 			viewModel.SupplierViewModel.AddNewItem();
-			viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
+			viewModel.SupplierViewModel.SelectedSupplier = viewModel.SupplierViewModel.Supplier.Last();
+
+			DataGrid.Items.Refresh();
 		}
-		SupplierCountryId.Text = string.IsNullOrEmpty( SupplierCountryId.Text ) ? "1" : SupplierCountryId.Text;
-		SupplierCurrencyId.Text = string.IsNullOrEmpty( SupplierCurrencyId.Text ) ? "1" : SupplierCurrencyId.Text;
-		SupplierContactTypeId.Text = string.IsNullOrEmpty( SupplierContactTypeId.Text ) ? "1" : SupplierContactTypeId.Text;
 	}
 	#endregion
 
@@ -230,6 +231,7 @@ public partial class SupplierManagement : Page
 				}
 
 				// Refresh the suppliers list
+				viewModel.SupplierViewModel.Refresh();
 				viewModel.SupplierViewModel.Supplier = new ObservableCollection<SupplierModel>( DBCommands.GetSupplierList() );
 				SupplierModel? selectedSupplier = viewModel.SupplierViewModel.SelectedSupplier;
 			}
@@ -451,10 +453,15 @@ public partial class SupplierManagement : Page
 
 	private void SetRtfContent( string rtfContent )
 	{
-		using ( MemoryStream stream = new( Encoding.UTF8.GetBytes( rtfContent ) ) )
+		if ( !string.IsNullOrEmpty( rtfContent ) )
 		{
+			using MemoryStream stream = new( Encoding.UTF8.GetBytes( rtfContent ) );
 			TextRange textRange = new(SupplierMemo.Document.ContentStart, SupplierMemo.Document.ContentEnd);
 			textRange.Load( stream, System.Windows.DataFormats.Rtf );
+		}
+		else
+		{
+			SupplierMemo.Document.Blocks.Clear();
 		}
 	}
 

@@ -1,0 +1,63 @@
+Code;Name;Dimensions;Price;MinimalStock;StandardOrderQuantity;ProjectCosts;Unit_Id;Brand_Id;Category_Id;Storage_Id
+SECONDELIJMMED;Everbuild secondelijm medium viscositeit 50gr;50gr;4,07;1;1;1;4;20;9;242
+SECONDELIJMDIK;Everbuild secondelijm hoge viscosoteit 50gr;50gr;4,07;1;1;1;4;20;9;242
+LIJMACCELERATOR;Zip Kicker;57gr;7,95;1;1;0;4;51;7;224
+FAIRLEAD15;Fairlead 15mm;15mm;2,25;4;1;1;13;3;23;85
+GAREN_WIT_0.10;Garen 0.10mm Natural (10m);10 mtr;1,95;2;1;0;19;11;60;24
+GAREN_WIT_0.25;Garen 0.25mm Natural (10m);10 mtr;2,15;2;1;0;19;11;60;24
+GAREN_ZWART_0.25;Garen 0.25mm Zwart (10m);10 mtr;2,15;2;1;0;19;11;61;43
+GAREN_ZWART_0.50;Garen 0.50mm Zwart (10m);10 mtr;2,5;2;1;0;19;11;61;43
+GAREN_WIT_0.50;Garen 0.50mm Natural (10m);10 mtr;2,11;2;1;0;19;11;60;24
+GAREN_WIT_0.75;Garen 0.75mm Natural (10m);10 mtr;2,29;2;1;0;19;11;60;24
+GAREN_WIT_1.00;Garen 1.00mm Natural (10m);10 mtr;2,47;2;1;0;19;11;60;24
+GAREN_WIT_1.30;Garen 1.30mm Natural (10m);10 mtr;2,97;1;1;0;19;11;60;24
+GAREN_WIT_1.75;Garen 1.70mm Natural (5m);5 mtr;3,66;1;1;0;19;11;60;24
+GAREN_WIT_2.25;Garen 2.25mm Natural (2,5m);2,5 mtr;5,07;1;1;0;19;11;60;24
+GAREN_ZWART_0.75;Garen 0.75mm Zwart(10m);10 mtr;2,29;2;1;0;19;11;61;43
+GAREN_ZWART_1.00;Garen 1.00mm Zwart(10m);10 mtr;2,47;2;1;0;19;11;61;43
+GAREN_ZWART_1.30;Garen 1.30mm Zwart(10m);10 mtr;2,97;2;1;0;19;11;61;43
+GAREN_ZWART_1.80;Garen 1.80mm Zwart(5m);5 mtr;3,66;2;1;0;19;11;61;43
+SECLIJMDUNKRIKKE;Secondenlijm Dun (Krikke);20gr;6,25;0;1;1;4;1;9;224
+SECLIJMDIKKRIKKE;Secondenlijm Dik (Krikke);20gr;6,25;0;1;1;4;1;9;224
+ZUIDERZEEBOTTER;Zuiderzee botter 1:35;;115;0;1;1;13;7;105;1
+NOORDERZEEKOTTER;Noorderzee kottertje 1:53;;125;0;1;1;13;7;105;1
+DELETE_TEST_1;Delete Test 1;;10;3;5;1;13;2;105;224
+RNDNOT021000;Rondhout noten Ø2mm x 1.000mm;2x1000;0,00055;250;1000;1;10;5;92;1
+RNDNOT031000;Rondhout noten Ø3mm x 1.000mm;3x1000;0,00065;250;1000;1;10;5;92;1
+RNDNOT041000;Rondhout noten Ø4mm x 1.000mm;4x1000;0,00085;250;1000;1;10;5;92;1
+RNDNOT051000;Rondhout noten Ø5mm x 1.000mm;5x1000;0,00093;250;1000;1;10;5;92;1
+RNDNOT081000;Rondhout noten Ø8mm x 1.000mm;8x1000;0,00157;250;1000;1;10;5;92;1
+RNDNOT101000;Rondhout noten Ø10mm x 1.000mm;10x1000;0,0019;250;1000;1;10;5;92;1
+RNDNOT141000;Rondhout noten Ø14mm x 1.000mm;14x1000mm;0,00295;250;1000;1;10;5;92;1
+STRNOT1.5/1.5/1000;Strip noten 1,5 x 1,5 x 1000mm;1.5x1.5x1000mm;0,00044;250;1000;1;10;61;93;1
+PLTNOT1.5/100/1000;Plaat noten 1,5 x 100 x 1000mm;1.5x100x1000mm;0,00567;250;1000;1;10;1;90;1
+KIKKERT2/8.5;Medium Dek Kikker Type 2 8,5mm (5);8.5mm;0,32;2;5;1;13;11;28;1
+JUFNOT3;Jufferblok Notenhout 3mm (10);3mm;0,125;5;10;1;13;11;27;1
+JUFNOT5;Jufferblok Notenhout 5mm (10);5mm;0,125;5;10;1;13;11;27;1
+MASTKAP18;Mast Boegspriet Kap 18mm;18mm;0,33;0;1;1;13;5;135;1
+GAFFELKLAUW6;Metalen Gaffelklauw met Rakparels 6mm;6mm;1,05;0;1;1;12;5;135;1
+RAKRIBBEN8;Foto-geëtste 2-laags Rakribben 8mm;8mm;1,05;0;1;1;13;5;135;1
+MASTBAND4;Mastband  Ø4mm Messing;4mm;0,31;0;1;1;13;9;33;1
+RAKRIBBEN6;Rakribben (40);;0,07875;5;40;1;13;11;135;1
+RABAND3;Raband Ø3mm (4);3mm;0,3;0;4;1;13;11;135;1
+MASTKAP13;Mast Boegspriet Kap 13mm;13mm;0,28;0;1;1;13;5;135;1
+MSTZAL2527;Britse Marszaling 25x27mm;25x27mm;1;5;1;1;12;5;135;1
+BLKNOTDUB3;Blok Dubbel Notenhout 3mm (10);3mm;0,125;5;10;1;13;11;27;1
+BLKNOTENK3;Blok Enkel Notenhout 3mm (10);3mm;0,125;5;10;1;13;11;27;1
+BLKNOTDUB5;Blok Dubbel Notenhout 5mm (10);5mm;0,125;5;10;1;13;11;27;1
+BLKNOTENK5;Blok Enkel Notenhout 5mm (10);5mm;0,125;5;10;1;13;11;27;1
+BLKNOTDUB7;Blok Dubbel Notenhout 7mm (10);7mm;0,125;5;10;1;13;11;27;1
+BLKNOTENK7;Blok Enkel Notenhout 7mm (10);7mm;0,125;5;10;1;13;11;27;1
+HRTBLKNOT7;Hartblok Notenhout 7mm (2);7mm;0,505;5;2;1;13;11;27;1
+LIJMHOUTOCCRE100;Occre Sneldrogende Witte Lijm 100ml;100ml;4,95;0;1;1;4;36;7;1
+STRNOT1/3/1000;Strip noten 1 x 3 x 1000mm;1x3x1000mm;0,00043;250;1000;1;10;61;89;1
+STRNOT1/2/1000;Strip noten 1 x 2 x 1000mm;1x2x1000mm;0,00039;250;1000;1;10;61;89;1
+STRNOT1/1/1000;Strip noten 1 x 1 x 1000mm;1x1x1000mm;0,00037;250;1000;1;10;61;93;1
+STRNOT1/5/1000;Strip noten 1 x 5 x 1000mm;1x5x1000mm;0,00049;250;1000;1;10;61;89;1
+STRNOT1.5/4/1000;Strip noten 1,5 x 4 x 1000mm;1.5x4x1000mm;0,0005;250;1000;1;10;61;89;1
+STRNOT1.5/5/1000;Strip noten 1,5 x 5 x 1000mm;1.5x5x1000mm;0,00051;250;1000;1;10;61;89;1
+STRNOT1.5/3/1000;Strip noten 1,5 x 3 x 1000mm;1.5x3x1000mm;0,0005;250;1000;1;10;61;89;1
+STRNOT1.5/2/1000;Strip noten 1,5 x 2 x 1000mm;1.5x2x1000mm;0,00046;250;1000;1;10;61;89;1
+STRNOT3/3/1000;Strip noten 3 x 3 x 1000mm;3x3x1000mm;0,0006;250;1000;1;10;61;93;1
+STRNOT4/4/1000;Strip noten 4 x 4 x 1000mm;4x4x1000mm;0,00071;250;1000;1;10;61;93;1
+STRNOT5/5/1000;Strip noten 5 x 5 x 1000mm;5x5x1000mm;0,00091;250;1000;1;10;61;93;1

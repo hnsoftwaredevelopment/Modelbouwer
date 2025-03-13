@@ -20,6 +20,10 @@ public static class DatabaseValueConverter
 	public static double GetDouble( object value ) =>
 		value == null || value == DBNull.Value ? 0.0 : Convert.ToDouble( value );
 
+	public static decimal GetDecimal( object value ) =>
+	value == null || value == DBNull.Value ? 0.000000M : Convert.ToDecimal( value );
+
+
 	public static float GetFloat( object value ) =>
 		value == null || value == DBNull.Value ? 0.0f : Convert.ToSingle( value );
 

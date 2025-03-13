@@ -12,16 +12,49 @@ public class InventoryOrderModel : INotifyPropertyChanged
 	public int ProductId { get; set; }
 	public string? ProductCode { get; set; }
 	public string? ProductName { get; set; }
-	public double ProductPrice { get; set; }
+	public string? ProductDisplayPrice { get; set; }
+	public decimal ProductPrice { get; set; }
+
 	public double ProductMinimalStock { get; set; }
 	public double ProductOrderPer { get; set; }
-	public double ProductToOrder { get; set; }
 	public string? ProductCategory { get; set; }
 	public double ProductInventory { get; set; }
 	public double ProductInOrder { get; set; }
 	public double ProductShortInventory { get; set; }
 	public string? SupplierProductNumber { get; set; }
-	public double SupplierPrice { get; set; }
+
+	private decimal _supplierPrice;
+	public decimal SupplierPrice
+	{
+		get => _supplierPrice;
+		set
+		{
+			if ( _supplierPrice != value )
+			{
+				_supplierPrice = value;
+				OnPropertyChanged();
+				OnPropertyChanged( nameof( CalculatedTotal ) ); // Herberekenen
+			}
+		}
+	}
+
+	private decimal _productToOrder;
+	public decimal ProductToOrder
+	{
+		get => _productToOrder;
+		set
+		{
+			if ( _productToOrder != value )
+			{
+				_productToOrder = value;
+				OnPropertyChanged();
+				OnPropertyChanged( nameof( CalculatedTotal ) ); // Herberekenen
+			}
+		}
+	}
+
+	public decimal CalculatedTotal => SupplierPrice * ProductToOrder;
+
 	public int SupplierCurrencyId { get; set; }
 	public string? SupplierCurrencySymbol { get; set; }
 	public string? SupplierProductName { get; set; }

@@ -9,13 +9,13 @@ public partial class ProductModel : ObservableObject
 	private double _productMinimalStock;
 
 	[ObservableProperty]
-	private double _productPrice;
+	private decimal _productPrice;
 
 	[ObservableProperty]
-	private double _productPackagePrice;
+	private decimal _productPackagePrice;
 
 	[ObservableProperty]
-	private double _productStandardQuantity;
+	private decimal _productStandardQuantity;
 
 	[ObservableProperty]
 	private int _productBrandId;
@@ -46,7 +46,7 @@ public partial class ProductModel : ObservableObject
 	// Define the property that you want to use in TLists (for example in the errorList
 	public string Name => _productName;
 
-	partial void OnProductPriceChanged( double value )
+	partial void OnProductPriceChanged( decimal value )
 	{
 		if ( ProductStandardQuantity > 0 )
 		{
@@ -54,7 +54,7 @@ public partial class ProductModel : ObservableObject
 		}
 	}
 
-	partial void OnProductPackagePriceChanged( double value )
+	partial void OnProductPackagePriceChanged( decimal value )
 	{
 		if ( ProductStandardQuantity > 0 )
 		{
@@ -62,7 +62,7 @@ public partial class ProductModel : ObservableObject
 		}
 	}
 
-	partial void OnProductStandardQuantityChanged( double value )
+	partial void OnProductStandardQuantityChanged( decimal value )
 	{
 		// Herbereken indien nodig
 		if ( ProductPrice > 0 )
