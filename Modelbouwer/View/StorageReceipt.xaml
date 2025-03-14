@@ -2,15 +2,352 @@
 	x:Class="Modelbouwer.View.StorageReceipt"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
+	xmlns:converter="clr-namespace:Modelbouwer.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helper="clr-namespace:Modelbouwer.Helper"
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
 	Title="StorageReceipt"
-	d:DesignHeight="600"
+	d:DesignHeight="950"
 	d:DesignWidth="1000"
-	mc:Ignorable="d">
+	mc:Ignorable="d"
+	>
 
-	<Grid>
-		<TextBlock Text="StorageReceipt" />
-	</Grid>
+	<Page.DataContext>
+		<viewmodels:CombinedInventoryOrderViewModel />
+	</Page.DataContext>
+
+	<Page.Resources>
+		<converter:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
+		<converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+		<converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+	</Page.Resources>
+
+
+	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
+		<Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+			<!--#region Row and Column definitions-->
+			<Grid.RowDefinitions>
+				<RowDefinition Height="60" />
+				<RowDefinition Height="155" />
+				<RowDefinition Height="45" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="0" />
+			</Grid.RowDefinitions>
+			<!--#endregion-->
+
+			<!--#region Page title-->
+			<StackPanel
+				Grid.Row="0"
+				Margin="0,0,0,0"
+				Orientation="Vertical"
+				>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock
+						Grid.Column="0"
+						Style="{DynamicResource Title}"
+						Text="{StaticResource Edit.Receipt.Title}"
+						/>
+				</Grid>
+				<Path Style="{DynamicResource TitleLine}" />
+				<TextBlock
+					Grid.Column="0"
+					Style="{DynamicResource SubTitle}"
+					Text="{StaticResource Edit.Receipt.Subtitle}"
+					/>
+			</StackPanel>
+			<!--#endregion-->
+
+			<!--#region Order details-->
+			<Grid Grid.Row="1">
+				<!--#region Row and Column definitions-->
+				<Grid.RowDefinitions>
+					<RowDefinition Height="30" />
+					<RowDefinition Height="30" />
+					<RowDefinition Height="30" />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="110" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<!--#endregion-->
+
+				<!--#region  Supplier and Order selection-->
+				<TextBlock
+					Grid.Row="0"
+					Grid.Column="0"
+					VerticalAlignment="Center"
+					Text="{StaticResource Edit.Receipt.Supplier.Text}"
+					/>
+
+				<Grid Grid.Row="0" Grid.Column="1">
+					<!--#region Row and Column definitions-->
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="AUTO" />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+					<!--#endregion-->
+
+					<syncfusion:ComboBoxAdv
+						x:Name="SupplierComboBox"
+						Grid.Column="0"
+						Height="30"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top"
+						AutoCompleteMode="Suggest"
+						DefaultText="{StaticResource Edit.Receipt.Supplier.Tag}"
+						DisplayMemberPath="SupplierName"
+						ItemsSource="{Binding SupplyOrderViewModel.SupplierList}"
+						SelectedValue="{Binding SupplyOrderViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True, FallbackValue=0, TargetNullValue=0}"
+						SelectedValuePath="SupplierId"
+						SelectionChanged="SupplierSelectionChanged"
+						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}"
+						>
+						<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+							<StyleSelector />
+						</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+					</syncfusion:ComboBoxAdv>
+
+
+					<syncfusion:ComboBoxAdv
+						x:Name="SupplierOrderComboBox"
+						Grid.Column="1"
+						HorizontalAlignment="Left"
+						AutoCompleteMode="Suggest"
+						DefaultText="{StaticResource Edit.Receipt.SupplierOrder.Tag}"
+						DisplayMemberPath="SupplyOrderNumber"
+						ItemsSource="{Binding SupplyOrderViewModel.FilteredOrders}"
+						SelectedItem="{Binding SupplyOrderViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+						SelectedValuePath="SupplyOrderId"
+						SelectionChanged="OrderSelected"
+						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}"
+						Visibility="{Binding SupplyOrderViewModel.FilteredOrders.Count, Converter={StaticResource CountToVisibilityConverter}}"
+						>
+						<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+							<StyleSelector />
+						</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+					</syncfusion:ComboBoxAdv>
+				</Grid>
+				<!--#endregion-->
+
+				<!--#region Ordernumber-->
+				<TextBlock
+					Grid.Row="1"
+					Grid.Column="0"
+					VerticalAlignment="Center"
+					Text="{StaticResource Edit.Receipt.SupplierOrderNumber.Text}"
+					/>
+
+				<TextBox
+					Grid.Row="1"
+					Grid.Column="1"
+					Width="140"
+					IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+					Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+					/>
+				<!--#endregion-->
+
+				<!--#region Order date-->
+				<TextBlock
+					Grid.Row="2"
+					Grid.Column="0"
+					VerticalAlignment="Center"
+					Text="{StaticResource Edit.Receipt.SupplierOrderDate.Text}"
+					/>
+
+				<DatePicker
+					Grid.Row="2"
+					Grid.Column="1"
+					Width="140"
+					HorizontalAlignment="Left"
+					IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
+					SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, PresentationTraceSources.TraceLevel=High}"
+					Style="{DynamicResource ValidatedDatePicker}"
+					/>
+				<!--#endregion-->
+			</Grid>
+			<!--#endregion-->
+
+			<!--#region Toolbar-->
+			<StackPanel
+				Grid.Row="2"
+				Grid.ColumnSpan="3"
+				HorizontalAlignment="Left"
+				VerticalAlignment="Bottom"
+				Orientation="Horizontal"
+				>
+				<ToolBarTray Height="35" Style="{DynamicResource DefaultToolBarTray}">
+					<ToolBar
+						x:Name="generalToolbar"
+						Height="30"
+						Style="{DynamicResource DefaultToolBar}"
+						>
+						<Button
+							Height="30"
+							Command="{Binding SupplyOrderViewModel.ClearSelectionCommand}"
+							ToolTip="{StaticResource Edit.Receipt.Toolbar.Clear.Tooltip}"
+							>
+							<Image
+								Width="20"
+								Height="20"
+								Stretch="UniformToFill"
+								Style="{DynamicResource ToolBarResetIcon}"
+								/>
+						</Button>
+
+						<Button
+							Height="30"
+							Command="{Binding SupplyOrderViewModel.SaveCommand}"
+							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}"
+							>
+							<Button.Style>
+								<Style TargetType="Button">
+									<Setter Property="IsEnabled" Value="False" />
+									<Setter Property="Visibility" Value="Collapsed" />
+									<Style.Triggers>
+										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="True">
+											<Setter Property="IsEnabled" Value="True" />
+											<Setter Property="Visibility" Value="Visible" />
+										</DataTrigger>
+										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="False">
+											<Setter Property="IsEnabled" Value="False" />
+											<Setter Property="Visibility" Value="Collapsed" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</Button.Style>
+							<Image
+								Width="20"
+								Height="20"
+								Stretch="UniformToFill"
+								>
+								<Image.Style>
+									<Style BasedOn="{StaticResource ToolBarSaveIcon}" TargetType="Image">
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="False">
+												<Setter Property="Opacity" Value="0.5" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Image.Style>
+							</Image>
+						</Button>
+
+						<Button
+							Height="30"
+							Command="{Binding SupplyOrderViewModel.DeleteOrderCommand}"
+							CommandParameter="{Binding SupplyOrderViewModel.DeleteOrderWithTooltipCommand}"
+							IsEnabled="{Binding SupplyOrderViewModel.NoHistory}"
+							ToolTip="{Binding SupplyOrderViewModel.DeleteButtonTooltip}"
+							>
+							<ToolTipService.ShowOnDisabled>True</ToolTipService.ShowOnDisabled>
+							<Button.Style>
+								<Style TargetType="Button">
+									<Setter Property="IsEnabled" Value="False" />
+									<Setter Property="Visibility" Value="Collapsed" />
+									<Style.Triggers>
+										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanDelete}" Value="True">
+											<Setter Property="IsEnabled" Value="True" />
+											<Setter Property="Visibility" Value="Visible" />
+										</DataTrigger>
+										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanDelete}" Value="False">
+											<Setter Property="IsEnabled" Value="False" />
+											<Setter Property="Visibility" Value="Collapsed" />
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</Button.Style>
+							<Image
+								Width="20"
+								Height="20"
+								Stretch="UniformToFill"
+								Style="{StaticResource ToolBarTrashIcon}"
+								/>
+						</Button>
+					</ToolBar>
+				</ToolBarTray>
+			</StackPanel>
+			<!--#endregion-->
+
+			<!--#region DataGrid-->
+			<syncfusion:SfDataGrid
+				x:Name="ReceiptLinesDataGrid"
+				Grid.Row="3"
+				Margin="10,5"
+				AllowResizingColumns="True"
+				AllowTriStateSorting="True"
+				AutoGenerateColumns="False"
+				ColumnSizer="Star"
+				CurrentCellEndEdit="ReceiptLinesDataGrid_CellEditEnd"
+				ItemsSource="{Binding SupplyReceiptViewModel.FilteredReceiptLines, Mode=TwoWay}"
+				SelectedIndex="0"
+				SelectionChanged="ReceiptLinesDataGrid_SelectionChanged"
+				ShowGroupDropArea="False"
+				SortClickAction="SingleClick"
+				>
+
+				<syncfusion:SfDataGrid.Columns>
+					<syncfusion:GridTextColumn
+						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Id}"
+						IsHidden="True"
+						MappingName="Product_Id"
+						/>
+
+					<syncfusion:GridTextColumn
+						Width="190"
+						AllowEditing="False"
+						AllowGrouping="False"
+						AllowSorting="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
+						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.SupplierCode}"
+						HorizontalHeaderContentAlignment="Left"
+						MappingName="SupplierProductNumber"
+						/>
+
+					<syncfusion:GridTextColumn
+						AllowEditing="False"
+						AllowGrouping="False"
+						AllowSorting="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
+						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.SupplierDescription}"
+						HorizontalHeaderContentAlignment="Left"
+						MappingName="SupplierProductName"
+						/>
+
+					<syncfusion:GridNumericColumn
+						Width="90"
+						AllowEditing="False"
+						CellStyle="{DynamicResource EditableCellStyle}"
+						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Ordered}"
+						HorizontalHeaderContentAlignment="Right"
+						MappingName="ProductToOrder"
+						MinValue="0"
+						/>
+
+					<syncfusion:GridNumericColumn
+						Width="90"
+						AllowEditing="True"
+						CellStyle="{DynamicResource EditableCellStyle}"
+						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Received}"
+						HorizontalHeaderContentAlignment="Right"
+						MappingName="ProductRecieved"
+						MinValue="0"
+						/>
+
+				</syncfusion:SfDataGrid.Columns>
+			</syncfusion:SfDataGrid>
+			<!--#endregion-->
+
+		</Grid>
+	</Border>
 </Page>

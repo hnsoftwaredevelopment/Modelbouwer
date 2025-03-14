@@ -721,6 +721,34 @@
 	<system:String x:Key="Edit.Order.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
 	<system:String x:Key="Edit.Order.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
 	<!--#endregion-->
+
+	<!--#region Recieve orders-->
+	<system:String x:Key="Edit.Receipt.Title">Ontvangen bestelling</system:String>
+	<system:String x:Key="Edit.Receipt.Subtitle">Registreer binnengekomen bestellingen</system:String>
+	<system:String x:Key="Edit.Receipt.Supplier.Text">Leverancier</system:String>
+	<system:String x:Key="Edit.Receipt.Supplier.Tag">Selecteer leverancier</system:String>
+	<system:String x:Key="Edit.Receipt.Supplier.Tooltip">Selecteer de leverancier waarvan de bestelling is ontvangen</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrder.Text">Bestelling</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrder.Tag">Selecteer bestelling</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrder.Tooltip">Selecteer de ontvangen bestelling</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrderCosts.Text">Ordergrootte</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrderNumber.Text">Bestelnummer</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrderDate.Text">Besteldatum</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrderSendCosts.Text">Verzendkosten</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrderOrderCosts.Text">Orderkosten</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierOrderTotalCosts.Text">Totaal</system:String>
+	<system:String x:Key="Edit.Receipt.Toolbar.Clear.Tooltip">Reset de bestelling</system:String>
+	<system:String x:Key="Edit.Receipt.Toolbar.Save.Tooltip">Sla de bestelling op en werk, indien nodig, de artikelen per leverancier bij</system:String>
+	<system:String x:Key="Edit.Receipt.Toolbar.Delete.Tooltip">Verwijder deze geselecteerde bestelling</system:String>
+	<system:String x:Key="Edit.Receipt.Toolbar.NoDelete.Tooltip">Bij de geselecteerde besteling zijn al ontvangsten geboekt, verwijderen niet mogelijk</system:String>
+
+
+	<system:String x:Key="Edit.Receipt.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Edit.Receipt.DataGrid.Header.SupplierCode">Bestelnummer</system:String>
+	<system:String x:Key="Edit.Receipt.DataGrid.Header.SupplierDescription">Omschrijving leverancier</system:String>
+	<system:String x:Key="Edit.Receipt.DataGrid.Header.Ordered">Besteld</system:String>
+	<system:String x:Key="Edit.Receipt.DataGrid.Header.Received">Ontvangen</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Product Supplier-->

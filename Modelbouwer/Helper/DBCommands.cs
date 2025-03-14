@@ -463,32 +463,53 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			//if ( decimal.TryParse( _dt.Rows [ i ] [ 4 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal _price ) &&
-			//decimal.TryParse( _dt.Rows [ i ] [ 13 ].ToString(), NumberStyles.Any, CultureInfo.InvariantCulture, out decimal _supplierPrice ) )
-
-
+			_list.Add( new InventoryOrderModel
 			{
-				_list.Add( new InventoryOrderModel
-				{
-					ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-					ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
-					ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
-					SupplierProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
-					ProductPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 4 ] ),
-					ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 5 ] ),
-					ProductOrderPer = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
-					ProductCategory = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
-					ProductInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
-					ProductInOrder = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 9 ] ),
-					ProductShortInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 10 ] ),
-					ProductToOrder = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 11 ] ),
-					SupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
-					SupplierPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 13 ] ),
-					SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 14 ] ),
-					SupplierCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
-					ProductFromSupplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] )
-				} );
-			}
+				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				SupplierProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				ProductPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 4 ] ),
+				ProductMinimalStock = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 5 ] ),
+				ProductOrderPer = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 6 ] ),
+				ProductCategory = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
+				ProductInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ),
+				ProductInOrder = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 9 ] ),
+				ProductShortInventory = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 10 ] ),
+				ProductToOrder = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 11 ] ),
+				SupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
+				SupplierPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 13 ] ),
+				SupplierCurrencyId = Convert.ToInt32( _dt.Rows [ i ] [ 14 ] ),
+				SupplierCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
+				ProductFromSupplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] )
+			} );
+		}
+		return _list;
+	}
+	#endregion
+
+	#region Get open orders
+	public static ObservableCollection<SupplyReceiptModel> GetInventoryReceipt( int _orderId, ObservableCollection<SupplyReceiptModel>? _list = null )
+	{
+		_list ??= [ ];
+		string sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.ProductInventoryReceiptsProcedure} ({_orderId})";
+
+		DataTable? _dt = GetTable(sqlQuery);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			_list.Add( new SupplyReceiptModel
+			{
+				OrderNumber = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				OrderLineId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
+				SupplierNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				SupplierDescription = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				Ordered = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 5 ] ),
+				WaitFor = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 6 ] ),
+				StockLogReceived = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 7 ] ),
+				InStock = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 8 ] )
+			} );
 		}
 		return _list;
 	}
@@ -707,6 +728,60 @@ public class DBCommands
 			} );
 		}
 		return orderLineList;
+	}
+	#endregion
+
+	#region SupplierReceiptList
+	public static ObservableCollection<SupplyOrderModel> GetSupplierReceiptOrders( ObservableCollection<SupplyOrderModel>? _receiptList = null )
+	{
+		_receiptList ??= [ ];
+		DataTable _dt = GetData(DBNames.OrderView, DBNames.OrderFieldNameOrderNumber);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			_receiptList.Add( new SupplyOrderModel
+			{
+				SupplyOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				SupplyOrderSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				SupplyOrderCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 9 ] ),
+				SupplyOrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
+				SupplyOrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 13 ] ),
+				SupplyOrderCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] ),
+				SupplyOrderCurrencyRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 15 ] ),
+				SupplyOrderShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 16 ] ),
+				SupplyOrderOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 17 ] ),
+				SupplyOrderMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 20 ] ),
+				SupplyOrderClosed = DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 18 ] ),
+				SupplyOrderClosedDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 19 ] ),
+				SupplyOrderHasStackLog = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 21 ] )
+			} );
+		}
+		return _receiptList;
+	}
+	#endregion
+
+	#region SupplierReceiptLineShortList
+	public static ObservableCollection<SupplyReceiptModel> GetSupplierReceiptLines( ObservableCollection<SupplyReceiptModel>? _receiptLines = null )
+	{
+		_receiptLines ??= [ ];
+		DataTable _dt = GetData(DBNames.ProductInventoryReceiptsView, DBNames.ProductInventoryReceiptsProcedureFieldNameOrderId);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			_receiptLines.Add( new SupplyReceiptModel
+			{
+				SupplyOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				OrderLineId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
+				SupplierNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				SupplierDescription = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				Ordered = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 5 ] ),
+				WaitFor = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 6 ] ),
+				StockLogReceived = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 7 ] ),
+				InStock = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 8 ] )
+			} );
+		}
+		return _receiptLines;
 	}
 	#endregion
 

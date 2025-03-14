@@ -275,6 +275,27 @@ public class DBNames
 	public static readonly string ProductInventoryOrderProcedureFieldTypeSupplierCurrencySymbol = "string";
 	public static readonly string ProductInventoryOrderProcedureFieldNameProductFromSupplier = "ProductFromSupplier";
 	public static readonly string ProductInventoryOrderProcedureFieldTypeProductFromSupplier = "string";
+
+	public static readonly string ProductInventoryReceiptsProcedure = "GetSupplyOrderDetails";
+	public static readonly string ProductInventoryReceiptsView = "view_supplyopenorderdetails";
+	public static readonly string ProductInventoryReceiptsProcedureFieldNameOrderId = "Order_Id";
+	public static readonly string ProductInventoryReceiptsProcedureFieldTypeOrderId = "int";
+	public static readonly string ProductInventoryReceiptsProcedureFieldNameOrderLineId = "OrderLine_Id";
+	public static readonly string ProductInventoryReceiptsProcedureFieldTypeOrderLineId = "int";
+	public static readonly string ProductInventoryReceiptsProcedureFieldNameProductId = "Product_Id";
+	public static readonly string ProductInventoryReceiptsProcedureFieldTypeProductId = "int";
+	public static readonly string ProductInventoryReceiptProcedureFieldNameProductNumber = "SupplierProductNumber";
+	public static readonly string ProductInventoryReceiptProcedureFieldTypeProductNumber = "string";
+	public static readonly string ProductInventoryReceiptProcedureFieldNameProductName = "SupplierProductName";
+	public static readonly string ProductInventoryReceiptProcedureFieldTypeProductName = "string";
+	public static readonly string ProductInventoryReceiptProcedureFieldNameOrdered = "Ordered";
+	public static readonly string ProductInventoryReceiptProcedureFieldTypeOrdered = "double";
+	public static readonly string ProductInventoryReceiptProcedureFieldNameWaitFor = "WaitFor";
+	public static readonly string ProductInventoryReceiptProcedureFieldTypeWaitFor = "double";
+	public static readonly string ProductInventoryReceiptProcedureFieldNameStockLogRecieved = "StockLogRecieved";
+	public static readonly string ProductInventoryReceiptProcedureFieldTypeStockLogRecieved = "double";
+	public static readonly string ProductInventoryReceiptProcedureFieldNameStockInStock = "InStock";
+	public static readonly string ProductInventoryReceiptProcedureFieldTypeStockInStock = "double";
 	#endregion
 
 	#region ProductSupplier table
