@@ -21,6 +21,8 @@ public partial class SupplyReceiptViewModel : ObservableObject
 	[ObservableProperty]
 	public decimal ordered;
 	[ObservableProperty]
+	public decimal received;
+	[ObservableProperty]
 	public decimal waitFor;
 	[ObservableProperty]
 	public decimal stockLogReceived;
@@ -114,7 +116,7 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		try
 		{
 			// Load the order lines for the selected order
-			ObservableCollection<SupplyReceiptModel> orderLines = DBCommands.GetInventoryReceipt(orderId);
+			ObservableCollection<SupplyReceiptModel> orderLines = DBCommands.GetInventoryReceipt(_orderId);
 
 			// Update the FilteredReceiptLines property
 			FilteredReceiptLines = orderLines;
@@ -124,7 +126,6 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		}
 		catch ( Exception ex )
 		{
-			Debug.WriteLine( $"Error loading order lines: {ex.Message}" );
 			throw; // Re-throw de exception om het probleem niet te verbergen
 		}
 	}
@@ -133,7 +134,6 @@ public partial class SupplyReceiptViewModel : ObservableObject
 	{
 		if ( SelectedOrder != null )
 		{
-			Debug.WriteLine( "Filter de orders voor deze leverancier" );
 			FilteredReceiptLines = DBCommands.GetInventoryReceipt( SelectedOrder.SupplyOrderId );
 			// Filter de regels op basis van het geselecteerde OrderId
 			//FilteredReceiptLines = new ObservableCollection<SupplyOrderLineModel>(

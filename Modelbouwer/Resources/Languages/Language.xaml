@@ -747,7 +747,8 @@
 	<system:String x:Key="Edit.Receipt.DataGrid.Header.SupplierCode">Bestelnummer</system:String>
 	<system:String x:Key="Edit.Receipt.DataGrid.Header.SupplierDescription">Omschrijving leverancier</system:String>
 	<system:String x:Key="Edit.Receipt.DataGrid.Header.Ordered">Besteld</system:String>
-	<system:String x:Key="Edit.Receipt.DataGrid.Header.Received">Ontvangen</system:String>
+	<system:String x:Key="Edit.Receipt.DataGrid.Header.Received">Eerder ontvangen</system:String>
+	<system:String x:Key="Edit.Receipt.DataGrid.Header.ToReceive">Ontvangen</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

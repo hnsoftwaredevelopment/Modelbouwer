@@ -300,7 +300,7 @@
 					<syncfusion:GridTextColumn
 						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Id}"
 						IsHidden="True"
-						MappingName="Product_Id"
+						MappingName="ProductId"
 						/>
 
 					<syncfusion:GridTextColumn
@@ -311,7 +311,7 @@
 						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.SupplierCode}"
 						HorizontalHeaderContentAlignment="Left"
-						MappingName="SupplierProductNumber"
+						MappingName="SupplierNumber"
 						/>
 
 					<syncfusion:GridTextColumn
@@ -321,7 +321,7 @@
 						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.SupplierDescription}"
 						HorizontalHeaderContentAlignment="Left"
-						MappingName="SupplierProductName"
+						MappingName="SupplierDescription"
 						/>
 
 					<syncfusion:GridNumericColumn
@@ -330,7 +330,17 @@
 						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Ordered}"
 						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductToOrder"
+						MappingName="Ordered"
+						MinValue="0"
+						/>
+
+					<syncfusion:GridNumericColumn
+						Width="140"
+						AllowEditing="False"
+						CellStyle="{DynamicResource EditableCellStyle}"
+						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Received}"
+						HorizontalHeaderContentAlignment="Right"
+						MappingName="Received"
 						MinValue="0"
 						/>
 
@@ -338,9 +348,9 @@
 						Width="90"
 						AllowEditing="True"
 						CellStyle="{DynamicResource EditableCellStyle}"
-						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Received}"
+						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.ToReceive}"
 						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductRecieved"
+						MappingName="WaitFor"
 						MinValue="0"
 						/>
 

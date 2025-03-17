@@ -17,6 +17,7 @@ public class SupplyReceiptModel : ObservableObject
 	public string? SupplierNumber { get; set; }
 	public string? SupplierDescription { get; set; }
 	public decimal Ordered { get; set; }
+	public decimal Received { get; set; }
 	public decimal WaitFor { get; set; }
 	public decimal StockLogReceived { get; set; }
 	public decimal InStock { get; set; }

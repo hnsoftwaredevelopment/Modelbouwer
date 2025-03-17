@@ -575,7 +575,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 	private void DeleteOrderWithTooltip( string tooltip )
 	{
 		// Gebruik de tooltip in je ViewModel logica
-		Debug.WriteLine( tooltip );
+		Debug.WriteLine( $"Let ophiervor is geen code geschreven: SupplyOrderViewModel/DeleteOrderWithTooltip regel: 578 ({tooltip})" );
 	}
 
 	public string DeleteButtonTooltip

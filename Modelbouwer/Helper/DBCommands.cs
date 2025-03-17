@@ -498,6 +498,7 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
+			decimal _received = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 5 ] ) - DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 6 ] );
 			_list.Add( new SupplyReceiptModel
 			{
 				OrderNumber = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
@@ -506,6 +507,7 @@ public class DBCommands
 				SupplierNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
 				SupplierDescription = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
 				Ordered = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 5 ] ),
+				Received = _received,
 				WaitFor = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 6 ] ),
 				StockLogReceived = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 7 ] ),
 				InStock = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 8 ] )
