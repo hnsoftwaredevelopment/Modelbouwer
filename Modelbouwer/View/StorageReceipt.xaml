@@ -10,6 +10,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
 	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
 	Title="StorageReceipt"
 	d:DesignHeight="950"
 	d:DesignWidth="1000"
@@ -70,6 +71,7 @@
 			<Grid Grid.Row="1">
 				<!--#region Row and Column definitions-->
 				<Grid.RowDefinitions>
+					<RowDefinition Height="30" />
 					<RowDefinition Height="30" />
 					<RowDefinition Height="30" />
 					<RowDefinition Height="30" />
@@ -152,7 +154,7 @@
 					Grid.Row="1"
 					Grid.Column="1"
 					Width="140"
-					IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
+					IsReadOnly="False"
 					Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
 					/>
 				<!--#endregion-->
@@ -170,8 +172,30 @@
 					Grid.Column="1"
 					Width="140"
 					HorizontalAlignment="Left"
-					IsEnabled="{Binding SupplyOrderViewModel.IsNewOrder}"
+					IsEnabled="False"
 					SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, PresentationTraceSources.TraceLevel=High}"
+					Style="{DynamicResource DefaultDataPicker}"
+					/>
+				<!--#endregion-->
+
+				<!--#region Receivement date-->
+				<TextBlock
+					Grid.Row="3"
+					Grid.Column="0"
+					VerticalAlignment="Center"
+					Text="{StaticResource Edit.Receipt.SupplierReceiptDate.Text}"
+					/>
+
+				<DatePicker
+					Grid.Row="3"
+					Grid.Column="1"
+					Width="140"
+					HorizontalAlignment="Left"
+					IsEnabled="True" Tag="Ontvangen"
+					SelectedDate="{x:Static sys:DateTime.Now}"
+					DisplayDate="{Binding SupplyReceiptViewModel.ReceiptDate}"
+					DisplayDateStart="{Binding SupplyOrderViewModel.SupplyOrderDate}"
+					DisplayDateEnd="{x:Static sys:DateTime.Now}"
 					Style="{DynamicResource ValidatedDatePicker}"
 					/>
 				<!--#endregion-->

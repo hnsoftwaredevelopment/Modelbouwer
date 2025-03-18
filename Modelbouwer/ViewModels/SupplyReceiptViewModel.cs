@@ -11,6 +11,8 @@ public partial class SupplyReceiptViewModel : ObservableObject
 	[ObservableProperty]
 	public string orderDate;
 	[ObservableProperty]
+	public DateOnly receiptDate;
+	[ObservableProperty]
 	public int orderLineId;
 	[ObservableProperty]
 	public int productId;
@@ -174,7 +176,6 @@ public partial class SupplyReceiptViewModel : ObservableObject
 
 		SupplierReceiptOrdersList = [ .. DBCommands.GetSupplierReceiptOrders() ];
 		SupplierReceiptOrderLines = [ .. DBCommands.GetSupplierReceiptLines() ];
-
 
 		UpdateFilteredOrderLines();
 	}

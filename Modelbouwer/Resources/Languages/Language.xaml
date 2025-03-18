@@ -734,6 +734,7 @@
 	<system:String x:Key="Edit.Receipt.SupplierOrderCosts.Text">Ordergrootte</system:String>
 	<system:String x:Key="Edit.Receipt.SupplierOrderNumber.Text">Bestelnummer</system:String>
 	<system:String x:Key="Edit.Receipt.SupplierOrderDate.Text">Besteldatum</system:String>
+	<system:String x:Key="Edit.Receipt.SupplierReceiptDate.Text">Ontvangstdatum</system:String>
 	<system:String x:Key="Edit.Receipt.SupplierOrderSendCosts.Text">Verzendkosten</system:String>
 	<system:String x:Key="Edit.Receipt.SupplierOrderOrderCosts.Text">Orderkosten</system:String>
 	<system:String x:Key="Edit.Receipt.SupplierOrderTotalCosts.Text">Totaal</system:String>
@@ -1400,5 +1401,11 @@
 	<system:String x:Key="Region.Day.Name.05">Donderdag</system:String>
 	<system:String x:Key="Region.Day.Name.06">Vrijdag</system:String>
 	<system:String x:Key="Region.Day.Name.07">Vrijdag</system:String>
+	<!--#endregion-->
+
+	<!--#region Default DateTime watermarks-->
+	<system:String x:Key="General.DatePicker.Watermark">Selecteer datum</system:String>
+	<system:String x:Key="General.TimePicker.Watermark">Selecteer tijdstip</system:String>
+
 	<!--#endregion-->
 </ResourceDictionary>
