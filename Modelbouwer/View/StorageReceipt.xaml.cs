@@ -23,16 +23,19 @@ public partial class StorageReceipt : Page
 
 	private void SupplierSelectionChanged( object sender, SelectionChangedEventArgs e )
 	{
-
+		CombinedInventoryOrderViewModel? viewModel = DataContext as CombinedInventoryOrderViewModel;
+		viewModel.SupplyReceiptViewModel.IsOrderSelected = false;
+		//SupplierModel? selectedSupplier = viewModel.SupplyReceiptViewModel.SupplierList.FirstOrDefault( s => s.SupplierId == viewModel.SupplyReceiptViewModel.SelectedSupplier );
 	}
 
 	private void OrderSelected( object sender, SelectionChangedEventArgs e )
 	{
 		CombinedInventoryOrderViewModel? viewModel = DataContext as CombinedInventoryOrderViewModel;
-		if ( viewModel != null && viewModel.SupplyOrderViewModel.SelectedOrder != null )
+		if ( viewModel != null && viewModel.SupplyReceiptViewModel.SelectedOrder != null )
 		{
-			int orderId = viewModel.SupplyOrderViewModel.SelectedOrder.SupplyOrderId;
+			int orderId = viewModel.SupplyReceiptViewModel.SelectedOrder.SupplyOrderId;
 			viewModel.SupplyReceiptViewModel.LoadLinesForSelectedOrder( orderId );
+			viewModel.SupplyReceiptViewModel.IsOrderSelected = true;
 		}
 	}
 }

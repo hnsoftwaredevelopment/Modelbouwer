@@ -734,25 +734,19 @@ public class DBCommands
 	#endregion
 
 	#region SupplierReceiptList
-	public static ObservableCollection<SupplyOrderModel> GetSupplierReceiptOrders( ObservableCollection<SupplyOrderModel>? _receiptList = null )
+	public static ObservableCollection<SupplyReceiptModel> GetSupplierReceiptOrders( ObservableCollection<SupplyReceiptModel>? _receiptList = null )
 	{
 		_receiptList ??= [ ];
 		DataTable _dt = GetData(DBNames.OrderView, DBNames.OrderFieldNameOrderNumber);
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			_receiptList.Add( new SupplyOrderModel
+			_receiptList.Add( new SupplyReceiptModel
 			{
 				SupplyOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
 				SupplyOrderSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
-				SupplyOrderCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 9 ] ),
 				SupplyOrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
 				SupplyOrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 13 ] ),
-				SupplyOrderCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] ),
-				SupplyOrderCurrencyRate = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 15 ] ),
-				SupplyOrderShippingCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 16 ] ),
-				SupplyOrderOrderCosts = DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 17 ] ),
-				SupplyOrderMemo = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 20 ] ),
 				SupplyOrderClosed = DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 18 ] ),
 				SupplyOrderClosedDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 19 ] ),
 				SupplyOrderHasStackLog = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 21 ] )

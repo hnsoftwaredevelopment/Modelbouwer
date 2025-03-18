@@ -1,56 +1,98 @@
 ﻿using System.ComponentModel;
 
+using CommunityToolkit.Mvvm.Input;
+
 namespace Modelbouwer.ViewModels;
 public partial class SupplyReceiptViewModel : ObservableObject
 {
 
 	[ObservableProperty]
-	public int orderId;
+	public int supplyOrderId;
+
 	[ObservableProperty]
-	public string orderNumber;
+	public int supplyOrderSupplierId;
+
 	[ObservableProperty]
 	public string orderDate;
+
 	[ObservableProperty]
 	public DateOnly receiptDate;
+
 	[ObservableProperty]
 	public int orderLineId;
+
 	[ObservableProperty]
 	public int productId;
+
 	[ObservableProperty]
 	public string? supplierNumber;
+
 	[ObservableProperty]
 	public string? supplierDescription;
+
 	[ObservableProperty]
 	public decimal ordered;
+
 	[ObservableProperty]
 	public decimal received;
+
 	[ObservableProperty]
 	public decimal waitFor;
+
 	[ObservableProperty]
 	public decimal stockLogReceived;
+
 	[ObservableProperty]
 	public decimal inStock;
+
 	public ObservableCollection<SupplyReceiptModel> SupplierReceiptOrderLines { get; set; } = [ ];
-	public ObservableCollection<SupplyOrderModel> SupplierReceiptOrdersList { get; set; } = [ ];
+	public ObservableCollection<SupplyReceiptModel> SupplierReceiptOrdersList { get; set; } = [ ];
 
 	public event EventHandler<int>? SelectedSupplierChanged;
 
-	private ObservableCollection<SupplyReceiptModel> _filteredReceiptLines = [];
-	public ObservableCollection<SupplyReceiptModel> FilteredReceiptLines
+	#region Order Number
+	public string SupplyOrderNumber
 	{
-		get => _filteredReceiptLines;
+		get => SelectedOrder?.SupplyOrderNumber ?? string.Empty;
 		set
 		{
-			if ( _filteredReceiptLines != value )
+			if ( SelectedOrder != null )
 			{
-				_filteredReceiptLines = value;
-				OnPropertyChanged( nameof( FilteredReceiptLines ) );
+				if ( SelectedOrder.SupplyOrderNumber != value )
+				{
+					SelectedOrder.SupplyOrderNumber = value;
+					OnPropertyChanged( nameof( SupplyOrderNumber ) );
+				}
 			}
 		}
 	}
+	#endregion
 
-	private SupplyOrderModel? selectedOrder;
-	public SupplyOrderModel? SelectedOrder
+	#region Order Date
+	public DateTime? SupplyOrderDate
+	{
+		get => SelectedOrder?.SupplyOrderDate.HasValue == true ? SelectedOrder.SupplyOrderDate.Value.ToDateTime( TimeOnly.MinValue ) : null;
+		set
+		{
+			if ( SelectedOrder != null )
+			{
+				if ( value.HasValue )
+				{
+					SelectedOrder.SupplyOrderDate = DateOnly.FromDateTime( value.Value );
+				}
+				else
+				{
+					SelectedOrder.SupplyOrderDate = null;
+				}
+				OnPropertyChanged( nameof( SupplyOrderDate ) );
+			}
+		}
+	}
+	#endregion
+
+	#region Selected Order
+	private SupplyReceiptModel? selectedOrder;
+	public SupplyReceiptModel? SelectedOrder
 	{
 		get => selectedOrder;
 		set
@@ -67,7 +109,7 @@ public partial class SupplyReceiptViewModel : ObservableObject
 					selectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
 				}
 
-				OnPropertyChanged( nameof( OrderId ) );
+				OnPropertyChanged( nameof( SelectedOrder ) );
 				UpdateFilteredOrderLines();
 			}
 
@@ -78,8 +120,29 @@ public partial class SupplyReceiptViewModel : ObservableObject
 			}
 		}
 	}
+	#endregion
 
-	private int _selectedOrderId;
+	#region Suppliers List
+	public ObservableCollection<SupplierModel> SupplierList { get; set; } = [ ];
+
+	#endregion
+
+	private int _filteredOrdersCount;
+	public int FilteredOrdersCount
+	{
+		get => _filteredOrdersCount;
+		set
+		{
+			if ( _filteredOrdersCount != value )
+			{
+				_filteredOrdersCount = value;
+				OnPropertyChanged( nameof( FilteredOrdersCount ) );
+			}
+		}
+	}
+
+	#region Order List
+	//public ObservableCollection<SupplyReceiptModel> SupplierOrderList { get; set; } = [ ];
 
 	private ObservableCollection<SupplyReceiptModel> _orderList;
 	public ObservableCollection<SupplyReceiptModel> OrderList
@@ -113,6 +176,92 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		}
 	}
 
+	#region Filtered Orders   
+	private ObservableCollection<SupplyReceiptModel> _filteredOrders = [];
+	public ObservableCollection<SupplyReceiptModel> FilteredOrders
+	{
+		get => _filteredOrders;
+		set
+		{
+			if ( _filteredOrders != value )
+			{
+				_filteredOrders = value ?? [ ];
+				OnPropertyChanged( nameof( FilteredOrders ) );
+			}
+		}
+	}
+	#endregion
+	#endregion
+
+	private ObservableCollection<SupplyReceiptModel> _filteredReceiptLines = [];
+	public ObservableCollection<SupplyReceiptModel> FilteredReceiptLines
+	{
+		get => _filteredReceiptLines;
+		set
+		{
+			if ( _filteredReceiptLines != value )
+			{
+				_filteredReceiptLines = value;
+				OnPropertyChanged( nameof( FilteredReceiptLines ) );
+			}
+		}
+	}
+
+	private int _selectedSupplierId;
+	public int SelectedSupplier
+	{
+		get => _selectedSupplierId;
+		set
+		{
+			if ( _selectedSupplierId != value )
+			{
+				_selectedSupplierId = value;
+				UpdateFilteredOrders();
+				SelectedSupplierChanged?.Invoke( this, _selectedSupplierId );
+			}
+			else
+			{
+				CommandManager.InvalidateRequerySuggested();
+			}
+		}
+	}
+
+	private void UpdateFilteredOrders()
+	{
+		if ( SelectedSupplier > 0 )
+		{
+			// Filter the orders for the selected supplier
+			FilteredOrders = [ .. SupplierReceiptOrdersList.Where( order => order.SupplyOrderSupplierId == SelectedSupplier ) ];
+		}
+		else
+		{
+			// Clear the list if no supplier is selected
+			FilteredOrders = [ ];
+		}
+
+		FilteredOrdersCount = FilteredOrders.Count;
+		OnPropertyChanged( nameof( FilteredOrders ) );
+	}
+
+	private bool _isOrderSelected;
+	public bool IsOrderSelected
+	{
+		get => _isOrderSelected;
+		set
+		{
+			if ( _isOrderSelected != value )
+			{
+				_isOrderSelected = value;
+				OnPropertyChanged( nameof( IsOrderSelected ) );
+			}
+		}
+	}
+
+
+	private int _selectedOrderId;
+
+
+
 	public void LoadLinesForSelectedOrder( int _orderId )
 	{
 		try
@@ -137,10 +286,6 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		if ( SelectedOrder != null )
 		{
 			FilteredReceiptLines = DBCommands.GetInventoryReceipt( SelectedOrder.SupplyOrderId );
-			// Filter de regels op basis van het geselecteerde OrderId
-			//FilteredReceiptLines = new ObservableCollection<SupplyOrderLineModel>(
-			//	SupplierOrderLineShortList.Where( line => line.SupplyOrderlineShortOrderId == SelectedOrder.SupplyOrderId )
-			//);
 		}
 		else
 		{
@@ -151,15 +296,48 @@ public partial class SupplyReceiptViewModel : ObservableObject
 
 	private void SelectedOrder_PropertyChanged( object? sender, PropertyChangedEventArgs e )
 	{
-		if ( e.PropertyName == nameof( SupplyOrderModel.SupplyOrderNumber ) )
+		if ( e.PropertyName == nameof( SupplyReceiptModel.SupplyOrderNumber ) )
 		{
-			OnPropertyChanged( nameof( OrderNumber ) );
+			OnPropertyChanged( nameof( SupplyReceiptModel.SupplyOrderNumber ) );
 		}
-		if ( e.PropertyName == nameof( SupplyOrderModel.SupplyOrderDate ) )
+		if ( e.PropertyName == nameof( SupplyReceiptModel.SupplyOrderDate ) )
 		{
 			OnPropertyChanged( nameof( OrderDate ) );
 		}
 	}
+
+	#region Clear all fields
+	public IRelayCommand ClearSelectionCommand { get; }
+
+	private void ClearAllFields()
+	{
+		// Reset other fields
+		if ( selectedOrder != null )
+		{
+			selectedOrder.PropertyChanged -= SelectedOrder_PropertyChanged;
+		}
+		SelectedSupplier = 0;
+		SelectedOrder = null;
+		SelectedOrder.SupplyOrderNumber = string.Empty;
+		OrderDate = string.Empty;
+		ReceiptDate = DateOnly.FromDateTime( DateTime.Now );
+
+		// Notify property changes
+		OnPropertyChanged( nameof( SelectedSupplier ) );
+	}
+	#endregion
+
+	#region Save receipt
+	public IRelayCommand SaveCommand { get; }
+	private void SaveReceipt()
+	{
+		// Code to store the receipt
+
+		// Refresh the data for the UI
+		ClearAllFields();
+		Refresh();
+	}
+	#endregion
 
 	public ResourceDictionary? ResourceDictionary { get; set; }
 
@@ -174,6 +352,10 @@ public partial class SupplyReceiptViewModel : ObservableObject
 
 		};
 
+		ClearSelectionCommand = new RelayCommand( ClearAllFields );
+		SaveCommand = new RelayCommand( SaveReceipt, () => IsOrderSelected );
+
+		SupplierList = [ .. DBCommands.GetSupplierList() ];
 		SupplierReceiptOrdersList = [ .. DBCommands.GetSupplierReceiptOrders() ];
 		SupplierReceiptOrderLines = [ .. DBCommands.GetSupplierReceiptLines() ];
 
@@ -182,8 +364,10 @@ public partial class SupplyReceiptViewModel : ObservableObject
 
 	public void Refresh()
 	{
+		SupplierList = [ .. DBCommands.GetSupplierList() ];
 		SupplierReceiptOrdersList = [ .. DBCommands.GetSupplierReceiptOrders() ];
 		SupplierReceiptOrderLines = [ .. DBCommands.GetSupplierReceiptLines() ];
+		OnPropertyChanged( nameof( SupplierList ) );
 		OnPropertyChanged( nameof( SupplierReceiptOrdersList ) );
 		OnPropertyChanged( nameof( SupplierReceiptOrderLines ) );
 	}

@@ -9,8 +9,8 @@
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
 	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
 	Title="StorageReceipt"
 	d:DesignHeight="950"
 	d:DesignWidth="1000"
@@ -33,7 +33,7 @@
 			<!--#region Row and Column definitions-->
 			<Grid.RowDefinitions>
 				<RowDefinition Height="60" />
-				<RowDefinition Height="155" />
+				<RowDefinition Height="135" />
 				<RowDefinition Height="45" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="0" />
@@ -109,8 +109,8 @@
 						AutoCompleteMode="Suggest"
 						DefaultText="{StaticResource Edit.Receipt.Supplier.Tag}"
 						DisplayMemberPath="SupplierName"
-						ItemsSource="{Binding SupplyOrderViewModel.SupplierList}"
-						SelectedValue="{Binding SupplyOrderViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True, FallbackValue=0, TargetNullValue=0}"
+						ItemsSource="{Binding SupplyReceiptViewModel.SupplierList}"
+						SelectedValue="{Binding SupplyReceiptViewModel.SelectedSupplier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True, FallbackValue=0, TargetNullValue=0}"
 						SelectedValuePath="SupplierId"
 						SelectionChanged="SupplierSelectionChanged"
 						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}"
@@ -128,12 +128,12 @@
 						AutoCompleteMode="Suggest"
 						DefaultText="{StaticResource Edit.Receipt.SupplierOrder.Tag}"
 						DisplayMemberPath="SupplyOrderNumber"
-						ItemsSource="{Binding SupplyOrderViewModel.FilteredOrders}"
-						SelectedItem="{Binding SupplyOrderViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
+						ItemsSource="{Binding SupplyReceiptViewModel.FilteredOrders}"
+						SelectedItem="{Binding SupplyReceiptViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
 						SelectedValuePath="SupplyOrderId"
 						SelectionChanged="OrderSelected"
 						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}"
-						Visibility="{Binding SupplyOrderViewModel.FilteredOrders.Count, Converter={StaticResource CountToVisibilityConverter}}"
+						Visibility="{Binding SupplyReceiptViewModel.FilteredOrdersCount, Converter={StaticResource CountToVisibilityConverter}}"
 						>
 						<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
 							<StyleSelector />
@@ -191,12 +191,13 @@
 					Grid.Column="1"
 					Width="140"
 					HorizontalAlignment="Left"
-					IsEnabled="True" Tag="Ontvangen"
-					SelectedDate="{x:Static sys:DateTime.Now}"
 					DisplayDate="{Binding SupplyReceiptViewModel.ReceiptDate}"
-					DisplayDateStart="{Binding SupplyOrderViewModel.SupplyOrderDate}"
 					DisplayDateEnd="{x:Static sys:DateTime.Now}"
+					DisplayDateStart="{Binding SupplyOrderViewModel.SupplyOrderDate}"
+					IsEnabled="True"
+					SelectedDate="{x:Static sys:DateTime.Now}"
 					Style="{DynamicResource ValidatedDatePicker}"
+					Tag="Ontvangen"
 					/>
 				<!--#endregion-->
 			</Grid>
@@ -218,7 +219,7 @@
 						>
 						<Button
 							Height="30"
-							Command="{Binding SupplyOrderViewModel.ClearSelectionCommand}"
+							Command="{Binding SupplyReceiptViewModel.ClearSelectionCommand}"
 							ToolTip="{StaticResource Edit.Receipt.Toolbar.Clear.Tooltip}"
 							>
 							<Image
@@ -231,20 +232,19 @@
 
 						<Button
 							Height="30"
-							Command="{Binding SupplyOrderViewModel.SaveCommand}"
-							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}"
+							Command="{Binding SupplyReceiptViewModel.SaveCommand, PresentationTraceSources.TraceLevel=High}"
+							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}" IsEnabled="True"
 							>
 							<Button.Style>
 								<Style TargetType="Button">
-									<Setter Property="IsEnabled" Value="False" />
 									<Setter Property="Visibility" Value="Collapsed" />
 									<Style.Triggers>
-										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="True">
-											<Setter Property="IsEnabled" Value="True" />
+										<DataTrigger Binding="{Binding SupplyReceiptViewModel.IsOrderSelected}" Value="True">
+											<Setter Property="IsEnabled" Value="True"/>
 											<Setter Property="Visibility" Value="Visible" />
 										</DataTrigger>
-										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="False">
-											<Setter Property="IsEnabled" Value="False" />
+										<DataTrigger Binding="{Binding SupplyReceiptViewModel.IsOrderSelected}" Value="False">
+											<Setter Property="IsEnabled" Value="False"/>
 											<Setter Property="Visibility" Value="Collapsed" />
 										</DataTrigger>
 									</Style.Triggers>
@@ -253,49 +253,7 @@
 							<Image
 								Width="20"
 								Height="20"
-								Stretch="UniformToFill"
-								>
-								<Image.Style>
-									<Style BasedOn="{StaticResource ToolBarSaveIcon}" TargetType="Image">
-										<Style.Triggers>
-											<DataTrigger Binding="{Binding SupplyOrderViewModel.CanSave}" Value="False">
-												<Setter Property="Opacity" Value="0.5" />
-											</DataTrigger>
-										</Style.Triggers>
-									</Style>
-								</Image.Style>
-							</Image>
-						</Button>
-
-						<Button
-							Height="30"
-							Command="{Binding SupplyOrderViewModel.DeleteOrderCommand}"
-							CommandParameter="{Binding SupplyOrderViewModel.DeleteOrderWithTooltipCommand}"
-							IsEnabled="{Binding SupplyOrderViewModel.NoHistory}"
-							ToolTip="{Binding SupplyOrderViewModel.DeleteButtonTooltip}"
-							>
-							<ToolTipService.ShowOnDisabled>True</ToolTipService.ShowOnDisabled>
-							<Button.Style>
-								<Style TargetType="Button">
-									<Setter Property="IsEnabled" Value="False" />
-									<Setter Property="Visibility" Value="Collapsed" />
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanDelete}" Value="True">
-											<Setter Property="IsEnabled" Value="True" />
-											<Setter Property="Visibility" Value="Visible" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding SupplyOrderViewModel.CanDelete}" Value="False">
-											<Setter Property="IsEnabled" Value="False" />
-											<Setter Property="Visibility" Value="Collapsed" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</Button.Style>
-							<Image
-								Width="20"
-								Height="20"
-								Stretch="UniformToFill"
-								Style="{StaticResource ToolBarTrashIcon}"
+								Stretch="UniformToFill" Style="{StaticResource ToolBarSaveIcon}"
 								/>
 						</Button>
 					</ToolBar>

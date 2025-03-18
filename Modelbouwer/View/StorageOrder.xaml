@@ -99,7 +99,7 @@
 
 					<Grid Grid.Row="0" Grid.Column="1">
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="AUTO" />
+							<ColumnDefinition Width="AUTO"/>
 							<ColumnDefinition />
 						</Grid.ColumnDefinitions>
 
@@ -107,8 +107,8 @@
 							x:Name="SupplierComboBox"
 							Grid.Column="0"
 							Height="30"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Top"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
 							AutoCompleteMode="Suggest"
 							DefaultText="{StaticResource Edit.Inventory.Orders.Supplier.Tag}"
 							DisplayMemberPath="SupplierName"
@@ -123,7 +123,6 @@
 							</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
 						</syncfusion:ComboBoxAdv>
 
-
 						<syncfusion:ComboBoxAdv
 							x:Name="SupplierOrderComboBox"
 							Grid.Column="1"
@@ -136,7 +135,7 @@
 							SelectedValuePath="SupplyOrderId"
 							SelectionChanged="OrderSelected"
 							ToolTip="{StaticResource Edit.Inventory.Orders.Supplier.Tooltip}"
-							Visibility="{Binding SupplyOrderViewModel.FilteredOrders.Count, Converter={StaticResource CountToVisibilityConverter}}"
+							Visibility="{Binding SupplyOrderViewModel.FilteredOrdersCount, Converter={StaticResource CountToVisibilityConverter}}"
 							>
 							<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
 								<StyleSelector />

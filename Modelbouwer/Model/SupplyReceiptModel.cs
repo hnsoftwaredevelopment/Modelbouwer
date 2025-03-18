@@ -10,7 +10,7 @@ public class SupplyReceiptModel : ObservableObject
 	PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
 
 	public int SupplyOrderId { get; set; }
-
+	public int SupplyOrderSupplierId { get; set; }
 	public int OrderNumber { get; set; }
 	public int OrderLineId { get; set; }
 	public int ProductId { get; set; }
@@ -21,6 +21,10 @@ public class SupplyReceiptModel : ObservableObject
 	public decimal WaitFor { get; set; }
 	public decimal StockLogReceived { get; set; }
 	public decimal InStock { get; set; }
+	public int SupplyOrderClosed { get; set; }
+	public string? SupplyOrderClosedDate { get; set; }
+	public int SupplyOrderHasStackLog { get; set; }
+
 
 	private string _supplyOrderNumber = string.Empty;
 	public string SupplyOrderNumber

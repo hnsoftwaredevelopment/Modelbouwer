@@ -325,6 +325,20 @@ public partial class SupplyOrderViewModel : ObservableObject
 	}
 	#endregion
 
+	private int _filteredOrdersCount;
+	public int FilteredOrdersCount
+	{
+		get => _filteredOrdersCount;
+		set
+		{
+			if ( _filteredOrdersCount != value )
+			{
+				_filteredOrdersCount = value;
+				OnPropertyChanged( nameof( FilteredOrdersCount ) );
+			}
+		}
+	}
+
 	public event EventHandler<int>? SelectedSupplierChanged;
 
 	private int _selectedSupplierId;
@@ -361,8 +375,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 			}
 		}
 	}
-
-
 	public void LoadProductsForSelectedSupplier( int supplierId )
 	{
 		try
@@ -383,16 +395,14 @@ public partial class SupplyOrderViewModel : ObservableObject
 		if ( SelectedSupplier > 0 )
 		{
 			// Filter the orders for the selected supplier
-			FilteredOrders = new ObservableCollection<SupplyOrderModel>(
-				SupplierOrderList.Where( order => order.SupplyOrderSupplierId == SelectedSupplier )
-			);
+			FilteredOrders = [ .. SupplierOrderList.Where( order => order.SupplyOrderSupplierId == SelectedSupplier ) ];
 		}
 		else
 		{
 			// Clear the list if no supplier is selected
-			FilteredOrders = new ObservableCollection<SupplyOrderModel>();
+			FilteredOrders = [ ];
 		}
-
+		FilteredOrdersCount = FilteredOrders.Count;
 		OnPropertyChanged( nameof( FilteredOrders ) );
 	}
 
@@ -489,7 +499,6 @@ public partial class SupplyOrderViewModel : ObservableObject
 		CanSave = IsNewOrder && hasSupplier && hasOrderNumber && hasOrderDate && hasSelectedProducts;
 	}
 
-	//public bool IsOrderSelected => SelectedOrder != null;
 	private bool _isOrderSelected;
 	public bool IsOrderSelected
 	{
@@ -720,7 +729,7 @@ public partial class SupplyOrderViewModel : ObservableObject
 				SupplyOrderDate = null
 			};
 		}
-
+		FilteredOrdersCount = FilteredOrders.Count;
 		UpdateFilteredOrderLines();
 		UpdateCanSave();
 	}

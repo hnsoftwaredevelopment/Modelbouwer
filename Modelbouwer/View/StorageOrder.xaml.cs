@@ -105,15 +105,6 @@ public partial class StorageOrder : Page
 					line.SupplyOrderlineShortProductId == inventoryOrderModel.ProductId )
 				{
 					inventoryOrderModel.IsSelected = true;
-
-					// Bereken de bestelhoeveelheid op basis van _productStandardQuantity
-					//decimal standardQuantity = correspondingProduct?.ProductStandardQuantity ?? 1;
-					//decimal orderAmount = (decimal)line.SupplyOrderlineShortAmount;
-
-					//// Bereken de juiste bestelhoeveelheid
-					//decimal calculatedOrderQuantity = CalculateOrderQuantity(orderAmount, standardQuantity);
-
-					//inventoryOrderModel.ProductShortInventory = ( double ) calculatedOrderQuantity;
 					inventoryOrderModel.ProductToOrder = ( decimal ) line.SupplyOrderlineShortAmount;
 					inventoryOrderModel.ProductPrice = ( decimal ) line.SupplyOrderlineShortPrice;
 				}
