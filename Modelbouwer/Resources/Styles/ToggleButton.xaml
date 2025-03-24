@@ -118,4 +118,122 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+
+	<Style x:Key="OrderCompleteButton" TargetType="{x:Type ToggleButton}">
+		<Setter Property="Background" Value="{StaticResource SwitchButton.Background.Color}" />
+		<Setter Property="BorderBrush" Value="{StaticResource SwitchButton.Border.Color}" />
+		<Setter Property="Padding" Value="1" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Border
+						x:Name="border"
+						Background="{TemplateBinding Background}"
+						BorderBrush="Transparent"
+						BorderThickness="0"
+						>
+						<Grid
+							Width="70"
+							Height="40"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							>
+							<TextBox
+								x:Name="SwitchText"
+								Width="57"
+								Height="14"
+								Margin="13,0,0,0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								HorizontalContentAlignment="Right"
+								Background="#b81b0c"
+								BorderBrush="#851308"
+								FontSize="8"
+								FontWeight="Bold"
+								Foreground="#F7EF80"
+								IsReadOnly="True"
+								Style="{DynamicResource DisabledTextBox}"
+								Text="{StaticResource Edit.Receipt.Switch.Incomplete.Tag}"
+								ToolTip="{StaticResource Edit.Receipt.Switch.Incomplete.Tooltip}"
+								/>
+							<Image
+								x:Name="Switch1"
+								Width="20"
+								Height="20"
+								Margin="0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								RenderTransformOrigin="0.5,0.5"
+								Source="/Resources/Images/ToggleRed.png"
+								Stretch="Uniform"
+								ToolTip="{StaticResource Edit.Receipt.Switch.Incomplete.Tooltip}"
+								/>
+
+							<Image
+								x:Name="Switch2"
+								Width="20"
+								Height="20"
+								Margin="0"
+								HorizontalAlignment="Right"
+								VerticalAlignment="Center"
+								RenderTransformOrigin="0.5,0.5"
+								Source="/Resources/Images/ToggleGreen.png"
+								Stretch="Uniform"
+								ToolTip="{StaticResource Edit.Receipt.Switch.Complete.Tooltip}"
+								Visibility="Collapsed"
+								/>
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Control.Visibility" Value="Hidden" />
+						</Trigger>
+
+						<Trigger Property="IsChecked" Value="True">
+							<Setter TargetName="Switch1" Property="Visibility" Value="Collapsed" />
+							<Setter TargetName="Switch2" Property="Visibility" Value="Visible" />
+							<Setter TargetName="SwitchText" Property="Background" Value="#64D10D" />
+							<Setter TargetName="SwitchText" Property="BorderBrush" Value="#529919" />
+							<Setter TargetName="SwitchText" Property="Foreground" Value="#FFFFFF" />
+							<Setter TargetName="SwitchText" Property="HorizontalAlignment" Value="Right" />
+							<Setter TargetName="SwitchText" Property="HorizontalContentAlignment" Value="Left" />
+							<Setter TargetName="SwitchText" Property="Margin" Value="0,0,13,0" />
+							<Setter TargetName="SwitchText" Property="Text" Value="Gereed" />
+							<Setter TargetName="SwitchText" Property="Text" Value="Gereed" />
+							<Setter TargetName="SwitchText" Property="Text" Value="{StaticResource Edit.Receipt.Switch.Complete.Tag}" />
+							<Setter TargetName="SwitchText" Property="ToolTip" Value="{StaticResource Edit.Receipt.Switch.Complete.Tooltip}" />
+							<Trigger.EnterActions>
+								<BeginStoryboard x:Name="SwitchAnimation">
+									<Storyboard>
+										<DoubleAnimation
+											AutoReverse="False"
+											RepeatBehavior="Forever"
+											Storyboard.TargetName="Switch1"
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+											From="0"
+											To="360"
+											Duration="0:0:3"
+											/>
+										<DoubleAnimation
+											AutoReverse="False"
+											RepeatBehavior="Forever"
+											Storyboard.TargetName="Switch2"
+											Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+											From="0"
+											To="-360"
+											Duration="0:0:3"
+											/>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<StopStoryboard BeginStoryboardName="SwitchAnimation" />
+							</Trigger.ExitActions>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 </ResourceDictionary>

@@ -25,6 +25,7 @@
 		<converter:CountToVisibilityConverter x:Key="CountToVisibilityConverter" />
 		<converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
 		<converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+		<converter:DateOnlyToDateTimeConverter x:Key="DateOnlyConverter" />
 	</Page.Resources>
 
 
@@ -80,11 +81,10 @@
 
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="110" />
+					<ColumnDefinition Width="310" />
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
-				<!--#endregion-->
 
-				<!--#region  Supplier and Order selection-->
 				<TextBlock
 					Grid.Row="0"
 					Grid.Column="0"
@@ -131,8 +131,7 @@
 						ItemsSource="{Binding SupplyReceiptViewModel.FilteredOrders}"
 						SelectedItem="{Binding SupplyReceiptViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
 						SelectedValuePath="SupplyOrderId"
-						SelectionChanged="OrderSelected"
-						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}"
+						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}" SelectionChanged="OrderSelected"
 						Visibility="{Binding SupplyReceiptViewModel.FilteredOrdersCount, Converter={StaticResource CountToVisibilityConverter}}"
 						>
 						<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
@@ -140,6 +139,32 @@
 						</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
 					</syncfusion:ComboBoxAdv>
 				</Grid>
+				<!--#endregion-->
+
+				<!--#region  Supplier and Order selection-->
+				<StackPanel
+					Grid.Row="0"
+					Grid.Column="2"
+					Orientation="Horizontal"
+					>
+					<CheckBox
+						x:Name="valueShow"
+						IsChecked="True"
+						Style="{DynamicResource HiddenCheckBox}"
+						/>
+					<ToggleButton
+						x:Name="OrderClosed"
+						Grid.Row="0"
+						Grid.Column="2"
+						HorizontalAlignment="Right"
+						VerticalAlignment="Center"
+						BorderBrush="White"
+						Checked="OrderStatus"
+						IsChecked="{Binding SupplyReceiptViewModel.IsComplete, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+						Style="{StaticResource OrderCompleteButton}"
+						Unchecked="OrderStatus"
+						/>
+				</StackPanel>
 				<!--#endregion-->
 
 				<!--#region Ordernumber-->
@@ -154,8 +179,8 @@
 					Grid.Row="1"
 					Grid.Column="1"
 					Width="140"
-					IsReadOnly="False"
-					Text="{Binding SupplyOrderViewModel.SelectedOrder.SupplyOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+					IsReadOnly="True"
+					Text="{Binding SupplyReceiptViewModel.SelectedOrder.SupplyOrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
 					/>
 				<!--#endregion-->
 
@@ -167,14 +192,13 @@
 					Text="{StaticResource Edit.Receipt.SupplierOrderDate.Text}"
 					/>
 
-				<DatePicker
+				<TextBox
 					Grid.Row="2"
 					Grid.Column="1"
 					Width="140"
 					HorizontalAlignment="Left"
-					IsEnabled="False"
-					SelectedDate="{Binding SupplyOrderViewModel.SupplyOrderDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, PresentationTraceSources.TraceLevel=High}"
-					Style="{DynamicResource DefaultDataPicker}"
+					IsReadOnly="True"
+					Text="{Binding SupplyReceiptViewModel.SupplyOrderDate, Converter={StaticResource DateOnlyConverter}, StringFormat={}{0:dd MMMM yyyy}, Mode=OneWay, ConverterCulture=nl-NL, UpdateSourceTrigger=PropertyChanged}"
 					/>
 				<!--#endregion-->
 
@@ -191,11 +215,11 @@
 					Grid.Column="1"
 					Width="140"
 					HorizontalAlignment="Left"
-					DisplayDate="{Binding SupplyReceiptViewModel.ReceiptDate}"
+					DisplayDate="{x:Static sys:DateTime.Now}"
 					DisplayDateEnd="{x:Static sys:DateTime.Now}"
-					DisplayDateStart="{Binding SupplyOrderViewModel.SupplyOrderDate}"
+					DisplayDateStart="{Binding SupplyOrderViewModel.SupplyOrderDate, Converter={StaticResource DateOnlyConverter}, TargetNullValue={x:Static sys:DateTime.Now}}"
 					IsEnabled="True"
-					SelectedDate="{x:Static sys:DateTime.Now}"
+					SelectedDate="{Binding SupplyReceiptViewModel.ReceiptDate, Converter={StaticResource DateOnlyConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:DateTime.Now}}"
 					Style="{DynamicResource ValidatedDatePicker}"
 					Tag="Ontvangen"
 					/>
@@ -232,19 +256,20 @@
 
 						<Button
 							Height="30"
-							Command="{Binding SupplyReceiptViewModel.SaveCommand, PresentationTraceSources.TraceLevel=High}"
-							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}" IsEnabled="True"
+							Command="{Binding SupplyReceiptViewModel.SaveCommand}"
+							IsEnabled="True"
+							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}"
 							>
 							<Button.Style>
 								<Style TargetType="Button">
 									<Setter Property="Visibility" Value="Collapsed" />
 									<Style.Triggers>
 										<DataTrigger Binding="{Binding SupplyReceiptViewModel.IsOrderSelected}" Value="True">
-											<Setter Property="IsEnabled" Value="True"/>
+											<Setter Property="IsEnabled" Value="True" />
 											<Setter Property="Visibility" Value="Visible" />
 										</DataTrigger>
 										<DataTrigger Binding="{Binding SupplyReceiptViewModel.IsOrderSelected}" Value="False">
-											<Setter Property="IsEnabled" Value="False"/>
+											<Setter Property="IsEnabled" Value="False" />
 											<Setter Property="Visibility" Value="Collapsed" />
 										</DataTrigger>
 									</Style.Triggers>
@@ -253,7 +278,8 @@
 							<Image
 								Width="20"
 								Height="20"
-								Stretch="UniformToFill" Style="{StaticResource ToolBarSaveIcon}"
+								Stretch="UniformToFill"
+								Style="{StaticResource ToolBarSaveIcon}"
 								/>
 						</Button>
 					</ToolBar>

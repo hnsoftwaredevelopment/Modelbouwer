@@ -25,7 +25,6 @@ public class SupplyReceiptModel : ObservableObject
 	public string? SupplyOrderClosedDate { get; set; }
 	public int SupplyOrderHasStackLog { get; set; }
 
-
 	private string _supplyOrderNumber = string.Empty;
 	public string SupplyOrderNumber
 	{

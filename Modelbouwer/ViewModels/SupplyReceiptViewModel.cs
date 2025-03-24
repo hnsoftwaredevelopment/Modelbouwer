@@ -16,7 +16,7 @@ public partial class SupplyReceiptViewModel : ObservableObject
 	public string orderDate;
 
 	[ObservableProperty]
-	public DateOnly receiptDate;
+	public DateOnly? receiptDate = DateOnly.FromDateTime(DateTime.Now);
 
 	[ObservableProperty]
 	public int orderLineId;
@@ -107,16 +107,14 @@ public partial class SupplyReceiptViewModel : ObservableObject
 				if ( selectedOrder != null )
 				{
 					selectedOrder.PropertyChanged += SelectedOrder_PropertyChanged;
+					int orderId = selectedOrder.SupplyOrderId;
+					LoadLinesForSelectedOrder( orderId );
+					IsOrderSelected = true;
 				}
 
 				OnPropertyChanged( nameof( SelectedOrder ) );
+				OnPropertyChanged( nameof( SupplyOrderDate ) );
 				UpdateFilteredOrderLines();
-			}
-
-			// Since selectedOrder.SupplyOrderDate is a DateOnly, we need to convert it to a DateTime so it works with the DatePicker
-			if ( selectedOrder != null )
-			{
-				//orderDate = selectedOrder.SupplyOrderDate?.ToDateTime( TimeOnly.MinValue );
 			}
 		}
 	}
@@ -260,7 +258,21 @@ public partial class SupplyReceiptViewModel : ObservableObject
 
 	private int _selectedOrderId;
 
-
+	#region I order completely received
+	private bool _isComplete;
+	public bool IsComplete
+	{
+		get => _isComplete;
+		set
+		{
+			if ( _isComplete != value )
+			{
+				_isComplete = value;
+				OnPropertyChanged( nameof( IsComplete ) );
+			}
+		}
+	}
+	#endregion
 
 	public void LoadLinesForSelectedOrder( int _orderId )
 	{
@@ -281,15 +293,15 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		}
 	}
 
-	private void UpdateFilteredOrderLines()
+	public void UpdateFilteredOrderLines()
 	{
 		if ( SelectedOrder != null )
 		{
-			FilteredReceiptLines = DBCommands.GetInventoryReceipt( SelectedOrder.SupplyOrderId );
+			ObservableCollection<SupplyReceiptModel> lines = DBCommands.GetInventoryReceipt( SelectedOrder.SupplyOrderId );
+			FilteredReceiptLines = lines;
 		}
 		else
 		{
-			// Leeg de lijst als er geen order is geselecteerd
 			FilteredReceiptLines = [ ];
 		}
 	}

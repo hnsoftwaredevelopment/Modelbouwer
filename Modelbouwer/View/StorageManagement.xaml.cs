@@ -39,7 +39,7 @@ public partial class StorageManagement : Page
 		string columnName = gridColumn.MappingName.ToString().ToLower();
 
 		InventoryModel editedRow = (InventoryModel)dataGrid.GetRecordAtRowIndex(e.RowColumnIndex.RowIndex);
-		string _whereFieldName = "", _whereFieldType = "", _changeFieldName = "", _changeFieldType = "", _changeTable = "";
+		string _whereFieldName = "", _whereFieldType = "", _changeFieldName = "", _changeFieldType = "", _changeTable = "", _changeValue="";
 
 		// Check if the row is not null
 		if ( editedRow != null )
@@ -50,21 +50,34 @@ public partial class StorageManagement : Page
 				switch ( columnName )
 				{
 					case "productinventory":
-						_changeFieldName = DBNames.ProductInventoryFieldNameAmount;
-						_changeFieldType = DBNames.ProductInventoryFieldTypeAmount;
-						_changeTable = DBNames.ProductInventoryTable;
-						_whereFieldName = DBNames.ProductInventoryFieldNameProduct_Id;
-						_whereFieldType = DBNames.ProductInventoryFieldTypeProduct_Id;
+						_changeValue = editedRow.ProductInventory.ToString();
+						_changeFieldName = DBNames.StocklogFieldNameAmountCorrection;
+						_changeFieldType = DBNames.StocklogFieldTypeAmountCorrection;
+						_changeTable = DBNames.StocklogTable;
+						_whereFieldName = DBNames.StocklogFieldNameProductId;
+						_whereFieldType = DBNames.StocklogFieldTypeProductId;
+						string _checkTable = DBNames.ProductsInStockView;
+						string _checkWhereFieldName = DBNames.ProductsInStockFieldNameProduct_Id;
+						string _checkWhereFieldType = DBNames.ProductsInStockFieldTypeProduct_Id;
 
 						// Check here if the Selected Product_Id already exists in the productinventory table, if exists do nothing otherwise add _productId, with value 0 
-						int _exists = DBCommands.CheckForRecords(_changeTable, new string[1, 3] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } });
+						int _exists = DBCommands.CheckForRecords(_checkTable, new string[1, 3] { { _checkWhereFieldName, _checkWhereFieldType, editedRow.ProductId.ToString() } });
 						if ( _exists == 0 )
 						{
 							// There is no record available in table, add first with minimal data to be able to find the record to save changes
 							DBCommands.InsertInTable( _changeTable, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
 						}
+						else
+						{
+							//There is already a record for the product, now the new ammount should be entered as an correction
+							// First get the current ammount to determine the cnage amount
+							double _currentAmount = double.Parse(DBCommands.GetData(DBNames.ProductsInStockView, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } }, new string [ 1, 2] { { DBNames.ProductsInStockFieldNameAmount, DBNames.ProductsInStockFieldTypeAmount } } ));
+							double _newAmount = double.Parse(_changeValue);
+							_changeValue = ( _newAmount - _currentAmount ).ToString();
+						}
 						break;
 					case "productminimalstock":
+						_changeValue = editedRow.ProductInventory.ToString();
 						_changeFieldName = DBNames.ProductFieldNameMinimalStock;
 						_changeFieldType = DBNames.ProductFieldTypeMinimalStock;
 						_changeTable = DBNames.ProductTable;
@@ -72,6 +85,7 @@ public partial class StorageManagement : Page
 						_whereFieldType = DBNames.ProductFieldTypeId;
 						break;
 					case "productprice":
+						_changeValue = editedRow.ProductInventory.ToString();
 						_changeFieldName = DBNames.ProductFieldNamePrice;
 						_changeFieldType = DBNames.ProductFieldTypePrice;
 						_changeTable = DBNames.ProductTable;
@@ -80,13 +94,14 @@ public partial class StorageManagement : Page
 						break;
 				}
 
-				DBCommands.UpdateInTable( _changeTable, new string [ 1, 3 ] { { _changeFieldName, _changeFieldType, editedRow.ProductInventory.ToString() } }, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
+				DBCommands.UpdateInTable( _changeTable, new string [ 1, 3 ] { { _changeFieldName, _changeFieldType, _changeValue } }, new string [ 1, 3 ] { { _whereFieldName, _whereFieldType, editedRow.ProductId.ToString() } } );
 				RefreshDataGrid();
 
 				// UpdateDatabase(editedRow);
 			}
 		}
 	}
+
 	private void OriginalInventory( object? sender, CurrentCellBeginEditEventArgs e )
 	{
 		SfDataGrid dataGrid = (SfDataGrid)sender!;

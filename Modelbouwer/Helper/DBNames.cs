@@ -200,13 +200,14 @@ public class DBNames
 	#endregion Product table
 
 	#region Product Inventory table and view
-	public static readonly string ProductInventoryTable = "productinventory";
-	public static readonly string ProductInventoryFieldNameId = "Id";
-	public static readonly string ProductInventoryFieldTypeId = "int";
-	public static readonly string ProductInventoryFieldNameProduct_Id = "Product_Id";
-	public static readonly string ProductInventoryFieldTypeProduct_Id = "int";
-	public static readonly string ProductInventoryFieldNameAmount = "Amount";
-	public static readonly string ProductInventoryFieldTypeAmount = "double";
+	//Obsolete replaced by stocklog
+	//public static readonly string ProductInventoryTable = "productinventory";
+	//public static readonly string ProductInventoryFieldNameId = "Id";
+	//public static readonly string ProductInventoryFieldTypeId = "int";
+	//public static readonly string ProductInventoryFieldNameProduct_Id = "Product_Id";
+	//public static readonly string ProductInventoryFieldTypeProduct_Id = "int";
+	//public static readonly string ProductInventoryFieldNameAmount = "Amount";
+	//public static readonly string ProductInventoryFieldTypeAmount = "double";
 
 	public static readonly string ProductInventoryView = "view_productinventory";
 	public static readonly string ProductInventoryViewFieldNameProductId = "Product_Id";
@@ -387,26 +388,25 @@ public class DBNames
 	#endregion Project table
 
 	#region Stock table
-
-	public static readonly string StockTable = "stock";
-	public static readonly string StockView = "view_stock";
-	public static readonly string StockFieldNameId = "Id";
-	public static readonly string StockFieldTypeId = "int";
-	public static readonly string StockFieldNameProductId = "product_Id";
-	public static readonly string StockFieldTypeProductId = "int";
-	public static readonly string StockFieldNameAmount = "Amount";
-	public static readonly string StockFieldTypeAmount = "double";
-	public static readonly string StockViewFieldNameId = "Id";
-	public static readonly string StockViewFieldTypeId = "int";
-	public static readonly string StockViewFieldNameProductId = "product_Id";
-	public static readonly string StockViewFieldTypeProductId = "int";
-	public static readonly string StockViewFieldNameAmount = "Amount";
-	public static readonly string StockViewFieldTypeAmount = "double";
-
+	//Obsolete replaced by stocklog
+	//public static readonly string StockTable = "stock";
+	//public static readonly string StockView = "view_stock";
+	//public static readonly string StockFieldNameId = "Id";
+	//public static readonly string StockFieldTypeId = "int";
+	//public static readonly string StockFieldNameProductId = "product_Id";
+	//public static readonly string StockFieldTypeProductId = "int";
+	//public static readonly string StockFieldNameAmount = "Amount";
+	//public static readonly string StockFieldTypeAmount = "double";
+	//public static readonly string StockViewFieldNameId = "Id";
+	//public static readonly string StockViewFieldTypeId = "int";
+	//public static readonly string StockViewFieldNameProductId = "product_Id";
+	//public static readonly string StockViewFieldTypeProductId = "int";
+	//public static readonly string StockViewFieldNameAmount = "Amount";
+	//public static readonly string StockViewFieldTypeAmount = "double";
 	#endregion Stock table
 
+	#region Products in stock
 	#region Stocklog table
-
 	public static readonly string StocklogTable = "stocklog";
 	public static readonly string StocklogFieldNameId = "Id";
 	public static readonly string StocklogFieldTypeId = "int";
@@ -424,10 +424,27 @@ public class DBNames
 	public static readonly string StocklogFieldTypeAmountReceived = "double";
 	public static readonly string StocklogFieldNameAmountUsed = "AmountUsed";
 	public static readonly string StocklogFieldTypeAmountUsed = "double";
+	public static readonly string StocklogFieldNameAmountCorrection = "AmountCorrection";
+	public static readonly string StocklogFieldTypeAmountCorrection = "double";
 	public static readonly string StocklogFieldNameDate = "LogDate";
 	public static readonly string StocklogFieldTypeDate = "date";
-
 	#endregion Stocklog table
+
+
+	#region Products in stock
+	public static readonly string ProductsInStockView = "view_instock";
+	public static readonly string ProductsInStockFieldNameProduct_Id = "Product_Id";
+	public static readonly string ProductsInStockFieldTypeProduct_Id = "int";
+	public static readonly string ProductsInStockFieldNameReceived = "AmountReceived";
+	public static readonly string ProductsInStockFieldTypeReceived = "double";
+	public static readonly string ProductsInStockFieldNameUsed = "AmountUsed";
+	public static readonly string ProductsInStockFieldTypeUsed = "double";
+	public static readonly string ProductsInStockFieldNameCorrection = "AmountCorrection";
+	public static readonly string ProductsInStockFieldTypeCorrection = "double";
+	public static readonly string ProductsInStockFieldNameAmount = "Amount";
+	public static readonly string ProductsInStockFieldTypeAmount = "double";
+	#endregion
+	#endregion
 
 	#region Storage table
 
