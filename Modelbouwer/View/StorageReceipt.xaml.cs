@@ -10,6 +10,8 @@ public partial class StorageReceipt : Page
 	public StorageReceipt()
 	{
 		InitializeComponent();
+		CombinedInventoryOrderViewModel? _viewModel = DataContext as CombinedInventoryOrderViewModel;
+		Loaded += ( s, e ) => _viewModel.SupplyReceiptViewModel.Initialize();
 	}
 
 	#region Check if Order is completely received
@@ -64,15 +66,6 @@ public partial class StorageReceipt : Page
 	private void OrderSelected( object sender, SelectionChangedEventArgs e )
 	{
 		CheckReceiptLinesComplete();
-
-		//CombinedInventoryOrderViewModel? viewModel = DataContext as CombinedInventoryOrderViewModel;
-		//if ( viewModel != null && viewModel.SupplyReceiptViewModel.SelectedOrder != null )
-		//{
-		//	int orderId = viewModel.SupplyReceiptViewModel.SelectedOrder.SupplyOrderId;
-		//	viewModel.SupplyReceiptViewModel.LoadLinesForSelectedOrder( orderId );
-		//	viewModel.SupplyReceiptViewModel.IsOrderSelected = true;
-		//	CheckReceiptLinesComplete();
-		//}
 	}
 
 	private void OrderStatus( object sender, RoutedEventArgs e )

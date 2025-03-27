@@ -741,16 +741,20 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			_receiptList.Add( new SupplyReceiptModel
+			// Id order is closed it does not have to be added to the list
+			if ( DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 18 ] ) != 1 )
 			{
-				SupplyOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
-				SupplyOrderSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
-				SupplyOrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
-				SupplyOrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 13 ] ),
-				SupplyOrderClosed = DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 18 ] ),
-				SupplyOrderClosedDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 19 ] ),
-				SupplyOrderHasStackLog = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 21 ] )
-			} );
+				_receiptList.Add( new SupplyReceiptModel
+				{
+					SupplyOrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+					SupplyOrderSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
+					SupplyOrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 12 ] ),
+					SupplyOrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 13 ] ),
+					SupplyOrderClosed = DatabaseValueConverter.GetSByte( _dt.Rows [ i ] [ 18 ] ),
+					SupplyOrderClosedDate = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 19 ] ),
+					SupplyOrderHasStackLog = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 21 ] )
+				} );
+			}
 		}
 		return _receiptList;
 	}

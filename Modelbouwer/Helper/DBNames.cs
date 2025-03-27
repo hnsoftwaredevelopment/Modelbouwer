@@ -426,8 +426,8 @@ public class DBNames
 	public static readonly string StocklogFieldTypeAmountUsed = "double";
 	public static readonly string StocklogFieldNameAmountCorrection = "AmountCorrection";
 	public static readonly string StocklogFieldTypeAmountCorrection = "double";
-	public static readonly string StocklogFieldNameDate = "LogDate";
-	public static readonly string StocklogFieldTypeDate = "date";
+	public static readonly string StocklogFieldNameLogDate = "LogDate";
+	public static readonly string StocklogFieldTypeLogDate = "date";
 	#endregion Stocklog table
 
 

@@ -251,6 +251,7 @@ public partial class SupplyReceiptViewModel : ObservableObject
 			{
 				_isOrderSelected = value;
 				OnPropertyChanged( nameof( IsOrderSelected ) );
+				UpdateCanSave();
 			}
 		}
 	}
@@ -289,7 +290,7 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		}
 		catch ( Exception ex )
 		{
-			throw; // Re-throw de exception om het probleem niet te verbergen
+			throw;
 		}
 	}
 
@@ -330,20 +331,87 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		}
 		SelectedSupplier = 0;
 		SelectedOrder = null;
-		SelectedOrder.SupplyOrderNumber = string.Empty;
 		OrderDate = string.Empty;
 		ReceiptDate = DateOnly.FromDateTime( DateTime.Now );
+		IsComplete = false;
 
 		// Notify property changes
 		OnPropertyChanged( nameof( SelectedSupplier ) );
+		OnPropertyChanged( nameof( SelectedOrder ) );
 	}
 	#endregion
 
 	#region Save receipt
-	public IRelayCommand SaveCommand { get; }
+	private bool _canSaveReceipt;
+	public bool CanSaveReceipt
+	{
+		get => _canSaveReceipt;
+		set => SetProperty( ref _canSaveReceipt, value );
+	}
+
+	private RelayCommand _saveCommand;
+	public IRelayCommand SaveCommand => _saveCommand ??= new RelayCommand(
+		SaveReceipt,
+		() => CanSaveReceipt );
+
+	public void UpdateCanSave()
+	{
+		CanSaveReceipt = IsOrderSelected;
+		( SaveCommand as RelayCommand )?.NotifyCanExecuteChanged();
+	}
+
 	private void SaveReceipt()
 	{
-		// Code to store the receipt
+		//Retrieve the list of products to save
+		foreach ( SupplyReceiptModel line in FilteredReceiptLines )
+		{
+			//Saveg receipts to stocklog
+			string [ , ] _registerStockLogReceipts = new string [ 5, 3 ]
+			{
+				{ DBNames.StocklogFieldNameProductId, DBNames.StocklogFieldTypeProductId, line.ProductId.ToString() },
+				{ DBNames.StocklogFieldNameSupplyOrderId, DBNames.StocklogFieldTypeSupplyOrderId, SelectedOrder.SupplyOrderId.ToString() },
+				{ DBNames.StocklogFieldNameSupplyOrderlineId, DBNames.StocklogFieldTypeSupplyOrderlineId, line.OrderLineId.ToString() },
+				{ DBNames.StocklogFieldNameAmountReceived, DBNames.StocklogFieldTypeAmountReceived, line.WaitFor.ToString() },
+				{ DBNames.StocklogFieldNameLogDate, DBNames.StocklogFieldTypeLogDate, (ReceiptDate ?? DateOnly.FromDateTime(DateTime.Now)).ToString() }
+			};
+			DBCommands.InsertInTable( DBNames.StocklogTable, _registerStockLogReceipts );
+
+			//Update receipts to supplyorderline
+			decimal _openAmount = Math.Max(0, line.Ordered - line.StockLogReceived - line.WaitFor);
+			int _orderLineClosed = _openAmount == 0 ? 1 : 0;
+
+			string [ , ] _registerSupplyOrderLineReceipts = new string [ 3, 3 ]
+			{
+				{ DBNames.OrderLineFieldNameOpenAmount, DBNames.OrderLineFieldTypeOpenAmount, _openAmount.ToString() },
+				{ DBNames.OrderLineFieldNameClosed, DBNames.OrderLineFieldTypeClosed, _orderLineClosed.ToString() },
+				{ DBNames.OrderLineFieldNameClosedDate, DBNames.OrderLineFieldTypeClosedDate, (ReceiptDate ?? DateOnly.FromDateTime(DateTime.Now)).ToString() },
+			};
+
+			string [ , ] _whereSupplyOrderLineReceipts = new string [ 1, 3 ]
+			{
+				{ DBNames.OrderLineFieldNameId, DBNames.OrderLineFieldTypeId, line.OrderLineId.ToString() }
+			};
+			DBCommands.UpdateInTable( DBNames.OrderLineTable, _registerSupplyOrderLineReceipts, _whereSupplyOrderLineReceipts );
+
+			//Update orderstatus in supplyorder when IsComplete == true
+			if ( IsComplete )
+			{
+				int _orderClosed = IsComplete == true ? 1 : 0;
+
+				string [ , ] _registerOrderComplete = new string [ 2, 3 ]
+				{
+					{ DBNames.OrderFieldNameClosed, DBNames.OrderFieldTypeClosed, _orderClosed.ToString() },
+					{ DBNames.OrderFieldNameClosedDate, DBNames.OrderFieldTypeClosedDate, (ReceiptDate ?? DateOnly.FromDateTime(DateTime.Now)).ToString() },
+				};
+
+				string [ , ] _whereOrderComplete = new string [ 1, 3 ]
+				{
+					{ DBNames.OrderFieldNameId, DBNames.OrderFieldTypeId, SelectedOrder.SupplyOrderId.ToString() }
+				};
+				DBCommands.UpdateInTable( DBNames.OrderTable, _registerOrderComplete, _whereOrderComplete );
+			}
+
+		}
 
 		// Refresh the data for the UI
 		ClearAllFields();
@@ -356,8 +424,6 @@ public partial class SupplyReceiptViewModel : ObservableObject
 	// Constructor
 	public SupplyReceiptViewModel()
 	{
-		// Standaardwaarde instellen
-		//SelectedOrderId = 0;
 		ResourceDictionary = new ResourceDictionary
 		{
 			Source = new Uri( "pack://application:,,,/Modelbouwer;component/Resources/Languages/Language.xaml" )
@@ -365,13 +431,11 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		};
 
 		ClearSelectionCommand = new RelayCommand( ClearAllFields );
-		SaveCommand = new RelayCommand( SaveReceipt, () => IsOrderSelected );
+	}
 
-		SupplierList = [ .. DBCommands.GetSupplierList() ];
-		SupplierReceiptOrdersList = [ .. DBCommands.GetSupplierReceiptOrders() ];
-		SupplierReceiptOrderLines = [ .. DBCommands.GetSupplierReceiptLines() ];
-
-		UpdateFilteredOrderLines();
+	public void Initialize()
+	{
+		Refresh();
 	}
 
 	public void Refresh()
@@ -379,6 +443,9 @@ public partial class SupplyReceiptViewModel : ObservableObject
 		SupplierList = [ .. DBCommands.GetSupplierList() ];
 		SupplierReceiptOrdersList = [ .. DBCommands.GetSupplierReceiptOrders() ];
 		SupplierReceiptOrderLines = [ .. DBCommands.GetSupplierReceiptLines() ];
+
+		UpdateFilteredOrderLines();
+
 		OnPropertyChanged( nameof( SupplierList ) );
 		OnPropertyChanged( nameof( SupplierReceiptOrdersList ) );
 		OnPropertyChanged( nameof( SupplierReceiptOrderLines ) );
