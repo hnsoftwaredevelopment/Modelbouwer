@@ -257,6 +257,19 @@
 						<Button
 							Height="30"
 							Command="{Binding SupplyReceiptViewModel.SaveCommand}"
+							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}" Visibility="{Binding SupplyReceiptViewModel.IsOrderSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+							>
+							<Image
+								Width="20"
+								Height="20"
+								Stretch="UniformToFill"
+								Style="{DynamicResource ToolBarSaveIcon}"
+								/>
+						</Button>
+
+						<!--<Button
+							Height="30"
+							Command="{Binding SupplyReceiptViewModel.SaveCommand}"
 							IsEnabled="True"
 							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}"
 							>
@@ -281,7 +294,7 @@
 								Stretch="UniformToFill"
 								Style="{StaticResource ToolBarSaveIcon}"
 								/>
-						</Button>
+						</Button>-->
 					</ToolBar>
 				</ToolBarTray>
 			</StackPanel>
@@ -348,7 +361,7 @@
 						CellStyle="{DynamicResource EditableCellStyle}"
 						HeaderText="{StaticResource Edit.Receipt.DataGrid.Header.Received}"
 						HorizontalHeaderContentAlignment="Right"
-						MappingName="Received"
+						MappingName="StockLogReceived"
 						MinValue="0"
 						/>
 
