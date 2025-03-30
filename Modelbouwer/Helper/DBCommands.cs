@@ -429,9 +429,9 @@ public class DBCommands
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
-			double _price = double.Parse(_dt.Rows [ i ] [ 3 ].ToString());
-			double _value = double.Parse(_dt.Rows [ i ] [ 8 ].ToString());
-			double _virtualValue = double.Parse(_dt.Rows [ i ] [ 11 ].ToString());
+			decimal _price = decimal.Parse(_dt.Rows[i][3].ToString(), CultureInfo.InvariantCulture);
+			decimal _value = decimal.Parse(_dt.Rows [ i ] [ 8 ].ToString(), CultureInfo.InvariantCulture);
+			decimal _virtualValue = decimal.Parse(_dt.Rows [ i ] [ 11 ].ToString(), CultureInfo.InvariantCulture);
 			_list.Add( new InventoryModel
 			{
 				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
@@ -516,6 +516,38 @@ public class DBCommands
 		return _list;
 	}
 	#endregion
+
+	#region Get all orders
+	public static ObservableCollection<OrderlineReportModel> GetAllOrders( ObservableCollection<OrderlineReportModel>? _list = null )
+	{
+		_list ??= [ ];
+		DataTable? _dt = GetData( DBNames.OrderLineView, DBNames.OrderLineViewFieldNameOrderId );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			_list.Add( new OrderlineReportModel
+			{
+				OrderId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
+				OrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				OrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 2 ] ),
+				SupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
+				SupplierName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				ProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 5 ] ),
+				ProductCode = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
+				ProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
+				UnitPrice = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 8 ] ),
+				Ordered = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 9 ] ),
+				Received = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 10 ] ),
+				Expected = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 11 ] ),
+				Closed = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 12 ] ),
+				ClosedDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 13 ] )
+			} );
+		}
+		return _list;
+	}
+	#endregion
+
+
 	#endregion
 
 	#region StorageLocationList
