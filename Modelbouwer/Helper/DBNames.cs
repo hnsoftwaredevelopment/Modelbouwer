@@ -200,15 +200,6 @@ public class DBNames
 	#endregion Product table
 
 	#region Product Inventory table and view
-	//Obsolete replaced by stocklog
-	//public static readonly string ProductInventoryTable = "productinventory";
-	//public static readonly string ProductInventoryFieldNameId = "Id";
-	//public static readonly string ProductInventoryFieldTypeId = "int";
-	//public static readonly string ProductInventoryFieldNameProduct_Id = "Product_Id";
-	//public static readonly string ProductInventoryFieldTypeProduct_Id = "int";
-	//public static readonly string ProductInventoryFieldNameAmount = "Amount";
-	//public static readonly string ProductInventoryFieldTypeAmount = "double";
-
 	public static readonly string ProductInventoryView = "view_productinventory";
 	public static readonly string ProductInventoryViewFieldNameProductId = "Product_Id";
 	public static readonly string ProductInventoryViewFieldTypeProductId = "int";
@@ -387,24 +378,6 @@ public class DBNames
 	public static readonly string ProjectTotalssViewFieldNameIsClosed = "IsClosed";
 	#endregion Project table
 
-	#region Stock table
-	//Obsolete replaced by stocklog
-	//public static readonly string StockTable = "stock";
-	//public static readonly string StockView = "view_stock";
-	//public static readonly string StockFieldNameId = "Id";
-	//public static readonly string StockFieldTypeId = "int";
-	//public static readonly string StockFieldNameProductId = "product_Id";
-	//public static readonly string StockFieldTypeProductId = "int";
-	//public static readonly string StockFieldNameAmount = "Amount";
-	//public static readonly string StockFieldTypeAmount = "double";
-	//public static readonly string StockViewFieldNameId = "Id";
-	//public static readonly string StockViewFieldTypeId = "int";
-	//public static readonly string StockViewFieldNameProductId = "product_Id";
-	//public static readonly string StockViewFieldTypeProductId = "int";
-	//public static readonly string StockViewFieldNameAmount = "Amount";
-	//public static readonly string StockViewFieldTypeAmount = "double";
-	#endregion Stock table
-
 	#region Products in stock
 	#region Stocklog table
 	public static readonly string StocklogTable = "stocklog";
@@ -429,7 +402,6 @@ public class DBNames
 	public static readonly string StocklogFieldNameLogDate = "LogDate";
 	public static readonly string StocklogFieldTypeLogDate = "date";
 	#endregion Stocklog table
-
 
 	#region Products in stock
 	public static readonly string ProductsInStockView = "view_instock";
@@ -635,7 +607,6 @@ public class DBNames
 	#endregion ProductUsage
 
 	#region Order table and view
-
 	public static readonly string OrderTable = "supplyorder";
 	public static readonly string OpenOrderView = "view_supplyopenorder";
 	public static readonly string OrderFieldNameId = "Id";
@@ -710,7 +681,6 @@ public class DBNames
 	public static readonly string OrderViewFieldTypeHasStackLog = "int";
 
 	public static readonly string OrderLineTable = "supplyorderline";
-	public static readonly string OrderLineView = "view_supplyorderline";
 	public static readonly string OpenOrderLineView = "view_supplyopenorderline";
 	public static readonly string OrderLineFieldNameId = "Id";
 	public static readonly string OrderLineFieldTypeId = "int";
@@ -755,7 +725,37 @@ public class DBNames
 	public static readonly string OrderLineShortFieldTypeAmount = "double";
 	public static readonly string OrderLineShortFieldNamePrice = "Price";
 	public static readonly string OrderLineShortFieldTypePrice = "double";
-	#endregion Order table and 
+
+	public static readonly string OrderLineView = "view_supplyorderline";
+	public static readonly string OrderLineViewFieldNameOrderId = "Order_Id";
+	public static readonly string OrderLineViewFieldTypeOrderId = "int";
+	public static readonly string OrderLineViewFieldNameOrderNumber = "Ordernumber";
+	public static readonly string OrderLineViewFieldTypeOrderNumber = "string";
+	public static readonly string OrderLineViewFieldNameOrderDate = "OrderDate";
+	public static readonly string OrderLineViewFieldTypeOrderDate = "date";
+	public static readonly string OrderLineViewFieldNameSupplierId = "SupplierId";
+	public static readonly string OrderLineViewFieldTypeSupplierId = "int";
+	public static readonly string OrderLineViewFieldNameSupplierName = "Supplier";
+	public static readonly string OrderLineViewFieldTypeSupplierName = "string";
+	public static readonly string OrderLineViewFieldNameProductId = "ProductId";
+	public static readonly string OrderLineViewFieldTypeProductId = "int";
+	public static readonly string OrderLineViewFieldNameProductCode = "ProductCode";
+	public static readonly string OrderLineViewFieldTypeProductCode = "string";
+	public static readonly string OrderLineViewFieldNameProductName = "ProductName";
+	public static readonly string OrderLineViewFieldTypeProductName = "string";
+	public static readonly string OrderLineViewFieldNameUnitPrice = "UnitPrice";
+	public static readonly string OrderLineViewFieldTypeUnitPrice = "double";
+	public static readonly string OrderLineViewFieldNameOrdered = "Ordered";
+	public static readonly string OrderLineViewFieldTypeOrdered = "double";
+	public static readonly string OrderLineViewFieldNameReceived = "Received";
+	public static readonly string OrderLineViewFieldTypeReceived = "double";
+	public static readonly string OrderLineViewFieldNameExpected = "Expect";
+	public static readonly string OrderLineViewFieldTypeExpected = "double";
+	public static readonly string OrderLineViewFieldNameClosed = "Closed";
+	public static readonly string OrderLineViewFieldTypeClosed = "int";
+	public static readonly string OrderLineViewFieldNameClosedDate = "ClosedDate";
+	public static readonly string OrderLineViewFieldTypeClosedDate = "date";
+	#endregion
 
 	#region Unit Table
 

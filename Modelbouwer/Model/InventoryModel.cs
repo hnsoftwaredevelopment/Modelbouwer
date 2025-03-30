@@ -4,15 +4,15 @@ public class InventoryModel
 	public int ProductId { get; set; }
 	public string? ProductCode { get; set; }
 	public string? ProductName { get; set; }
-	public double ProductPrice { get; set; }
+	public decimal ProductPrice { get; set; }
 	public double ProductMinimalStock { get; set; }
 	public string? ProductCategory { get; set; }
 	public string? ProductStorageLocation { get; set; }
 	public double ProductInventory { get; set; }
-	public double ProductInventoryValue { get; set; }
+	public decimal ProductInventoryValue { get; set; }
 	public double ProductInOrder { get; set; }
 	public double ProductVirtualInventory { get; set; }
-	public double ProductVirtualInventoryValue { get; set; }
+	public decimal ProductVirtualInventoryValue { get; set; }
 	public double ProductShortInventory { get; set; }
 	public double ProductTempShortInventory { get; set; }
 

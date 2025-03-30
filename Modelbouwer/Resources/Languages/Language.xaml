@@ -756,6 +756,34 @@
 	<system:String x:Key="Edit.Receipt.Switch.Incomplete.Tooltip">De bestelling is nog niet compleet geleverd</system:String>
 	<system:String x:Key="Edit.Receipt.Switch.Incomplete.Tag">Incompleet</system:String>
 	<!--#endregion-->
+
+	<!--#region Order report-->
+	<system:String x:Key="Edit.OrderReport.Title">Bestellingen</system:String>
+	<system:String x:Key="Edit.OrderReport.Subtitle">Overzicht van alle bestellingen</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.OrderId">BestelId</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.OrderNumber">Bestelnummer</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.OrderDate">Besteldatum</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.SupplierId">LeverancierId</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.Supplier">Leverancier</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.ProductId">ArtikelId</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.ProductCode">Zoeknaam</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.ProductName">Artikel</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.UnitPrice">Stuk prijs</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.Ordered">Besteld</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.Received">Ontvangen</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.Expected">Nalevering</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.Closed">Compleet</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Header.ClosedDate">Datum compleet</system:String>
+
+	<system:String x:Key="Edit.OrderReport.DataGrid.FilterSearch.Search.Tag">Zoek in de lijst naar...</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.FilterSearch.Search.Tooltip">Zoek en markeer de hier ingevoerde tekst in onderstaande lijst en markeer</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.FilterSearch.Search.Clear.Tooltip">Verwijder het zoek criterium</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.FilterSearch.Filter.Tag">Filter de lijst op...</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.FilterSearch.Filter.Tooltip">Filter onderstaande lijstZoek met de hier ingevoerde tekst toon en markeer alleen regels met dit criterium</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.FilterSearch.Filter.Clear.Tooltip">Verwijder het filter criterium en toon de volledige lijst</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
+	<system:String x:Key="Edit.OrderReport.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Product Supplier-->

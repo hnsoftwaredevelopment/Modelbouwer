@@ -63,8 +63,6 @@
 			<!--#endregion-->
 
 			<!--#region Search block-->
-			<!--  https://help.syncfusion.com/wpf/datagrid/search  -->
-			<!--  https://help.syncfusion.com/wpf/datagrid/filterrow  -->
 			<StackPanel Grid.Row="1" Orientation="Horizontal">
 				<Border
 					Width="365"
