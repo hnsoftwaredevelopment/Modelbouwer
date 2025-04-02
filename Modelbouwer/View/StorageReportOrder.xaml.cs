@@ -24,9 +24,9 @@ public partial class StorageReportOrder : Page
 					//Current button is FilterButton, toggle to SearchButton
 					FilterButton.Visibility = Visibility.Collapsed;
 					SearchButton.Visibility = Visibility.Visible;
-					FilterSearchText.Tag = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Search.Tag" );
-					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Search.Tooltip" );
-					ClearFilterSearch.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Search.Clear.Tooltip" );
+					FilterSearchText.Tag = ( string ) FindResource( "Edit.OrderReport.DataGrid.FilterSearch.Search.Tag" );
+					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.OrderReport.DataGrid.FilterSearch.Search.Tooltip" );
+					ClearFilterSearch.ToolTip = ( string ) FindResource( "Edit.OrderReport.DataGrid.FilterSearch.Search.Clear.Tooltip" );
 					//Toggle filtering to show result of toggle directly in datagrid
 					dataGrid.SearchHelper.AllowFiltering = false;
 					break;
@@ -34,9 +34,9 @@ public partial class StorageReportOrder : Page
 					//Current button is SearchButton, toggle to FilterButton
 					SearchButton.Visibility = Visibility.Collapsed;
 					FilterButton.Visibility = Visibility.Visible;
-					FilterSearchText.Tag = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Filter.Tag" );
-					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Filter.Tooltip" );
-					ClearFilterSearch.ToolTip = ( string ) FindResource( "Edit.InventoryOrder.DataGrid.FilterSearch.Filter.Clear.Tooltip" );
+					FilterSearchText.Tag = ( string ) FindResource( "Edit.OrderReport.DataGrid.FilterSearch.Filter.Tag" );
+					FilterSearchText.ToolTip = ( string ) FindResource( "Edit.OrderReport.DataGrid.FilterSearch.Filter.Tooltip" );
+					ClearFilterSearch.ToolTip = ( string ) FindResource( "Edit.OrderReport.DataGrid.FilterSearch.Filter.Clear.Tooltip" );
 					//Toggle filtering to show result of toggle directly in datagrid
 					dataGrid.SearchHelper.AllowFiltering = true;
 					break;
