@@ -547,8 +547,54 @@ public class DBCommands
 	}
 	#endregion
 
+	#region Get all receipts on orderlines
+	public static ObservableCollection<ReceiptsReportModel> GetAllReceipts( ObservableCollection<ReceiptsReportModel>? _list = null )
+	{
+		_list ??= [ ];
+		string _sqlQuery = $"{DBNames.SqlSelectAll}{DBNames.SqlFrom}{DBNames.ReceiptsReportView}{DBNames.SqlOrderBy}{DBNames.ReceiptsReportFieldNameOrderDate}, {DBNames.ReceiptsReportFieldNameOrderNumber}, { DBNames.ReceiptsReportFieldNameShortName}, {DBNames.ReceiptsReportFieldNameIsOrderLine}, {DBNames.ReceiptsReportFieldNameReceivedDate};";
 
+		DataTable? _dt = GetTable( _sqlQuery );
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			string _orderDate = "", _receivedDate = "", _rowClosedDate = "";
+			bool _rowClosedCheck = false;
+
+			if ( DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 0 ] ).ToString() != "1-1-1000" )
+			{ _orderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 0 ] ).ToString( "dd-MM-yyyy" ); }
+
+
+			if ( DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 6 ] ).ToString() != "1-1-0001" )
+			{ _receivedDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 6 ] ).ToString( "dd-MM-yyyy" ); }
+
+			if ( DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 10 ] ).ToString() != "1-1-0001" )
+			{ _rowClosedDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 10 ] ).ToString( "dd-MM-yyyy" ); }
+
+			if ( DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 9 ] ).ToString() == "1" )
+			{ _rowClosedCheck = true; }
+
+			_list.Add( new ReceiptsReportModel
+			{
+				OrderDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 0 ] ),
+				OrderDateString = _orderDate,
+				OrderNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 1 ] ),
+				Supplier = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 2 ] ),
+				Shortname = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 3 ] ),
+				Description = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ),
+				Ordered = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 5 ] ),
+				ReceivedDate = DatabaseValueConverter.GetDateOnly( _dt.Rows [ i ] [ 6 ] ),
+				ReceivedDateString = _receivedDate,
+				Received = DatabaseValueConverter.GetDecimal( _dt.Rows [ i ] [ 7 ] ),
+				IsOrderLine = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 8 ] ),
+				RowClosedCheck = _rowClosedCheck,
+				RowClosedDate = _rowClosedDate
+			} );
+		}
+		return _list;
+	}
 	#endregion
+	#endregion
+
 
 	#region StorageLocationList
 	public ObservableCollection<StorageModel> GetStorageList( ObservableCollection<StorageModel>? storageList = null )
