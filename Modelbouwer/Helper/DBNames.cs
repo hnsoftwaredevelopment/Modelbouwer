@@ -755,6 +755,26 @@ public class DBNames
 	public static readonly string OrderLineViewFieldTypeClosed = "int";
 	public static readonly string OrderLineViewFieldNameClosedDate = "ClosedDate";
 	public static readonly string OrderLineViewFieldTypeClosedDate = "date";
+
+	public static readonly string ReceiptsReportView = "view_receiptsreport";
+	public static readonly string ReceiptsReportFieldNameOrderDate = "OrderDate";
+	public static readonly string ReceiptsReportFieldTypeOrderDate = "date";
+	public static readonly string ReceiptsReportFieldNameOrderNumber = "OrderNumber";
+	public static readonly string ReceiptsReportFieldTypeOrderNumber = "string";
+	public static readonly string ReceiptsReportFieldNameSupplier = "Supplier";
+	public static readonly string ReceiptsReportFieldTypeSupplier = "string";
+	public static readonly string ReceiptsReportFieldNameShortName = "Shortname";
+	public static readonly string ReceiptsReportFieldTypeShortName = "string";
+	public static readonly string ReceiptsReportFieldNameDescription = "Description";
+	public static readonly string ReceiptsReportFieldTypeDescription = "string";
+	public static readonly string ReceiptsReportFieldNameOrderedAmount = "Ordered";
+	public static readonly string ReceiptsReportFieldTypeOrderedAmount = "double";
+	public static readonly string ReceiptsReportFieldNameReceivedDate = "ReceivedDate";
+	public static readonly string ReceiptsReportFieldTypeReceivedDate = "date";
+	public static readonly string ReceiptsReportFieldNameReceivedAmount = "Received";
+	public static readonly string ReceiptsReportFieldTypeReceivedAmount = "double";
+	public static readonly string ReceiptsReportFieldNameIsOrderLine = "IsOrderLine";
+	public static readonly string ReceiptsReportFieldTypeIsOrderLine = "int";
 	#endregion
 
 	#region Unit Table

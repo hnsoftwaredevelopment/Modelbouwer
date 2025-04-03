@@ -784,6 +784,30 @@
 	<system:String x:Key="Edit.OrderReport.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
 	<system:String x:Key="Edit.OrderReport.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
 	<!--#endregion-->
+
+	<!--#region Receipt report-->
+	<system:String x:Key="Edit.ReceiptReport.Title">Leveringen</system:String>
+	<system:String x:Key="Edit.ReceiptReport.Subtitle">Overzicht van alle (deels) geleverde bestellingen</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.RowClosed">Volledig</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.OrderDate">BestelId</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.OrderNumber">Bestelnummer</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.Supplier">Leverancier</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.ProductCode">Zoeknaam</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.ProductName">Artikelomschrijving</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.Ordered">Besteld</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.ReceivedDate">Geleverd</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.Received">Aantal</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.IsOrderLine">IsOrderRegel</system:String>
+
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.FilterSearch.Search.Tag">Zoek in de lijst naar...</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.FilterSearch.Search.Tooltip">Zoek en markeer de hier ingevoerde tekst in onderstaande lijst en markeer</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.FilterSearch.Search.Clear.Tooltip">Verwijder het zoek criterium</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.FilterSearch.Filter.Tag">Filter de lijst op...</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.FilterSearch.Filter.Tooltip">Filter onderstaande lijstZoek met de hier ingevoerde tekst toon en markeer alleen regels met dit criterium</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.FilterSearch.Filter.Clear.Tooltip">Verwijder het filter criterium en toon de volledige lijst</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Search.Tooltip">Schakel om naar Filteren</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Filter.Tooltip">Schakel om naar Zoeken</system:String>
+	<!--#endregion-->
 	<!--#endregion-->
 
 	<!--#region Product Supplier-->
