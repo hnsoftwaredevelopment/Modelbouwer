@@ -795,8 +795,8 @@
 	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.ProductCode">Zoeknaam</system:String>
 	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.ProductName">Artikelomschrijving</system:String>
 	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.Ordered">Besteld</system:String>
-	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.ReceivedDate">Geleverd</system:String>
-	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.Received">Aantal</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.ReceivedDate">Datum</system:String>
+	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.Received">Geleverd</system:String>
 	<system:String x:Key="Edit.ReceiptReport.DataGrid.Header.IsOrderLine">IsOrderRegel</system:String>
 
 	<system:String x:Key="Edit.ReceiptReport.DataGrid.FilterSearch.Search.Tag">Zoek in de lijst naar...</system:String>

@@ -65,7 +65,10 @@ public partial class StorageReceipt : Page
 
 	private void OrderSelected( object sender, SelectionChangedEventArgs e )
 	{
+		if ( OrderClosed.Content != null )
+		{ ReceiptDate.DisplayDateStart = DateTime.Parse( OrderClosed.Content.ToString() ); }
 		CheckReceiptLinesComplete();
+
 	}
 
 	private void OrderStatus( object sender, RoutedEventArgs e )

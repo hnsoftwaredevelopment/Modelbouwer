@@ -79,5 +79,4 @@ public partial class StorageReportReceipt : Page
 		FilterSearchText.Clear();
 	}
 	#endregion
-
 }

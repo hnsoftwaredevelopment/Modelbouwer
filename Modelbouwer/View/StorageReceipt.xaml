@@ -131,7 +131,8 @@
 						ItemsSource="{Binding SupplyReceiptViewModel.FilteredOrders}"
 						SelectedItem="{Binding SupplyReceiptViewModel.SelectedOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"
 						SelectedValuePath="SupplyOrderId"
-						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}" SelectionChanged="OrderSelected"
+						SelectionChanged="OrderSelected"
+						ToolTip="{StaticResource Edit.Receipt.Supplier.Tooltip}"
 						Visibility="{Binding SupplyReceiptViewModel.FilteredOrdersCount, Converter={StaticResource CountToVisibilityConverter}}"
 						>
 						<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
@@ -193,12 +194,13 @@
 					/>
 
 				<TextBox
+					x:Name="OrderDate"
 					Grid.Row="2"
 					Grid.Column="1"
 					Width="140"
 					HorizontalAlignment="Left"
 					IsReadOnly="True"
-					Text="{Binding SupplyReceiptViewModel.SupplyOrderDate, Converter={StaticResource DateOnlyConverter}, StringFormat={}{0:dd MMMM yyyy}, Mode=OneWay, ConverterCulture=nl-NL, UpdateSourceTrigger=PropertyChanged}"
+					Text="{Binding SupplyReceiptViewModel.SupplyOrderDate, Converter={StaticResource DateOnlyConverter}, StringFormat={}{0:dd MMMM yyyy}, Mode=TwoWay, ConverterCulture=nl-NL, UpdateSourceTrigger=PropertyChanged}"
 					/>
 				<!--#endregion-->
 
@@ -211,13 +213,16 @@
 					/>
 
 				<DatePicker
+					x:Name="ReceiptDate"
 					Grid.Row="3"
 					Grid.Column="1"
 					Width="140"
+					Margin="0,0,0,2"
 					HorizontalAlignment="Left"
+					VerticalAlignment="Bottom"
 					DisplayDate="{x:Static sys:DateTime.Now}"
 					DisplayDateEnd="{x:Static sys:DateTime.Now}"
-					DisplayDateStart="{Binding SupplyOrderViewModel.SupplyOrderDate, Converter={StaticResource DateOnlyConverter}, TargetNullValue={x:Static sys:DateTime.Now}}"
+					DisplayDateStart="{Binding SupplyReceiptViewModel.SupplyOrderDate, Converter={StaticResource DateOnlyConverter}, Mode=TwoWay, TargetNullValue={x:Static sys:DateTime.Now}}"
 					IsEnabled="True"
 					SelectedDate="{Binding SupplyReceiptViewModel.ReceiptDate, Converter={StaticResource DateOnlyConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue={x:Static sys:DateTime.Now}}"
 					Style="{DynamicResource ValidatedDatePicker}"
@@ -257,7 +262,8 @@
 						<Button
 							Height="30"
 							Command="{Binding SupplyReceiptViewModel.SaveCommand}"
-							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}" Visibility="{Binding SupplyReceiptViewModel.IsOrderSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
+							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}"
+							Visibility="{Binding SupplyReceiptViewModel.IsOrderSelected, Converter={StaticResource BooleanToVisibilityConverter}}"
 							>
 							<Image
 								Width="20"
@@ -266,35 +272,6 @@
 								Style="{DynamicResource ToolBarSaveIcon}"
 								/>
 						</Button>
-
-						<!--<Button
-							Height="30"
-							Command="{Binding SupplyReceiptViewModel.SaveCommand}"
-							IsEnabled="True"
-							ToolTip="{StaticResource Edit.Receipt.Toolbar.Save.Tooltip}"
-							>
-							<Button.Style>
-								<Style TargetType="Button">
-									<Setter Property="Visibility" Value="Collapsed" />
-									<Style.Triggers>
-										<DataTrigger Binding="{Binding SupplyReceiptViewModel.IsOrderSelected}" Value="True">
-											<Setter Property="IsEnabled" Value="True" />
-											<Setter Property="Visibility" Value="Visible" />
-										</DataTrigger>
-										<DataTrigger Binding="{Binding SupplyReceiptViewModel.IsOrderSelected}" Value="False">
-											<Setter Property="IsEnabled" Value="False" />
-											<Setter Property="Visibility" Value="Collapsed" />
-										</DataTrigger>
-									</Style.Triggers>
-								</Style>
-							</Button.Style>
-							<Image
-								Width="20"
-								Height="20"
-								Stretch="UniformToFill"
-								Style="{StaticResource ToolBarSaveIcon}"
-								/>
-						</Button>-->
 					</ToolBar>
 				</ToolBarTray>
 			</StackPanel>
@@ -378,7 +355,6 @@
 				</syncfusion:SfDataGrid.Columns>
 			</syncfusion:SfDataGrid>
 			<!--#endregion-->
-
 		</Grid>
 	</Border>
 </Page>

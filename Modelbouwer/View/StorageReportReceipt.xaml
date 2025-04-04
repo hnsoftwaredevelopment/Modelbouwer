@@ -19,7 +19,9 @@
 
 	<Page.Resources>
 		<converter:IntToBoolConverter x:Key="IntToBoolConverter" />
+		<converter:IntToVisibilityConverter x:Key="IntToVisibilityConverter"/>
 		<converter:EmptyCellConverter x:Key="EmptyCellConverter" />
+		<converter:ZeroValueVisibilityConverter x:Key="ZeroValueVisibilityConverter" />
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
@@ -204,15 +206,30 @@
 				</syncfusion:SfDataGrid.Resources>
 
 				<syncfusion:SfDataGrid.Columns>
-					<syncfusion:GridCheckBoxSelectorColumn Width="70" HeaderText="{StaticResource Edit.ReceiptReport.DataGrid.Header.RowClosed}" MappingName="RowClosedCheck" AllowCheckBoxOnHeader="False" AllowBlankFilters="True" AllowFocus="False" AllowSorting="False"/>
+					<syncfusion:GridCheckBoxSelectorColumn
+						Width="70"
+						AllowBlankFilters="True"
+						AllowCheckBoxOnHeader="False"
+						AllowFocus="False"
+						AllowSorting="False"
+						HeaderText="{StaticResource Edit.ReceiptReport.DataGrid.Header.RowClosed}"
+						MappingName="RowClosedCheck">
+						<syncfusion:GridCheckBoxSelectorColumn.CellTemplate>
+						<DataTemplate>
+							<CheckBox IsChecked="{Binding RowClosedCheck}"
+                      Visibility="{Binding IsOrderLine, Converter={StaticResource IntToVisibilityConverter}}"/>
+						</DataTemplate>
+						</syncfusion:GridCheckBoxSelectorColumn.CellTemplate>
+					</syncfusion:GridCheckBoxSelectorColumn>
+
 					<syncfusion:GridTextColumn
 						Width="90"
 						AllowGrouping="True"
 						AllowSorting="True"
 						HeaderText="{StaticResource Edit.ReceiptReport.DataGrid.Header.OrderDate}"
 						HorizontalHeaderContentAlignment="Left"
-						TextAlignment="Center"
 						MappingName="OrderDateString"
+						TextAlignment="Center"
 						>
 						<syncfusion:GridTextColumn.DisplayBinding>
 							<MultiBinding Converter="{StaticResource EmptyCellConverter}">
@@ -302,15 +319,6 @@
 							</MultiBinding>
 						</syncfusion:GridNumericColumn.DisplayBinding>
 					</syncfusion:GridNumericColumn>
-					<syncfusion:GridTextColumn
-						Width="90"
-						AllowGrouping="True"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.ReceiptReport.DataGrid.Header.ReceivedDate}"
-						HorizontalHeaderContentAlignment="Center" TextAlignment="Center"
-						MappingName="ReceivedDateString"
-						/>
-
 
 					<syncfusion:GridNumericColumn
 						Width="90"
@@ -321,6 +329,26 @@
 						HorizontalHeaderContentAlignment="Right"
 						MappingName="Received"
 						MinValue="0"
+						>
+						<syncfusion:GridNumericColumn.CellTemplate>
+							<DataTemplate>
+								<TextBlock
+									Text="{Binding Received}"
+									TextAlignment="Right"
+									Visibility="{Binding Received, Converter={StaticResource ZeroValueVisibilityConverter}}"
+									/>
+							</DataTemplate>
+						</syncfusion:GridNumericColumn.CellTemplate>
+					</syncfusion:GridNumericColumn>
+
+					<syncfusion:GridTextColumn
+						Width="90"
+						AllowGrouping="True"
+						AllowSorting="True"
+						HeaderText="{StaticResource Edit.ReceiptReport.DataGrid.Header.ReceivedDate}"
+						HorizontalHeaderContentAlignment="Center"
+						MappingName="ReceivedDateString"
+						TextAlignment="Center"
 						/>
 				</syncfusion:SfDataGrid.Columns>
 			</syncfusion:SfDataGrid>

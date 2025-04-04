@@ -231,20 +231,6 @@
 						</syncfusion:SplitButton.ToolTip>
 						<!--#region Split button items-->
 						<syncfusion:DropDownMenuGroup>
-							<!--#region Storage mutations-->
-							<syncfusion:DropDownMenuItem
-								HorizontalAlignment="Left"
-								Command="{Binding OpenManagementCommand}"
-								CommandParameter="StorageReportManagement"
-								Header="{StaticResource mainRibbon.Manage.Storage.Mutations.Header}"
-								ToolTip="{StaticResource mainRibbon.Manage.Storage.Mutations.Tooltip}"
-								>
-								<syncfusion:DropDownMenuItem.Icon>
-									<Image Source="{StaticResource Storage}" />
-								</syncfusion:DropDownMenuItem.Icon>
-							</syncfusion:DropDownMenuItem>
-							<!--#endregion-->
-
 							<!--#region Storage orders-->
 							<syncfusion:DropDownMenuItem
 								HorizontalAlignment="Left"
