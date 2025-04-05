@@ -595,7 +595,6 @@ public class DBCommands
 	#endregion
 	#endregion
 
-
 	#region StorageLocationList
 	public ObservableCollection<StorageModel> GetStorageList( ObservableCollection<StorageModel>? storageList = null )
 	{
