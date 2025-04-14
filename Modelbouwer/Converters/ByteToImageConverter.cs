@@ -1,38 +1,36 @@
 ﻿namespace Modelbouwer.Converters;
 public class ByteToImageConverter : IValueConverter
 {
-	public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
+	public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
 	{
-		if ( value is byte [ ] imageBytes && imageBytes.Length > 0 )
+		try
 		{
-			using ( MemoryStream ms = new( imageBytes ) )
-			{
-				BitmapImage image = new();
-				image.BeginInit();
-				image.CacheOption = BitmapCacheOption.OnLoad;
-				image.StreamSource = ms;
-				image.EndInit();
-				return image;
-			}
-		}
+			if ( value == null || !( value is byte [ ] imageData ) || imageData.Length == 0 )
+				return null;
 
-		return System.Windows.Application.Current.TryFindResource( "noimage" ) as DrawingImage;
-		//return null;  // Return null if no image exists
+			var image = new BitmapImage();
+			using ( var stream = new MemoryStream( imageData ) )
+			{
+				image.BeginInit();
+				image.CacheOption = BitmapCacheOption.OnLoad; // Belangrijk! Sluit de stream na het laden
+				image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+				image.StreamSource = stream;
+				image.EndInit();
+				image.Freeze(); // Zorgt voor thread-safety
+			}
+			return image;
+		}
+		catch ( Exception ex )
+		{
+			Debug.WriteLine( $"Fout bij afbeeldingsconversie: {ex.Message}" );
+			// Retourneer een standaard of placeholder afbeelding
+			return null; // Of een fallback afbeelding
+		}
 	}
 
-	public object ConvertBack( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
+	public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
 	{
-		if ( value is BitmapSource bitmapSource )
-		{
-			using ( MemoryStream stream = new() )
-			{
-				BitmapEncoder encoder = new PngBitmapEncoder();
-				encoder.Frames.Add( BitmapFrame.Create( bitmapSource ) );
-				encoder.Save( stream );
-				return stream.ToArray();
-			}
-		}
-
-		return null;
+		// Implementatie voor tweeweg binding als dat nodig is
+		throw new NotImplementedException();
 	}
 }
