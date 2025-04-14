@@ -2,15 +2,440 @@
 	x:Class="Modelbouwer.View.TimeManagement"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
+	xmlns:converter="clr-namespace:Modelbouwer.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helper="clr-namespace:Modelbouwer.Helper"
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+	xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
 	Title="TimeManagement"
-	d:DesignHeight="600"
-	d:DesignWidth="1000"
-	mc:Ignorable="d">
+	mc:Ignorable="d"
+	>
 
-	<Grid>
-		<TextBlock Text="Welcome to TimeManagement" />
-	</Grid>
+	<Page.DataContext>
+		<viewmodels:CombinedTimeViewModel />
+	</Page.DataContext>
+
+	<Page.Resources>
+		<converter:MinutesToFormattedTimeConverter x:Key="MinutesToFormattedTimeConverter" />
+		<converter:MinutesToExtendedTimeConverter x:Key="MinutesToExtendedTimeConverter" />
+		<converter:ByteToImageConverter x:Key="ByteToImageConverter" />
+		<converter:DateOnlyToDateTimeConverter x:Key="DateOnlyConverter" />
+		<converter:TimeInputConverter x:Key="TimeInputConverter" />
+	</Page.Resources>
+
+	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
+		<Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+			<!--#region Grid definitions-->
+			<Grid.RowDefinitions>
+				<RowDefinition Height="50" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="38" />
+				<RowDefinition Height="0" />
+			</Grid.RowDefinitions>
+			<!--#endregion-->
+
+			<!--#region Page title-->
+			<StackPanel Grid.Row="0" Orientation="Vertical">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
+
+					<TextBlock
+						Grid.Column="0"
+						Style="{DynamicResource Title}"
+						Text="{StaticResource Time.Title}"
+						/>
+				</Grid>
+				<Path Style="{DynamicResource TitleLine}" />
+				<TextBlock
+					Grid.Column="0"
+					Style="{DynamicResource SubTitle}"
+					Text="{StaticResource Time.Subtitle}"
+					/>
+				<CheckBox
+					x:Name="valueShow"
+					IsChecked="True"
+					Style="{DynamicResource HiddenCheckBox}"
+					/>
+			</StackPanel>
+			<!--#endregion-->
+
+			<!--#region Tab pages-->
+			<TabControl
+				Grid.Row="1"
+				Height="650"
+				Margin="0,10"
+				VerticalAlignment="Top"
+				Style="{DynamicResource Default TabControl}"
+				>
+
+				<!--#region TAB: Time management-->
+				<TabItem Header="{StaticResource Time.Tab.TimeManagement.Label}" Style="{DynamicResource Default TabItem}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="145" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<Grid Grid.Row="0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="620" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<!--#region General project information-->
+							<GroupBox
+								Margin="10,2"
+								HorizontalAlignment="Left"
+								Opacity="1"
+								>
+								<GroupBox.Header>
+									<StackPanel Background="Transparent" Orientation="Horizontal">
+										<Image Source="{StaticResource project}" Style="{DynamicResource ImageHeaderGroup}" />
+										<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Time.Tab.TimeManagement.Group.Project.Text}" />
+									</StackPanel>
+								</GroupBox.Header>
+
+
+								<Grid Margin="5">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="240" />
+										<ColumnDefinition Width="180" />
+										<ColumnDefinition Width="150" />
+									</Grid.ColumnDefinitions>
+
+									<Grid.RowDefinitions>
+										<RowDefinition Height="20" />
+										<RowDefinition Height="30" />
+										<RowDefinition Height="50" />
+									</Grid.RowDefinitions>
+
+									<!--#region Select project-->
+									<TextBlock
+										Grid.Row="0"
+										Grid.Column="0"
+										Style="{DynamicResource DefaultTextBlock}"
+										Text="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Label}"
+										/>
+									<!--#endregion-->
+
+									<!--#region Image of the selected project-->
+									<Border
+										Grid.Row="0"
+										Grid.RowSpan="4"
+										Grid.Column="2"
+										Width="100"
+										Height="100"
+										HorizontalAlignment="Right"
+										BorderThickness="2"
+										Style="{DynamicResource ImageBorder}"
+										>
+										<Border.BorderBrush>
+											<LinearGradientBrush MappingMode="Absolute" SpreadMethod="Reflect" StartPoint="0.5,0" EndPoint="0.5,1">
+												<GradientStop Offset="1" Color="#FFB4BCED" />
+												<GradientStop Offset="0" Color="#FF293475" />
+												<GradientStop Offset="1" Color="#FF9BA3D7" />
+											</LinearGradientBrush>
+										</Border.BorderBrush>
+										<Image
+											x:Name="ProjectImage"
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											Source="{Binding ProjectViewModel.SelectedProject.ProjectImage, Converter={StaticResource ByteToImageConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+											Stretch="Uniform"
+											Style="{DynamicResource ProductImageSmall}"
+											/>
+									</Border>
+
+									<syncfusion:ComboBoxAdv
+										x:Name="ProjectComboBox"
+										Grid.Row="1"
+										Grid.Column="0"
+										Height="30"
+										VerticalAlignment="Center"
+										AutoCompleteMode="Suggest"
+										DefaultText="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Tag}"
+										DisplayMemberPath="ProjectName"
+										ItemsSource="{Binding ProjectViewModel.Project}"
+										SelectedItem="{Binding ProjectViewModel.SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+										SelectedValuePath="ProjectId"
+										ToolTip="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Tooltip}"
+										>
+										<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+											<StyleSelector />
+										</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+									</syncfusion:ComboBoxAdv>
+
+									<!--#endregion-->
+								</Grid>
+							</GroupBox>
+							<!--#endregion-->
+
+							<!--#region Time registration-->
+							<GroupBox
+								Grid.Column="1"
+								Margin="5,2"
+								HorizontalAlignment="Left"
+								Opacity="1"
+								>
+								<GroupBox.Header>
+									<StackPanel Background="Transparent" Orientation="Horizontal">
+										<Image Source="{StaticResource Time}" Style="{DynamicResource ImageHeaderGroup}" />
+										<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Time.Tab.TimeManagement.Group.Time.Text}" />
+									</StackPanel>
+								</GroupBox.Header>
+								<Grid>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="20" />
+										<RowDefinition Height="30" />
+										<RowDefinition Height="20" />
+										<RowDefinition Height="30" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="150" />
+										<ColumnDefinition Width="150" />
+										<ColumnDefinition Width="150" />
+									</Grid.ColumnDefinitions>
+									<!--#endregion-->
+								</Grid>
+							</GroupBox>
+							<!--#endregion-->
+
+						</Grid>
+
+						<ScrollViewer
+							Grid.Row="1"
+							Grid.Column="0"
+							VerticalScrollBarVisibility="Auto"
+							>
+							<syncfusion:SfDataGrid
+								x:Name="dataGrid"
+								Margin="10,5"
+								AllowEditing="True"
+								AllowResizingColumns="True"
+								AllowTriStateSorting="True"
+								AutoGenerateColumns="False"
+								ColumnSizer="Star"
+								ItemsSource="{Binding TimeViewModel.FilteredTimeEntries, UpdateSourceTrigger=PropertyChanged}"
+								SelectedIndex="0"
+								SelectedItem="{Binding TimeViewModel.SelectedTimeEntry, Mode=TwoWay}"
+								SelectionChanged="DataGrid_SelectionChanged"
+								ShowGroupDropArea="False"
+								SortClickAction="SingleClick"
+								>
+
+								<syncfusion:SfDataGrid.TableSummaryRows>
+									<syncfusion:GridTableSummaryRow Position="Top" ShowSummaryInRow="False">
+										<syncfusion:GridSummaryRow.SummaryColumns>
+											<syncfusion:GridSummaryColumn
+												Name="Totaal gewerkt"
+												Format="'{0:hh\\:mm}'"
+												MappingName="WorkedTime"
+												SummaryType="DoubleAggregate"
+												/>
+										</syncfusion:GridSummaryRow.SummaryColumns>
+									</syncfusion:GridTableSummaryRow>
+
+									<syncfusion:GridSummaryRow
+										Title="Total worked hours : {TotalWorkedTime} for {TotalDays} days"
+										ShowSummaryInRow="False"
+										TitleColumnCount="6"
+										>
+										<syncfusion:GridSummaryRow.SummaryColumns>
+											<syncfusion:GridSummaryColumn
+												Name="TotalWorkedTime"
+												Format="'{0:hh\\:mm}'"
+												MappingName="WorkedTime"
+												SummaryType="DoubleAggregate"
+												/>
+											<syncfusion:GridSummaryColumn
+												Name="TotalDays"
+												Format="'{Count:d}'"
+												MappingName="TimeWorkDate"
+												SummaryType="CountAggregate"
+												/>
+										</syncfusion:GridSummaryRow.SummaryColumns>
+									</syncfusion:GridSummaryRow>
+
+								</syncfusion:SfDataGrid.TableSummaryRows>
+
+								<syncfusion:SfDataGrid.Columns>
+									<!--#region DatePicker kolom-->
+									<syncfusion:GridTemplateColumn
+										Width="100"
+										HeaderText="Datum"
+										MappingName="TimeWorkDate"
+										>
+										<syncfusion:GridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<DatePicker
+													DisplayDate="{Binding DateTimeDate}"
+													DisplayDateEnd="{x:Static sys:DateTime.Now}"
+													DisplayDateStart="{Binding DataContext.ProjectViewModel.SelectedProject.ProjectStartDate, RelativeSource={RelativeSource AncestorType=syncfusion:SfDataGrid}, Converter={StaticResource DateOnlyConverter}, Mode=TwoWay, TargetNullValue={x:Static sys:DateTime.Now}}"
+													IsEnabled="True"
+													SelectedDate="{Binding DateTimeDate}"
+													Style="{DynamicResource ValidatedDatePicker}"
+													Tag="{StaticResource Time.Tab.TimeManagement.Group.Time.WorkingDate.Tag}"
+													ToolTip="{StaticResource Time.Tab.TimeManagement.Group.Time.WorkingDate.Tooltip}"
+													/>
+											</DataTemplate>
+										</syncfusion:GridTemplateColumn.CellTemplate>
+									</syncfusion:GridTemplateColumn>
+									<!--#endregion-->
+
+									<!--#region Start time-->
+									<syncfusion:GridTemplateColumn
+										Width="80"
+										HeaderText="Start tijd"
+										MappingName="DateTimeStart"
+										>
+										<syncfusion:GridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<syncfusion:SfTimePicker
+													HorizontalAlignment="Right"
+													HorizontalContentAlignment="Right"
+													AllowInlineEditing="True"
+													FormatString="HH:mm"
+													ShowDropDownButton="True"
+													Value="{Binding DateTimeStart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+													/>
+
+											</DataTemplate>
+										</syncfusion:GridTemplateColumn.CellTemplate>
+									</syncfusion:GridTemplateColumn>
+									<!--#endregion-->
+
+									<!--#region EndTime-->
+									<syncfusion:GridTemplateColumn
+										Width="80"
+										HeaderText="Eind tijd"
+										MappingName="DateTimeEnd"
+										>
+										<syncfusion:GridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<syncfusion:SfTimePicker
+													HorizontalAlignment="Right"
+													HorizontalContentAlignment="Right"
+													AllowInlineEditing="True"
+													FormatString="HH:mm"
+													ShowDropDownButton="True"
+													Value="{Binding DateTimeEnd, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+													/>
+											</DataTemplate>
+										</syncfusion:GridTemplateColumn.CellTemplate>
+									</syncfusion:GridTemplateColumn>
+									<!--#endregion-->
+
+									<!--#region Elapsed Time-->
+									<syncfusion:GridTemplateColumn
+										Width="80"
+										HeaderText="Gewerkt"
+										MappingName="WorkedTime"
+										>
+										<syncfusion:GridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock
+													Margin="5,0"
+													HorizontalAlignment="Right"
+													VerticalAlignment="Center"
+													Text="{Binding WorkedTime, StringFormat='{}{0:hh\\:mm}'}"
+													/>
+											</DataTemplate>
+										</syncfusion:GridTemplateColumn.CellTemplate>
+									</syncfusion:GridTemplateColumn>
+									<!--#endregion-->
+
+									<!--#region Select WorkType-->
+									<syncfusion:GridTemplateColumn
+										Width="205"
+										HeaderText="Werktype"
+										MappingName="TimeWorktypeName"
+										>
+										<syncfusion:GridTemplateColumn.CellTemplate>
+											<DataTemplate>
+												<Grid>
+													<Button
+														x:Name="worktypeButton"
+														Width="200"
+														Click="WorktypeChange"
+														Content="{Binding TimeWorktypeName}"
+														Style="{StaticResource ComboBoxButtonStyle}"
+														/>
+
+													<Popup
+														x:Name="WorktypePopup"
+														AllowsTransparency="True"
+														Closed="WorktypePopup_Closed"
+														IsOpen="{Binding IsPopupOpen}"
+														Opened="WorktypePopupOpened"
+														Placement="Bottom"
+														PlacementTarget="{Binding ElementName=worktypeButton}"
+														StaysOpen="False"
+														>
+														<Border
+															Background="White"
+															BorderBrush="Gray"
+															BorderThickness="1"
+															>
+															<syncfusion:SfTreeView
+																Width="600"
+																Margin="10,0,0,0"
+																BorderBrush="DarkBlue"
+																BorderThickness="2"
+																ChildPropertyName="SubWorktypes"
+																IsAnimationEnabled="false"
+																ItemsSource="{Binding DataContext.WorktypeViewModel.Worktype, RelativeSource={RelativeSource AncestorType=syncfusion:SfDataGrid}}"
+																LineStroke="DarkBlue"
+																LineStrokeThickness=".75"
+																Loaded="TreeView_Loaded"
+																SelectedItem="{Binding DataContext.WorktypeViewModel.SelectedWorktype, RelativeSource={RelativeSource AncestorType=syncfusion:SfDataGrid}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+																SelectionChanged="WorktypeTreeView_SelectedItemChanged"
+																ShowLines="True"
+																ShowRootLines="True"
+																>
+																<syncfusion:SfTreeView.ItemTemplate>
+																	<HierarchicalDataTemplate ItemsSource="{Binding SubWorktypes}">
+																		<TextBlock Text="{Binding WorktypeName}" />
+																	</HierarchicalDataTemplate>
+																</syncfusion:SfTreeView.ItemTemplate>
+															</syncfusion:SfTreeView>
+														</Border>
+													</Popup>
+												</Grid>
+											</DataTemplate>
+										</syncfusion:GridTemplateColumn.CellTemplate>
+									</syncfusion:GridTemplateColumn>
+									<!--#endregion-->
+								</syncfusion:SfDataGrid.Columns>
+							</syncfusion:SfDataGrid>
+						</ScrollViewer>
+					</Grid>
+				</TabItem>
+
+
+
+
+				<!--#endregion-->
+
+				<!--#region TAB: Material usage-->
+				<TabItem Header="{StaticResource Time.Tab.ProductManagement.Label}" Style="{DynamicResource Default TabItem}">
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="270" />
+						</Grid.ColumnDefinitions>
+					</Grid>
+				</TabItem>
+				<!--#endregion-->
+			</TabControl>
+			<!--#endregion-->
+
+		</Grid>
+	</Border>
 </Page>

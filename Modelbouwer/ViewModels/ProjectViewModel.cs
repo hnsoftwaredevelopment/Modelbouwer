@@ -174,6 +174,16 @@ public partial class ProjectViewModel : ObservableObject
 		IsAddingNew = true;
 	}
 
+	partial void OnSelectedProjectChanged( ProjectModel value )
+	{
+		if ( value != null )
+		{
+			SelectedProjectChanged?.Invoke( this, value.ProjectId );
+		}
+	}
+
+	public event EventHandler<int> SelectedProjectChanged;
+
 	public ProjectViewModel()
 	{
 		Project = [ .. DBCommands.GetProjectList() ];

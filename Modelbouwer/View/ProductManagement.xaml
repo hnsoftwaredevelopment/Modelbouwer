@@ -346,16 +346,19 @@
 									<syncfusion:ComboBoxAdv
 										x:Name="ProductBrand"
 										Grid.Row="1"
+										Grid.RowSpan="2"
 										Grid.Column="1"
 										Width="250"
+										Height="25"
 										HorizontalAlignment="Left"
+										VerticalAlignment="Top"
 										Cursor="Arrow"
 										DefaultText="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tag}"
 										DisplayMemberPath="BrandName"
 										ItemsSource="{Binding BrandViewModel.Brand}"
 										SelectedItem="{Binding BrandViewModel.SelectedBrand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 										TextSearch.TextPath="BrandName"
-										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tooltip}" Height="25" Grid.RowSpan="2" VerticalAlignment="Top"
+										ToolTip="{DynamicResource Edit.Product.Tab.General.Group.General.Brand.Tooltip}"
 										/>
 
 									<TextBlock

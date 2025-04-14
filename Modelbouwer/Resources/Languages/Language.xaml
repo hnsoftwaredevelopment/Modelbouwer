@@ -174,6 +174,20 @@
 	<system:String x:Key="Import.Messagebox.Error.Message">Fouten gevonden tijdens importeren</system:String>
 	<system:String x:Key="Import.Messagebox.Error.Existing.Long">Bestaat al in de tabel</system:String>
 	<system:String x:Key="Import.Messagebox.Error.Existing.Short">Bestaat al</system:String>
+	<system:String x:Key="TimeFormatJaar">jaar</system:String>
+	<system:String x:Key="TimeFormatJaren">jaren</system:String>
+	<system:String x:Key="TimeFormatMonth">maand</system:String>
+	<system:String x:Key="TimeFormatMonths">maanden</system:String>
+	<system:String x:Key="TimeFormatWeek">week</system:String>
+	<system:String x:Key="TimeFormatWeeks">weken</system:String>
+	<system:String x:Key="TimeFormatDay">dag</system:String>
+	<system:String x:Key="TimeFormatDays">dagen</system:String>
+	<system:String x:Key="TimeFormatHour">uur</system:String>
+	<system:String x:Key="TimeFormatHours">uren</system:String>
+	<system:String x:Key="TimeFormatMinute">minuut</system:String>
+	<system:String x:Key="TimeFormatMinutes">minuten</system:String>
+	<system:String x:Key="TimeFormatAnd">en</system:String>
+	<system:String x:Key="TimeFormatNoTime">Geen totaaltijd beschikbaar</system:String>
 	<!--#endregion-->
 
 	<!--#region Status Line messages-->
@@ -1401,15 +1415,37 @@
 	<!--#endregion-->
 
 	<!--#region Maintenance page-->
-	<system:String x:Key="Edit.Time.Title">Tijden beheren</system:String>
-	<system:String x:Key="Edit.Time.Subtitle">Wijzig een tijd, voeg toe of verwijder</system:String>
-	<system:String x:Key="Edit.Time.Name.Label">Tijdnaam:</system:String>
-	<system:String x:Key="Edit.Time.Name.Tag">Tijdnaam</system:String>
-	<system:String x:Key="Edit.Time.Action.Tooltip.Add">Tijd toevoegen aan de tabel</system:String>
-	<system:String x:Key="Edit.Time.Action.Tooltip.Delete">Geselecteerde tijd verwijderen uit de tabel</system:String>
-	<system:String x:Key="Edit.Time.Action.Tooltip.Save">Gewijzigde tijd opslaan</system:String>
-	<system:String x:Key="Edit.Time.DataGrid.Header.Id">Id</system:String>
-	<system:String x:Key="Edit.Time.DataGrid.Header.Name">Tijdnaam</system:String>
+	<system:String x:Key="Time.Title">Bouwlogboek</system:String>
+	<system:String x:Key="Time.Subtitle">Beheer de gewerkte bouwtijd en gebruikte materialen</system:String>
+	<system:String x:Key="Time.Name.Label">Tijdnaam:</system:String>
+	<system:String x:Key="Time.Name.Tag">Tijdnaam</system:String>
+	<system:String x:Key="Time.Action.Tooltip.Add">Tijd toevoegen aan de tabel</system:String>
+	<system:String x:Key="Time.Action.Tooltip.Delete">Geselecteerde tijd verwijderen uit de tabel</system:String>
+	<system:String x:Key="Time.Action.Tooltip.Save">Gewijzigde tijd opslaan</system:String>
+	<system:String x:Key="Time.DataGrid.Header.Id">Id</system:String>
+	<system:String x:Key="Time.DataGrid.Header.Name">Tijdnaam</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Label">Werktijden</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.Text">Project</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.Project.Label">Project:</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.Project.Text">Project</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.Project.Tooltip">Selecteer het project waaraan gewerkt is</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.Project.Tag">Selecteer project</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.TotalTime.Label">Totale tijd:</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.TotalTime.Text">Totale tijd</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.TotalTime.Tooltip">De totale tijd, tot nu toe, wat aan het project besteed is</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Project.TotalTime.Tag">werktijd</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.Text">Tijdregistratie</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.WorkingDate.Text">Datum</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.WorkingDate.Tag">Datum</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.WorkingDate.Tooltip">Datum van de werkzaamheden</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.WorkingType.Text">Werksoort</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.StartTime.Text">Start tijd</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.EndTime.Text">Eind tijd</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.ElapsedTime.Text">Gewerkte tijd</system:String>
+
+
+
+	<system:String x:Key="Time.Tab.ProductManagement.Label">Materiaalverbruik</system:String>
 	<!--#endregion-->
 	<!--#endregion-->
 

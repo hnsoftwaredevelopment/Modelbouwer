@@ -595,7 +595,6 @@ public class DBCommands
 	#endregion
 	#endregion
 
-
 	#region StorageLocationList
 	public ObservableCollection<StorageModel> GetStorageList( ObservableCollection<StorageModel>? storageList = null )
 	{
@@ -957,11 +956,18 @@ public class DBCommands
 	#endregion
 
 	#region Time
-	public static ObservableCollection<TimeModel> GetTimeList( ObservableCollection<TimeModel>? timeList = null )
+	public static ObservableCollection<TimeModel> GetTimeList( int projectId = 0, ObservableCollection<TimeModel>? timeList = null )
 	{
 		timeList ??= [ ];
-		DataTable? _dt = GetData(DBNames.TimeView, DBNames.TimeViewFieldNameSortIndex);
-		string _workdayName = "";
+		string _workdayName;
+		DataTable? _dt;
+
+		if ( projectId == 0 )
+		{ _dt = GetData( DBNames.TimeView, DBNames.TimeViewFieldNameSortIndex ); }
+		else
+		{
+			_dt = GetData( DBNames.TimeView, DBNames.TimeViewFieldNameSortIndex, DBNames.TimeViewFieldNameProjectId, projectId.ToString() );
+		}
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
@@ -999,6 +1005,15 @@ public class DBCommands
 			TimeSpan _workedHours = TimeSpan.FromMinutes(DatabaseValueConverter.GetDouble( _dt.Rows [ i ] [ 8 ] ));
 			#endregion
 
+			#region convert date and time strings to real datetime
+			DateTime _workDate = DateTime.ParseExact(DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ), "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+			DateTime _startTime = DateTime.ParseExact(DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ), "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+			DateTime _endTime = DateTime.ParseExact(DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ), "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+			DateTime _startDate = _workDate.AddHours(_startTime.Hour).AddMinutes(_startTime.Minute);
+			DateTime _endDate = _workDate.AddHours(_endTime.Hour).AddMinutes(_endTime.Minute);
+			#endregion
+
+
 			timeList.Add( new TimeModel
 			{
 				TimeId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 0 ] ),
@@ -1019,12 +1034,17 @@ public class DBCommands
 				TimeWorkdayName = _workdayName,
 				TimeYearMonth = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 14 ] ),
 				TimeYearWorkday = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 15 ] ),
-				TimeSortIndex = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] )
+				TimeSortIndex = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 16 ] ),
+				DateTimeDate = _workDate,
+				DateTimeStart = _startDate,
+				DateTimeEnd = _endDate
 			} );
+			//				WorkedTime = _workedHours
 		}
 		return timeList;
 	}
 	#endregion
+
 
 	#region ProjectList
 	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )
@@ -1156,6 +1176,7 @@ public class DBCommands
 		}
 		return GetWorktypeHierarchy( worktypeList );
 	}
+
 	private ObservableCollection<WorktypeModel> GetWorktypeHierarchy( ObservableCollection<WorktypeModel>? worktypeList )
 	{
 		ILookup<int?, WorktypeModel> lookup = worktypeList.ToLookup(c => c.WorktypeParentId )    ;
@@ -1165,6 +1186,127 @@ public class DBCommands
 		}
 		return lookup [ null ].ToObservableCollection();
 	}
+
+	public ObservableCollection<WorktypeModel> GetWorktypeListTotals( int projectId )
+	{
+		ObservableCollection<WorktypeModel> worktypeList = new();
+
+		// Haal Worktypes op
+		DataTable worktypeDt = GetData(DBNames.WorktypeTable, DBNames.WorktypeFieldNameName);
+
+		// Haal totale tijden op per Worktype
+		string query = @$"
+			{DBNames.SqlSelect}
+			{DBNames.WorktypeGroupTotalsNameProjectId}
+			{DBNames.WorktypeGroupTotalsNameProjectName}
+			{DBNames.WorktypeGroupTotalsNameWorktypeParentId}
+			{DBNames.WorktypeGroupTotalsNameWorktypeId}
+			{DBNames.WorktypeGroupTotalsNameWorktypeName}
+			{DBNames.WorktypeGroupTotalsNameMinutes}
+			{DBNames.WorktypeGroupTotalsNameHours}
+			{DBNames.SqlFrom}{DBNames.Database}{DBNames.WorktypeGroupTotalsView}
+			{DBNames.SqlWhere}{DBNames.WorktypeGroupTotalsTypeProjectId} = @{DBNames.WorktypeGroupTotalsTypeProjectId};";
+
+		MySqlParameter projectIdParam = new($"@{DBNames.WorktypeGroupTotalsTypeProjectId}", projectId);
+		DataTable timeDt = GetData(query, projectIdParam.ToString());
+
+		// Maak WorktypeModel objecten aan en voeg totalen toe
+		foreach ( DataRow row in worktypeDt.Rows )
+		{
+			int worktypeId = DatabaseValueConverter.GetInt(row["Id"]);
+			int? parentId = row["ParentId"] != DBNull.Value ? DatabaseValueConverter.GetInt(row["ParentId"]) : null;
+			string worktypeName = DatabaseValueConverter.GetString(row["Name"]);
+
+			DataRow timeRow = timeDt.AsEnumerable().FirstOrDefault(r => DatabaseValueConverter.GetInt(r["worktype_Id"]) == worktypeId);
+
+			WorktypeModel worktype = new()
+			{
+				WorktypeId = worktypeId,
+				WorktypeParentId = parentId,
+				WorktypeName = worktypeName,
+				ElapsedMinutes = timeRow != null ? DatabaseValueConverter.GetInt(timeRow["TotalMinutes"]) : 0,
+				ElapsedTime = timeRow != null ? DatabaseValueConverter.GetString(timeRow["TotalTime"]) : "00:00"
+			};
+			worktypeList.Add( worktype );
+		}
+
+		// Bouw de hiërarchie
+		return GetWorktypeHierarchy( worktypeList );
+	}
+
+	public List<WorktypeModel> GetFlatWorktypeList( List<WorktypeModel>? worktypeList = null )
+	{
+		worktypeList ??= new List<WorktypeModel>();
+		DataTable? _dt = GetData(DBNames.WorktypeTable, DBNames.WorktypeFieldNameName);
+
+		for ( int i = 0; i < _dt.Rows.Count; i++ )
+		{
+			int worktypeId = DatabaseValueConverter.GetInt(_dt.Rows[i][0]);
+			int? _parent = _dt.Rows[i][1] != DBNull.Value ? DatabaseValueConverter.GetInt(_dt.Rows[i][1]) :  null ;
+			string worktypeName = DatabaseValueConverter.GetString(_dt.Rows[i][2]);
+
+			worktypeList.Add( new WorktypeModel
+			{
+				WorktypeId = worktypeId,
+				WorktypeParentId = _parent,
+				WorktypeName = worktypeName
+			} );
+		}
+
+		foreach ( WorktypeModel worktype in worktypeList )
+		{
+			worktype.WorktypeName = BuildFullWorktypePath( worktype, worktypeList );
+		}
+		return worktypeList;
+	}
+
+	private string BuildFullWorktypePath( WorktypeModel worktype, List<WorktypeModel> worktypeList )
+	{
+		if ( worktypePathCache.TryGetValue( worktype.WorktypeId, out string? cachedPath ) )
+		{
+			return cachedPath;
+		}
+
+		string? fullPath =  worktype.WorktypeName;
+
+		WorktypeModel? parent = worktypeList.FirstOrDefault( c => c.WorktypeId == worktype.WorktypeParentId );
+
+		if ( parent != null )
+		{
+			string parentPath = BuildFullWorktypePath(parent, worktypeList);
+			fullPath = $"{parentPath} / {worktype.WorktypeName}";
+		}
+
+		List<string> pathParts = [];
+		WorktypeModel? current = worktype;
+
+		worktypePathCache [ worktype.WorktypeId ] = fullPath ?? string.Empty;
+		return fullPath;
+	}
+
+	private ObservableCollection<WorktypeModel> GetWorktypeHierarchyTotals( ObservableCollection<WorktypeModel> list )
+	{
+		ObservableCollection<WorktypeModel> rootNodes = new();
+
+		// Voeg root nodes toe (nodes zonder parent)
+		foreach ( WorktypeModel item in list.Where( item => item.WorktypeParentId == null ) )
+		{
+			rootNodes.Add( item );
+		}
+
+		// Voeg child nodes recursief toe
+		foreach ( WorktypeModel item in list.Where( item => item.WorktypeParentId != null ) )
+		{
+			WorktypeModel parent = list.FirstOrDefault(p => p.WorktypeId == item.WorktypeParentId);
+			if ( parent != null )
+			{
+				parent.Children.Add( item );
+			}
+		}
+		return rootNodes;
+	}
+
+	private Dictionary<int, string> worktypePathCache = new();
 	#endregion
 	#endregion
 
@@ -1210,6 +1352,27 @@ public class DBCommands
 		}
 		else
 		{ return double.Parse( sqlResult ); }
+	}
+	#endregion
+
+	#region Get totaltime spend on a project
+	public static decimal GetProjecTimeSpent( int projectId )
+	{
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
+		connection.Open();
+
+		using MySqlCommand command = new( DBNames.SPGeProjectTimeSpent, connection );
+		command.CommandType = CommandType.StoredProcedure;
+		command.Parameters.AddWithValue( DBNames.SPProjectTimeSpentParameter, projectId );
+
+		string? sqlResult = command.ExecuteScalar().ToString();
+
+		if ( sqlResult == "" )
+		{
+			return 0;
+		}
+		else
+		{ return decimal.Parse( sqlResult ); }
 	}
 	#endregion
 

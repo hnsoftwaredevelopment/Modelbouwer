@@ -1303,6 +1303,13 @@
 		<Setter Property="VerticalAlignment" Value="Top" />
 		<Setter Property="Width" Value="230" />
 	</Style>
+
+	<Style x:Key="ProductImageSmall" TargetType="Image">
+		<Setter Property="Height" Value="96" />
+		<Setter Property="HorizontalAlignment" Value="Left" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		<Setter Property="Width" Value="96" />
+	</Style>
 	<!--#endregion-->
 
 	<!--#region Default toolbar definitions-->

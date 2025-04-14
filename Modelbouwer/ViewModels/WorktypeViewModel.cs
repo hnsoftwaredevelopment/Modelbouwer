@@ -10,13 +10,18 @@ public partial class WorktypeViewModel : ObservableObject
 	[ObservableProperty]
 	public int worktypeParentId;
 
+	[ObservableProperty]
+	public bool isWorktypePopupOpen;
+
+
 	public ObservableCollection<WorktypeModel>? Worktype { get; set; }
 
-	[ObservableProperty]
 	private WorktypeModel? _selectedWorktype;
 
 	[ObservableProperty]
 	public WorktypeModel? selectedItem;
+
+	public List<WorktypeModel> FlatWorktype { get; set; }
 
 	private bool _isAddingNew;
 
@@ -47,21 +52,42 @@ public partial class WorktypeViewModel : ObservableObject
 		IsAddingNew = true;
 	}
 
+	#region for the popup view in the TimeManagement datagrid
+	private TimeModel _currentTimeEntry;
+	public TimeModel CurrentTimeEntry
+	{
+		get => _currentTimeEntry;
+		set => SetProperty( ref _currentTimeEntry, value );
+	}
+
+	public WorktypeModel SelectedWorktype
+	{
+		get => _selectedWorktype;
+		set
+		{
+			if ( SetProperty( ref _selectedWorktype, value ) && value != null && CurrentTimeEntry != null )
+			{
+				// Update de huidige timeEntry met het nieuwe werktype
+				CurrentTimeEntry.TimeWorktypeId = value.WorktypeId;
+				CurrentTimeEntry.TimeWorktypeName = value.WorktypeName;
+
+				// Sluit de popup
+				IsWorktypePopupOpen = false;
+			}
+		}
+	}
+	#endregion
+
 	public WorktypeViewModel()
 	{
-		DBCommands dbCommands = new();
-		Worktype = new ObservableCollection<WorktypeModel>( dbCommands.GetWorktypeList() );
-
-		if ( Worktype != null && Worktype.Any() )
-		{
-			SelectedWorktype = Worktype.First();
-		}
+		Refresh();
 	}
 
 	public void Refresh()
 	{
 		DBCommands dbCommands = new();
-		Worktype = new ObservableCollection<WorktypeModel>( dbCommands.GetWorktypeList() );
+		Worktype = [ .. dbCommands.GetWorktypeList() ];
+		FlatWorktype = dbCommands.GetFlatWorktypeList();
 
 		if ( Worktype != null && Worktype.Any() )
 		{

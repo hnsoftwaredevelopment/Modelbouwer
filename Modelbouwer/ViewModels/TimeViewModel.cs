@@ -1,4 +1,6 @@
-﻿namespace Modelbouwer.ViewModels;
+﻿using System.ComponentModel;
+
+namespace Modelbouwer.ViewModels;
 public partial class TimeViewModel : ObservableObject
 {
 	[ObservableProperty]
@@ -18,6 +20,9 @@ public partial class TimeViewModel : ObservableObject
 
 	[ObservableProperty]
 	public string? timeEndTime;
+
+	[ObservableProperty]
+	public DateTime dateTimeDate;
 
 	[ObservableProperty]
 	public string? timeComment;
@@ -61,11 +66,30 @@ public partial class TimeViewModel : ObservableObject
 	[ObservableProperty]
 	private TimeModel? _selectedTimeEntry;
 
-	private ProjectModel? _selectedProject;
+	//[ObservableProperty]
+	//private bool isLoading;
 
-	public ObservableCollection<TimeModel> ProjectTime { get; set; }
+	#region Selected Project
+	public event EventHandler<int>? SelectedProjectChanged;
 
-	public ObservableCollection<TimeModel> FilteredTimeEntries { get; private set; } = [ ];
+	private bool _isProjectSelected;
+	public bool IsProjectSelected
+	{
+		get => _isProjectSelected;
+		set
+		{
+			if ( _isProjectSelected != value )
+			{
+				_isProjectSelected = value;
+				OnPropertyChanged( nameof( IsProjectSelected ) );
+			}
+		}
+	}
+	#endregion
+
+	//public ObservableCollection<TimeModel> ProjectTime { get; set; }
+
+	//public ObservableCollection<TimeModel> FilteredTimeEntries { get; private set; } = [ ];
 
 	public bool HasFilteredTimeEntries => FilteredTimeEntries != null && FilteredTimeEntries.Any();
 
@@ -76,33 +100,93 @@ public partial class TimeViewModel : ObservableObject
 	}
 	#endregion
 
-	public void FilterTimeEntriesByProjectId( int projectId )
+	#region FilteredFrom Time Entries
+	private ObservableCollection<TimeModel> _filteredTimeEntries = [];
+	public ObservableCollection<TimeModel> FilteredTimeEntries
 	{
-		FilteredTimeEntries.Clear();
-		foreach ( TimeModel timeEntry in ProjectTime.Where( c => c.TimeProjectId == projectId ) )
+		get => _filteredTimeEntries;
+		set
 		{
-			FilteredTimeEntries.Add( timeEntry );
+			if ( _filteredTimeEntries != value )
+			{
+				_filteredTimeEntries = value;
+				OnPropertyChanged( nameof( FilteredTimeEntries ) );
+				NotifyHasFilteredTimeEntries();
+			}
 		}
+	}
+	#endregion
 
-		//Select first time entry in the list if there are time entries
-		if ( FilteredTimeEntries.Any() )
+	#region Selected Project
+	private int _selectedProjectId;
+	public int SelectedProject
+	{
+		get => _selectedProjectId;
+		set
 		{
-			SelectedTimeEntry = FilteredTimeEntries.First();
+			if ( _selectedProjectId != value )
+			{
+				_selectedProjectId = value;
+				LoadTimeEntriesForSelectedProject( _selectedProjectId );
+				SelectedProjectChanged?.Invoke( this, _selectedProjectId );
+			}
+			else
+			{
+				CommandManager.InvalidateRequerySuggested();
+			}
 		}
+	}
+	#endregion
 
-		// Force DataGrid to recognize changes
-		OnPropertyChanged( nameof( FilteredTimeEntries ) );
-		NotifyHasFilteredTimeEntries();
+	public void LoadTimeEntriesForSelectedProject( int projectId )
+	{
+		try
+		{
+			ObservableCollection<TimeModel> timeEntryLines = DBCommands.GetTimeList(projectId);
+
+			FilteredTimeEntries = new ObservableCollection<TimeModel>( timeEntryLines );
+
+			//ProjectTime = new ObservableCollection<TimeModel>( timeEntryLines );
+
+			if ( FilteredTimeEntries.Any() )
+			{
+				SelectedTimeEntry = FilteredTimeEntries.First();
+			}
+		}
+		catch ( Exception ex )
+		{
+			Console.WriteLine( $"Error loading time entries: {ex.Message}" );
+			throw;
+		}
+	}
+
+	private void TimeViewModel_PropertyChanged( object sender, PropertyChangedEventArgs e )
+	{
+		if ( e.PropertyName == nameof( FilteredTimeEntries ) )
+		{
+			NotifyHasFilteredTimeEntries();
+		}
 	}
 
 	public TimeViewModel()
 	{
-		ProjectTime = new ObservableCollection<TimeModel>( DBCommands.GetTimeList() );
+		//ProjectTime = new ObservableCollection<TimeModel>();
+		_filteredTimeEntries = new ObservableCollection<TimeModel>();
+
+		// Zorg ervoor dat PropertyChanged events correct worden afgehandeld
+		PropertyChanged += TimeViewModel_PropertyChanged;
+
+		// Als er een initiële projectID is, laad dan timeentries
+		if ( SelectedProject != 0 )
+		{
+			LoadTimeEntriesForSelectedProject( SelectedProject );
+		}
 	}
 
 	public void Refresh()
 	{
-		ProjectTime = new ObservableCollection<TimeModel>( DBCommands.GetTimeList() );
-		OnPropertyChanged( nameof( ProjectTime ) );
+		//ProjectTime = new ObservableCollection<TimeModel>( DBCommands.GetTimeList() );
+		//OnPropertyChanged( nameof( ProjectTime ) );
+		OnPropertyChanged( nameof( FilteredTimeEntries ) );
 	}
 }

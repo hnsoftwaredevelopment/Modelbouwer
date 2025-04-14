@@ -70,6 +70,9 @@ public class DBNames
 	public static readonly string SPGeProjectMaterialCosts = "GetTotalCostByProjectId";
 	public static readonly string SPProjectMaterialCostsInputParameter = "p_ProjectId";
 
+	public static readonly string SPGeProjectTimeSpent = "GetTotalMinutesByProjectId";
+	public static readonly string SPProjectTimeSpentParameter = "p_ProjectId";
+
 	public static readonly string SPGetShortListProductsBySupplier = "GetShortListProductsBySupplier";
 	public static readonly string SPGetShortListProductsBySupplierInputParameter = "?SelectedSupplierId"; // The ? is added to work correctly
 	#endregion
@@ -787,8 +790,7 @@ public class DBNames
 
 	#endregion Unit Table
 
-	#region Worktype Table
-
+	#region Worktype Table and view
 	public static readonly string WorktypeTable = "worktype";
 	public static readonly string WorktypeFieldNameId = "Id";
 	public static readonly string WorktypeFieldTypeId = "int";
@@ -799,5 +801,22 @@ public class DBNames
 	public static readonly string WorktypeFieldNameFullpath = "FullPath";
 	public static readonly string WorktypeFieldTypeFullpath = "string";
 
-	#endregion Worktype Table
+	public static readonly string WorktypeGroupTotalsView = "view_groupedtimetotals";
+	public static readonly string WorktypeGroupTotalsNameProjectId = "ProjectId";
+	public static readonly string WorktypeGroupTotalsTypeProjectId = "int";
+	public static readonly string WorktypeGroupTotalsNameProjectName = "ProjectName";
+	public static readonly string WorktypeGroupTotalsTypeProjectName = "string";
+	public static readonly string WorktypeGroupTotalsNameWorktypeParentId = "WorktypeParentId";
+	public static readonly string WorktypeGroupTotalsTypeWorktypeParentId = "int";
+	public static readonly string WorktypeGroupTotalsNameWorktypeId = "WorktypeId";
+	public static readonly string WorktypeGroupTotalsTypeWorktypeId = "int";
+	public static readonly string WorktypeGroupTotalsNameWorktypeName = "WorktypeName";
+	public static readonly string WorktypeGroupTotalsTypeWorktypeName = "string";
+	public static readonly string WorktypeGroupTotalsNameMinutes = "TotalElapsedMinutes";
+	public static readonly string WorktypeGroupTotalsTypeMinutes = "decimal";
+	public static readonly string WorktypeGroupTotalsNameHours = "TotalElapsedHours";
+	public static readonly string WorktypeGroupTotalsTypeHours = "time";
+	public static readonly string WorktypeGroupTotalsNameSortOrder = "SortOrder";
+	public static readonly string WorktypeGroupTotalsTypeSortOrder = "bigint";
+	#endregion
 }
