@@ -427,7 +427,7 @@ public partial class ProductManagement : Page
 				{DBNames.ProductFieldNamePrice, DBNames.ProductFieldTypePrice, Double.Parse(ProductPrice.Text).ToString()},
 				{DBNames.ProductFieldNameProjectCosts, DBNames.ProductFieldTypeProjectCosts, ProjCost},
 				{DBNames.ProductFieldNameStorageId, DBNames.ProductFieldTypeStorageId, viewModel.StorageViewModel.SelectedStorage.StorageId.ToString()},
-				{DBNames.ProductFieldNameUnitId, DBNames.ProductFieldTypeUnitId, ProductUnitId.Text}
+				{DBNames.ProductFieldNameUnitId, DBNames.ProductFieldTypeUnitId, ((Modelbouwer.Model.UnitModel)ProductPackagingUnit.SelectedValue).UnitId.ToString()}
 			};
 
 		if ( selectedProduct.ProductId == 0 )

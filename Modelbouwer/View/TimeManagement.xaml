@@ -3,9 +3,11 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
+	xmlns:behaviors="clr-namespace:Modelbouwer.Behaviors"
 	xmlns:converter="clr-namespace:Modelbouwer.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:helper="clr-namespace:Modelbouwer.Helper"
+	xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
 	xmlns:local="clr-namespace:Modelbouwer.View"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
@@ -25,6 +27,7 @@
 		<converter:ByteToImageConverter x:Key="ByteToImageConverter" />
 		<converter:DateOnlyToDateTimeConverter x:Key="DateOnlyConverter" />
 		<converter:TimeInputConverter x:Key="TimeInputConverter" />
+		<converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
@@ -32,6 +35,7 @@
 			<!--#region Grid definitions-->
 			<Grid.RowDefinitions>
 				<RowDefinition Height="50" />
+				<RowDefinition Height="140" />
 				<RowDefinition Height="*" />
 				<RowDefinition Height="38" />
 				<RowDefinition Height="0" />
@@ -66,148 +70,157 @@
 			</StackPanel>
 			<!--#endregion-->
 
+			<!--#region Project selection-->
+			<Border
+				Grid.Row="1"
+				Margin="0,10,0,10"
+				BorderBrush="Black"
+				BorderThickness="2"
+				CornerRadius="5"
+				Style="{StaticResource ImageBorder}"
+				>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="250" />
+						<ColumnDefinition Width="140" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+
+					<!--#region Select project-->
+					<Grid Grid.Column="0" Margin="5,-5,5,2">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="30" />
+							<RowDefinition Height="30" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<TextBlock
+							Grid.Row="0"
+							Style="{DynamicResource DefaultTextBlock}"
+							Text="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Label}"
+							/>
+
+						<syncfusion:ComboBoxAdv
+							x:Name="ProjectComboBox"
+							Grid.Row="1"
+							Height="30"
+							VerticalAlignment="Center"
+							AutoCompleteMode="Suggest"
+							DefaultText="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Tag}"
+							DisplayMemberPath="ProjectName"
+							ItemsSource="{Binding ProjectViewModel.Project}"
+							SelectedItem="{Binding ProjectViewModel.SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+							SelectedValuePath="ProjectId"
+							ToolTip="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Tooltip}"
+							>
+							<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+								<StyleSelector />
+							</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
+						</syncfusion:ComboBoxAdv>
+					</Grid>
+					<!--#endregion-->
+
+					<!--#region Image of the selected project-->
+					<Grid Grid.Column="1" Margin="5">
+						<Border
+							Width="100"
+							Height="100"
+							HorizontalAlignment="Right"
+							BorderThickness="2"
+							CornerRadius="4"
+							Style="{DynamicResource ImageBorder}"
+							>
+							<Border.BorderBrush>
+								<LinearGradientBrush MappingMode="Absolute" SpreadMethod="Reflect" StartPoint="0.5,0" EndPoint="0.5,1">
+									<GradientStop Offset="1" Color="#FFB4BCED" />
+									<GradientStop Offset="0" Color="#FF293475" />
+									<GradientStop Offset="1" Color="#FF9BA3D7" />
+								</LinearGradientBrush>
+							</Border.BorderBrush>
+							<Image
+								x:Name="ProjectImage"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Source="{Binding ProjectViewModel.SelectedProject.ProjectImage, Converter={StaticResource ByteToImageConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+								Stretch="Uniform"
+								Style="{DynamicResource ProductImageSmall}"
+								/>
+						</Border>
+					</Grid>
+					<!--#endregion-->
+				</Grid>
+			</Border>
+			<!--#endregion-->
+
 			<!--#region Tab pages-->
 			<TabControl
-				Grid.Row="1"
+				Grid.Row="2"
 				Height="650"
 				Margin="0,10"
 				VerticalAlignment="Top"
 				Style="{DynamicResource Default TabControl}"
 				>
 
+				<i:Interaction.Behaviors>
+					<behaviors:TabChangingBehavior />
+				</i:Interaction.Behaviors>
+
 				<!--#region TAB: Time management-->
-				<TabItem Header="{StaticResource Time.Tab.TimeManagement.Label}" Style="{DynamicResource Default TabItem}">
+				<TabItem
+					Header="{StaticResource Time.Tab.TimeManagement.Label}"
+					Style="{DynamicResource Default TabItem}"
+					TabIndex="1"
+					>
 					<Grid>
 						<Grid.RowDefinitions>
-							<RowDefinition Height="145" />
+							<RowDefinition Height="40" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<Grid Grid.Row="0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="620" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
+						<!--#region Toolbar-->
+						<StackPanel
+							Grid.Row="0"  Margin="10,5"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Bottom"
+							Orientation="Horizontal"
+							>
+							<ToolBarTray Height="35" Style="{DynamicResource DefaultToolBarTray}">
+								<ToolBar
+									x:Name="generalToolbar"
+									Height="30"
+									Style="{DynamicResource DefaultToolBar}"
+									>
 
-							<!--#region General project information-->
-							<GroupBox
-								Margin="10,2"
-								HorizontalAlignment="Left"
-								Opacity="1"
-								>
-								<GroupBox.Header>
-									<StackPanel Background="Transparent" Orientation="Horizontal">
-										<Image Source="{StaticResource project}" Style="{DynamicResource ImageHeaderGroup}" />
-										<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Time.Tab.TimeManagement.Group.Project.Text}" />
-									</StackPanel>
-								</GroupBox.Header>
-
-
-								<Grid Margin="5">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="240" />
-										<ColumnDefinition Width="180" />
-										<ColumnDefinition Width="150" />
-									</Grid.ColumnDefinitions>
-
-									<Grid.RowDefinitions>
-										<RowDefinition Height="20" />
-										<RowDefinition Height="30" />
-										<RowDefinition Height="50" />
-									</Grid.RowDefinitions>
-
-									<!--#region Select project-->
-									<TextBlock
-										Grid.Row="0"
-										Grid.Column="0"
-										Style="{DynamicResource DefaultTextBlock}"
-										Text="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Label}"
-										/>
-									<!--#endregion-->
-
-									<!--#region Image of the selected project-->
-									<Border
-										Grid.Row="0"
-										Grid.RowSpan="4"
-										Grid.Column="2"
-										Width="100"
-										Height="100"
-										HorizontalAlignment="Right"
-										BorderThickness="2"
-										Style="{DynamicResource ImageBorder}"
-										>
-										<Border.BorderBrush>
-											<LinearGradientBrush MappingMode="Absolute" SpreadMethod="Reflect" StartPoint="0.5,0" EndPoint="0.5,1">
-												<GradientStop Offset="1" Color="#FFB4BCED" />
-												<GradientStop Offset="0" Color="#FF293475" />
-												<GradientStop Offset="1" Color="#FF9BA3D7" />
-											</LinearGradientBrush>
-										</Border.BorderBrush>
-										<Image
-											x:Name="ProjectImage"
-											HorizontalAlignment="Center"
-											VerticalAlignment="Center"
-											Source="{Binding ProjectViewModel.SelectedProject.ProjectImage, Converter={StaticResource ByteToImageConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-											Stretch="Uniform"
-											Style="{DynamicResource ProductImageSmall}"
-											/>
-									</Border>
-
-									<syncfusion:ComboBoxAdv
-										x:Name="ProjectComboBox"
-										Grid.Row="1"
-										Grid.Column="0"
+									<Button
 										Height="30"
-										VerticalAlignment="Center"
-										AutoCompleteMode="Suggest"
-										DefaultText="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Tag}"
-										DisplayMemberPath="ProjectName"
-										ItemsSource="{Binding ProjectViewModel.Project}"
-										SelectedItem="{Binding ProjectViewModel.SelectedProject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-										SelectedValuePath="ProjectId"
-										ToolTip="{StaticResource Time.Tab.TimeManagement.Group.Project.Project.Tooltip}"
+										Command="{Binding TimeViewModel.AddNewRowCommand}"
+										ToolTip="{StaticResource Time.Tab.TimeManagement.Toolbar.AddNewRow.Tooltip}"
 										>
-										<syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
-											<StyleSelector />
-										</syncfusion:ComboBoxAdv.ItemContainerStyleSelector>
-									</syncfusion:ComboBoxAdv>
+										<Image
+											Width="20"
+											Height="20"
+											Stretch="UniformToFill"
+											Style="{DynamicResource ToolBarAddIcon}"
+											/>
+									</Button>
 
-									<!--#endregion-->
-								</Grid>
-							</GroupBox>
-							<!--#endregion-->
-
-							<!--#region Time registration-->
-							<GroupBox
-								Grid.Column="1"
-								Margin="5,2"
-								HorizontalAlignment="Left"
-								Opacity="1"
-								>
-								<GroupBox.Header>
-									<StackPanel Background="Transparent" Orientation="Horizontal">
-										<Image Source="{StaticResource Time}" Style="{DynamicResource ImageHeaderGroup}" />
-										<TextBlock Style="{DynamicResource TextBlockBold}" Text="{StaticResource Time.Tab.TimeManagement.Group.Time.Text}" />
-									</StackPanel>
-								</GroupBox.Header>
-								<Grid>
-									<Grid.RowDefinitions>
-										<RowDefinition Height="20" />
-										<RowDefinition Height="30" />
-										<RowDefinition Height="20" />
-										<RowDefinition Height="30" />
-									</Grid.RowDefinitions>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="150" />
-										<ColumnDefinition Width="150" />
-										<ColumnDefinition Width="150" />
-									</Grid.ColumnDefinitions>
-									<!--#endregion-->
-								</Grid>
-							</GroupBox>
-							<!--#endregion-->
-
-						</Grid>
+									<Button
+										Height="30"
+										Command="{Binding TimeViewModel.SaveCommand}"
+										ToolTip="{StaticResource Time.Tab.TimeManagement.Toolbar.Save.Tooltip}"
+										Visibility="{Binding TimeViewModel.HasChanges, Converter={StaticResource BooleanToVisibilityConverter}}"
+										>
+										<Image
+											Width="20"
+											Height="20"
+											Stretch="UniformToFill"
+											Style="{DynamicResource ToolBarSaveIcon}"
+											/>
+									</Button>
+								</ToolBar>
+							</ToolBarTray>
+						</StackPanel>
+						<!--#endregion-->
 
 						<ScrollViewer
 							Grid.Row="1"
@@ -219,6 +232,7 @@
 								Margin="10,5"
 								AllowEditing="True"
 								AllowResizingColumns="True"
+								AllowSorting="True"
 								AllowTriStateSorting="True"
 								AutoGenerateColumns="False"
 								ColumnSizer="Star"
@@ -265,9 +279,26 @@
 
 								</syncfusion:SfDataGrid.TableSummaryRows>
 
+								<syncfusion:SfDataGrid.SortColumnDescriptions>
+									<syncfusion:SortColumnDescription ColumnName="DateTimeStart" SortDirection="Descending" />
+								</syncfusion:SfDataGrid.SortColumnDescriptions>
+
 								<syncfusion:SfDataGrid.Columns>
+
+									<!--#region Has record been changed-->
+									<syncfusion:GridTextColumn
+										Width="30"
+										HeaderText=""
+										HorizontalHeaderContentAlignment="Center"
+										MappingName="StatusMarker"
+										TextAlignment="Center"
+										/>
+									<!--#endregion-->
+
+
 									<!--#region DatePicker kolom-->
 									<syncfusion:GridTemplateColumn
+										x:Name="WorkDate"
 										Width="100"
 										HeaderText="Datum"
 										MappingName="TimeWorkDate"
@@ -291,7 +322,7 @@
 
 									<!--#region Start time-->
 									<syncfusion:GridTemplateColumn
-										Width="80"
+										Width="95"
 										HeaderText="Start tijd"
 										MappingName="DateTimeStart"
 										>
@@ -313,7 +344,7 @@
 
 									<!--#region EndTime-->
 									<syncfusion:GridTemplateColumn
-										Width="80"
+										Width="95"
 										HeaderText="Eind tijd"
 										MappingName="DateTimeEnd"
 										>
@@ -334,7 +365,7 @@
 
 									<!--#region Elapsed Time-->
 									<syncfusion:GridTemplateColumn
-										Width="80"
+										Width="95"
 										HeaderText="Gewerkt"
 										MappingName="WorkedTime"
 										>
@@ -353,7 +384,7 @@
 
 									<!--#region Select WorkType-->
 									<syncfusion:GridTemplateColumn
-										Width="205"
+										Width="225"
 										HeaderText="Werktype"
 										MappingName="TimeWorktypeName"
 										>
@@ -412,6 +443,14 @@
 										</syncfusion:GridTemplateColumn.CellTemplate>
 									</syncfusion:GridTemplateColumn>
 									<!--#endregion-->
+
+									<!--#region Comments-->
+									<syncfusion:GridTextColumn
+										Width="250"
+										HeaderText="Opmerkingen"
+										MappingName="TimeComment"
+										/>
+									<!--#endregion-->
 								</syncfusion:SfDataGrid.Columns>
 							</syncfusion:SfDataGrid>
 						</ScrollViewer>
@@ -424,7 +463,11 @@
 				<!--#endregion-->
 
 				<!--#region TAB: Material usage-->
-				<TabItem Header="{StaticResource Time.Tab.ProductManagement.Label}" Style="{DynamicResource Default TabItem}">
+				<TabItem
+					Header="{StaticResource Time.Tab.ProductManagement.Label}"
+					Style="{DynamicResource Default TabItem}"
+					TabIndex="2"
+					>
 					<Grid>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />

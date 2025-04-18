@@ -1442,6 +1442,8 @@
 	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.StartTime.Text">Start tijd</system:String>
 	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.EndTime.Text">Eind tijd</system:String>
 	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.ElapsedTime.Text">Gewerkte tijd</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Toolbar.AddNewRow.Tooltip">Voeg een niewe tijdsregistratie toe</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Toolbar.Save.Tooltip">Opslaan mutaties</system:String>
 
 
 

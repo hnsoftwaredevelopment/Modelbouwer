@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls.Primitives;
 
+using Syncfusion.UI.Xaml.Grid;
 using Syncfusion.UI.Xaml.TreeView;
 
 using Button = System.Windows.Controls.Button;
@@ -16,6 +17,7 @@ public partial class TimeManagement : Page
 	public TimeManagement()
 	{
 		InitializeComponent();
+		dataGrid.AddNewRowInitiating += AddNewRowInitiating;
 	}
 
 	private void DataGrid_SelectionChanged( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )
@@ -174,5 +176,32 @@ public partial class TimeManagement : Page
 		return null;
 	}
 	#endregion
+
 	#endregion
+
+	private void AddNewRowInitiating( object sender, AddNewRowInitiatingEventArgs e )
+	{
+		TimeModel? data = e.NewObject as TimeModel;
+		if ( data != null )
+		{
+			data.DateTimeStart = DateTime.Now.AddHours( -1 );
+			data.DateTimeEnd = DateTime.Now;
+
+			data.RefreshTimeProperties();
+		}
+		//Console.WriteLine( "Hallo" );
+
+		//if ( DataContext is TimeModel model )
+		//{
+		//	model.DateTimeStart = DateTime.Now;
+		//	model.DateTimeEnd = DateTime.Now.AddHours( 1 );
+
+		//	model.RefreshTimeProperties();
+		//}
+	}
+
+	private void dataGrid_RowValidated( object sender, RowValidatedEventArgs e )
+	{
+		Console.WriteLine( "How effe" );
+	}
 }

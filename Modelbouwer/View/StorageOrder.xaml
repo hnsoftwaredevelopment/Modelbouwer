@@ -28,6 +28,8 @@
 		<converter:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
 		<converter:ButtonTooltipConverter x:Key="ButtonTooltipConverter" />
 		<converter:PreciseDecimalConverter x:Key="PreciseDecimalConverter" />
+		<converter:DecimalNumberConverter x:Key="DecimalNumberConverter" />
+
 	</Page.Resources>
 
 	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
@@ -174,7 +176,7 @@
 								VerticalAlignment="Top"
 								HorizontalContentAlignment="Right"
 								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-								Text="{Binding SupplyOrderViewModel.SubTotal, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
+								Text="{Binding SupplyOrderViewModel.SubTotal, Converter={StaticResource DecimalNumberConverter}, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
 								/>
 						</Grid>
 						<!--#endregion-->
@@ -204,7 +206,7 @@
 								VerticalAlignment="Bottom"
 								HorizontalContentAlignment="Right"
 								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-								Text="{Binding SupplyOrderViewModel.ShippingCosts, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
+								Text="{Binding SupplyOrderViewModel.ShippingCosts, Converter={StaticResource DecimalNumberConverter}, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
 								/>
 						</Grid>
 						<!--#endregion-->
@@ -231,7 +233,7 @@
 								Width="100"
 								HorizontalContentAlignment="Right"
 								IsReadOnly="{Binding SupplyOrderViewModel.IsNewOrder, Converter={StaticResource InverseBooleanConverter}}"
-								Text="{Binding SupplyOrderViewModel.OrderCosts, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
+								Text="{Binding SupplyOrderViewModel.OrderCosts, Converter={StaticResource DecimalNumberConverter}, StringFormat={}{0:N2}, ConverterCulture=nl-NL, TargetNullValue=0}"
 								/>
 						</Grid>
 						<!--#endregion-->

@@ -117,8 +117,7 @@ public partial class ProductSupplierViewModel : ObservableObject
 		if ( FilteredSuppliers.Any() )
 		{
 			SelectedSupplier = FilteredSuppliers.First();
-			ProductSupplierSupplierId = SelectedSupplier.ProductSupplierSupplierId; // Ensure the ID is also set
-																					//OnPropertyChanged( nameof( HasSuppliers ) ); // Notify that there is a supplier now (to enable edit and save)
+			ProductSupplierSupplierId = SelectedSupplier.ProductSupplierSupplierId;
 		}
 	}
 

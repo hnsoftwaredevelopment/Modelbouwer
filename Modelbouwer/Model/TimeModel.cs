@@ -5,6 +5,53 @@ namespace Modelbouwer.Model;
 
 public class TimeModel : INotifyPropertyChanged
 {
+	public enum RecordState
+	{
+		Unchanged,
+		Added,
+		Modified,
+		Deleted
+	}
+
+	private RecordState _state = RecordState.Unchanged;
+	public RecordState State
+	{
+		get => _state;
+		set => SetProperty( ref _state, value );
+	}
+
+	private string _statusMarker;
+	public string StatusMarker
+	{
+		get
+		{
+			return State == RecordState.Unchanged ? string.Empty : "*";
+		}
+	}
+
+	//private bool _hasChanges = false;
+	//public bool HasChanges
+	//{
+	//	get => _hasChanges;
+	//	set => SetProperty( ref _hasChanges, value );
+	//}
+
+	//private bool _hasChangesMarker;
+	//public bool HasChangesMarker
+	//{
+	//	get
+	//	{
+	//		if ( State == RecordState.Unchanged )
+	//		{
+	//			return HasChanges = false;
+	//		}
+	//		else
+	//		{
+	//			return HasChanges = true;
+	//		}
+	//	}
+	//}
+
 	public event PropertyChangedEventHandler? PropertyChanged;
 
 	protected void NotifyPropertyChanged( [CallerMemberName] string? propertyName = null )
@@ -20,6 +67,18 @@ public class TimeModel : INotifyPropertyChanged
 		}
 
 		field = value;
+
+		// Mark record as modified when property has been changed
+		if ( State == RecordState.Unchanged && propertyName != nameof( State ) )
+		{
+			State = RecordState.Modified;
+
+			if ( propertyName != nameof( State ) )
+			{
+				NotifyPropertyChanged( nameof( StatusMarker ) );
+			}
+		}
+
 		NotifyPropertyChanged( propertyName );
 		return true;
 	}
@@ -40,7 +99,16 @@ public class TimeModel : INotifyPropertyChanged
 	}
 
 	protected void OnPropertyChanged( string propertyName )
-		=> PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
+	{
+		// Also check her if there is a change of State
+		if ( propertyName != nameof( State ) && State == RecordState.Unchanged )
+		{
+			State = RecordState.Modified;
+			PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( nameof( StatusMarker ) ) );
+		}
+
+		PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
+	}
 
 	public int TimeId { get; set; }
 	public int TimeProjectId { get; set; }
@@ -51,6 +119,7 @@ public class TimeModel : INotifyPropertyChanged
 	public DateTime DateTimeDate { get; set; }
 	public string? TimeStartTime { get; set; }
 
+	#region Start-, End and Worked time
 	private DateTime _dateTimeStart;
 	public DateTime DateTimeStart
 	{
@@ -79,11 +148,6 @@ public class TimeModel : INotifyPropertyChanged
 		}
 	}
 
-	public double TimeElapsedMinutes { get; set; }
-	public string? TimeElapsedTime { get; set; }
-	public TimeSpan? TimeWorkedHours { get; set; }
-
-	// We maken deze property volledige read-only om te voorkomen dat er waarden aan worden toegewezen
 	private TimeSpan? _workedTime;
 	public TimeSpan? WorkedTime
 	{
@@ -96,6 +160,19 @@ public class TimeModel : INotifyPropertyChanged
 			return TimeSpan.Zero;
 		}
 	}
+
+	public void RefreshTimeProperties()
+	{
+		NotifyPropertyChanged( nameof( DateTimeStart ) );
+		NotifyPropertyChanged( nameof( DateTimeEnd ) );
+		NotifyPropertyChanged( nameof( WorkedTime ) );
+	}
+	#endregion
+
+	public double TimeElapsedMinutes { get; set; }
+	public string? TimeElapsedTime { get; set; }
+	public TimeSpan? TimeWorkedHours { get; set; }
+
 
 	public string? TimeComment { get; set; }
 	public int TimeYear { get; set; }
@@ -119,6 +196,23 @@ public class TimeModel : INotifyPropertyChanged
 			}
 		}
 	}
+
+	//Constructor for existing records
+	public TimeModel()
+	{
+		// Default constructor voor bestaande records
+	}
+
+	//Constructor for newly added records
+	public TimeModel( bool isNew )
+	{
+		if ( isNew )
+		{
+			State = RecordState.Added;
+		}
+	}
+
+
 
 	// Mapping dictionary for mapping Database Header to Property name
 	public static readonly Dictionary<string, string> HeaderToPropertyMap = new()

@@ -6,10 +6,12 @@ public class ByteToImageConverter : IValueConverter
 		try
 		{
 			if ( value == null || !( value is byte [ ] imageData ) || imageData.Length == 0 )
+			{
 				return null;
+			}
 
-			var image = new BitmapImage();
-			using ( var stream = new MemoryStream( imageData ) )
+			BitmapImage image = new();
+			using ( MemoryStream stream = new( imageData ) )
 			{
 				image.BeginInit();
 				image.CacheOption = BitmapCacheOption.OnLoad; // Belangrijk! Sluit de stream na het laden
@@ -30,7 +32,16 @@ public class ByteToImageConverter : IValueConverter
 
 	public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
 	{
-		// Implementatie voor tweeweg binding als dat nodig is
-		throw new NotImplementedException();
+		if ( value is BitmapImage bitmapImage )
+		{
+			using ( MemoryStream stream = new() )
+			{
+				BitmapEncoder encoder = new PngBitmapEncoder();
+				encoder.Frames.Add( BitmapFrame.Create( bitmapImage ) );
+				encoder.Save( stream );
+				return stream.ToArray();
+			}
+		}
+		return null;
 	}
 }

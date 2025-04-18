@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 
+using CommunityToolkit.Mvvm.Input;
+
 namespace Modelbouwer.ViewModels;
 public partial class TimeViewModel : ObservableObject
 {
@@ -66,9 +68,6 @@ public partial class TimeViewModel : ObservableObject
 	[ObservableProperty]
 	private TimeModel? _selectedTimeEntry;
 
-	//[ObservableProperty]
-	//private bool isLoading;
-
 	#region Selected Project
 	public event EventHandler<int>? SelectedProjectChanged;
 
@@ -87,9 +86,54 @@ public partial class TimeViewModel : ObservableObject
 	}
 	#endregion
 
-	//public ObservableCollection<TimeModel> ProjectTime { get; set; }
+	#region HasChanges
+	[ObservableProperty]
+	private bool _hasChanges;
 
-	//public ObservableCollection<TimeModel> FilteredTimeEntries { get; private set; } = [ ];
+	private void UpdateHasChanges()
+	{
+		HasChanges = FilteredTimeEntries?.Any( e => e.State != TimeModel.RecordState.Unchanged ) ?? false;
+	}
+
+	private void SetupChangeTracking()
+	{
+		FilteredTimeEntries.CollectionChanged += ( s, e ) => UpdateHasChanges();
+
+		// Event handler voor PropertyChanged op individuele items
+		PropertyChangedEventHandler handler = (s, e) =>
+		{
+			if (e.PropertyName == nameof(TimeModel.State))
+			{
+				UpdateHasChanges();
+			}
+		};
+
+		foreach ( TimeModel item in FilteredTimeEntries )
+		{
+			item.PropertyChanged += handler;
+		}
+
+		// Voor nieuwe items die worden toegevoegd
+		FilteredTimeEntries.CollectionChanged += ( s, e ) =>
+		{
+			if ( e.NewItems != null )
+			{
+				foreach ( TimeModel item in e.NewItems )
+				{
+					item.PropertyChanged += handler;
+				}
+			}
+		};
+	}
+
+	private void Item_PropertyChanged( object sender, PropertyChangedEventArgs e )
+	{
+		if ( e.PropertyName == nameof( TimeModel.State ) )
+		{
+			UpdateHasChanges();
+		}
+	}
+	#endregion
 
 	public bool HasFilteredTimeEntries => FilteredTimeEntries != null && FilteredTimeEntries.Any();
 
@@ -138,15 +182,80 @@ public partial class TimeViewModel : ObservableObject
 	}
 	#endregion
 
+	#region Toolbar commands
+	public ICommand AddNewRowCommand { get; }
+	public ICommand SaveCommand { get; }
+
+	#region Add new row to the TimeEntries
+	private void ExectuteAddNewRow()
+	{
+		TimeModel newEntry = new()
+		{
+			DateTimeDate = DateTime.Today,
+			DateTimeStart = DateTime.Now.AddHours(-1),
+			DateTimeEnd = DateTime.Now,
+			State = TimeModel.RecordState.Added
+		};
+
+		FilteredTimeEntries.Insert( 0, newEntry );
+
+		UpdateHasChanges();
+
+		SelectedTimeEntry = newEntry;
+	}
+	#endregion
+
+	private void ExecuteSave()
+	{
+		//Execuyte the save command
+		List<TimeModel> added = FilteredTimeEntries.Where(e => e.State == TimeModel.RecordState.Added).ToList();
+		List<TimeModel> modified = FilteredTimeEntries.Where(e => e.State == TimeModel.RecordState.Modified).ToList();
+
+		//Add new records to the TimeTable
+		foreach ( TimeModel? entry in added )
+		{
+			// Voeg code toe om nieuwe records in te voegen
+			// Table: Time
+			// Fields: project_Id, worktype_Id, Workdate (yyyy-mm-dd), StartTime (hh:mm:ss), EndTime (hh:mm:ss), Comment
+
+			// set state to Unchanged when record has been stored
+			entry.State = TimeModel.RecordState.Unchanged;
+		}
+
+		//Change existing records in TimeTable
+		foreach ( TimeModel entry in modified )
+		{
+			// Voeg code toe om bestaande records bij te werken
+			// set state to Unchanged when record has been stored
+			entry.State = TimeModel.RecordState.Unchanged;
+		}
+
+		UpdateHasChanges();
+	}
+	#endregion
+
 	public void LoadTimeEntriesForSelectedProject( int projectId )
 	{
 		try
 		{
-			ObservableCollection<TimeModel> timeEntryLines = DBCommands.GetTimeList(projectId);
+			ObservableCollection<TimeModel> TimeModelLines = DBCommands.GetTimeList(projectId);
 
-			FilteredTimeEntries = new ObservableCollection<TimeModel>( timeEntryLines );
 
-			//ProjectTime = new ObservableCollection<TimeModel>( timeEntryLines );
+			// Set all entrie on Status: Unchanged by default
+			foreach ( TimeModel entry in TimeModelLines )
+			{
+				entry.State = TimeModel.RecordState.Unchanged;
+			}
+
+			FilteredTimeEntries = new ObservableCollection<TimeModel>( TimeModelLines );
+
+			// Setup change tracking for new items
+			foreach ( TimeModel item in FilteredTimeEntries )
+			{
+				item.PropertyChanged += Item_PropertyChanged;
+			}
+
+			UpdateHasChanges();
 
 			if ( FilteredTimeEntries.Any() )
 			{
@@ -170,23 +279,30 @@ public partial class TimeViewModel : ObservableObject
 
 	public TimeViewModel()
 	{
-		//ProjectTime = new ObservableCollection<TimeModel>();
 		_filteredTimeEntries = new ObservableCollection<TimeModel>();
 
-		// Zorg ervoor dat PropertyChanged events correct worden afgehandeld
 		PropertyChanged += TimeViewModel_PropertyChanged;
 
-		// Als er een initiële projectID is, laad dan timeentries
+		SetupChangeTracking();
+
+		// When there is an initial projectID, load the timeentries
 		if ( SelectedProject != 0 )
 		{
 			LoadTimeEntriesForSelectedProject( SelectedProject );
 		}
+
+		AddNewRowCommand = new RelayCommand( ExectuteAddNewRow );
+		SaveCommand = new RelayCommand( ExecuteSave );
+
+		//FilteredTimeEntries.CollectionChanged += ( sender, e ) => UpdateCanExecuteSave();
 	}
 
 	public void Refresh()
 	{
-		//ProjectTime = new ObservableCollection<TimeModel>( DBCommands.GetTimeList() );
-		//OnPropertyChanged( nameof( ProjectTime ) );
+		if ( SelectedProject != 0 )
+		{
+			LoadTimeEntriesForSelectedProject( SelectedProject );
+		}
 		OnPropertyChanged( nameof( FilteredTimeEntries ) );
 	}
 }

@@ -746,7 +746,7 @@ public class DBCommands
 				ProductSupplierProductId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 1 ] ),
 				ProductSupplierSupplierId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 2 ] ),
 				ProductSupplierCurrencyId = DatabaseValueConverter.GetInt( _dt.Rows [ i ] [ 3 ] ),
-				ProductSupplierDefaultSupplier = _defaultSupplier,
+				ProductSupplierDefaultSupplier = _tempCheck,
 				ProductSupplierProductName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 5 ] ),
 				ProductSupplierSupplierName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
 				ProductSupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
@@ -1943,10 +1943,10 @@ public class DBCommands
 		switch ( action.ToLower() )
 		{
 			case "set":
-				sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
+				sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.SPSetDefaultSupplier}( {int.Parse( productId )}, {int.Parse( supplierId )} );";
 				break;
 			case "reset":
-				sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.ResetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
+				sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.{DBNames.SPResetDefaultSupplier}( {int.Parse( productId )}, {int.Parse( supplierId )} );";
 				break;
 			default:
 				break;
@@ -1957,10 +1957,10 @@ public class DBCommands
 			using MySqlConnection connection = new( DBConnect.ConnectionString );
 			connection.Open();
 
-			sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
+			//sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
 
 			using MySqlCommand cmd = new( sqlQuery, connection );
-			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandType = CommandType.Text;
 
 			cmd.Parameters.AddWithValue( "@p_ProductId", productId );
 			cmd.Parameters.AddWithValue( "@p_SupplierId", supplierId );
