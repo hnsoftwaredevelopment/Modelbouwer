@@ -18,11 +18,6 @@ public class CombinedTimeViewModel : ObservableObject
 		WorktypeViewModel = new();
 
 		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
-
-		if ( ProjectViewModel.SelectedProject != null )
-		{
-			//TimeViewModel.SelectedProject = ProjectViewModel.SelectedProject.ProjectId;
-		}
 	}
 
 	private void OnTimeViewModelPropertyChanged( object? sender, PropertyChangedEventArgs e )

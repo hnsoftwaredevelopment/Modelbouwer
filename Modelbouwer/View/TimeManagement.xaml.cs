@@ -189,15 +189,6 @@ public partial class TimeManagement : Page
 
 			data.RefreshTimeProperties();
 		}
-		//Console.WriteLine( "Hallo" );
-
-		//if ( DataContext is TimeModel model )
-		//{
-		//	model.DateTimeStart = DateTime.Now;
-		//	model.DateTimeEnd = DateTime.Now.AddHours( 1 );
-
-		//	model.RefreshTimeProperties();
-		//}
 	}
 
 	private void dataGrid_RowValidated( object sender, RowValidatedEventArgs e )

@@ -152,7 +152,7 @@ public class TabChangingBehavior : Behavior<TabControl>
 		TimeViewModel? timeViewModel = FindTimeViewModel(tabControl);
 
 		// Check of we de TimeTab verlaten en of er wijzigingen zijn
-		int TIME_TAB_INDEX = 1; // Index van de TimeTab (gecorrigeerd naar 0)
+		int TIME_TAB_INDEX = 0; // Index van de TimeTab (gecorrigeerd naar 0)
 		if ( _previousIndex == TIME_TAB_INDEX && timeViewModel?.HasChanges == true )
 		{
 			// Annuleer de SelectionChanged event om te voorkomen dat de tab verandert
