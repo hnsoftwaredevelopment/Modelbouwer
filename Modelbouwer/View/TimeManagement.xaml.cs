@@ -13,11 +13,13 @@ public partial class TimeManagement : Page
 {
 	private ProjectViewModel _projectViewModel;
 	private TimeViewModel _timeViewModel;
+	private int currentProjectId = int.Parse(DBCommands.GetLatestIdFromTable(DBNames.ProjectTable));
 
 	public TimeManagement()
 	{
 		InitializeComponent();
 		dataGrid.AddNewRowInitiating += AddNewRowInitiating;
+		//ProjectComboBox.SelectedItem = currentProjectId;
 	}
 
 	private void DataGrid_SelectionChanged( object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e )

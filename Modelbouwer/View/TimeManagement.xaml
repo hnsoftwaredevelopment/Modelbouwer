@@ -179,7 +179,8 @@
 
 						<!--#region Toolbar-->
 						<StackPanel
-							Grid.Row="0"  Margin="10,5"
+							Grid.Row="0"
+							Margin="10,5"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Bottom"
 							Orientation="Horizontal"
@@ -208,7 +209,7 @@
 										Height="30"
 										Command="{Binding TimeViewModel.SaveCommand}"
 										ToolTip="{StaticResource Time.Tab.TimeManagement.Toolbar.Save.Tooltip}"
-										Visibility="{Binding TimeViewModel.HasChanges, Converter={StaticResource BooleanToVisibilityConverter}}"
+										Visibility="{Binding TimeViewModel.HasProductUsageChanges, Converter={StaticResource BooleanToVisibilityConverter}}"
 										>
 										<Image
 											Width="20"
@@ -294,7 +295,6 @@
 										TextAlignment="Center"
 										/>
 									<!--#endregion-->
-
 
 									<!--#region DatePicker kolom-->
 									<syncfusion:GridTemplateColumn
@@ -469,10 +469,224 @@
 					TabIndex="2"
 					>
 					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="270" />
-						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="80" />
+							<RowDefinition Height="40" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+
+						<!--#region New ProductUsage Enty-->
+						<GroupBox
+							Grid.Row="0"
+							Margin="2,2"
+							Opacity="1"
+							>
+							<GroupBox.Header>
+								<StackPanel Background="Transparent" Orientation="Horizontal">
+									<Image Source="{DynamicResource ProductUsageIcon}" Style="{DynamicResource ImageHeaderGroup}" />
+									<TextBlock Style="{DynamicResource Group.Hearder.TextBlock}" Text="{DynamicResource Time.Tab.TimeManagement.ProductUsage.Group.Title}" />
+								</StackPanel>
+							</GroupBox.Header>
+
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="15" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="500" />
+									<ColumnDefinition Width="70" />
+									<ColumnDefinition Width="120" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+
+								<!--#region Column Headers-->
+								<TextBlock
+									Grid.Row="0"
+									Grid.Column="0"
+									Style="{DynamicResource HeaderTextBlock}"
+									Text="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Product.Label}"
+									/>
+
+								<TextBlock
+									Grid.Row="0"
+									Grid.Column="1"
+									HorizontalAlignment="Right"
+									Style="{DynamicResource HeaderTextBlock}"
+									Text="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Amount.Label}"
+									/>
+
+								<TextBlock
+									Grid.Row="0"
+									Grid.Column="2"
+									FontFamily="UD Digi Kyokasho NK-B"
+									FontWeight="Bold"
+									Style="{DynamicResource HeaderTextBlock}"
+									Text="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Date.Label}"
+									/>
+
+								<TextBlock
+									Grid.Row="0"
+									Grid.Column="3"
+									HorizontalAlignment="Left"
+									Style="{DynamicResource HeaderTextBlock}"
+									Text="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Comment.Label}"
+									/>
+								<!--#endregion-->
+
+								<!--#region Data fields-->
+								<syncfusion:ComboBoxAdv
+									x:Name="ProductUsed"
+									Grid.Row="1"
+									Grid.Column="0"
+									Width="490"
+									Height="25"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									AutoCompleteMode="Suggest"
+									DefaultText="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Product.Tag}"
+									DisplayMemberPath="ProductName"
+									ItemsSource="{Binding ProductViewModel.Product}"
+									SelectedItem="{Binding TimeViewModel.SelectedUsedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									SelectedValuePath="ProductId"
+									Tag="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Product.Tag}"
+									ToolTip="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Product.Tooltip}"
+									>
+									<i:Interaction.Triggers>
+										<i:EventTrigger EventName="KeyUp">
+											<behaviors:FilterAction />
+										</i:EventTrigger>
+									</i:Interaction.Triggers>
+								</syncfusion:ComboBoxAdv>
+
+								<TextBox
+									x:Name="AmountUsed"
+									Grid.Row="1"
+									Grid.Column="1"
+									Width="65"
+									Margin="2,0"
+									HorizontalAlignment="Right"
+									HorizontalContentAlignment="Right"
+									Tag="0,00"
+									Text="{Binding TimeViewModel.AmountUsed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									/>
+
+								<DatePicker
+									Grid.Row="1"
+									Grid.Column="2"
+									Width="116"
+									Margin="2,0"
+									DisplayDate="{x:Static sys:DateTime.Now}"
+									DisplayDateEnd="{x:Static sys:DateTime.Now}"
+									DisplayDateStart="{Binding DataContext.ProjectViewModel.SelectedProject.ProjectStartDate, RelativeSource={RelativeSource AncestorType=syncfusion:SfDataGrid}, Converter={StaticResource DateOnlyConverter}, Mode=TwoWay, TargetNullValue={x:Static sys:DateTime.Now}}"
+									SelectedDate="{Binding TimeViewModel.SelectedDate, Mode=TwoWay}"
+									IsDropDownOpen="False"
+									IsEnabled="True"
+									Style="{DynamicResource ValidatedDatePicker}"
+									Tag="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Date.Tag}"
+									ToolTip="{StaticResource Time.Tab.TimeManagement.ProductUsage.Group.Date.Tooltip}"
+									/>
+
+								<TextBox
+									x:Name="Comments"
+									Grid.Row="1" Width="300"
+									Grid.Column="3"
+									Margin="2,0"
+									HorizontalAlignment="Left"
+									Text="{Binding TimeViewModel.Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									/>
+								<!--#endregion-->
+							</Grid>
+						</GroupBox>
+						<!--#endregion-->
+
+						<!--#region Toolbar-->
+						<StackPanel
+							Grid.Row="1"
+							Margin="10,5"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Bottom"
+							Orientation="Horizontal"
+							>
+							<ToolBarTray Height="35" Style="{DynamicResource DefaultToolBarTray}">
+								<ToolBar
+									x:Name="productUsageToolbar"
+									Height="30"
+									Style="{DynamicResource DefaultToolBar}"
+									>
+									<!--#region Save button-->
+									<Button
+										Height="30"
+										Command="{Binding TimeViewModel.SaveProductUsageCommand}"
+										ToolTip="{StaticResource Time.Tab.TimeManagement.Toolbar.SaveProductUsage.Tooltip}"
+										Visibility="{Binding TimeViewModel.HasProductUsageChanges, Converter={StaticResource BooleanToVisibilityConverter}}"
+										>
+										<Image
+											Width="20"
+											Height="20"
+											Stretch="UniformToFill"
+											Style="{DynamicResource ToolBarSaveIcon}"
+											/>
+									</Button>
+								</ToolBar>
+							</ToolBarTray>
+						</StackPanel>
+						<!--#endregion-->
+						<!--#endregion-->
+
+						<!--#region Product Usage DataGrid-->
+						<ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+							<syncfusion:SfDataGrid
+								x:Name="ProductUsageDataGrid"
+								Margin="5"
+								AllowResizingColumns="True"
+								AllowSorting="True"
+								AllowTriStateSorting="True"
+								AutoGenerateColumns="False"
+								ColumnSizer="Star"
+								ItemsSource="{Binding ProductUsageViewModel.FilteredProductUsage}"
+								SelectedIndex="0"
+								SelectedItem="{Binding ProductUsageViewModel.SelectedProductUsage}"
+								ShowGroupDropArea="True"
+								>
+
+								<syncfusion:SfDataGrid.SortColumnDescriptions>
+									<syncfusion:SortColumnDescription ColumnName="ProductUsageUsageDate" SortDirection="Descending" />
+								</syncfusion:SfDataGrid.SortColumnDescriptions>
+
+								<syncfusion:SfDataGrid.Columns>
+									<syncfusion:GridTextColumn
+										Width="500"
+										HeaderText="Artikel"
+										HorizontalHeaderContentAlignment="Left"
+										MappingName="ProductUsageProductName"
+										/>
+									<syncfusion:GridTextColumn
+										Width="85"
+										HeaderText="Aantal"
+										HorizontalHeaderContentAlignment="Right"
+										MappingName="ProductUsageAmount"
+										TextAlignment="Right"
+										/>
+									<syncfusion:GridTextColumn
+										Width="100"
+										HeaderText="Datum"
+										HorizontalHeaderContentAlignment="Right"
+										MappingName="ProductUsageUsageDate"
+										TextAlignment="Right"
+										/>
+									<syncfusion:GridTextColumn
+										Width="200"
+										HeaderText="Opmerkingen"
+										HorizontalHeaderContentAlignment="Left"
+										MappingName="ProductUsageComment"
+										/>
+								</syncfusion:SfDataGrid.Columns>
+							</syncfusion:SfDataGrid>
+						</ScrollViewer>
+						<!--#endregion-->
+
 					</Grid>
 				</TabItem>
 				<!--#endregion-->

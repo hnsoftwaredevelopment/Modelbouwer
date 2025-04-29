@@ -1444,7 +1444,22 @@
 	<system:String x:Key="Time.Tab.TimeManagement.Group.Time.ElapsedTime.Text">Gewerkte tijd</system:String>
 	<system:String x:Key="Time.Tab.TimeManagement.Toolbar.AddNewRow.Tooltip">Voeg een niewe tijdsregistratie toe</system:String>
 	<system:String x:Key="Time.Tab.TimeManagement.Toolbar.Save.Tooltip">Opslaan mutaties</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Toolbar.AddNewProductUsageRow.Tooltip">Voeg een niewe tijdsregistratie toe</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.Toolbar.SaveProductUsage.Tooltip">Opslaan mutaties</system:String>
 
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Title">Artikel gebruik</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Product.Label">Artikel</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Product.Tag">Selecteer artikel</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Product.Tooltip">Selecteer het gebruikte artikel</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Amount.Label">Hoeveelheid</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Amount.Tag">Hoeveelheid</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Amount.Tooltip">Hoeveel van dit artikel verbruikt</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Date.Label">Datum</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Date.Tag">Selecteer datum</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Date.Tooltip">Verbuiksdatum</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Comment.Label">Opmerkingen</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Comment.Tag">Opmerkingen</system:String>
+	<system:String x:Key="Time.Tab.TimeManagement.ProductUsage.Group.Comment.Tooltip">Opmerkingen</system:String>
 
 
 	<system:String x:Key="Time.Tab.ProductManagement.Label">Materiaalverbruik</system:String>
