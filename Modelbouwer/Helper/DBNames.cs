@@ -75,6 +75,12 @@ public class DBNames
 
 	public static readonly string SPGetShortListProductsBySupplier = "GetShortListProductsBySupplier";
 	public static readonly string SPGetShortListProductsBySupplierInputParameter = "?SelectedSupplierId"; // The ? is added to work correctly
+
+	public static readonly string SPGetProductsUsageByProject = "GetProductsByProject";
+	public static readonly string SPGetProductsUsageByProjectInputParameter = "?SelectedProjectId"; // The ? is added to work correctly
+
+
+	public static readonly string SPGetAllProductsUsage = "GetProductsUsage";
 	#endregion
 
 	#region Database

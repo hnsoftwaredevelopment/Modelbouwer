@@ -955,6 +955,90 @@ public class DBCommands
 	}
 	#endregion
 
+	#region Product Usage
+	public static ObservableCollection<ProductUsageModel> GetProductUsageByProjectList( int _projectId, ObservableCollection<ProductUsageModel>? usageList = null )
+	{
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPGetProductsUsageByProject, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		command.Parameters.AddWithValue( DBNames.SPGetProductsUsageByProjectInputParameter, _projectId );
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		usageList ??= [ ];
+
+		foreach ( DataRow row in dt.Rows )
+		{
+			string datum = GetDateString( DatabaseValueConverter.GetString( row [ 5 ] ) );
+			usageList.Add( new ProductUsageModel
+			{
+				ProductUsageId = DatabaseValueConverter.GetInt( row [ 0 ] ),
+				ProductUsageProjectId = DatabaseValueConverter.GetInt( row [ 1 ] ),
+				ProductUsageProductId = DatabaseValueConverter.GetInt( row [ 2 ] ),
+				ProductUsageProductName = DatabaseValueConverter.GetString( row [ 3 ] ),
+				ProductUsageAmount = DatabaseValueConverter.GetDouble( row [ 4 ] ),
+				ProductUsageUsageDate = datum,
+				ProductUsageComment = DatabaseValueConverter.GetString( row [ 6 ] )
+			} );
+		}
+
+		return usageList;
+	}
+
+	public static string GetDateString( string dateString )
+	{
+		string inputFormat = "d-M-yyyy HH:mm:ss";
+
+		if ( DateTime.TryParseExact( dateString, inputFormat, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out DateTime datumTijd ) )
+		{
+			string Datum = datumTijd.ToString("dd-MM-yyyy");
+			return Datum;
+		}
+		return dateString;
+	}
+
+	public static ObservableCollection<ProductUsageModel> GetAllProductUsageList( ObservableCollection<ProductUsageModel>? usageList = null )
+	{
+		using MySqlConnection connection = new( DBConnect.ConnectionString );
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPGetAllProductsUsage, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		usageList ??= [ ];
+
+		foreach ( DataRow row in dt.Rows )
+		{
+			string datum = GetDateString( DatabaseValueConverter.GetString( row [ 5 ] ) );
+			usageList.Add( new ProductUsageModel
+			{
+				ProductUsageId = DatabaseValueConverter.GetInt( row [ 0 ] ),
+				ProductUsageProjectId = DatabaseValueConverter.GetInt( row [ 1 ] ),
+				ProductUsageProductId = DatabaseValueConverter.GetInt( row [ 2 ] ),
+				ProductUsageProductName = DatabaseValueConverter.GetString( row [ 3 ] ),
+				ProductUsageAmount = DatabaseValueConverter.GetDouble( row [ 4 ] ),
+				ProductUsageUsageDate = datum,
+				ProductUsageComment = DatabaseValueConverter.GetString( row [ 6 ] )
+			} );
+		}
+
+		return usageList;
+	}
+	#endregion
+
 	#region Time
 	public static ObservableCollection<TimeModel> GetTimeList( int projectId = 0, ObservableCollection<TimeModel>? timeList = null )
 	{
@@ -1044,7 +1128,6 @@ public class DBCommands
 		return timeList;
 	}
 	#endregion
-
 
 	#region ProjectList
 	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )
