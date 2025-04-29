@@ -61,7 +61,6 @@ public class CombinedTimeViewModel : ObservableObject
 			}
 		}
 	}
-
 	public ProjectModel SelectedProject
 	{
 		get => ProjectViewModel.SelectedProject;
@@ -70,7 +69,7 @@ public class CombinedTimeViewModel : ObservableObject
 
 	private void RefreshProductUsageView()
 	{
-		if ( ProductUsageViewModel != null && ProjectViewModel.SelectedProject != null )
+		if ( ProjectViewModel.SelectedProject != null )
 		{
 			System.Windows.Application.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background, new Action( () =>
 			{
@@ -88,8 +87,6 @@ public class CombinedTimeViewModel : ObservableObject
 				ProductUsageViewModel.NotifyPropertyChanged( nameof( ProductUsageViewModel.FilteredProductUsage ) );
 
 				CommandManager.InvalidateRequerySuggested();
-				//ProductUsageViewModel.NotifyHasFilteredCostEntries();
-				//ProductUsageViewModel.NotifyHasFilteredProductUsage();
 			} ) );
 		}
 	}

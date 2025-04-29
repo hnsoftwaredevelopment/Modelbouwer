@@ -8,21 +8,7 @@ public class FilterAction : TargetedTriggerAction<ComboBoxAdv>
 		CollectionView items = (CollectionView)CollectionViewSource.GetDefaultView(Target.ItemsSource);
 		items.Filter = ( o ) =>
 		{
-			if ( String.IsNullOrEmpty( Target.Text ) )
-			{
-				return true;
-			}
-			else
-			{
-				if ( ( o as ProductModel ).Name.Contains( Target.Text ) )
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
+			return ( o as ProductModel ).Name.Contains( Target.Text );
 		};
 		items.Refresh();
 	}

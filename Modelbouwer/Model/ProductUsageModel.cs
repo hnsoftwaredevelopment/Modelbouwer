@@ -33,7 +33,6 @@ public class ProductUsageModel
 		set => SetProperty( ref _state, value );
 	}
 
-	private string? _statusMarker;
 	public string StatusMarker
 	{
 		get
