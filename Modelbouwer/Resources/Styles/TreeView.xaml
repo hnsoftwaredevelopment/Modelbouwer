@@ -1,15 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<ControlTemplate x:Key="TreeViewControlTemplate">
-		<Border
-			Background="White"
-			BorderBrush="DarkBlue"
-			BorderThickness="1"
-			CornerRadius="10"
-			>
-			<ScrollViewer x:Name="PART_ScrollViewer">
-				<ItemsPresenter />
-			</ScrollViewer>
-		</Border>
-	</ControlTemplate>
+    <ControlTemplate x:Key="TreeViewControlTemplate">
+        <Border
+            Background="White"
+            BorderBrush="DarkBlue"
+            BorderThickness="1"
+            CornerRadius="10"
+            >
+            <ScrollViewer x:Name="PART_ScrollViewer">
+                <ItemsPresenter />
+            </ScrollViewer>
+        </Border>
+    </ControlTemplate>
 </ResourceDictionary>

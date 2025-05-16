@@ -1,421 +1,452 @@
 ﻿<Page
-	x:Class="Modelbouwer.View.StorageManagement"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
-	xmlns:converter="clr-namespace:Modelbouwer.Converters"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:helper="clr-namespace:Modelbouwer.Helper"
-	xmlns:local="clr-namespace:Modelbouwer.View"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
-	Title="StorageManagement"
-	>
+    x:Class="Modelbouwer.View.StorageManagement"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
+    xmlns:converter="clr-namespace:Modelbouwer.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helper="clr-namespace:Modelbouwer.Helper"
+    xmlns:local="clr-namespace:Modelbouwer.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
+    Title="StorageManagement"
+    >
 
-	<Page.DataContext>
-		<viewmodels:InventoryViewModel />
-	</Page.DataContext>
+    <Page.DataContext>
+        <viewmodels:InventoryViewModel />
+    </Page.DataContext>
 
-	<Page.Resources>
-		<converter:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
-	</Page.Resources>
+    <Page.Resources>
+        <converter:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
+        <converter:CaptionSummaryRowConverter x:Key="CaptionSummaryRowConverter" />
+        <converter:MappingNameToAlignmentConverter x:Key="MappingNameToAlignmentConverter" />
+    </Page.Resources>
 
-	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
-		<Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="60" />
-				<RowDefinition Height="50" />
-				<RowDefinition Height="*" />
-				<RowDefinition Height="0" />
-			</Grid.RowDefinitions>
+    <Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
+        <Grid Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0" />
+            </Grid.RowDefinitions>
 
-			<!--#region Page title-->
-			<StackPanel
-				Grid.Row="0"
-				Margin="0,0,0,0"
-				Orientation="Vertical"
-				>
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="2*" />
-					</Grid.ColumnDefinitions>
+            <!--#region Page title-->
+            <StackPanel
+                Grid.Row="0"
+                Margin="0,0,0,0"
+                Orientation="Vertical"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
 
-					<TextBlock
-						Grid.Column="0"
-						Style="{DynamicResource Title}"
-						Text="{StaticResource Edit.Inventory.Title}"
-						/>
-				</Grid>
-				<Path Style="{DynamicResource TitleLine}" />
-				<TextBlock
-					Grid.Column="0"
-					Style="{DynamicResource SubTitle}"
-					Text="{StaticResource Edit.Inventory.Subtitle}"
-					/>
-				<CheckBox
-					x:Name="valueShow"
-					IsChecked="True"
-					Style="{DynamicResource HiddenCheckBox}"
-					/>
-			</StackPanel>
-			<!--#endregion-->
+                    <TextBlock
+                        Grid.Column="0"
+                        Style="{DynamicResource Title}"
+                        Text="{StaticResource Edit.Inventory.Title}"
+                        />
+                </Grid>
+                <Path Style="{DynamicResource TitleLine}" />
+                <TextBlock
+                    Grid.Column="0"
+                    Style="{DynamicResource SubTitle}"
+                    Text="{StaticResource Edit.Inventory.Subtitle}"
+                    />
+                <CheckBox
+                    x:Name="valueShow"
+                    IsChecked="True"
+                    Style="{DynamicResource HiddenCheckBox}"
+                    />
+            </StackPanel>
+            <!--#endregion-->
 
-			<!--#region Search block-->
-			<StackPanel Grid.Row="1" Orientation="Horizontal">
-				<Border
-					Width="365"
-					Height="35"
-					Margin="5"
-					Background="White"
-					BorderBrush="#cccccc"
-					BorderThickness="1"
-					CornerRadius="5"
-					>
+            <!--#region Search block-->
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <Border
+                    Width="365"
+                    Height="35"
+                    Margin="5"
+                    Background="White"
+                    BorderBrush="#cccccc"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    >
 
-					<Grid VerticalAlignment="Center">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="15" />
-							<ColumnDefinition Width="35" />
-						</Grid.ColumnDefinitions>
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="35" />
+                        </Grid.ColumnDefinitions>
 
-						<TextBox
-							x:Name="FilterSearchText"
-							Grid.Column="0"
-							Width="306"
-							Height="27"
-							MinWidth="220"
-							Margin="3"
-							Padding="3,0"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Center"
-							Background="White"
-							Tag="{StaticResource Edit.Inventory.DataGrid.FilterSearch.Search.Tag}"
-							TextChanged="FilterSearch"
-							ToolTip="{StaticResource Edit.Inventory.DataGrid.FilterSearch.Search.Tooltip}"
-							UseLayoutRounding="True"
-							/>
+                        <TextBox
+                            x:Name="FilterSearchText"
+                            Grid.Column="0"
+                            Width="306"
+                            Height="27"
+                            MinWidth="220"
+                            Margin="3"
+                            Padding="3,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Background="White"
+                            Tag="{StaticResource Edit.Inventory.DataGrid.FilterSearch.Search.Tag}"
+                            TextChanged="FilterSearch"
+                            ToolTip="{StaticResource Edit.Inventory.DataGrid.FilterSearch.Search.Tooltip}"
+                            UseLayoutRounding="True"
+                            />
 
-						<Button
-							x:Name="ClearFilterSearch"
-							Grid.Column="1"
-							Margin="0,0,0,4"
-							HorizontalAlignment="Center"
-							VerticalAlignment="Bottom"
-							Background="Transparent"
-							BorderThickness="0"
-							Click="ClearText"
-							ToolTip="{StaticResource Edit.Inventory.DataGrid.FilterSearch.Search.Clear.Tooltip}"
-							Visibility="Collapsed"
-							>
-							<Image Source="{StaticResource clear}" />
-						</Button>
+                        <Button
+                            x:Name="ClearFilterSearch"
+                            Grid.Column="1"
+                            Margin="0,0,0,4"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ClearText"
+                            ToolTip="{StaticResource Edit.Inventory.DataGrid.FilterSearch.Search.Clear.Tooltip}"
+                            Visibility="Collapsed"
+                            >
+                            <Image Source="{StaticResource clear}" />
+                        </Button>
 
-						<GridSplitter
-							Grid.Column="1"
-							Width="1"
-							VerticalAlignment="Stretch"
-							Background="LightGray"
-							/>
+                        <GridSplitter
+                            Grid.Column="1"
+                            Width="1"
+                            VerticalAlignment="Stretch"
+                            Background="LightGray"
+                            />
 
-						<Button
-							x:Name="FilterButton"
-							Grid.Column="2"
-							Width="20"
-							Height="20"
-							Background="Transparent"
-							BorderThickness="0"
-							Click="ToggleButton"
-							ToolTip="{StaticResource Edit.Inventory.DataGrid.Filter.Tooltip}"
-							Visibility="Collapsed"
-							>
-							<Image
-								Width="20"
-								Height="20"
-								Source="{StaticResource filter}"
-								/>
-						</Button>
-						<Button
-							x:Name="SearchButton"
-							Grid.Column="2"
-							Width="20"
-							Height="20"
-							Background="Transparent"
-							BorderThickness="0"
-							Click="ToggleButton"
-							ToolTip="{StaticResource Edit.Inventory.DataGrid.Search.Tooltip}"
-							Visibility="Visible"
-							>
-							<Image
-								Width="18"
-								Height="18"
-								Source="{StaticResource search}"
-								/>
-						</Button>
-
-
-					</Grid>
-				</Border>
-			</StackPanel>
-			<!--#endregion-->
-
-			<!--#region Datagrid-->
-			<syncfusion:SfDataGrid
-				x:Name="dataGrid"
-				Grid.Row="2"
-				Margin="10,5"
-				AllowDeleting="False"
-				AllowEditing="False"
-				AllowFiltering="False"
-				AllowGrouping="True"
-				AllowResizingColumns="True"
-				AllowTriStateSorting="True"
-				AutoGenerateColumns="False"
-				ColumnSizer="Star"
-				CurrentCellBeginEdit="OriginalInventory"
-				CurrentCellEndEdit="ChangedInventory"
-				GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
-				IsGroupDropAreaExpanded="True"
-				ItemsSource="{Binding Inventory, Mode=TwoWay}"
-				SelectedIndex="0"
-				ShowColumnWhenGrouped="True"
-				ShowGroupDropArea="True"
-				SortClickAction="SingleClick"
-				>
-				<syncfusion:SfDataGrid.Resources>
-					<Style TargetType="syncfusion:GridTableSummaryCell">
-						<Setter Property="FontSize" Value="13" />
-						<Setter Property="FontStyle" Value="Italic" />
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="DarkBlue" />
-						<Setter Property="HorizontalContentAlignment" Value="Right" />
-					</Style>
-
-					<Style TargetType="syncfusion:GridGroupSummaryCell">
-						<Setter Property="FontSize" Value="12" />
-						<Setter Property="FontStyle" Value="Italic" />
-						<Setter Property="FontWeight" Value="Bold" />
-						<Setter Property="Foreground" Value="Blue" />
-						<Setter Property="HorizontalContentAlignment" Value="Right" />
-					</Style>
+                        <Button
+                            x:Name="FilterButton"
+                            Grid.Column="2"
+                            Width="20"
+                            Height="20"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ToggleButton"
+                            ToolTip="{StaticResource Edit.Inventory.DataGrid.Filter.Tooltip}"
+                            Visibility="Collapsed"
+                            >
+                            <Image
+                                Width="20"
+                                Height="20"
+                                Source="{StaticResource filter}"
+                                />
+                        </Button>
+                        <Button
+                            x:Name="SearchButton"
+                            Grid.Column="2"
+                            Width="20"
+                            Height="20"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="ToggleButton"
+                            ToolTip="{StaticResource Edit.Inventory.DataGrid.Search.Tooltip}"
+                            Visibility="Visible"
+                            >
+                            <Image
+                                Width="18"
+                                Height="18"
+                                Source="{StaticResource search}"
+                                />
+                        </Button>
 
 
-				</syncfusion:SfDataGrid.Resources>
+                    </Grid>
+                </Border>
+            </StackPanel>
+            <!--#endregion-->
 
-				<syncfusion:SfDataGrid.TableSummaryRows>
-					<syncfusion:GridTableSummaryRow Position="Top" ShowSummaryInRow="False">
-						<syncfusion:GridSummaryRow.SummaryColumns>
-							<syncfusion:GridSummaryColumn
-								Name="Value"
-								Format="'{Sum:c}'"
-								MappingName="ProductInventoryValue"
-								SummaryType="DoubleAggregate"
-								/>
-							<syncfusion:GridSummaryColumn
-								Name="VirtualValue"
-								Format="'{Sum:c}'"
-								MappingName="ProductVirtualInventoryValue"
-								SummaryType="DoubleAggregate"
-								/>
-						</syncfusion:GridSummaryRow.SummaryColumns>
-					</syncfusion:GridTableSummaryRow>
-				</syncfusion:SfDataGrid.TableSummaryRows>
+            <!--#region Datagrid-->
+            <syncfusion:SfDataGrid
+                x:Name="dataGrid"
+                Grid.Row="2"
+                Margin="10,5"
+                AllowDeleting="False"
+                AllowEditing="False"
+                AllowFiltering="False"
+                AllowGrouping="True"
+                AllowResizingColumns="True"
+                AllowTriStateSorting="True"
+                AutoGenerateColumns="False"
+                ColumnSizer="Star"
+                CurrentCellBeginEdit="OriginalInventory"
+                CurrentCellEndEdit="ChangedInventory"
+                GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
+                IsGroupDropAreaExpanded="True"
+                ItemsSource="{Binding Inventory, Mode=TwoWay}"
+                SelectedIndex="0"
+                ShowColumnWhenGrouped="True"
+                ShowGroupDropArea="True"
+                SortClickAction="SingleClick"
+                >
+                <syncfusion:SfDataGrid.Resources>
+                    <Style TargetType="syncfusion:GridTableSummaryCell">
+                        <Setter Property="FontSize" Value="13" />
+                        <Setter Property="FontStyle" Value="Italic" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Foreground" Value="DarkBlue" />
+                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                    </Style>
 
-				<syncfusion:SfDataGrid.GroupSummaryRows>
-					<syncfusion:GridSummaryRow ShowSummaryInRow="False">
-						<syncfusion:GridSummaryRow.SummaryColumns>
-							<syncfusion:GridSummaryColumn
-								Name="RowValue"
-								Format="'{Sum:c}'"
-								MappingName="ProductInventoryValue"
-								SummaryType="DoubleAggregate"
-								/>
+                    <Style TargetType="syncfusion:GridCaptionSummaryCell">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <ContentPresenter HorizontalAlignment="{Binding RelativeSource={RelativeSource AncestorType=syncfusion:GridCaptionSummaryCell}, Path=ColumnBase.MappingName, Converter={StaticResource MappingNameToAlignmentConverter}, ConverterParameter=Left}" 
+                                                      Content="{Binding}" />
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="FontStyle" Value="Italic" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Foreground" Value="DarkBlue" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </syncfusion:SfDataGrid.Resources>
 
-							<syncfusion:GridSummaryColumn
-								Name="RowVirtualValue"
-								Format="'{Sum:c}'"
-								MappingName="ProductVirtualInventoryValue"
-								SummaryType="DoubleAggregate"
-								/>
-						</syncfusion:GridSummaryRow.SummaryColumns>
-					</syncfusion:GridSummaryRow>
-				</syncfusion:SfDataGrid.GroupSummaryRows>
+                <syncfusion:SfDataGrid.TableSummaryRows>
+                    <syncfusion:GridTableSummaryRow Position="Top" ShowSummaryInRow="False">
+                        <syncfusion:GridSummaryRow.SummaryColumns>
+                            <syncfusion:GridSummaryColumn
+                                Name="Value"
+                                Format="'{Sum:c}'"
+                                MappingName="ProductInventoryValue"
+                                SummaryType="DoubleAggregate"
+                                />
+                            <syncfusion:GridSummaryColumn
+                                Name="VirtualValue"
+                                Format="'{Sum:c}'"
+                                MappingName="ProductVirtualInventoryValue"
+                                SummaryType="DoubleAggregate"
+                                />
+                        </syncfusion:GridSummaryRow.SummaryColumns>
+                    </syncfusion:GridTableSummaryRow>
+                </syncfusion:SfDataGrid.TableSummaryRows>
 
-				<syncfusion:SfDataGrid.Columns>
-					<syncfusion:GridTextColumn
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Id}"
-						IsHidden="True"
-						MappingName="ProductId"
-						/>
+                <syncfusion:SfDataGrid.CaptionSummaryRow>
+                    <syncfusion:GridSummaryRow
+                        Title=" {ColumnName}: {Key}"
+                        ShowSummaryInRow="False"
+                        TitleColumnCount="5"
+                        >
+                        <syncfusion:GridSummaryRow.SummaryColumns>
+                            <syncfusion:GridSummaryColumn
+                                Name="RowValue"
+                                Format="'{Sum:c}'"
+                                MappingName="ProductInventoryValue"
+                                SummaryType="DoubleAggregate"
+                                >
+                                <syncfusion:GridSummaryColumn.Template>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Style="{StaticResource DataGrid.GroupColum.Data.Header}"
+                                            Text="{Binding Converter={StaticResource CaptionSummaryRowConverter}, ConverterParameter=ProductInventoryValue}"
+                                            />
+                                    </DataTemplate>
+                                </syncfusion:GridSummaryColumn.Template>
+                            </syncfusion:GridSummaryColumn>
 
-					<syncfusion:GridTextColumn
-						Width="20"
-						AllowFiltering="False"
-						AllowGrouping="True"
-						AllowSorting="False"
-						HeaderText=""
-						MappingName="ShowCellIcon"
-						>
-						<syncfusion:GridTextColumn.CellTemplate>
-							<DataTemplate>
-								<Image>
-									<Image.Style>
-										<Style TargetType="{x:Type Image}">
-											<Setter Property="Margin" Value="3" />
-											<Setter Property="Source" Value="{x:Null}" />
-											<Setter Property="Visibility" Value="Collapsed" />
+                            <syncfusion:GridSummaryColumn
+                                Name="RowVirtualValue"
+                                Format="'{Sum:c}'"
+                                MappingName="ProductVirtualInventoryValue"
+                                SummaryType="DoubleAggregate"
+                                >
+                                <syncfusion:GridSummaryColumn.Template>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Style="{StaticResource DataGrid.GroupColum.Data.Header}"
+                                            Text="{Binding Converter={StaticResource CaptionSummaryRowConverter}, ConverterParameter=ProductVirtualInventoryValue}"
+                                            />
+                                    </DataTemplate>
+                                </syncfusion:GridSummaryColumn.Template>
+                            </syncfusion:GridSummaryColumn>
+                        </syncfusion:GridSummaryRow.SummaryColumns>
+                    </syncfusion:GridSummaryRow>
+                </syncfusion:SfDataGrid.CaptionSummaryRow>
 
-											<Style.Triggers>
-												<DataTrigger Binding="{Binding ProductShortInventory, Converter={StaticResource GreaterThanZeroConverter}}" Value="True">
-													<Setter Property="Source" Value="{StaticResource short}" />
-													<Setter Property="ToolTip" Value="Er is te weinig voorraad, ook wanneer eventuele bestellingen worden toegevoegd" />
-													<Setter Property="Visibility" Value="Visible" />
-												</DataTrigger>
+                <syncfusion:SfDataGrid.Columns>
+                    <syncfusion:GridTextColumn
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Id}"
+                        IsHidden="True"
+                        MappingName="ProductId"
+                        />
 
-												<DataTrigger Binding="{Binding ProductTempShortInventory, Converter={StaticResource GreaterThanZeroConverter}}" Value="True">
-													<Setter Property="Source" Value="{StaticResource tempshort}" />
-													<Setter Property="ToolTip" Value="Er is te weinig voorraad, maar wanneer de bestellingen worden toegevoegd is er voldoende voorraad" />
-													<Setter Property="Visibility" Value="Visible" />
-												</DataTrigger>
+                    <syncfusion:GridTextColumn
+                        Width="20"
+                        AllowFiltering="False"
+                        AllowGrouping="True"
+                        AllowSorting="False"
+                        HeaderText=""
+                        MappingName="ShowCellIcon"
+                        >
+                        <syncfusion:GridTextColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image>
+                                    <Image.Style>
+                                        <Style TargetType="{x:Type Image}">
+                                            <Setter Property="Margin" Value="3" />
+                                            <Setter Property="Source" Value="{x:Null}" />
+                                            <Setter Property="Visibility" Value="Collapsed" />
 
-												<MultiDataTrigger>
-													<MultiDataTrigger.Conditions>
-														<Condition Binding="{Binding ProductShortInventory}" Value="0" />
-														<Condition Binding="{Binding ProductTempShortInventory}" Value="0" />
-													</MultiDataTrigger.Conditions>
-													<Setter Property="Source" Value="{x:Null}" />
-													<Setter Property="Visibility" Value="Collapsed" />
-												</MultiDataTrigger>
-											</Style.Triggers>
-										</Style>
-									</Image.Style>
-								</Image>
-							</DataTemplate>
-						</syncfusion:GridTextColumn.CellTemplate>
-					</syncfusion:GridTextColumn>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ProductShortInventory, Converter={StaticResource GreaterThanZeroConverter}}" Value="True">
+                                                    <Setter Property="Source" Value="{StaticResource short}" />
+                                                    <Setter Property="ToolTip" Value="Er is te weinig voorraad, ook wanneer eventuele bestellingen worden toegevoegd" />
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
 
-					<syncfusion:GridTextColumn
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Code}"
-						HorizontalHeaderContentAlignment="Left"
-						MappingName="ProductCode"
-						/>
+                                                <DataTrigger Binding="{Binding ProductTempShortInventory, Converter={StaticResource GreaterThanZeroConverter}}" Value="True">
+                                                    <Setter Property="Source" Value="{StaticResource tempshort}" />
+                                                    <Setter Property="ToolTip" Value="Er is te weinig voorraad, maar wanneer de bestellingen worden toegevoegd is er voldoende voorraad" />
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
 
-					<syncfusion:GridTextColumn
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Name}"
-						HorizontalHeaderContentAlignment="Left"
-						MappingName="ProductName"
-						/>
+                                                <MultiDataTrigger>
+                                                    <MultiDataTrigger.Conditions>
+                                                        <Condition Binding="{Binding ProductShortInventory}" Value="0" />
+                                                        <Condition Binding="{Binding ProductTempShortInventory}" Value="0" />
+                                                    </MultiDataTrigger.Conditions>
+                                                    <Setter Property="Source" Value="{x:Null}" />
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </MultiDataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </DataTemplate>
+                        </syncfusion:GridTextColumn.CellTemplate>
+                    </syncfusion:GridTextColumn>
 
-					<syncfusion:GridTextColumn
-						AllowGrouping="True"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Category}"
-						HorizontalHeaderContentAlignment="Left"
-						MappingName="ProductCategory"
-						/>
+                    <syncfusion:GridTextColumn
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Code}"
+                        HorizontalHeaderContentAlignment="Left"
+                        MappingName="ProductCode"
+                        />
 
-					<syncfusion:GridTextColumn
-						AllowGrouping="True"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Location}"
-						HorizontalHeaderContentAlignment="Left"
-						MappingName="ProductStorageLocation"
-						/>
+                    <syncfusion:GridTextColumn
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Name}"
+                        HorizontalHeaderContentAlignment="Left"
+                        MappingName="ProductName"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowEditing="True"
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.MinStock}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductMinimalStock"
-						MinValue="0"
-						/>
+                    <syncfusion:GridTextColumn
+                        AllowGrouping="True"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Category}"
+                        HorizontalHeaderContentAlignment="Left"
+                        MappingName="ProductCategory"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowEditing="True"
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Price}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductPrice"
-						MinValue="0"
-						/>
+                    <syncfusion:GridTextColumn
+                        AllowGrouping="True"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Location}"
+                        HorizontalHeaderContentAlignment="Left"
+                        MappingName="ProductStorageLocation"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowEditing="True"
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Inventory}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductInventory"
-						MinValue="0"
-						/>
+                    <syncfusion:GridNumericColumn
+                        AllowEditing="True"
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.MinStock}"
+                        HorizontalHeaderContentAlignment="Right"
+                        MappingName="ProductMinimalStock"
+                        MinValue="0"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Value}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductInventoryValue"
-						/>
+                    <syncfusion:GridNumericColumn
+                        AllowEditing="True"
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Price}"
+                        HorizontalHeaderContentAlignment="Right"
+                        MappingName="ProductPrice"
+                        MinValue="0"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.InOrder}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductInOrder"
-						/>
+                    <syncfusion:GridNumericColumn
+                        AllowEditing="True"
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Inventory}"
+                        HorizontalHeaderContentAlignment="Right"
+                        MappingName="ProductInventory"
+                        MinValue="0"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.VirtualInventory}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductVirtualInventory"
-						/>
-					<syncfusion:GridNumericColumn
-						AllowFiltering="False"
-						AllowGrouping="False"
-						AllowSorting="True"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.VirtualValue}"
-						HorizontalHeaderContentAlignment="Right"
-						MappingName="ProductVirtualInventoryValue"
-						/>
+                    <syncfusion:GridNumericColumn
+                        Width="250"
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Value}"
+                        HorizontalHeaderContentAlignment="Right"
+                        MappingName="ProductInventoryValue"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowFiltering="False"
-						AllowGrouping="False"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Short}"
-						HorizontalHeaderContentAlignment="Right"
-						IsHidden="True"
-						MappingName="ProductShortInventory"
-						/>
+                    <syncfusion:GridNumericColumn
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.InOrder}"
+                        HorizontalHeaderContentAlignment="Right"
+                        MappingName="ProductInOrder"
+                        />
 
-					<syncfusion:GridNumericColumn
-						AllowFiltering="False"
-						AllowGrouping="False"
-						HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.TempShort}"
-						HorizontalHeaderContentAlignment="Right"
-						IsHidden="True"
-						MappingName="ProductTempShortInventory"
-						/>
-				</syncfusion:SfDataGrid.Columns>
-			</syncfusion:SfDataGrid>
-			<!--#endregion-->
-		</Grid>
-	</Border>
+                    <syncfusion:GridNumericColumn
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.VirtualInventory}"
+                        HorizontalHeaderContentAlignment="Right"
+                        MappingName="ProductVirtualInventory"
+                        />
+                    <syncfusion:GridNumericColumn
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        AllowSorting="True"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.VirtualValue}"
+                        HorizontalHeaderContentAlignment="Right"
+                        MappingName="ProductVirtualInventoryValue"
+                        />
+
+                    <syncfusion:GridNumericColumn
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.Short}"
+                        HorizontalHeaderContentAlignment="Right"
+                        IsHidden="True"
+                        MappingName="ProductShortInventory"
+                        />
+
+                    <syncfusion:GridNumericColumn
+                        AllowFiltering="False"
+                        AllowGrouping="False"
+                        HeaderText="{StaticResource Edit.Inventory.DataGrid.Header.TempShort}"
+                        HorizontalHeaderContentAlignment="Right"
+                        IsHidden="True"
+                        MappingName="ProductTempShortInventory"
+                        />
+                </syncfusion:SfDataGrid.Columns>
+            </syncfusion:SfDataGrid>
+            <!--#endregion-->
+        </Grid>
+    </Border>
 </Page>

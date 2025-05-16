@@ -38,13 +38,13 @@ public partial class ProductSupplierViewModel : ObservableObject
 	[ObservableProperty]
 	private bool? productSupplierDefaultSupplierCheck;
 
-	public ObservableCollection<ProductSupplierModel> FilteredSuppliers { get; private set; } = new();
+	public ObservableCollection<ProductSupplierModel> FilteredSuppliers { get; private set; } = [ ];
 
 	public ObservableCollection<ProductSupplierModel> ProductSupplier { get; set; }
 
 	private ProductModel? _selectedProduct;
 
-	public ObservableCollection<SupplierModel> SupplierList { get; set; } = new();
+	public ObservableCollection<SupplierModel> SupplierList { get; set; } = [ ];
 
 	private bool _hasSuppliers;
 	public bool HasSuppliers
@@ -90,7 +90,7 @@ public partial class ProductSupplierViewModel : ObservableObject
 			ProductSupplierCurrencyId = 1,
 			ProductSupplierProductNumber = string.Empty,
 			ProductSupplierProductName = string.Empty,
-			ProductSupplierPrice = 0.00,
+			ProductSupplierPrice = 0.0000000M,
 			ProductSupplierURL = string.Empty,
 			ProductSupplierDefaultSupplier = false,
 			ProductSupplierSupplierName = string.Empty,

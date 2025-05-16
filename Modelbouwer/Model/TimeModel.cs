@@ -29,29 +29,6 @@ public class TimeModel : INotifyPropertyChanged
 		}
 	}
 
-	//private bool _hasChanges = false;
-	//public bool HasChanges
-	//{
-	//	get => _hasChanges;
-	//	set => SetProperty( ref _hasChanges, value );
-	//}
-
-	//private bool _hasChangesMarker;
-	//public bool HasChangesMarker
-	//{
-	//	get
-	//	{
-	//		if ( State == RecordState.Unchanged )
-	//		{
-	//			return HasChanges = false;
-	//		}
-	//		else
-	//		{
-	//			return HasChanges = true;
-	//		}
-	//	}
-	//}
-
 	public event PropertyChangedEventHandler? PropertyChanged;
 
 	protected void NotifyPropertyChanged( [CallerMemberName] string? propertyName = null )

@@ -17,7 +17,16 @@ public partial class StorageManagement : Page
 		dataGrid.CurrentCellBeginEdit += OriginalInventory;
 		dataGrid.CurrentCellEndEdit += ChangedInventory;
 
+		//Refresh the datagrid when the page is loaded
+		this.Loaded += StorageManagement_Loaded;
+
 	}
+
+	private void StorageManagement_Loaded( object sender, RoutedEventArgs e )
+	{
+		RefreshDataGrid();
+	}
+
 	private void RefreshDataGrid()
 	{
 		// Haal de bijgewerkte data op vanuit de database

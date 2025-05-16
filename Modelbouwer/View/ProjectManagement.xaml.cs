@@ -117,7 +117,14 @@ public partial class ProjectManagement : Page
 
 			if ( selectedProject != null )
 			{
+				// Load the memo field for the selected project
 				SetRtfContent( selectedProject.ProjectMemo );
+
+				// Load time entries and update HasFilteredTimeEntries
+				viewModel.TimeViewModel.LoadTimeEntriesForSelectedProject( selectedProject.ProjectId );
+
+				// Force a UI update for the HasFilteredTimeEntries property
+				CommandManager.InvalidateRequerySuggested();
 			}
 
 			if ( ProjectClosed.IsChecked == false && selectedProject != null && double.Parse( viewModel.ProjectViewModel.SelectedProject.ProjectExpectedTime ) > 0 )

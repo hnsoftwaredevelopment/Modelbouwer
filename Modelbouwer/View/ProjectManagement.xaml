@@ -959,14 +959,16 @@
 							ColumnSizer="Star"
 							FilterRowPosition="Top"
 							GroupDropAreaStyle="{DynamicResource SfDataGridGroupDropAreaStyle1}"
+							GroupSummaryRowStyle="{DynamicResource GroupSummaryTotalRowStyle}"
 							IsGroupDropAreaExpanded="True"
-							ItemsSource="{Binding TimeViewModel.FilteredTimeEntries}"
+							ItemsSource="{Binding TimeViewModel.FilteredTimeEntries, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 							SelectedIndex="0"
 							ShowGroupDropArea="True"
 							SortClickAction="SingleClick"
+							TableSummaryRowStyle="{DynamicResource TableSummaryHeaderRowStyle}"
 							>
 							<syncfusion:SfDataGrid.TableSummaryRows>
-								<syncfusion:GridTableSummaryRow ShowSummaryInRow="True">
+								<syncfusion:GridTableSummaryRow ShowSummaryInRow="False" Position="Top" Title="">
 									<syncfusion:GridSummaryRow.SummaryColumns>
 										<syncfusion:GridSummaryColumn
 											Name="WorkedHours"
@@ -990,7 +992,7 @@
 							</syncfusion:SfDataGrid.TableSummaryRows>
 
 							<syncfusion:SfDataGrid.GroupSummaryRows>
-								<syncfusion:GridSummaryRow ShowSummaryInRow="True">
+								<syncfusion:GridSummaryRow ShowSummaryInRow="True" >
 									<syncfusion:GridSummaryRow.SummaryColumns>
 										<syncfusion:GridSummaryColumn
 											Name="WorkedHours"

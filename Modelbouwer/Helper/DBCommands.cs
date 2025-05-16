@@ -735,10 +735,7 @@ public class DBCommands
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
 			bool _tempCheck = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "*";
-			double parsedPrice =  double.Parse(_dt.Rows [ i ] [ 10 ].ToString(), CultureInfo.InvariantCulture);
-			bool _defaultSupplier = false;
-
-			if ( DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 4 ] ) == "1" ) { _defaultSupplier = true; }
+			decimal parsedPrice =  decimal.Parse(_dt.Rows [ i ] [ 10 ].ToString(), CultureInfo.InvariantCulture);
 
 			supplierList.Add( new ProductSupplierModel
 			{
@@ -751,7 +748,7 @@ public class DBCommands
 				ProductSupplierSupplierName = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 6 ] ),
 				ProductSupplierProductNumber = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 7 ] ),
 				ProductSupplierURL = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 9 ] ),
-				ProductSupplierPrice = parsedPrice,
+				ProductSupplierPrice = DatabaseValueConverter.GetDecimal( parsedPrice ),
 				ProductSupplierCurrencySymbol = DatabaseValueConverter.GetString( _dt.Rows [ i ] [ 11 ] ),
 				ProductSupplierDefaultSupplierCheck = _tempCheck
 			} );
@@ -1044,7 +1041,6 @@ public class DBCommands
 		return timeList;
 	}
 	#endregion
-
 
 	#region ProjectList
 	public static ObservableCollection<ProjectModel> GetProjectList( ObservableCollection<ProjectModel>? projectList = null )

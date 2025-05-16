@@ -1,70 +1,70 @@
 ﻿<ResourceDictionary
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:converter="clr-namespace:Modelbouwer.Converters"
-	>
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:Modelbouwer.Converters"
+    >
 
-	<converter:TooltipValidationConverter x:Key="TooltipValidationConverter" />
+    <converter:TooltipValidationConverter x:Key="TooltipValidationConverter" />
 
-	<Style BasedOn="{StaticResource DefaultTextBox}" TargetType="TextBox">
-		<Style.Triggers>
-			<!--  Trigger voor validatiefouten  -->
-			<Trigger Property="Validation.HasError" Value="True">
-				<Setter Property="BorderBrush" Value="Red" />
-				<Setter Property="BorderThickness" Value="2" />
-				<Setter Property="ToolTip">
-					<Setter.Value>
-						<MultiBinding Converter="{StaticResource TooltipValidationConverter}">
-							<!--  Voeg de validatiefout toe  -->
-							<Binding Path="(Validation.Errors)[0].ErrorContent" RelativeSource="{RelativeSource Self}" />
-							<!--  Voeg de bestaande ToolTip toe  -->
-							<Binding Path="ToolTip" RelativeSource="{RelativeSource Self}" />
-						</MultiBinding>
-					</Setter.Value>
-				</Setter>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+    <Style BasedOn="{StaticResource DefaultTextBox}" TargetType="TextBox">
+        <Style.Triggers>
+            <!--  Trigger voor validatiefouten  -->
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="BorderBrush" Value="Red" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource TooltipValidationConverter}">
+                            <!--  Voeg de validatiefout toe  -->
+                            <Binding Path="(Validation.Errors)[0].ErrorContent" RelativeSource="{RelativeSource Self}" />
+                            <!--  Voeg de bestaande ToolTip toe  -->
+                            <Binding Path="ToolTip" RelativeSource="{RelativeSource Self}" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<Style
-		x:Key="ValidatedTextBox"
-		BasedOn="{StaticResource DefaultTextBox}"
-		TargetType="TextBox"
-		>
-		<Style.Triggers>
-			<Trigger Property="Text" Value="">
-				<Setter Property="BorderBrush" Value="Red" />
-				<Setter Property="BorderThickness" Value="2" />
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+    <Style
+        x:Key="ValidatedTextBox"
+        BasedOn="{StaticResource DefaultTextBox}"
+        TargetType="TextBox"
+        >
+        <Style.Triggers>
+            <Trigger Property="Text" Value="">
+                <Setter Property="BorderBrush" Value="Red" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<Style
-		x:Key="ValidatedDatePicker"
-		BasedOn="{StaticResource DefaultDataPicker}"
-		TargetType="DatePicker"
-		>
-		<!--  Red Border if incorrect or no date has been enterend  -->
-		<Style.Triggers>
-			<Trigger Property="Text" Value="">
-				<Setter Property="BorderBrush" Value="Red" />
-				<Setter Property="BorderThickness" Value="2" />
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+    <Style
+        x:Key="ValidatedDatePicker"
+        BasedOn="{StaticResource DefaultDataPicker}"
+        TargetType="DatePicker"
+        >
+        <!--  Red Border if incorrect or no date has been enterend  -->
+        <Style.Triggers>
+            <Trigger Property="Text" Value="">
+                <Setter Property="BorderBrush" Value="Red" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<Style x:Key="NotSafedWarning" TargetType="TextBox">
-		<Setter Property="Background" Value="Red" />
-		<Setter Property="FontWeight" Value="Bold" />
-		<Setter Property="Foreground" Value="Yellow" />
-		<Setter Property="Height" Value="25" />
-		<Setter Property="HorizontalAlignment" Value="Center" />
-		<Setter Property="Margin" Value="0,0,0,7" />
-		<Setter Property="Padding" Value="15,0" />
-		<Setter Property="VerticalAlignment" Value="Top" />
-		<Setter Property="VerticalContentAlignment" Value="Center" />
-		<Setter Property="Width" Value="AUTO" />
-	</Style>
+    <Style x:Key="NotSafedWarning" TargetType="TextBox">
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="Yellow" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,0,0,7" />
+        <Setter Property="Padding" Value="15,0" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="AUTO" />
+    </Style>
 
 
 

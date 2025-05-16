@@ -9,7 +9,7 @@ public class ProductSupplierModel : ObservableObject
 	public string? ProductSupplierName { get; set; }
 	public string? ProductSupplierProductNumber { get; set; }
 	public string? ProductSupplierProductName { get; set; }
-	public double ProductSupplierPrice { get; set; }
+	public decimal ProductSupplierPrice { get; set; }
 	public string? ProductSupplierURL { get; set; }
 	public bool? ProductSupplierDefaultSupplier { get; set; }
 	public bool? ProductSupplierDefaultSupplierCheck { get; set; }

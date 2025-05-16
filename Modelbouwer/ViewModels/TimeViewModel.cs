@@ -135,14 +135,12 @@ public partial class TimeViewModel : ObservableObject
 	}
 	#endregion
 
-	public bool HasFilteredTimeEntries => FilteredTimeEntries != null && FilteredTimeEntries.Any();
-
-	#region Notify UI when list changes
-	private void NotifyHasFilteredTimeEntries()
+	private bool _hasFilteredTimeEntries;
+	public bool HasFilteredTimeEntries
 	{
-		OnPropertyChanged( nameof( HasFilteredTimeEntries ) );
+		get => _hasFilteredTimeEntries;
+		private set => SetProperty( ref _hasFilteredTimeEntries, value );
 	}
-	#endregion
 
 	#region FilteredFrom Time Entries
 	private ObservableCollection<TimeModel> _filteredTimeEntries = [];
@@ -155,9 +153,14 @@ public partial class TimeViewModel : ObservableObject
 			{
 				_filteredTimeEntries = value;
 				OnPropertyChanged( nameof( FilteredTimeEntries ) );
-				NotifyHasFilteredTimeEntries();
+				UpdateHasFilteredTimeEntries();
 			}
 		}
+	}
+	private void UpdateHasFilteredTimeEntries()
+	{
+		HasFilteredTimeEntries = FilteredTimeEntries != null && FilteredTimeEntries.Any();
+		Console.WriteLine( HasFilteredTimeEntries );
 	}
 	#endregion
 
@@ -171,12 +174,18 @@ public partial class TimeViewModel : ObservableObject
 			if ( _selectedProjectId != value )
 			{
 				_selectedProjectId = value;
-				LoadTimeEntriesForSelectedProject( _selectedProjectId );
+
+				if ( value != 0 )
+				{
+					LoadTimeEntriesForSelectedProject( value );
+				}
+				else
+				{
+					FilteredTimeEntries.Clear();
+				}
+
 				SelectedProjectChanged?.Invoke( this, _selectedProjectId );
-			}
-			else
-			{
-				CommandManager.InvalidateRequerySuggested();
+				OnPropertyChanged( nameof( FilteredTimeEntries ) );
 			}
 		}
 	}
@@ -200,6 +209,7 @@ public partial class TimeViewModel : ObservableObject
 		FilteredTimeEntries.Insert( 0, newEntry );
 
 		UpdateHasChanges();
+		UpdateHasFilteredTimeEntries();
 
 		SelectedTimeEntry = newEntry;
 	}
@@ -248,6 +258,7 @@ public partial class TimeViewModel : ObservableObject
 			}
 
 			FilteredTimeEntries = new ObservableCollection<TimeModel>( TimeModelLines );
+			OnPropertyChanged( nameof( FilteredTimeEntries ) );
 
 			// Setup change tracking for new items
 			foreach ( TimeModel item in FilteredTimeEntries )
@@ -256,10 +267,13 @@ public partial class TimeViewModel : ObservableObject
 			}
 
 			UpdateHasChanges();
+			UpdateHasFilteredTimeEntries();
+			OnPropertyChanged( nameof( HasFilteredTimeEntries ) );
 
 			if ( FilteredTimeEntries.Any() )
 			{
 				SelectedTimeEntry = FilteredTimeEntries.First();
+				OnPropertyChanged( nameof( SelectedTimeEntry ) );
 			}
 		}
 		catch ( Exception ex )
@@ -273,15 +287,22 @@ public partial class TimeViewModel : ObservableObject
 	{
 		if ( e.PropertyName == nameof( FilteredTimeEntries ) )
 		{
-			NotifyHasFilteredTimeEntries();
+			//NotifyHasFilteredTimeEntries();
+			UpdateHasFilteredTimeEntries();
 		}
 	}
 
 	public TimeViewModel()
 	{
-		_filteredTimeEntries = new ObservableCollection<TimeModel>();
+		_filteredTimeEntries = [ ];
+		UpdateHasFilteredTimeEntries();
 
 		PropertyChanged += TimeViewModel_PropertyChanged;
+
+		_filteredTimeEntries.CollectionChanged += ( s, e ) =>
+		{
+			UpdateHasFilteredTimeEntries();
+		};
 
 		SetupChangeTracking();
 
@@ -293,8 +314,6 @@ public partial class TimeViewModel : ObservableObject
 
 		AddNewRowCommand = new RelayCommand( ExectuteAddNewRow );
 		SaveCommand = new RelayCommand( ExecuteSave );
-
-		//FilteredTimeEntries.CollectionChanged += ( sender, e ) => UpdateCanExecuteSave();
 	}
 
 	public void Refresh()
@@ -304,5 +323,6 @@ public partial class TimeViewModel : ObservableObject
 			LoadTimeEntriesForSelectedProject( SelectedProject );
 		}
 		OnPropertyChanged( nameof( FilteredTimeEntries ) );
+		OnPropertyChanged( nameof( HasFilteredTimeEntries ) );
 	}
 }

@@ -66,7 +66,7 @@ public partial class ProductViewModel : ObservableObject
 	{
 		if ( Product == null )
 		{
-			Product = new ObservableCollection<ProductModel>();
+			Product = [ ];
 		}
 
 		ProductModel newProduct = new()
@@ -97,7 +97,7 @@ public partial class ProductViewModel : ObservableObject
 	{
 		if ( Product == null )
 		{
-			Product = new ObservableCollection<ProductModel>();
+			Product = [ ];
 		}
 
 		// Save the current scroll position
@@ -182,8 +182,8 @@ public partial class ProductViewModel : ObservableObject
 
 	public ProductViewModel()
 	{
-		Product = [ .. DBCommands.GetProductList() ];
-		SelectedProduct = Product [ 0 ];
+		Product = new ObservableCollection<ProductModel>( DBCommands.GetProductList() );
+		SelectedProduct = Product.Count > 0 ? Product [ 0 ] : null;
 
 		_productOrderQuantity = "1";
 		_productPackagingUnit = "Stuk";

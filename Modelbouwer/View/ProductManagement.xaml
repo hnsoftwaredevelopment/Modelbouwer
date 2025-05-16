@@ -657,7 +657,7 @@
 											Language="nl-NL"
 											Style="{DynamicResource DefaultTextBox}"
 											Tag="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tag}"
-											Text="{Binding ProductViewModel.SelectedProduct.ProductPrice, Mode=TwoWay, StringFormat={}{0:N2}, ConverterCulture='nl-NL', UpdateSourceTrigger=PropertyChanged}"
+											Text="{Binding ProductViewModel.SelectedProduct.ProductPrice, Mode=TwoWay, StringFormat={}{0:N4}, ConverterCulture='nl-NL', UpdateSourceTrigger=PropertyChanged}"
 											ToolTip="{DynamicResource Edit.Product.Tab.General.Group.Project.Price.Tooltip}"
 											/>
 									</StackPanel>
@@ -984,7 +984,7 @@
 										<!--#region Price-->
 										<DataGridTextColumn
 											Width="80"
-											Binding="{Binding ProductSupplierPrice, StringFormat={}{0:N2}, ConverterCulture='nl-NL', Mode=TwoWay}"
+											Binding="{Binding ProductSupplierPrice, StringFormat={}{0:N4}, ConverterCulture='nl-NL', Mode=TwoWay}"
 											Header="{StaticResource Edit.Product.Tab.Supplier.Price.Header}"
 											>
 											<DataGridTextColumn.ElementStyle>
@@ -1125,7 +1125,7 @@
 												IsEnabled="True"
 												Style="{DynamicResource DefaultTextBox}"
 												Tag="{StaticResource Edit.Product.Tab.Supplier.Group.General.Price.Tag}"
-												Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierPrice, StringFormat={}{0:N2}, ConverterCulture='nl-NL', UpdateSourceTrigger=PropertyChanged}"
+												Text="{Binding ProductSupplierViewModel.SelectedSupplier.ProductSupplierPrice, StringFormat={}{0:N4}, ConverterCulture='nl-NL', UpdateSourceTrigger=PropertyChanged}"
 												TextChanged="FieldChanged"
 												ToolTip="{StaticResource Edit.Product.Tab.Supplier.Group.General.Price.Tooltip}"
 												/>
