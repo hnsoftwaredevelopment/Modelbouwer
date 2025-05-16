@@ -136,7 +136,120 @@ public partial class TimeViewModel : ObservableObject
 	}
 	#endregion
 
+
+	private ProductModel _selectedUsedProduct;
+	public ProductModel? SelectedUsedProduct
+	{
+		get => _selectedUsedProduct;
+		set
+		{
+			if ( SetProperty( ref _selectedUsedProduct, value ) )
+			{
+				System.Diagnostics.Debug.WriteLine( $"SelectedUsedProduct verandert naar: {value?.ProductName}" );
+
+				// Je kunt dit gebruiken in je ExecuteProductUsageSave methode
+				UpdateHasChanges();
+			}
+		}
+	}
+
+	private string? _comments;
+	public string? Comments
+	{
+		get => _comments;
+		set => SetProperty( ref _comments, value );
+	}
+
+	private ProductViewModel _productViewModel;
+	private bool _hasProductUsageChanges;
+
+	public ProductViewModel ProductViewModel
+	{
+		get => _productViewModel;
+		set => SetProperty( ref _productViewModel, value );
+	}
+
+	private ProductUsageViewModel _productUsageViewModel;
+	public ProductUsageViewModel ProductUsageViewModel
+	{
+		get => _productUsageViewModel;
+		set => SetProperty( ref _productUsageViewModel, value );
+	}
+
+	public void ResetProductUsageFields()
+	{
+		//SelectedUsedProduct = ProductViewModel.Product.First();
+		ProductModel? firstProduct = ProductViewModel.Product.FirstOrDefault();
+		if ( firstProduct != null )
+		{
+			// Eerst null om binding te forceren daarna juiste waarde
+			SelectedUsedProduct = null;
+			OnPropertyChanged( nameof( SelectedUsedProduct ) );
+
+			// Directe toewijzing na korte vertraging (kan in WPF UI thread nodig zijn)
+			System.Windows.Application.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background, new Action( () =>
+			{
+				SelectedUsedProduct = firstProduct;
+				OnPropertyChanged( nameof( SelectedUsedProduct ) );
+			} ) );
+		}
+
+		AmountUsed = "0,00";
+		OnPropertyChanged( nameof( AmountUsed ) );
+
+		SelectedDate = DateTime.Today;
+		OnPropertyChanged( nameof( SelectedDate ) );
+
+		Comments = string.Empty;
+		OnPropertyChanged( nameof( Comments ) );
+
+		UpdateHasProductUsageChanges();
+	}
+
+	public bool HasProductUsageChanges
+	{
+		get => _hasProductUsageChanges;
+		private set => SetProperty( ref _hasProductUsageChanges, value );
+	}
+
+	private string _amountUsed;
+	private DateTime? _selectedDate;
+
+	public string AmountUsed
+	{
+		get => _amountUsed;
+		set
+		{
+			if ( SetProperty( ref _amountUsed, value ) )
+			{
+				UpdateHasProductUsageChanges();
+			}
+		}
+	}
+
+	public DateTime? SelectedDate
+	{
+		get => _selectedDate;
+		set
+		{
+			if ( SetProperty( ref _selectedDate, value ) )
+			{
+				UpdateHasProductUsageChanges();
+			}
+		}
+	}
+
+	private void UpdateHasProductUsageChanges()
+	{
+		HasProductUsageChanges =
+			ProductViewModel?.SelectedProduct != null &&
+			!string.IsNullOrWhiteSpace( AmountUsed ) &&
+			AmountUsed != "0,00" &&
+			SelectedDate.HasValue;
+	}
+
 	private bool _hasFilteredTimeEntries;
+	//public bool HasFilteredTimeEntries => FilteredTimeEntries != null && FilteredTimeEntries.Any();
 	public bool HasFilteredTimeEntries
 	{
 		get => _hasFilteredTimeEntries;
@@ -271,7 +384,6 @@ public partial class TimeViewModel : ObservableObject
 		UpdateHasChanges();
 	}
 	#endregion
-
 	#endregion
 
 	public void LoadTimeEntriesForSelectedProject( int projectId )
@@ -356,8 +468,11 @@ public partial class TimeViewModel : ObservableObject
 
 		AddNewRowCommand = new RelayCommand( ExectuteAddNewRow );
 		SaveCommand = new RelayCommand( ExecuteSave );
+		SaveProductUsageCommand = new RelayCommand( ExecuteProductUsageSave );
 
 		//FilteredTimeEntries.CollectionChanged += ( sender, e ) => UpdateCanExecuteSave();
+		AmountUsed = "0,00";
+		SelectedDate = DateTime.Today;
 	}
 
 	public void Refresh()

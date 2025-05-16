@@ -17,7 +17,50 @@ public class CombinedTimeViewModel : ObservableObject
 		ProjectViewModel = new();
 		WorktypeViewModel = new();
 
-		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
+		//ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
+		TimeViewModel = new( ProductUsageViewModel )
+		{
+			// Set references so TimeViewModel uses the same instances
+			ProductViewModel = ProductViewModel
+		};
+
+		ProjectViewModel.PropertyChanged += OnSelectedProjectChanged;
+
+		// Add handlers for ProductUsage synchroization
+		TimeViewModel.SaveProductUsageCommand.CanExecuteChanged += ( s, e ) => RefreshProductUsageView();
+	}
+
+	private void OnTimeViewModelPropertyChanged( object? sender, PropertyChangedEventArgs e )
+	{
+		if ( e.PropertyName == nameof( ProjectViewModel.SelectedProject ) )
+		{
+			ProjectModel? selectedProject = ProjectViewModel.SelectedProject;
+
+			if ( selectedProject != null )
+			{
+				int projectId = selectedProject.ProjectId;
+
+				// Synchroniseer project-ID naar onderliggende viewmodels
+				TimeViewModel.SelectedProject = projectId;
+				TimeViewModel.IsProjectSelected = true;
+
+				ProductUsageViewModel.SelectedProject = projectId;
+				ProductUsageViewModel.IsProjectSelected = true;
+
+				// Laad gegevens
+				TimeViewModel.LoadTimeEntriesForSelectedProject( projectId );
+				ProductUsageViewModel.LoadProductUsageForSelectedProject( projectId );
+				ProductUsageViewModel.FilterCostEntriesByProjectId( projectId );
+				ProductUsageViewModel.FilterProductUsageByProjectId( projectId );
+
+				OnPropertyChanged( nameof( SelectedProject ) );
+			}
+			else
+			{
+				TimeViewModel.IsProjectSelected = false;
+				ProductUsageViewModel.IsProjectSelected = false;
+			}
+		}
 	}
 
 	private void OnSelectedProjectChanged( object? sender, PropertyChangedEventArgs e )
@@ -60,7 +103,7 @@ public class CombinedTimeViewModel : ObservableObject
 
 	private void RefreshProductUsageView()
 	{
-		if ( ProjectViewModel.SelectedProject != null )
+		if ( ProductUsageViewModel != null && ProjectViewModel.SelectedProject != null )
 		{
 			System.Windows.Application.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background, new Action( () =>
 			{
@@ -84,14 +127,14 @@ public class CombinedTimeViewModel : ObservableObject
 
 	public void RefreshAll()
 	{
-		ProjectViewModel.PropertyChanged -= OnTimeViewModelPropertyChanged;
+		//ProjectViewModel.PropertyChanged -= OnTimeViewModelPropertyChanged;
 
 		// Vernieuw alle viewmodels
 		ProjectViewModel.Refresh();
 		ProductViewModel.Refresh();
 		WorktypeViewModel.Refresh();
 
-		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
+		//ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
 
 		// Vernieuw gegevens die project-afhankelijk zijn
 		if ( ProjectViewModel.SelectedProject != null )
