@@ -223,7 +223,7 @@ public class DBCommands
 	public ObservableCollection<CategoryModel> GetCategoryList( ObservableCollection<CategoryModel>? categoryList = null )
 	{
 		categoryList ??= [ ];
-		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameId );
+		DataTable? _dt = GetData( DBNames.CategoryTable, DBNames.CategoryFieldNameName );
 
 		for ( int i = 0; i < _dt.Rows.Count; i++ )
 		{
