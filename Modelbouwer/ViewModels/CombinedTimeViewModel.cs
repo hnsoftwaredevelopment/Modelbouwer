@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Modelbouwer.ViewModels;
 public class CombinedTimeViewModel : ObservableObject
@@ -11,83 +12,97 @@ public class CombinedTimeViewModel : ObservableObject
 
 	public CombinedTimeViewModel()
 	{
-		ProjectViewModel = new();
-		TimeViewModel = new();
-		ProductViewModel = new();
 		ProductUsageViewModel = new();
+		ProductViewModel = new();
+		ProjectViewModel = new();
 		WorktypeViewModel = new();
 
-		ProjectViewModel.PropertyChanged += OnProjectViewModelPropertyChanged;
-		TimeViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
+		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
 	}
 
-	private void OnProjectViewModelPropertyChanged( object? sender, PropertyChangedEventArgs e )
+	private void OnSelectedProjectChanged( object? sender, PropertyChangedEventArgs e )
 	{
 		if ( e.PropertyName == nameof( ProjectViewModel.SelectedProject ) )
 		{
 			ProjectModel? selectedProject = ProjectViewModel.SelectedProject;
+
 			if ( selectedProject != null )
 			{
-				TimeViewModel.SelectedProject = selectedProject.ProjectId;
-				TimeViewModel.LoadTimeEntriesForSelectedProject( selectedProject.ProjectId );
-				ProductUsageViewModel.FilterCostEntriesByProjectId( selectedProject.ProjectId );
+				int projectId = selectedProject.ProjectId;
 
-				OnPropertyChanged( nameof( SelectedProject ) );
+				// Synchroniseer project-ID naar onderliggende viewmodels
+				TimeViewModel.SelectedProject = projectId;
+				TimeViewModel.IsProjectSelected = true;
 
-				// Trigger een update van HasFilteredTimeEntries na laden van nieuwe time entries
-				OnPropertyChanged( nameof( TimeViewModel.FilteredTimeEntries ) );
-				OnPropertyChanged( nameof( TimeViewModel.HasFilteredTimeEntries ) );
-			}
-		}
+				ProductUsageViewModel.SelectedProject = projectId;
+				ProductUsageViewModel.IsProjectSelected = true;
 
-		if ( e.PropertyName == nameof( TimeViewModel.HasFilteredTimeEntries ) )
-		{
-			// Forward de property changed naar de UI
-			OnPropertyChanged( nameof( TimeViewModel ) );
-		}
-	}
-
-	private void OnTimeViewModelPropertyChanged( object? sender, PropertyChangedEventArgs e )
-	{
-		if ( e.PropertyName == nameof( ProjectViewModel.SelectedProject ) )
-		{
-			ProjectModel? selectedProject = ProjectViewModel.SelectedProject;
-			if ( selectedProject != null )
-			{
-				TimeViewModel.SelectedProject = selectedProject.ProjectId;
-				ProductUsageViewModel.FilterCostEntriesByProjectId( selectedProject.ProjectId );
+				// Laad gegevens
+				TimeViewModel.LoadTimeEntriesForSelectedProject( projectId );
+				ProductUsageViewModel.LoadProductUsageForSelectedProject( projectId );
+				ProductUsageViewModel.FilterCostEntriesByProjectId( projectId );
+				ProductUsageViewModel.FilterProductUsageByProjectId( projectId );
 
 				OnPropertyChanged( nameof( SelectedProject ) );
 			}
+			else
+			{
+				TimeViewModel.IsProjectSelected = false;
+				ProductUsageViewModel.IsProjectSelected = false;
+			}
 		}
 	}
-
-
 	public ProjectModel SelectedProject
 	{
 		get => ProjectViewModel.SelectedProject;
 		set => ProjectViewModel.SelectedProject = value;
 	}
 
+	private void RefreshProductUsageView()
+	{
+		if ( ProjectViewModel.SelectedProject != null )
+		{
+			System.Windows.Application.Current.Dispatcher.BeginInvoke( DispatcherPriority.Background, new Action( () =>
+			{
+				int projectId = ProjectViewModel.SelectedProject.ProjectId;
+
+				// Vernieuw gegevens
+				ProductUsageViewModel.Refresh();
+
+				// Pas filters opnieuw toe
+				ProductUsageViewModel.FilterCostEntriesByProjectId( projectId );
+				ProductUsageViewModel.FilterProductUsageByProjectId( projectId );
+
+				// Forceer UI updates
+				ProductUsageViewModel.NotifyPropertyChanged( nameof( ProductUsageViewModel.FilteredCostEntries ) );
+				ProductUsageViewModel.NotifyPropertyChanged( nameof( ProductUsageViewModel.FilteredProductUsage ) );
+
+				CommandManager.InvalidateRequerySuggested();
+			} ) );
+		}
+	}
+
 	public void RefreshAll()
 	{
-		ProjectViewModel.PropertyChanged -= OnProjectViewModelPropertyChanged;
-		TimeViewModel.PropertyChanged -= OnTimeViewModelPropertyChanged;
+		ProjectViewModel.PropertyChanged -= OnTimeViewModelPropertyChanged;
 
+		// Vernieuw alle viewmodels
 		ProjectViewModel.Refresh();
-		TimeViewModel.Refresh();
 		ProductViewModel.Refresh();
-		ProductUsageViewModel.Refresh();
 		WorktypeViewModel.Refresh();
 
-		ProjectViewModel.PropertyChanged += OnProjectViewModelPropertyChanged;
-		TimeViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
+		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
 
+		// Vernieuw gegevens die project-afhankelijk zijn
 		if ( ProjectViewModel.SelectedProject != null )
 		{
 			TimeViewModel.LoadTimeEntriesForSelectedProject( ProjectViewModel.SelectedProject.ProjectId );
-
-			OnPropertyChanged( nameof( TimeViewModel ) );
 		}
+
+		// Vernieuw TimeViewModel 
+		TimeViewModel.Refresh();
+
+		// Event handlers weer activeren
+		ProjectViewModel.PropertyChanged += OnSelectedProjectChanged;
 	}
 }

@@ -28,6 +28,7 @@ public class CombinedProjectViewModel
 			if ( selectedProject != null )
 			{
 				ProductUsageViewModel.FilterCostEntriesByProjectId( selectedProject.ProjectId );
+				ProductUsageViewModel.FilterProductUsageByProjectId( selectedProject.ProjectId );
 			}
 		}
 	}

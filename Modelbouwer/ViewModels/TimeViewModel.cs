@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows.Threading;
 
 using CommunityToolkit.Mvvm.Input;
 
@@ -86,7 +87,7 @@ public partial class TimeViewModel : ObservableObject
 	}
 	#endregion
 
-	#region HasChanges
+	#region Has Time Entry Changes
 	[ObservableProperty]
 	private bool _hasChanges;
 
@@ -194,6 +195,7 @@ public partial class TimeViewModel : ObservableObject
 	#region Toolbar commands
 	public ICommand AddNewRowCommand { get; }
 	public ICommand SaveCommand { get; }
+	public ICommand SaveProductUsageCommand { get; }
 
 	#region Add new row to the TimeEntries
 	private void ExectuteAddNewRow()
@@ -215,6 +217,39 @@ public partial class TimeViewModel : ObservableObject
 	}
 	#endregion
 
+	#region Save command for Product Usage
+	private void ExecuteProductUsageSave()
+	{
+		int _productId = SelectedUsedProduct?.ProductId ?? 0;
+		string _amount = AmountUsed;
+		string _date = SelectedDate?.ToString( "yyyy-MM-dd" ) ?? string.Empty;
+		string _comments = Comments ?? "";
+
+		string[ , ] saveFields = new string [5,3]
+			{
+				{DBNames.ProductUsageFieldNameProjectId, DBNames.ProductUsageFieldTypeProjectId, SelectedProject.ToString()},
+				{DBNames.ProductUsageFieldNameProductId, DBNames.ProductUsageFieldTypeProductId, _productId.ToString()},
+				{DBNames.ProductUsageFieldNameAmountUsed, DBNames.ProductUsageFieldTypeAmountUsed, AmountUsed},
+				{DBNames.ProductUsageFieldNameUsageDate, DBNames.ProductUsageFieldTypeUsageDate, _date},
+				{DBNames.ProductUsageFieldNameComment, DBNames.ProductUsageFieldTypeComment, _comments}
+			};
+
+		DBCommands.InsertInTable( DBNames.ProductUsageTable, saveFields );
+
+		ResetProductUsageFields();
+
+		if ( ProductUsageViewModel != null )
+		{
+			ProductUsageViewModel.Refresh();
+		}
+
+		OnPropertyChanged( nameof( SelectedUsedProduct ) );
+
+		UpdateHasChanges();
+	}
+	#endregion
+
+	#region Save command for Time Entries
 	private void ExecuteSave()
 	{
 		//Execuyte the save command
@@ -224,24 +259,19 @@ public partial class TimeViewModel : ObservableObject
 		//Add new records to the TimeTable
 		foreach ( TimeModel? entry in added )
 		{
-			// Voeg code toe om nieuwe records in te voegen
-			// Table: Time
-			// Fields: project_Id, worktype_Id, Workdate (yyyy-mm-dd), StartTime (hh:mm:ss), EndTime (hh:mm:ss), Comment
-
-			// set state to Unchanged when record has been stored
 			entry.State = TimeModel.RecordState.Unchanged;
 		}
 
 		//Change existing records in TimeTable
 		foreach ( TimeModel entry in modified )
 		{
-			// Voeg code toe om bestaande records bij te werken
-			// set state to Unchanged when record has been stored
 			entry.State = TimeModel.RecordState.Unchanged;
 		}
 
 		UpdateHasChanges();
 	}
+	#endregion
+
 	#endregion
 
 	public void LoadTimeEntriesForSelectedProject( int projectId )
@@ -292,10 +322,13 @@ public partial class TimeViewModel : ObservableObject
 		}
 	}
 
-	public TimeViewModel()
+	public TimeViewModel( ProductUsageViewModel productUsageViewModel = null )
 	{
 		_filteredTimeEntries = [ ];
 		UpdateHasFilteredTimeEntries();
+
+		// Save the parameter in the property
+		ProductUsageViewModel = productUsageViewModel;
 
 		PropertyChanged += TimeViewModel_PropertyChanged;
 
@@ -312,12 +345,24 @@ public partial class TimeViewModel : ObservableObject
 			LoadTimeEntriesForSelectedProject( SelectedProject );
 		}
 
+		ProductViewModel = new ProductViewModel();
+		ProductViewModel.PropertyChanged += ( s, e ) =>
+		{
+			if ( e.PropertyName == nameof( ProductViewModel.SelectedProduct ) )
+			{
+				UpdateHasChanges();
+			}
+		};
+
 		AddNewRowCommand = new RelayCommand( ExectuteAddNewRow );
 		SaveCommand = new RelayCommand( ExecuteSave );
+
+		//FilteredTimeEntries.CollectionChanged += ( sender, e ) => UpdateCanExecuteSave();
 	}
 
 	public void Refresh()
 	{
+
 		if ( SelectedProject != 0 )
 		{
 			LoadTimeEntriesForSelectedProject( SelectedProject );

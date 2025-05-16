@@ -43,8 +43,20 @@ public partial class ProductViewModel : ObservableObject
 	[ObservableProperty]
 	private ImageSource? _productImage;
 
-	[ObservableProperty]
 	private ProductModel? _selectedProduct;
+	public ProductModel? SelectedProduct
+	{
+		get => _selectedProduct;
+		set
+		{
+			if ( _selectedProduct != value )
+			{
+				System.Diagnostics.Debug.WriteLine( $"ProductViewModel - SelectedProduct verandert van {_selectedProduct?.ProductName} naar {value?.ProductName}" );
+				_selectedProduct = value;
+				OnPropertyChanged( nameof( SelectedProduct ) );
+			}
+		}
+	}
 
 	[ObservableProperty]
 	private bool _isAddingNew;
