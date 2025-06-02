@@ -12,12 +12,16 @@ public class CombinedSupplierViewModel
 	public CurrencyViewModel CurrencyViewModel { get; set; }
 
 	public CountryViewModel CountryViewModel { get; set; }
+	public SupplierOrderHistoryViewModel SupplierOrderHistoryViewModel { get; set; }
+	public SupplierOrderHistoryMasterViewModel SupplierOrderHistoryMasterViewModel { get; set; }
 
 	public CombinedSupplierViewModel()
 	{
 		SupplierViewModel = new SupplierViewModel();
 		SupplierContactViewModel = new SupplierContactViewModel();
 		SupplierContactTypeViewModel = new SupplierContactTypeViewModel();
+		SupplierOrderHistoryViewModel = new SupplierOrderHistoryViewModel();
+		SupplierOrderHistoryMasterViewModel = new SupplierOrderHistoryMasterViewModel();
 		CurrencyViewModel = new CurrencyViewModel();
 		CountryViewModel = new CountryViewModel();
 
@@ -34,6 +38,8 @@ public class CombinedSupplierViewModel
 			if ( selectedSupplier != null )
 			{
 				SupplierContactViewModel.FilterContactsBySupplierId( selectedSupplier.SupplierId );
+				//SupplierOrderHistoryViewModel.Refresh( selectedSupplier.SupplierId );
+				SupplierOrderHistoryMasterViewModel.Refresh( selectedSupplier.SupplierId );
 
 				if ( selectedSupplier.SupplierCountryId > 0 )
 				{
@@ -63,6 +69,8 @@ public class CombinedSupplierViewModel
 		SupplierContactTypeViewModel.Refresh();
 		CurrencyViewModel.Refresh();
 		CountryViewModel.Refresh();
+		SupplierOrderHistoryViewModel.Refresh();
+		SupplierOrderHistoryMasterViewModel.Refresh( 1 );
 
 		SupplierViewModel.PropertyChanged += OnSupplierViewModelPropertyChanged;
 	}

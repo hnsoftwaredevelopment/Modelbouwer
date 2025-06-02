@@ -1456,6 +1456,127 @@ public class DBCommands
 	}
 	#endregion
 
+	#region Get Order History for a selected Supplier
+	public static ObservableCollection<OrderHeaderModel> GetOrderHistoryHierarchical( int supplierId )
+	{
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPGetOrderHistoryBySupplier, connection);
+		command.CommandType = CommandType.StoredProcedure;
+		command.Parameters.AddWithValue( DBNames.SPGetOrderHistoryBySupplierInputParameter, supplierId );
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		var flatList = new List<SupplierOrderHistoryModel>();
+		foreach ( DataRow row in dt.Rows )
+		{
+			string orderDate = GetDateString(DatabaseValueConverter.GetString(row[DBNames.SupplierOrderHistoryOrderDate]));
+			string receivedDate = GetDateString(DatabaseValueConverter.GetString(row[DBNames.SupplierOrderHistoryReceived]));
+
+			flatList.Add( new SupplierOrderHistoryModel
+			{
+				SupplierOrderHistorySupplierId = DatabaseValueConverter.GetInt( row [ DBNames.SupplierOrderHistorySupplierId ] ),
+				SupplierOrderHistoryOrderId = DatabaseValueConverter.GetInt( row [ DBNames.SupplierOrderHistoryOrderId ] ),
+				SupplierOrderHistoryOrderNumber = DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryOrderNumber ] ),
+				SupplierOrderHistoryOrderDate = orderDate,
+				SupplierOrderHistoryOrderCosts = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryOrderCosts ] ),
+				SupplierOrderHistoryShippingCosts = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryShippingCosts ] ),
+				SupplierOrderHistoryCurrencyConversionRate = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryCurrencyConversionRate ] ),
+				SupplierOrderHistoryReceived = receivedDate,
+				SupplierOrderHistoryProductId = DatabaseValueConverter.GetInt( row [ DBNames.SupplierOrderHistoryProductId ] ),
+				SupplierOrderHistoryProductNumber = DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryProductNumber ] ),
+				SupplierOrderHistoryProductDescription = DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryProductDescription ] ),
+				SupplierOrderHistoryPrice = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryPrice ] ),
+				SupplierOrderHistoryAmount = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryAmount ] ),
+				SupplierOrderHistoryRowTotal = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryRowTotal ] ),
+				SupplierOrderHistoryOrderTotal = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryOrderTotal ] )
+			} );
+		}
+
+		// Groeperen per order
+		var groupedOrders = flatList
+		.GroupBy(x => new
+		{
+			x.SupplierOrderHistoryOrderId,
+			x.SupplierOrderHistoryOrderNumber,
+			x.SupplierOrderHistoryOrderDate,
+			x.SupplierOrderHistoryShippingCosts,
+			x.SupplierOrderHistoryOrderCosts,
+			x.SupplierOrderHistoryOrderTotal
+		})
+		.Select(g => new OrderHeaderModel
+		{
+			OrderId = g.Key.SupplierOrderHistoryOrderId,
+			OrderNumber = g.Key.SupplierOrderHistoryOrderNumber,
+			OrderDate = g.Key.SupplierOrderHistoryOrderDate,
+			ShippingCosts = g.Key.SupplierOrderHistoryShippingCosts,
+			OrderCosts = g.Key.SupplierOrderHistoryOrderCosts,
+			OrderTotal = g.Key.SupplierOrderHistoryOrderTotal,
+			OrderLines = new ObservableCollection<OrderLineModel>(
+				g.Select(x => new OrderLineModel
+				{
+					Received = x.SupplierOrderHistoryReceived,
+					ProductNumber = x.SupplierOrderHistoryProductNumber,
+					ProductDescription = x.SupplierOrderHistoryProductDescription,
+					Price = x.SupplierOrderHistoryPrice,
+					Amount = x.SupplierOrderHistoryAmount,
+					RowTotal = x.SupplierOrderHistoryRowTotal
+				}))
+		});
+
+		return new ObservableCollection<OrderHeaderModel>( groupedOrders );
+	}
+	//public static ObservableCollection<SupplierOrderHistoryModel> GetOrderHistory( int _supplierId, ObservableCollection<SupplierOrderHistoryModel>? list = null )
+	//{
+	//	using MySqlConnection connection = new( DBConnect.ConnectionString );
+	//	connection.Open();
+
+	//	using MySqlCommand command = new(DBNames.SPGetOrderHistoryBySupplier, connection);
+	//	command.CommandType = CommandType.StoredProcedure;
+
+	//	command.Parameters.AddWithValue( DBNames.SPGetOrderHistoryBySupplierInputParameter, _supplierId );
+
+	//	DataTable dt = new();
+	//	using ( MySqlDataAdapter adapter = new( command ) )
+	//	{
+	//		adapter.Fill( dt );
+	//	}
+
+	//	list ??= [ ];
+
+	//	foreach ( DataRow row in dt.Rows )
+	//	{
+	//		string _orderDate = GetDateString( DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryOrderDate ] ) );
+	//		string _receivedDate = GetDateString( DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryReceived ] ) );
+	//		list.Add( new SupplierOrderHistoryModel
+	//		{
+	//			SupplierOrderHistorySupplierId = DatabaseValueConverter.GetInt( row [ DBNames.SupplierOrderHistorySupplierId ] ),
+	//			SupplierOrderHistoryOrderId = DatabaseValueConverter.GetInt( row [ DBNames.SupplierOrderHistoryOrderId ] ),
+	//			SupplierOrderHistoryOrderNumber = DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryOrderNumber ] ),
+	//			SupplierOrderHistoryOrderDate = _orderDate,
+	//			SupplierOrderHistoryOrderCosts = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryOrderCosts ] ),
+	//			SupplierOrderHistoryShippingCosts = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryShippingCosts ] ),
+	//			SupplierOrderHistoryCurrencyConversionRate = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryCurrencyConversionRate ] ),
+	//			SupplierOrderHistoryReceived = _receivedDate,
+	//			SupplierOrderHistoryProductId = DatabaseValueConverter.GetInt( row [ DBNames.SupplierOrderHistoryProductId ] ),
+	//			SupplierOrderHistoryProductNumber = DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryProductNumber ] ),
+	//			SupplierOrderHistoryProductDescription = DatabaseValueConverter.GetString( row [ DBNames.SupplierOrderHistoryProductDescription ] ),
+	//			SupplierOrderHistoryPrice = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryPrice ] ),
+	//			SupplierOrderHistoryAmount = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryAmount ] ),
+	//			SupplierOrderHistoryRowTotal = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryRowTotal ] ),
+	//			SupplierOrderHistoryOrderTotal = DatabaseValueConverter.GetDecimal( row [ DBNames.SupplierOrderHistoryOrderTotal ] )
+	//		} );
+	//	}
+
+	//	return list;
+	//}
+	#endregion
+
 	#region Get the HourRate
 	public static double GetHourRate()
 	{
@@ -2037,7 +2158,7 @@ public class DBCommands
 			using MySqlConnection connection = new( DBConnect.ConnectionString );
 			connection.Open();
 
-			//sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse( productId )}, {int.Parse( supplierId )};";
+			//sqlQuery = $"{DBNames.SqlCall}{DBNames.Database}.SetDefaultSupplier( {int.Parse( productId )}, {int.Parse( _supplierId )};";
 
 			using MySqlCommand cmd = new( sqlQuery, connection );
 			cmd.CommandType = CommandType.Text;

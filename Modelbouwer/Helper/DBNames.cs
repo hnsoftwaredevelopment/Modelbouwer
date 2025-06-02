@@ -81,6 +81,9 @@ public class DBNames
 
 
 	public static readonly string SPGetAllProductsUsage = "GetProductsUsage";
+
+	public static readonly string SPGetOrderHistoryBySupplier = "GetOrderHistoryBySupplier";
+	public static readonly string SPGetOrderHistoryBySupplierInputParameter = "?SupplierId"; // The ? is added to work correctly
 	#endregion
 
 	#region Database
@@ -442,7 +445,6 @@ public class DBNames
 	#endregion Storage table
 
 	#region Supplier tables
-
 	#region Supplier table
 
 	public static readonly string SupplierTable = "supplier";
@@ -479,7 +481,6 @@ public class DBNames
 	#endregion Supplier table
 
 	#region SupplierContact Table
-
 	public static readonly string SupplierContactTable = "suppliercontact";
 	public static readonly string SupplierContactView = "view_suppliercontact";
 	public static readonly string SupplierContactFieldNameId = "Id";
@@ -496,11 +497,25 @@ public class DBNames
 	public static readonly string SupplierContactFieldTypePhone = "string";
 	public static readonly string SupplierContactFieldNameMail = "Mail";
 	public static readonly string SupplierContactFieldTypeMail = "string";
-
-
-
 	#endregion SupplierContact Table
 
+	#region Supplier Order History
+	public static readonly string SupplierOrderHistorySupplierId = "SupplierId";
+	public static readonly string SupplierOrderHistoryOrderId = "OrderId";
+	public static readonly string SupplierOrderHistoryOrderNumber= "OrderNumber";
+	public static readonly string SupplierOrderHistoryOrderDate= "OrderDate";
+	public static readonly string SupplierOrderHistoryOrderCosts= "OrderCosts";
+	public static readonly string SupplierOrderHistoryShippingCosts= "ShippingCosts";
+	public static readonly string SupplierOrderHistoryCurrencyConversionRate= "CurrencyConversionRate";
+	public static readonly string SupplierOrderHistoryReceived= "Received";
+	public static readonly string SupplierOrderHistoryProductId= "Product_Id";
+	public static readonly string SupplierOrderHistoryProductNumber= "ProductNumber";
+	public static readonly string SupplierOrderHistoryProductDescription= "Description";
+	public static readonly string SupplierOrderHistoryPrice= "Price";
+	public static readonly string SupplierOrderHistoryAmount= "Amount";
+	public static readonly string SupplierOrderHistoryRowTotal= "RowTotal";
+	public static readonly string SupplierOrderHistoryOrderTotal= "OrderTotal";
+	#endregion
 	#endregion Supplier tables
 
 	#region Time
