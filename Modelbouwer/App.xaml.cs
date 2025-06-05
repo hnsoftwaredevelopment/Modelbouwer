@@ -13,6 +13,11 @@ public partial class App : System.Windows.Application
 
 		CultureInfo.DefaultThreadCurrentCulture = new CultureInfo( "nl-NL" );
 		CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo( "nl-NL" );
+		CultureInfo culture = new("nl-NL");
+		Thread.CurrentThread.CurrentCulture = culture;
+		Thread.CurrentThread.CurrentUICulture = culture;
+		CultureInfo.DefaultThreadCurrentCulture = culture;
+		CultureInfo.DefaultThreadCurrentUICulture = culture;
 	}
 
 }

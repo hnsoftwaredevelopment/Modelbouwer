@@ -84,9 +84,9 @@ public class DBNames
 
 	public static readonly string SPGetOrderHistoryBySupplier = "GetOrderHistoryBySupplier";
 	public static readonly string SPGetOrderHistoryBySupplierInputParameter = "?SupplierId"; // The ? is added to work correctly
-	#endregion
 
-	#region Database
+	public static readonly string SPGetStockOverviewByProduct = "GetProductStockMovements";
+	public static readonly string SPGetStockOverviewByProductInputParameter = "?SelectedProductId"; // The ? is added to work correctly
 
 	public static readonly string Database = "modelbuilder";
 

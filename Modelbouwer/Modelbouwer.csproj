@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>25.6.2.16</AssemblyVersion>
-    <FileVersion>25.6.2.16</FileVersion>
+    <AssemblyVersion>25.6.5.17</AssemblyVersion>
+    <FileVersion>25.6.5.17</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
@@ -167,14 +167,14 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
-    <PackageReference Include="MySql.Data" Version="9.2.0" />
-    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="29.1.37" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.1.37" />
-    <PackageReference Include="System.Text.Json" Version="10.0.0-preview.2.25163.2" />
+    <PackageReference Include="MySql.Data" Version="9.3.0" />
+    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="29.2.8" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.2.8" />
+    <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.2.8" />
+    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="29.2.8" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="29.2.8" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="29.2.8" />
+    <PackageReference Include="System.Text.Json" Version="10.0.0-preview.4.25258.110" />
   </ItemGroup>
 
   <ItemGroup>

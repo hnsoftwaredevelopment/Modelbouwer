@@ -1,4 +1,6 @@
-﻿using Application = System.Windows.Application;
+﻿using System.Data.Common;
+
+using Application = System.Windows.Application;
 
 namespace Modelbouwer.Helper;
 /// <summary>
@@ -1472,7 +1474,7 @@ public class DBCommands
 			adapter.Fill( dt );
 		}
 
-		var flatList = new List<SupplierOrderHistoryModel>();
+		List<SupplierOrderHistoryModel> flatList = new();
 		foreach ( DataRow row in dt.Rows )
 		{
 			string orderDate = GetDateString(DatabaseValueConverter.GetString(row[DBNames.SupplierOrderHistoryOrderDate]));
@@ -1499,8 +1501,8 @@ public class DBCommands
 		}
 
 		// Groeperen per order
-		var groupedOrders = flatList
-		.GroupBy(x => new
+		IEnumerable<OrderHeaderModel> groupedOrders = flatList
+		.GroupBy( x => new
 		{
 			x.SupplierOrderHistoryOrderId,
 			x.SupplierOrderHistoryOrderNumber,
@@ -1508,8 +1510,8 @@ public class DBCommands
 			x.SupplierOrderHistoryShippingCosts,
 			x.SupplierOrderHistoryOrderCosts,
 			x.SupplierOrderHistoryOrderTotal
-		})
-		.Select(g => new OrderHeaderModel
+		} )
+		.Select( g => new OrderHeaderModel
 		{
 			OrderId = g.Key.SupplierOrderHistoryOrderId,
 			OrderNumber = g.Key.SupplierOrderHistoryOrderNumber,
@@ -1518,7 +1520,7 @@ public class DBCommands
 			OrderCosts = g.Key.SupplierOrderHistoryOrderCosts,
 			OrderTotal = g.Key.SupplierOrderHistoryOrderTotal,
 			OrderLines = new ObservableCollection<OrderLineModel>(
-				g.Select(x => new OrderLineModel
+				g.Select( x => new OrderLineModel
 				{
 					Received = x.SupplierOrderHistoryReceived,
 					ProductNumber = x.SupplierOrderHistoryProductNumber,
@@ -1526,8 +1528,8 @@ public class DBCommands
 					Price = x.SupplierOrderHistoryPrice,
 					Amount = x.SupplierOrderHistoryAmount,
 					RowTotal = x.SupplierOrderHistoryRowTotal
-				}))
-		});
+				} ) )
+		} );
 
 		return new ObservableCollection<OrderHeaderModel>( groupedOrders );
 	}
@@ -1619,6 +1621,49 @@ public class DBCommands
 		}
 
 		return latestId;
+	}
+	#endregion
+
+	#region Get the storage mutation for a selected product
+	public static async Task<StockOverviewModel> GetStockOverviewByProductAsync( int productId )
+	{
+		StockOverviewModel overview = new();
+
+		await using MySqlConnection connection = new(DBConnect.ConnectionString);
+		await connection.OpenAsync();
+
+		await using MySqlCommand command = new(DBNames.SPGetStockOverviewByProduct, connection)
+		{
+			CommandType = CommandType.StoredProcedure
+		};
+		command.Parameters.AddWithValue( DBNames.SPGetStockOverviewByProductInputParameter, productId );
+
+		await using DbDataReader reader = await command.ExecuteReaderAsync();
+
+		// First resultset: the actual number of this product in storage
+		if ( await reader.ReadAsync() )
+		{
+			overview.CurrentStock = DatabaseValueConverter.GetDecimal( reader [ "CurrentStock" ] );
+		}
+
+		// Second resultset: Storagemutations
+		if ( await reader.NextResultAsync() )
+		{
+			while ( await reader.ReadAsync() )
+			{
+				overview.Mutations.Add( new StockMutationModel
+				{
+					Datum = DatabaseValueConverter.GetDateOnly( reader [ "Datum" ] ),
+					Mutatie = DatabaseValueConverter.GetString( reader [ "Mutatie" ] ),
+					Project = DatabaseValueConverter.GetString( reader [ "Project" ] ),
+					Bestelling = DatabaseValueConverter.GetString( reader [ "Bestelling" ] ),
+					Leverancier = DatabaseValueConverter.GetString( reader [ "Leverancier" ] ),
+					InAantal = DatabaseValueConverter.GetDecimal( reader [ "InAantal" ] ),
+					UitAantal = DatabaseValueConverter.GetDecimal( reader [ "UitAantal" ] )
+				} );
+			}
+		}
+		return overview;
 	}
 	#endregion
 

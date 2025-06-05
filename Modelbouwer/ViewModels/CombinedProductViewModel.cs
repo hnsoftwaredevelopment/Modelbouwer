@@ -8,6 +8,7 @@ public class CombinedProductViewModel : ObservableObject
 	public StorageViewModel StorageViewModel { get; set; }
 	public SupplierViewModel SupplierViewModel { get; set; }
 	public UnitViewModel UnitViewModel { get; set; }
+	public StockOverviewViewModel StockOverviewViewModel { get; set; }
 
 	public CombinedProductViewModel()
 	{
@@ -18,13 +19,19 @@ public class CombinedProductViewModel : ObservableObject
 		StorageViewModel = new();
 		SupplierViewModel = new();
 		UnitViewModel = new();
+		StockOverviewViewModel = new();
 
-		ProductViewModel.PropertyChanged += ( sender, e ) =>
+		ProductViewModel.PropertyChanged += async ( sender, e ) =>
 		{
 			if ( e.PropertyName == nameof( ProductViewModel.SelectedProduct ) )
 			{
 				ProductSupplierViewModel.SelectedProduct = ProductViewModel.SelectedProduct;
 				OnPropertyChanged( nameof( SelectedProduct ) );
+			}
+
+			if ( ProductViewModel.SelectedProduct != null )
+			{
+				await LoadStockOverviewAsync( ProductViewModel.SelectedProduct.ProductId );
 			}
 		};
 	}
@@ -33,6 +40,20 @@ public class CombinedProductViewModel : ObservableObject
 	{
 		get => ProductViewModel.SelectedProduct;
 		set => ProductViewModel.SelectedProduct = value;
+	}
+
+	private async Task LoadStockOverviewAsync( int productId )
+	{
+		StockOverviewModel result = await DBCommands.GetStockOverviewByProductAsync(productId);
+
+		StockOverviewViewModel.CurrentStock = result.CurrentStock;
+		StockOverviewViewModel.Mutations.Clear();
+
+		foreach ( StockMutationModel mutationModel in result.Mutations )
+		{
+			StockMutation mutationViewModel = StockMutation.FromModel(mutationModel);
+			StockOverviewViewModel.Mutations.Add( mutationViewModel );
+		}
 	}
 
 	public void RefreshAll()
