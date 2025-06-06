@@ -125,6 +125,9 @@ public partial class ProjectManagement : Page
 
 				// Force a UI update for the HasFilteredTimeEntries property
 				CommandManager.InvalidateRequerySuggested();
+
+				//viewModel.ChartsWorkedHoursPerMonthViewModel.LoadChartData( selectedProject.ProjectId );
+				viewModel.ChartsWorkedHoursPerMonthViewModel.Refresh( selectedProject.ProjectId );
 			}
 
 			if ( ProjectClosed.IsChecked == false && selectedProject != null && double.Parse( viewModel.ProjectViewModel.SelectedProject.ProjectExpectedTime ) > 0 )
@@ -256,13 +259,4 @@ public partial class ProjectManagement : Page
 	}
 
 	#endregion
-
-	private void ProjectTimeEntriesDataGridLoaded( object sender, RoutedEventArgs e )
-	{
-	}
-
-	private void ProjectCostsEntriesDataGridLoaded( object sender, RoutedEventArgs e )
-	{
-
-	}
 }

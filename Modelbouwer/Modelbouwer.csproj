@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <AssemblyVersion>25.6.5.17</AssemblyVersion>
-    <FileVersion>25.6.5.17</FileVersion>
+    <AssemblyVersion>25.6.6.36</AssemblyVersion>
+    <FileVersion>25.6.6.36</FileVersion>
     <UseWindowsForms>True</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\logo.ico</ApplicationIcon>
   </PropertyGroup>
@@ -166,9 +166,11 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc5.4" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="MySql.Data" Version="9.3.0" />
     <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="29.2.8" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="29.2.9" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="29.2.8" />
     <PackageReference Include="Syncfusion.SfInput.WPF" Version="29.2.8" />
     <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="29.2.8" />

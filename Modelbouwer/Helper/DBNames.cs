@@ -88,6 +88,18 @@ public class DBNames
 	public static readonly string SPGetStockOverviewByProduct = "GetProductStockMovements";
 	public static readonly string SPGetStockOverviewByProductInputParameter = "?SelectedProductId"; // The ? is added to work correctly
 
+	public static readonly string SPChartsWorkedHoursPerDayModel = "GetDaylyWorkedHours";
+	public static readonly string SPChartsWorkedHoursPerDayModelInputParameter = "?SelectedProjectId";
+
+	public static readonly string SPChartsWorkedHoursPerMonthModel = "GetMonthlyWorkedHours";
+	public static readonly string SPChartsWorkedHoursPerMonthModelInputParameter = "?SelectedProjectId";
+
+	public static readonly string SPChartsWorkedHoursPerYearModel = "GetYearlyWorkedHours";
+	public static readonly string SPChartsWorkedHoursPerYearModelInputParameter = "?SelectedProjectId";
+
+	public static readonly string SPChartsWorkedHoursPerWorktype = "GetWorkedHoursByWorktype";
+	public static readonly string SPChartsWorkedHoursPerWorktypeInputParameter = "?SelectedProjectId";
+
 	public static readonly string Database = "modelbuilder";
 
 	#endregion Database

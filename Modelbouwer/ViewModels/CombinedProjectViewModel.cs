@@ -7,6 +7,10 @@ public class CombinedProjectViewModel
 	public TimeViewModel TimeViewModel { get; set; }
 	public ProductViewModel ProductViewModel { get; set; }
 	public ProductUsageViewModel ProductUsageViewModel { get; set; }
+	public ChartsWorkedHoursPerDayViewModel ChartsWorkedHoursPerDayViewModel { get; set; }
+	public ChartsWorkedHoursPerMonthViewModel ChartsWorkedHoursPerMonthViewModel { get; set; }
+	public ChartsWorkedHoursPerYearViewModel ChartsWorkedHoursPerYearViewModel { get; set; }
+	public ChartsWorkedHoursPerWorktypeViewModel ChartsWorkedHoursPerWorktypeViewModel { get; set; }
 
 	public CombinedProjectViewModel()
 	{
@@ -14,6 +18,10 @@ public class CombinedProjectViewModel
 		TimeViewModel = new();
 		ProductViewModel = new();
 		ProductUsageViewModel = new();
+		ChartsWorkedHoursPerDayViewModel = new();
+		ChartsWorkedHoursPerMonthViewModel = new();
+		ChartsWorkedHoursPerYearViewModel = new();
+		ChartsWorkedHoursPerWorktypeViewModel = new();
 
 		// Subscribe to changes in the TimeViewModel
 		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
@@ -29,6 +37,10 @@ public class CombinedProjectViewModel
 			{
 				ProductUsageViewModel.FilterCostEntriesByProjectId( selectedProject.ProjectId );
 				ProductUsageViewModel.FilterProductUsageByProjectId( selectedProject.ProjectId );
+				ChartsWorkedHoursPerDayViewModel.Refresh( selectedProject.ProjectId );
+				ChartsWorkedHoursPerMonthViewModel.Refresh( selectedProject.ProjectId );
+				ChartsWorkedHoursPerYearViewModel.Refresh( selectedProject.ProjectId );
+				ChartsWorkedHoursPerWorktypeViewModel.Refresh( selectedProject.ProjectId );
 			}
 		}
 	}
@@ -39,6 +51,7 @@ public class CombinedProjectViewModel
 		TimeViewModel.Refresh();
 		ProductViewModel.Refresh();
 		ProductUsageViewModel.Refresh();
+		//ChartsWorkedHoursPerMonthViewModel.Refresh( ProjectViewModel.SelectedProject.ProjectId );
 
 		ProjectViewModel.PropertyChanged += OnTimeViewModelPropertyChanged;
 	}

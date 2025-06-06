@@ -1392,6 +1392,142 @@ public class DBCommands
 	#endregion
 	#endregion
 
+	#region Get Data For charts
+	#region Get data for Worked Hours Per Month
+	public static ObservableCollection<ChartsWorkedHoursPerMonthModel> GetChartsWorkedHoursPerMonth( int _projectId, ObservableCollection<ChartsWorkedHoursPerMonthModel>? _chartData = null )
+	{
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPChartsWorkedHoursPerMonthModel, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		command.Parameters.AddWithValue( DBNames.SPChartsWorkedHoursPerMonthModelInputParameter, _projectId );
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		_chartData ??= [ ];
+
+		foreach ( DataRow row in dt.Rows )
+		{
+			int _month = DatabaseValueConverter.GetInt(row[0]);
+			decimal _workedHours = DatabaseValueConverter.GetDecimal(row[1]);
+
+			_chartData.Add( new ChartsWorkedHoursPerMonthModel { Month = _month, WorkedHours = _workedHours } );
+		}
+
+		return _chartData;
+	}
+	#endregion
+
+	#region Get data for worked hours per year
+	public static ObservableCollection<ChartsWorkedHoursPerYearModel> GetChartsWorkedHoursPerYear( int _projectId, ObservableCollection<ChartsWorkedHoursPerYearModel>? _chartData = null )
+	{
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPChartsWorkedHoursPerYearModel, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		command.Parameters.AddWithValue( DBNames.SPChartsWorkedHoursPerYearModelInputParameter, _projectId );
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		_chartData ??= [ ];
+
+		foreach ( DataRow row in dt.Rows )
+		{
+			int _Year = DatabaseValueConverter.GetInt(row[0]);
+			decimal _workedHours = DatabaseValueConverter.GetDecimal(row[1]);
+
+			_chartData.Add( new ChartsWorkedHoursPerYearModel { Year = _Year, WorkedHours = _workedHours } );
+		}
+
+		return _chartData;
+	}
+
+	#endregion
+
+	#region Get data for Worked Hours Per Weekday
+	public static ObservableCollection<ChartsWorkedHoursPerDayModel> GetChartsWorkedHoursPerDay( int _projectId, ObservableCollection<ChartsWorkedHoursPerDayModel>? _chartData = null )
+	{
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPChartsWorkedHoursPerDayModel, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		command.Parameters.AddWithValue( DBNames.SPChartsWorkedHoursPerDayModelInputParameter, _projectId );
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		_chartData ??= [ ];
+
+		foreach ( DataRow row in dt.Rows )
+		{
+			int _Day = DatabaseValueConverter.GetInt(row[0]);
+			decimal _workedHours = DatabaseValueConverter.GetDecimal(row[1]);
+
+			_chartData.Add( new ChartsWorkedHoursPerDayModel { Weekday = _Day, WorkedHours = _workedHours } );
+		}
+
+		return _chartData;
+	}
+	#endregion
+
+	#region Get data for Worked hours per Worktype
+	public static ObservableCollection<ChartsWorkedHoursPerWorktypeModel> GetChartsWorkedHoursPerWorktype( int _projectId, ObservableCollection<ChartsWorkedHoursPerWorktypeModel>? _chartData = null )
+	{
+		using MySqlConnection connection = new(DBConnect.ConnectionString);
+		connection.Open();
+
+		using MySqlCommand command = new(DBNames.SPChartsWorkedHoursPerWorktype, connection);
+		command.CommandType = CommandType.StoredProcedure;
+
+		command.Parameters.AddWithValue( DBNames.SPChartsWorkedHoursPerWorktypeInputParameter, _projectId );
+
+		DataTable dt = new();
+		using ( MySqlDataAdapter adapter = new( command ) )
+		{
+			adapter.Fill( dt );
+		}
+
+		_chartData ??= [ ];
+
+		foreach ( DataRow row in dt.Rows )
+		{
+			int _id = DatabaseValueConverter.GetInt(row[0]);
+			string? _name = DatabaseValueConverter.GetString(row[1]);
+			decimal _workedHours = DatabaseValueConverter.GetDecimal(row[2]);
+
+			_chartData.Add( new ChartsWorkedHoursPerWorktypeModel { WorktypeId = _id, WorktypeName = _name, WorkedHours = _workedHours } );
+		}
+		return _chartData;
+	}
+	#endregion
+
+	#region Get data for costs per worktype
+
+	#endregion
+
+	#region Get data for Hours per month over the years
+
+	#endregion
+
+	#endregion
+
 	#region Get the prognosed end date of the selected project
 	public static string GetProjectEndDate( int projectId )
 	{

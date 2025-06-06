@@ -1,123 +1,132 @@
 ﻿<Page
-	x:Class="Modelbouwer.View.TimeImport"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:Modelbouwer.View"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	Title="TimeImport"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	mc:Ignorable="d">
+    x:Class="Modelbouwer.View.TimeImport"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Modelbouwer.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="TimeImport"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    >
 
-	<Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
-		<Grid>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="70" />
-				<RowDefinition Height="90" />
-				<RowDefinition Height="*" />
-				<RowDefinition Height="50" />
-			</Grid.RowDefinitions>
+    <Border Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}" Style="{DynamicResource MainBorder}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70" />
+                <RowDefinition Height="90" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
 
-			<!--  region Title of the page  -->
-			<StackPanel Grid.Row="0" Orientation="Vertical">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*" />
-						<ColumnDefinition Width="2*" />
-					</Grid.ColumnDefinitions>
+            <!--  region Title of the page  -->
+            <StackPanel Grid.Row="0" Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
 
-					<TextBlock
-						Grid.Column="0"
-						Style="{DynamicResource Title}"
-						Text="{StaticResource Import.Time.Title}" />
+                    <TextBlock
+                        Grid.Column="0"
+                        Style="{DynamicResource Title}"
+                        Text="{StaticResource Import.Time.Title}"
+                        />
 
-					<Button
-						Grid.Column="1"
-						HorizontalAlignment="Right"
-						Click="Prepare"
-						Content="{StaticResource Import.Button.Prepare.Label}"
-						Style="{DynamicResource ButtonRoundedWhite}"
-						ToolTip="{StaticResource Import.Button.Prepare.Tooltip}" />
-				</Grid>
-				<Path Style="{DynamicResource TitleLine}" />
-				<TextBlock
-					Grid.Column="0"
-					Style="{DynamicResource SubTitle}"
-					Text="{StaticResource Import.Time.Subtitle}" />
-			</StackPanel>
-			<!--  endregion Title of the page  -->
+                    <Button
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Click="Prepare"
+                        Content="{StaticResource Import.Button.Prepare.Label}"
+                        Style="{DynamicResource ButtonRoundedWhite}"
+                        ToolTip="{StaticResource Import.Button.Prepare.Tooltip}"
+                        />
+                </Grid>
+                <Path Style="{DynamicResource TitleLine}" />
+                <TextBlock
+                    Grid.Column="0"
+                    Style="{DynamicResource SubTitle}"
+                    Text="{StaticResource Import.Time.Subtitle}"
+                    />
+            </StackPanel>
+            <!--  endregion Title of the page  -->
 
-			<!--#region Folder selection area-->
-			<StackPanel Grid.Row="1" Orientation="Vertical">
-				<Grid Margin="0,25">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="50" />
-					</Grid.RowDefinitions>
+            <!--#region Folder selection area-->
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <Grid Margin="0,25">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
 
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition x:Name="columnImportButton" Width="{StaticResource Column.Import.Button.Width}" />
-						<ColumnDefinition x:Name="columnSelectFolderButton" Width="{StaticResource Column.SelectFolder.Button.Width}" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-					<Button
-						x:Name="btnImport"
-						Grid.Row="0"
-						Grid.Column="0"
-						Width="165"
-						Height="50"
-						Margin="5,0,0,0"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Top"
-						Click="Import"
-						Style="{StaticResource ButtonRoundedWhite}"
-						ToolTip="{StaticResource Import.Button.Tooltip}">
-						<StackPanel Orientation="Horizontal">
-							<Image Source="{StaticResource Import}" />
-							<StackPanel Margin="5,0,0,0" Orientation="Vertical">
-								<TextBlock HorizontalAlignment="Center" Text="{StaticResource Import.Button.Label}" />
-								<TextBlock HorizontalAlignment="Center" Text="{StaticResource Import.Time.Button.Text}" />
-							</StackPanel>
-						</StackPanel>
-					</Button>
-					<Button
-						x:Name="btnChooseFile"
-						Grid.Row="0"
-						Grid.Column="1"
-						Click="SelectFile"
-						Style="{DynamicResource ButtonRoundedWhite}">
-						<Image Source="{StaticResource searchfile}" Stretch="Uniform" />
-					</Button>
-					<TextBlock
-						Name="dispFileName"
-						Grid.Row="0"
-						Grid.Column="2"
-						Width="Auto"
-						Margin="15,0,0,0"
-						VerticalAlignment="Center"
-						Text="{StaticResource Import.Button.Filename}" />
-				</Grid>
-			</StackPanel>
-			<!--#endregion-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="columnImportButton" Width="{StaticResource Column.Import.Button.Width}" />
+                        <ColumnDefinition x:Name="columnSelectFolderButton" Width="{StaticResource Column.SelectFolder.Button.Width}" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="btnImport"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="165"
+                        Height="50"
+                        Margin="5,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Click="Import"
+                        Style="{StaticResource ButtonRoundedWhite}"
+                        ToolTip="{StaticResource Import.Button.Tooltip}"
+                        >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource Import}" />
+                            <StackPanel Margin="5,0,0,0" Orientation="Vertical">
+                                <TextBlock HorizontalAlignment="Center" Text="{StaticResource Import.Button.Label}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{StaticResource Import.Time.Button.Text}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Button>
+                    <Button
+                        x:Name="btnChooseFile"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Click="SelectFile"
+                        Style="{DynamicResource ButtonRoundedWhite}"
+                        >
+                        <Image Source="{StaticResource searchfile}" Stretch="Uniform" />
+                    </Button>
+                    <TextBlock
+                        Name="dispFileName"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Width="Auto"
+                        Margin="15,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="{StaticResource Import.Button.Filename}"
+                        />
+                </Grid>
+            </StackPanel>
+            <!--#endregion-->
 
-			<!--#region Time export Status bar-->
-			<DockPanel
-				Grid.Row="3"
-				Height="30"
-				Margin="5"
-				VerticalAlignment="Center"
-				Background="LightGray">
-				<Grid>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
-						<TextBlock
-							Name="dispStatusLine"
-							Style="{DynamicResource Status.Description}"
-							Text="{DynamicResource Import.Statusline.Description}" />
-					</StackPanel>
-				</Grid>
-			</DockPanel>
-			<!--#endregion-->
-		</Grid>
-	</Border>
+            <!--#region Time export Status bar-->
+            <DockPanel
+                Grid.Row="3"
+                Height="30"
+                Margin="5"
+                VerticalAlignment="Center"
+                Background="LightGray"
+                >
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
+                        <TextBlock
+                            Name="dispStatusLine"
+                            Style="{DynamicResource Status.Description}"
+                            Text="{DynamicResource Import.Statusline.Description}"
+                            />
+                    </StackPanel>
+                </Grid>
+            </DockPanel>
+            <!--#endregion-->
+        </Grid>
+    </Border>
 </Page>

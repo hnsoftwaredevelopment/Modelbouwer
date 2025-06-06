@@ -1161,6 +1161,16 @@
     <!--#region Tab: Project Expenses-->
     <system:String x:Key="Edit.Project.Tab.BuildCosts.Label">Project kosten</system:String>
 
+    <!--#region Project Dashboard-->
+    <system:String x:Key="Edit.Project.Tab.Dashboard.Label">Dashboard</system:String>
+
+    <system:String x:Key="Edit.Project.Tab.Dashboard.WorkedHoursPerPeriod.Label">Gewerkte uren per periode</system:String>
+    <system:String x:Key="Edit.Project.Tab.Dashboard.WorkedHoursPerWorktype.Label">Gewerkte uren per werksoort</system:String>
+    <system:String x:Key="Edit.Project.Tab.Dashboard.CostsPerWorkTypy.Label">Kosten per werksoort</system:String>
+    <system:String x:Key="Edit.Project.Tab.Dashboard.WorkedHoursPerYearAndMonth.Label">Jaaroverzicht uren</system:String>
+
+    <!--#endregion-->
+
     <!--#endregion-->
     <!--#endregion-->
 

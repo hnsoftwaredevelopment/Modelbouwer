@@ -1,280 +1,280 @@
 ﻿<Page
-	x:Class="Modelbouwer.View.LocationManagement"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
-	xmlns:converter="clr-namespace:Modelbouwer.Converters"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:Modelbouwer.View"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-	xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
-	Title="LocationManagement"
-	d:DataContext="{d:DesignInstance Type=viewmodels:StorageViewModel}"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	mc:Ignorable="d"
-	>
+    x:Class="Modelbouwer.View.LocationManagement"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Engine="clr-namespace:Syncfusion.UI.Xaml.TreeView.Engine;assembly=Syncfusion.SfTreeView.WPF"
+    xmlns:converter="clr-namespace:Modelbouwer.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Modelbouwer.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:viewmodels="clr-namespace:Modelbouwer.ViewModels"
+    Title="LocationManagement"
+    d:DataContext="{d:DesignInstance Type=viewmodels:StorageViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    >
 
-	<Page.DataContext>
-		<viewmodels:StorageViewModel />
-	</Page.DataContext>
+    <Page.DataContext>
+        <viewmodels:StorageViewModel />
+    </Page.DataContext>
 
-	<Page.Resources>
-		<converter:StringEmptyToVisibilityConverter x:Key="StringEmptyToVisibilityConverter" />
-	</Page.Resources>
+    <Page.Resources>
+        <converter:StringEmptyToVisibilityConverter x:Key="StringEmptyToVisibilityConverter" />
+    </Page.Resources>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="95" />
-			<RowDefinition Height="32" />
-			<RowDefinition Height="10" />
-			<RowDefinition Height="40" />
-			<RowDefinition Height="*" />
-			<RowDefinition Height="20" />
-		</Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95" />
+            <RowDefinition Height="32" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
 
-		<!--#region Title of the page-->
-		<StackPanel
-			Grid.Row="0"
-			Margin="10,0,10,0"
-			Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
-			>
-			<TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Storage.Title}" />
-			<Canvas>
-				<Path Style="{DynamicResource DefaultTitleLine}" />
-			</Canvas>
-			<TextBlock Style="{DynamicResource DefaultSubTitle}" Text="{StaticResource Edit.Storage.Subtitle}" />
-		</StackPanel>
-		<!--#endregion-->
+        <!--#region Title of the page-->
+        <StackPanel
+            Grid.Row="0"
+            Margin="10,0,10,0"
+            Background="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"
+            >
+            <TextBlock Style="{DynamicResource DefaultTitle}" Text="{StaticResource Edit.Storage.Title}" />
+            <Canvas>
+                <Path Style="{DynamicResource DefaultTitleLine}" />
+            </Canvas>
+            <TextBlock Style="{DynamicResource DefaultSubTitle}" Text="{StaticResource Edit.Storage.Subtitle}" />
+        </StackPanel>
+        <!--#endregion-->
 
-		<Grid
-			Grid.Row="1"
-			Margin="10,0,0,0"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Center"
-			>
+        <Grid
+            Grid.Row="1"
+            Margin="10,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            >
 
-			<!--#region Colomn defenition-->
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="120" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="150" />
-			</Grid.ColumnDefinitions>
-			<!--#endregion-->
-			<!--#region Name-->
-			<Label Content="{StaticResource Edit.Storage.Name.Label}" Style="{DynamicResource DefaultLabel}" />
+            <!--#region Colomn defenition-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <!--#endregion-->
+            <!--#region Name-->
+            <Label Content="{StaticResource Edit.Storage.Name.Label}" Style="{DynamicResource DefaultLabel}" />
 
-			<TextBox
-				x:Name="inpStorageName"
-				Grid.Column="1"
-				Width="450"
-				Style="{DynamicResource DefaultTextBox}"
-				Text="{Binding SelectedStorage.StorageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-				/>
-			<!--#endregion-->
-		</Grid>
-		<!--#endregion-->
+            <TextBox
+                x:Name="inpStorageName"
+                Grid.Column="1"
+                Width="450"
+                Style="{DynamicResource DefaultTextBox}"
+                Text="{Binding SelectedStorage.StorageName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                />
+            <!--#endregion-->
+        </Grid>
+        <!--#endregion-->
 
 
-		<!--#region Hidden fields-->
-		<StackPanel
-			Grid.Row="2"
-			Orientation="Horizontal"
-			Visibility="Collapsed"
-			>
-			<TextBox x:Name="inpStorageId" Text="{Binding SelectedStorage.StorageId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-			<TextBox x:Name="inpStorageParentId" Text="{Binding SelectedStorage.StorageParentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-		</StackPanel>
+        <!--#region Hidden fields-->
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Horizontal"
+            Visibility="Collapsed"
+            >
+            <TextBox x:Name="inpStorageId" Text="{Binding SelectedStorage.StorageId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="inpStorageParentId" Text="{Binding SelectedStorage.StorageParentId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
 
-		<!--#region Action toolbar-->
-		<ToolBarTray
-			Grid.Row="3"
-			Margin="10,2,0,2"
-			Style="{DynamicResource DefaultToolBarTray}"
-			>
-			<ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
-				<Button Click="ExpandAll" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Expand}">
-					<Image Source="{DynamicResource expand}" />
-				</Button>
-				<Button Click="CollapseAll" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Collapse}">
-					<Image Source="{DynamicResource collapse}" />
-				</Button>
-				<Separator Margin="15,0,15,0" />
-				<Button Click="ButtonNewStorage" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddTask}">
-					<Image
-						Width="18"
-						Margin="5,0,0,0"
-						Source="{StaticResource addtask}"
-						/>
-				</Button>
-				<Button Click="ButtonNewSubStorage" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddSubTask}">
-					<Image
-						Width="18"
-						Margin="5,0,0,0"
-						Source="{StaticResource addsubtask}"
-						/>
-				</Button>
-				<Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Delete}">
-					<Image
-						Width="18"
-						Margin="5,0,0,0"
-						Source="{StaticResource deletetask}"
-						/>
-				</Button>
-				<Button
-					Click="ButtonSave"
-					ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Save}"
-					Visibility="{Binding Text, ElementName=inpStorageName, Converter={StaticResource StringEmptyToVisibilityConverter}}"
-					>
-					<Image
-						Width="18"
-						Margin="5,0,0,0"
-						Source="{StaticResource save}"
-						/>
-				</Button>
-			</ToolBar>
-		</ToolBarTray>
-		<!--#endregion-->
+        <!--#region Action toolbar-->
+        <ToolBarTray
+            Grid.Row="3"
+            Margin="10,2,0,2"
+            Style="{DynamicResource DefaultToolBarTray}"
+            >
+            <ToolBar x:Name="generalToolbar" Style="{DynamicResource DefaultToolBar}">
+                <Button Click="ExpandAll" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Expand}">
+                    <Image Source="{DynamicResource expand}" />
+                </Button>
+                <Button Click="CollapseAll" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Collapse}">
+                    <Image Source="{DynamicResource collapse}" />
+                </Button>
+                <Separator Margin="15,0,15,0" />
+                <Button Click="ButtonNewStorage" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddTask}">
+                    <Image
+                        Width="18"
+                        Margin="5,0,0,0"
+                        Source="{StaticResource addtask}"
+                        />
+                </Button>
+                <Button Click="ButtonNewSubStorage" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddSubTask}">
+                    <Image
+                        Width="18"
+                        Margin="5,0,0,0"
+                        Source="{StaticResource addsubtask}"
+                        />
+                </Button>
+                <Button Click="ButtonDelete" ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Delete}">
+                    <Image
+                        Width="18"
+                        Margin="5,0,0,0"
+                        Source="{StaticResource deletetask}"
+                        />
+                </Button>
+                <Button
+                    Click="ButtonSave"
+                    ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Save}"
+                    Visibility="{Binding Text, ElementName=inpStorageName, Converter={StaticResource StringEmptyToVisibilityConverter}}"
+                    >
+                    <Image
+                        Width="18"
+                        Margin="5,0,0,0"
+                        Source="{StaticResource save}"
+                        />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <!--#endregion-->
 
-		<!--#region Treeview-->
-		<syncfusion:SfTreeView
-			x:Name="treeView"
-			Grid.Row="4"
-			Width="450"
-			Margin="10,2,10,4"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Top"
-			BorderBrush="DarkBlue"
-			BorderThickness="2"
-			ChildPropertyName="SubStorage"
-			IsAnimationEnabled="true"
-			ItemsSource="{Binding Storage}"
-			LineStroke="DarkBlue"
-			LineStrokeThickness=".75"
-			SelectedItem="{Binding SelectedStorage, Mode=TwoWay}"
-			ShowLines="True"
-			ShowRootLines="True"
-			>
+        <!--#region Treeview-->
+        <syncfusion:SfTreeView
+            x:Name="treeView"
+            Grid.Row="4"
+            Width="450"
+            Margin="10,2,10,4"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            BorderBrush="DarkBlue"
+            BorderThickness="2"
+            ChildPropertyName="SubStorage"
+            IsAnimationEnabled="true"
+            ItemsSource="{Binding Storage}"
+            LineStroke="DarkBlue"
+            LineStrokeThickness=".75"
+            SelectedItem="{Binding SelectedStorage, Mode=TwoWay}"
+            ShowLines="True"
+            ShowRootLines="True"
+            >
 
-			<!--#region Context menu-->
-			<syncfusion:SfTreeView.ItemContextMenu>
-				<ContextMenu>
-					<MenuItem
-						Click="ExpandAll"
-						Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.Expand}"
-						ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Expand}"
-						>
-						<MenuItem.Icon>
-							<Image
-								Width="16"
-								Height="16"
-								Source="{StaticResource expand}"
-								/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem
-						Click="CollapseAll"
-						Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.Collapse}"
-						ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Collapse}"
-						>
-						<MenuItem.Icon>
-							<Image
-								Width="16"
-								Height="16"
-								Source="{StaticResource collapse}"
-								/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<Separator />
-					<MenuItem
-						Click="AddTask"
-						DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-						Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.AddTask}"
-						ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddTask}"
-						>
-						<MenuItem.Icon>
-							<Image
-								Width="16"
-								Height="16"
-								Source="{StaticResource addtask}"
-								/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem
-						Click="AddSubTask"
-						DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
-						Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.AddSubTask}"
-						ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddSubTask}"
-						>
-						<MenuItem.Icon>
-							<Image
-								Width="16"
-								Height="16"
-								Source="{StaticResource addsubtask}"
-								/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem
-						Click="ButtonDelete"
-						Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.DeleteTask}"
-						ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Delete}"
-						>
-						<MenuItem.Icon>
-							<Image
-								Width="16"
-								Height="16"
-								Source="{StaticResource deletetask}"
-								/>
-						</MenuItem.Icon>
-					</MenuItem>
-					<Separator />
-					<MenuItem
-						Click="ButtonSave"
-						Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.Save}"
-						ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Save}"
-						>
-						<MenuItem.Icon>
-							<Image
-								Width="16"
-								Height="16"
-								Source="{StaticResource save}"
-								/>
-						</MenuItem.Icon>
-					</MenuItem>
-				</ContextMenu>
-			</syncfusion:SfTreeView.ItemContextMenu>
-			<!--#endregion-->
+            <!--#region Context menu-->
+            <syncfusion:SfTreeView.ItemContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Click="ExpandAll"
+                        Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.Expand}"
+                        ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Expand}"
+                        >
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource expand}"
+                                />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Click="CollapseAll"
+                        Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.Collapse}"
+                        ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Collapse}"
+                        >
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource collapse}"
+                                />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        Click="AddTask"
+                        DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                        Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.AddTask}"
+                        ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddTask}"
+                        >
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource addtask}"
+                                />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Click="AddSubTask"
+                        DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                        Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.AddSubTask}"
+                        ToolTip="{StaticResource Edit.Storage.Action.Tooltip.AddSubTask}"
+                        >
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource addsubtask}"
+                                />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem
+                        Click="ButtonDelete"
+                        Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.DeleteTask}"
+                        ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Delete}"
+                        >
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource deletetask}"
+                                />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem
+                        Click="ButtonSave"
+                        Header="{StaticResource Edit.Storage.Action.ContextMenu.Label.Save}"
+                        ToolTip="{StaticResource Edit.Storage.Action.Tooltip.Save}"
+                        >
+                        <MenuItem.Icon>
+                            <Image
+                                Width="16"
+                                Height="16"
+                                Source="{StaticResource save}"
+                                />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </syncfusion:SfTreeView.ItemContextMenu>
+            <!--#endregion-->
 
-			<!--#region Definition of the items to display-->
-			<syncfusion:SfTreeView.ItemTemplate>
-				<HierarchicalDataTemplate ItemsSource="{Binding SubStorage}">
-					<TextBlock Text="{Binding StorageName}" />
-				</HierarchicalDataTemplate>
-			</syncfusion:SfTreeView.ItemTemplate>
-			<!--#endregion-->
-		</syncfusion:SfTreeView>
-		<!--#endregion-->
+            <!--#region Definition of the items to display-->
+            <syncfusion:SfTreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding SubStorage}">
+                    <TextBlock Text="{Binding StorageName}" />
+                </HierarchicalDataTemplate>
+            </syncfusion:SfTreeView.ItemTemplate>
+            <!--#endregion-->
+        </syncfusion:SfTreeView>
+        <!--#endregion-->
 
-		<!--#region Storage export Status bar-->
-		<DockPanel
-			Grid.Row="5"
-			Height="30"
-			Margin="10,0,10,0"
-			VerticalAlignment="Center"
-			Background="LightGray"
-			>
-			<Grid>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
-					<TextBlock
-						x:Name="dispStatusLine"
-						Style="{DynamicResource Status.Description}"
-						Text="{DynamicResource Import.Statusline.Description}"
-						/>
-				</StackPanel>
-			</Grid>
-		</DockPanel>
-		<!--#endregion-->
-	</Grid>
+        <!--#region Storage export Status bar-->
+        <DockPanel
+            Grid.Row="5"
+            Height="30"
+            Margin="10,0,10,0"
+            VerticalAlignment="Center"
+            Background="LightGray"
+            >
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{DynamicResource Status.Label}" Text="{StaticResource Import.Statusline.Text}" />
+                    <TextBlock
+                        x:Name="dispStatusLine"
+                        Style="{DynamicResource Status.Description}"
+                        Text="{DynamicResource Import.Statusline.Description}"
+                        />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+        <!--#endregion-->
+    </Grid>
 </Page>

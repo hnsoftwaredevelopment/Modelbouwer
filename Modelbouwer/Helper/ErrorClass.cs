@@ -232,7 +232,7 @@ internal class ErrorClass
 				break;
 		}
 
-		string Label = ( string ) System.Windows.Application.Current.FindResource( $"Import.{_metadataType}.Button.Label" );
+		string Label = ( string ) System.Windows.Application.Current.FindResource( $"Import.{_metadataType}.Button.LabelWorkedPerMonth" );
 		string ErrorMessageShort;
 		string ErrorMessageLong;
 		switch ( _errorLevel )
